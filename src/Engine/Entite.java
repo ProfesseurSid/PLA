@@ -1,5 +1,5 @@
 package Engine;
 
-public class Entite {
+public interface Entite {
 
 }
