@@ -18,7 +18,7 @@ public class Robots implements Vivante {
 	}
 
 	@Override
-	public void mouvement(Coord p, int nb) {
+	public void mouvement(PointCardinal p, int nb) {
 		// TODO Auto-generated method stub
 
 	}
