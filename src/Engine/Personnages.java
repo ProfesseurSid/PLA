@@ -17,6 +17,7 @@ public class Personnages implements Vivante {
 	}
 
 	@Override
+
 	public void mouvement(PointCardinal p, int nb) {
 		// TODO Auto-generated method stub
 		
