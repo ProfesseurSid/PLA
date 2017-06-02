@@ -2,7 +2,7 @@ package Engine;
 
 public class Robots implements Vivante {
 
-	Automata behavior;
+	Automates behavior;
 	int x, y;
 		
 	@Override
