@@ -19,20 +19,6 @@ public interface Vivante extends Entite {
 		}
 
 		/**
-		 * Construction d'un point au point {0, 0}.
-		 */
-		public Coord() {
-			positionner(0.0, 0.0);
-		}
-
-		/**
-		 * Construction d'un point
-		 */
-		public Coord(double abscisse, double ordonnee) {
-			positionner(abscisse, ordonnee);
-		}
-
-		/**
 		 * Positionne le point � {x, y}
 		 */
 		public void positionner(double abscisse, double ordonnee) {
@@ -40,8 +26,6 @@ public interface Vivante extends Entite {
 			ord = ordonnee;
 		}
 	}
-
-	int PV = 5;
 
 	void mouvement(Coord p, int nb);
 
