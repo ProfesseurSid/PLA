@@ -17,8 +17,7 @@ public class Personnages implements Vivante {
 	}
 
 	@Override
-	public void mouvement(Card p, int nb) {
+	public void mouvement(PointCardinal p, int nb) {
 		
-
 	}
 }
