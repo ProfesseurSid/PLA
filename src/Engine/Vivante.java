@@ -1,6 +1,9 @@
 package Engine;
 
-public class Vivante implements Entite {
+public interface Vivante extends Entite {
 
+	private int PV;
+	
+	void mouvement(card p, int nb);
 	
 }
