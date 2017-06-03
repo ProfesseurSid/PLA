@@ -1,5 +1,5 @@
 package Engine;
 
-public class Personnages implements Entite {
+public class Personnages implements Vivante {
 
 }
