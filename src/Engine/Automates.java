@@ -2,7 +2,6 @@ package Engine;
 
 public class Automates {
 	private Node root;
-
 	/*
 	 * inner class
 	 * 
@@ -50,3 +49,4 @@ public class Automates {
 		// data.excuter();
 	}
 }
+
