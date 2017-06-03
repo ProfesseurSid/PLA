@@ -27,16 +27,17 @@ public class Robots implements Vivante {
 
 	}
 
-	@Override
+	/**
+	 * Simple getter de coordonée
+	 */
 	public int getX() {
-		// TODO Auto-generated method stub
 		return x;
 	}
 
-	@Override
+	/**
+	 * Simple getter de coordonée
+	 */
 	public int getY() {
-		// TODO Auto-generated method stub
 		return y;
 	}
-
 }

@@ -12,5 +12,4 @@ public interface Operateurs extends Entite {
 	public void action();
 
 	public String toString();
-
 }

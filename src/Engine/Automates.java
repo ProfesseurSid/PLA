@@ -2,6 +2,9 @@ package Engine;
 
 public class Automates {
 	private Node root;
+	private Node lastExecuted;
+	private Node lastAccolade;
+
 	/*
 	 * inner class
 	 * 
@@ -48,5 +51,15 @@ public class Automates {
 	public void do_fonction(Node p) {
 		// data.excuter();
 	}
-}
 
+	public String toString() {
+		String retour = "";
+		if (root.left != null)
+			retour += root.left.toString();
+		retour += root.data.toString();
+		if (root.right != null)
+			retour += root.right.toString();
+
+		return retour;
+	}
+}
