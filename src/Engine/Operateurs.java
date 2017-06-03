@@ -1,24 +1,16 @@
 package Engine;
 
-public class Operateurs implements Entite {
-	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
+public interface Operateurs extends Entite {
 
-	}
+	/*
+	 * Ajoute l'operateur a l'inventaire du personnage
+	 * 
+	 * @since ver 1.0
+	 */
+	public void stock(Personnages p);
 
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
+	public void action();
 
-	}
+	public String toString();
 
-	void stock(Personnages p) {
-		// TODO
-	}
-
-	/* default action : straight forward */
-	void action() {
-		// TODO
-	}
 }

@@ -181,8 +181,8 @@ public class Personnages implements Vivante {
 		retour += "Nombre de robots : " + numberRobots + "\n";
 		retour += Units[0].toString() + " " + Units[2].toString() + " " + Units[2].toString() + "\n";
 		retour += "Inventaire d'opérateurs : \n";
-		for(HashMap.Entry<Character, Integer> entry : Inventory.entrySet()){
-			retour = retour + entry.getKey().toString() + " " + entry.getValue().toString() + "\n";			
+		for (HashMap.Entry<Character, Integer> entry : Inventory.entrySet()) {
+			retour = retour + entry.getKey().toString() + " " + entry.getValue().toString() + "\n";
 		}
 		return retour;
 	}
