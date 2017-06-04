@@ -27,4 +27,17 @@ public class Robots implements Vivante {
 
 	}
 
+	/**
+	 * Simple getter de coordonée
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * Simple getter de coordonée
+	 */
+	public int getY() {
+		return y;
+	}
 }

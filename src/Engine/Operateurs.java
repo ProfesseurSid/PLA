@@ -1,6 +1,8 @@
 package Engine;
 
 public class Operateurs implements Entite {
+	private int x, y;
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub
@@ -21,4 +23,5 @@ public class Operateurs implements Entite {
 	void action() {
 		// TODO
 	}
+
 }
