@@ -2,6 +2,8 @@ package Engine;
 
 public class AccoladeO implements Operateurs {
 
+	int x, y;
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub
@@ -17,13 +19,13 @@ public class AccoladeO implements Operateurs {
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub
-		return 0;
+		return x;
 	}
 
 	@Override
 	public int getY() {
 		// TODO Auto-generated method stub
-		return 0;
+		return y;
 	}
 
 	@Override
