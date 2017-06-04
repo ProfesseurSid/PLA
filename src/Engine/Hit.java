@@ -18,21 +18,19 @@ public class Hit implements Operateurs {
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
 		return x;
 	}
 
 	@Override
 	public int getY() {
-		// TODO Auto-generated method stub
 		return y;
 	}
 
 	@Override
-	/*
+	/**
 	 * Ajoute l'operateur a l'inventaire du personnage
 	 * 
-	 * @since ver 1.0
+	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('H');

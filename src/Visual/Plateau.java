@@ -33,7 +33,7 @@ public class Plateau {
 	 * @return
 	 */
 	public Entite unsafeGet(int lig, int col){
-		return 
+		return plateau[lig][col];
 	}
 
 }
