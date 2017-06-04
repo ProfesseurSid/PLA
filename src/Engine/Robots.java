@@ -5,6 +5,10 @@ public class Robots implements Vivante {
 	Automates behavior;
 	int x, y;
 
+	public String toString() {
+		return "R(" + x + "," + y + ") : " + behavior.toString();
+	}
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub
