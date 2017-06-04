@@ -4,6 +4,27 @@ public class AccoladeF implements Operateurs {
 
 	int x, y;
 
+	/**
+	 * Constructeur de accolade fermante
+	 * 
+	 * @disclamer not sure of this constructor
+	 * @since Version 1.0
+	 */
+	public AccoladeF() {
+		x = 0;
+		y = 0;
+	}
+
+	/**
+	 * Constructeur de accolade fermante
+	 * 
+	 * @since Version 1.0
+	 */
+	public AccoladeF(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub

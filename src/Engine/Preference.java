@@ -4,6 +4,27 @@ public class Preference implements Operateurs {
 
 	int x, y;
 
+	/**
+	 * Constructeur de >
+	 * 
+	 * @disclamer not sure of this constructor
+	 * @since Version 1.0
+	 */
+	public Preference() {
+		x = 0;
+		y = 0;
+	}
+
+	/**
+	 * Constructeur de >
+	 * 
+	 * @since Version 1.0
+	 */
+	public Preference(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub

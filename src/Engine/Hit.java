@@ -4,6 +4,27 @@ public class Hit implements Operateurs {
 
 	int x, y;
 
+	/**
+	 * Constructeur de hit
+	 * 
+	 * @disclamer not sure of this constructor
+	 * @since Version 1.0
+	 */
+	public Hit() {
+		x = 0;
+		y = 0;
+	}
+
+	/**
+	 * Constructeur de hit
+	 * 
+	 * @since Version 1.0
+	 */
+	public Hit(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub

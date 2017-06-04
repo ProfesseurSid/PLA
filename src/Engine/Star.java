@@ -4,6 +4,27 @@ public class Star implements Operateurs {
 
 	int x, y;
 
+	/**
+	 * Constructeur de *
+	 * 
+	 * @disclamer not sure of this constructor
+	 * @since Version 1.0
+	 */
+	public Star() {
+		x = 0;
+		y = 0;
+	}
+
+	/**
+	 * Constructeur de *
+	 * 
+	 * @since Version 1.0
+	 */
+	public Star(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub

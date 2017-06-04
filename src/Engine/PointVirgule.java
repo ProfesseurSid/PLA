@@ -4,6 +4,27 @@ public class PointVirgule implements Operateurs {
 
 	int x, y;
 
+	/**
+	 * Constructeur de point virgule
+	 * 
+	 * @disclamer not sure of this constructor
+	 * @since Version 1.0
+	 */
+	public PointVirgule() {
+		x = 0;
+		y = 0;
+	}
+
+	/**
+	 * Constructeur de point virgule
+	 * 
+	 * @since Version 1.0
+	 */
+	public PointVirgule(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
 	@Override
 	public void detruire() {
 		// TODO Auto-generated method stub
