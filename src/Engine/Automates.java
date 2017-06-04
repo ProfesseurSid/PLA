@@ -9,7 +9,7 @@ public class Automates {
 	 * inner class
 	 * 
 	 */
-	private class Node {
+	public class Node {
 		private Node left;
 		private Node right;
 		private Operateurs data;
@@ -61,5 +61,18 @@ public class Automates {
 			retour += root.right.toString();
 
 		return retour;
+	}
+	
+	public static void main(String[] argd){
+		Automates a = new Automates();
+		Node star = new Node(new Star());
+		star.right = new Node(new AccoladeO());
+		star.right.right = new Node(new PointVirgule());
+		star.right.right.left = new Node(new Protect());
+		star.right.right.right = new Node(new Kamikaze());
+		star.right.right.right.right = new Node(new AccoladeF());
+		a.buildTree(star, new Star());
+		
+		System.out.println(a.toString());
 	}
 }
