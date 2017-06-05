@@ -90,6 +90,25 @@ public class Personnages implements Vivante {
 	}
 
 	/**
+	 * Methode permettant de décrementer le nombre d'un operateur connu par
+	 * l'inventaire.
+	 * 
+	 * @param op
+	 *            Operateur dont le nombre est à décrementer.
+	 * @require op est un opérateur connu de l'inventaire.
+	 */
+	public void removeOperator(char op) {
+		if (!(Inventory.containsKey(op))) {
+			throw new PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu");
+		}
+		if (Inventory.get(op) == 0) {
+			throw new PanicException(
+					"Suppression d'objet de l'inventaire du personnage : Il y a déja 0 objets de ce type dans l'inventaire.");
+		}
+		Inventory.put(op, Inventory.get(op) - 1);
+	}
+
+	/**
 	 * Methode qui permet l'ajout d'un robots � l'�quipe du personnage.
 	 * 
 	 * @param robot
