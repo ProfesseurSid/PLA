@@ -3,9 +3,10 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
+import Visual.Plateau;
 
 /**
- * Classe représentant un personnage, avec des coordonées, un inventaire
+ * Classe reprï¿½sentant un personnage, avec des coordonï¿½es, un inventaire
  * d'objet, et un inventaire de robots.
  * 
  * @version Version 1.0
@@ -14,21 +15,28 @@ public class Personnages implements Vivante {
 	private HashMap<Character, Integer> Inventory = new HashMap<>();
 	private Robots Units[] = new Robots[3];
 	private int x, y, numberRobots;
+	int equipe;
 
 	/**
-	 * Contructeur de personnage
+	 * Contructeur de personnage de l'Ã©quipe e
 	 * 
 	 * @since Version 1.0
 	 */
-	public Personnages() {
-		x = 0;
-		y = 0;
+	public Personnages(int e) {
+		if (e == 0) {
+			x = 0;
+			y = 0;
+		} else if (e == 1) {
+			x = Plateau.nblignes;
+			y = Plateau.nbcolonnes;
+		}
+		equipe = e;
 		numberRobots = 0;
 		initInventory();
 	}
 
 	/**
-	 * Methode qui initialise l'inventaire d'opérateurs
+	 * Methode qui initialise l'inventaire d'opï¿½rateurs
 	 * 
 	 * @since Version 1.0
 	 */
@@ -70,26 +78,26 @@ public class Personnages implements Vivante {
 	 * l'inventaire.
 	 * 
 	 * @param op
-	 *            Operateur dont le nombre est à augmenter.
-	 * @require op est un opérateur connu de l'inventaire.
+	 *            Operateur dont le nombre est ï¿½ augmenter.
+	 * @require op est un opï¿½rateur connu de l'inventaire.
 	 * @since version 1.0
 	 */
 	public void addOperator(char op) {
 		if (!(Inventory.containsKey(op))) {
-			throw new PanicException("Ajout d'objet à l'inventaire du personnage : Objet inconnu");
+			throw new PanicException("Ajout d'objet ï¿½ l'inventaire du personnage : Objet inconnu");
 		}
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
 
 	/**
-	 * Methode qui permet l'ajout d'un robots à l'équipe du personnage.
+	 * Methode qui permet l'ajout d'un robots ï¿½ l'ï¿½quipe du personnage.
 	 * 
 	 * @param robot
-	 *            Robot à ajouter à l'inventaire de robot du personnage.
+	 *            Robot ï¿½ ajouter ï¿½ l'inventaire de robot du personnage.
 	 * @param room
 	 *            Case dans laquelle mettre le robot.
 	 * @require room comprit entre 1 et 3. Pas plus de 3 robots dans
-	 *          l'inventaire. room ne contient pas déja un robot.
+	 *          l'inventaire. room ne contient pas dï¿½ja un robot.
 	 * @since Version 1.0
 	 */
 	public void addRobot(Robots robot, int room) {
@@ -101,17 +109,17 @@ public class Personnages implements Vivante {
 			throw new PanicException("Ajout d'un robot au personnage : Case invalide");
 		}
 		if (Units[indexUnit] != null) {
-			throw new PanicException("Ajout d'un robot au personnage : Case occupée");
+			throw new PanicException("Ajout d'un robot au personnage : Case occupï¿½e");
 		}
 		Units[indexUnit] = robot;
 		numberRobots++;
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots à l'équipe du personnage.
+	 * Methode qui permet la suppression d'un robots ï¿½ l'ï¿½quipe du personnage.
 	 * 
 	 * @param room
-	 *            case ou se trouve le robot à supprimer
+	 *            case ou se trouve le robot ï¿½ supprimer
 	 * @require L'equipe n'est pas vide. La case est comprise entre 1 et 3.
 	 * @since Version 1.0
 	 */
@@ -172,7 +180,7 @@ public class Personnages implements Vivante {
 	/**
 	 * Fonction d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caractère correspondant à l'affichage.
+	 * @return La chaine de caractï¿½re correspondant ï¿½ l'affichage.
 	 * @since Version 1.0
 	 */
 	public String toString() {
@@ -180,10 +188,18 @@ public class Personnages implements Vivante {
 		retour = "Position : (" + x + "," + y + ")\n";
 		retour += "Nombre de robots : " + numberRobots + "\n";
 		retour += Units[0].toString() + " " + Units[2].toString() + " " + Units[2].toString() + "\n";
-		retour += "Inventaire d'opérateurs : \n";
+		retour += "Inventaire d'operateurs : \n";
 		for (HashMap.Entry<Character, Integer> entry : Inventory.entrySet()) {
 			retour = retour + entry.getKey().toString() + " " + entry.getValue().toString() + "\n";
 		}
 		return retour;
+	}
+
+	public int getEquipe() {
+		return equipe;
+	}
+
+	public boolean memeEquipe(Vivante v) {
+		return equipe == v.getEquipe();
 	}
 }

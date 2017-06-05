@@ -1,9 +1,50 @@
 package Engine;
 
+import Exception.PanicException;
+import Visual.Plateau;
+
 public class Robots implements Vivante {
 
 	Automates behavior;
 	int x, y;
+	int equipe;
+
+	/**
+	 * crée un robot et le place dans l'équipe e
+	 * 
+	 * @param e
+	 */
+	public Robots(int e) {
+		if (e == 0) {
+			x = Plateau.nblignes / 2;
+			y = 1;
+		} else if (e == 1) {
+			x = Plateau.nblignes / 2;
+			y = Plateau.nbcolonnes - 1;
+		} else
+			throw new PanicException("Numéro d'équipe incorrect");
+		equipe = e;
+		behavior = new Automates();
+	}
+
+	/**
+	 * Crée un robot de comportement a, et le place dans l'équipe e
+	 * 
+	 * @param e
+	 * @param a
+	 */
+	public Robots(int e, Automates a) {
+		if (e == 0) {
+			x = Plateau.nblignes / 2;
+			y = 1;
+		} else if (e == 1) {
+			x = Plateau.nblignes / 2;
+			y = Plateau.nbcolonnes - 1;
+		} else
+			throw new PanicException("Numéro d'équipe incorrect");
+		equipe = e;
+		behavior = new Automates(a);
+	}
 
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
@@ -39,5 +80,13 @@ public class Robots implements Vivante {
 	 */
 	public int getY() {
 		return y;
+	}
+
+	public int getEquipe() {
+		return equipe;
+	}
+
+	public boolean memeEquipe(Vivante v) {
+		return equipe == v.getEquipe();
 	}
 }

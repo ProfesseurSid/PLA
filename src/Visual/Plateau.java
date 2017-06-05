@@ -3,11 +3,11 @@ package Visual;
 import Engine.Entite;
 
 public class Plateau {
-	static final int nblignes = 11;
-	static final int nbcolonnes = 21;
+	public static final int nblignes = 11;
+	public static final int nbcolonnes = 21;
 
 	Entite[][] plateau = new Entite[nblignes][nbcolonnes];
-	
+
 	/**
 	 * Initialise le tableau des éléments du jeu à null (vide)
 	 */
@@ -24,6 +24,16 @@ public class Plateau {
 		for (int i = 0; i < nblignes; i++)
 			for (int j = 0; j < nbcolonnes; j++)
 				plateau[i][j].apparaitre();
+	}
+
+	/**
+	 * récupère l'entité contenue dans la case d'indices lig,col
+	 * @param lig
+	 * @param col
+	 * @return
+	 */
+	public Entite unsafeGet(int lig, int col){
+		return 
 	}
 
 }
