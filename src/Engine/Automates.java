@@ -6,16 +6,20 @@ import Exception.PanicException;
 
 public class Automates {
 	ArrayList<Operateurs> code = new ArrayList<Operateurs>();
-	int lastAccoladeOMet = -1;
-	int lastStarMet = -1;
-	int fermetureEtoile = -1;
+	int lastAccoladeOMet;
+	int lastStarMet;
+	int fermetureEtoile;
 	int exec = 0;
 	Operateurs enExec = null;
+	Operateurs barreEnCours = null;
 
 	/**
 	 * crée un automate de base : se dirige vers l'ennemi le plus proche
 	 */
 	public Automates() {
+		lastAccoladeOMet = -1;
+		lastStarMet = -1;
+		fermetureEtoile = -1;
 		code.add(new Star());
 		code.add(new AccoladeO());
 		code.add(new Others());
@@ -26,8 +30,14 @@ public class Automates {
 	 * crée un automate en ajoutant le premier élément
 	 * 
 	 * @param o
+	 *            l'opérateur à placer dans l'automate (comportement *{o}) créé
+	 * @require l'opérateur décrit une action (pas un test comme >, |... par
+	 *          exemple)
 	 */
 	public Automates(Operateurs o) {
+		lastAccoladeOMet = -1;
+		lastStarMet = -1;
+		fermetureEtoile = -1;
 		code.add(new Star());
 		code.add(new AccoladeO());
 		code.add(o);
@@ -40,8 +50,12 @@ public class Automates {
 	 * Copie l'automate a dans ce nouvel automate
 	 * 
 	 * @param a
+	 *            l'automate à copier
 	 */
 	public Automates(Automates a) {
+		lastAccoladeOMet = -1;
+		lastStarMet = -1;
+		fermetureEtoile = -1;
 		for (int i = 0; i < a.code.size(); i++)
 			code.add(a.code.get(i));
 	}
@@ -51,7 +65,7 @@ public class Automates {
 	 * 
 	 * @require les caractères de la chaine correspondent à des opérateurs
 	 * @ensure l'automate est correct
-	 * @param a
+	 * @param s la chaine servant à la création de l'automate
 	 */
 	public Automates(String s) {
 		char[] c = new char[1];
@@ -260,6 +274,27 @@ public class Automates {
 	public void opeAExec(Operateurs o, Robots nono) {
 		enExec = o;
 		execute(nono);
+	}
+
+	/**
+	 * Execute au hasard l'opérateur précédent ou le suivant
+	 */
+	public void random(Robots nono) {
+		if (Math.random() < 0.5)
+			code.get(exec - 1).action(this, nono);
+		else
+			code.get(exec + 1).action(this, nono);
+	}
+
+	/**
+	 * Indique si la barre donnée est celle du test actuel
+	 * 
+	 * @param b
+	 *            la barre a tester
+	 * @return la barre est la barre du test en cours
+	 */
+	public boolean isBarreExec(Barre b) {
+		return b == barreEnCours;
 	}
 
 	public static void main(String[] args) {

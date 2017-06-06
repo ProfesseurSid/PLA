@@ -47,7 +47,6 @@ public class Barre implements Operateurs {
 		return y;
 	}
 
-	@Override
 	/**
 	 * Ajoute l'operateur a l'inventaire du personnage
 	 * 
@@ -57,10 +56,17 @@ public class Barre implements Operateurs {
 		p.addOperator('|');
 	}
 
-	@Override
-	public void action() {
-		// TODO Auto-generated method stub
-
+	/**
+	 * Si cette barre n'a pas encore été testée, lance l'aléatoire
+	 * 
+	 * @param a
+	 *            l'automate d'où provient la barre
+	 * @param nono
+	 *            le robot contenant ledit automate
+	 */
+	public void action(Automates a, Robots nono) {
+		if (!a.isBarreExec(this))
+			a.random(nono);
 	}
 
 	@Override
