@@ -9,15 +9,6 @@ public class Plateau {
 	Entite[][] plateau = new Entite[nblignes][nbcolonnes];
 
 	/**
-	 * Initialise le tableau des éléments du jeu à null (vide)
-	 */
-	public void init() {
-		for (int i = 0; i < nblignes; i++)
-			for (int j = 0; j < nbcolonnes; j++)
-				plateau[i][j] = null;
-	}
-
-	/**
 	 * Affiche à l'écran chaque élément du tableau
 	 */
 	public void afficher() {
@@ -28,11 +19,15 @@ public class Plateau {
 
 	/**
 	 * récupère l'entité contenue dans la case d'indices lig,col
+	 * 
 	 * @param lig
+	 *            la ligne recherchée
 	 * @param col
-	 * @return
+	 *            la colonne recherchée
+	 * @require lig E [0, nblignes-1] ; col E [0, nbcolonnes-1]
+	 * @return l'élément contenu dans le plateau
 	 */
-	public Entite unsafeGet(int lig, int col){
+	public Entite unsafeGet(int lig, int col) {
 		return plateau[lig][col];
 	}
 
