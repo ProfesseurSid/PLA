@@ -1,6 +1,5 @@
 package Engine;
 
-import java.awt.Robot;
 import java.util.ArrayList;
 
 import Exception.PanicException;
@@ -9,7 +8,9 @@ public class Automates {
 	ArrayList<Operateurs> code = new ArrayList<Operateurs>();
 	int lastAccoladeOMet = -1;
 	int lastStarMet = -1;
+	int fermetureEtoile = -1;
 	int exec = 0;
+	Operateurs enExec = null;
 
 	/**
 	 * crée un automate de base : se dirige vers l'ennemi le plus proche
@@ -205,22 +206,127 @@ public class Automates {
 		code.get(exec).action(this, nono);
 		exec++;
 	}
-	
-	public void metStar(Robots nono){
+
+	/**
+	 * Met à jour la dernière étoile rencontrée et la fin de l'action répétée
+	 * 
+	 * @param nono
+	 */
+	public void metStar(Robots nono) {
 		lastStarMet = exec;
 		int accolades = 1;
 		int i;
-		for(i=exec+2; (accolades!=0) && (i<code.size()); i++){
-			if(code.get(i) instanceof AccoladeO)
+		for (i = exec + 2; (accolades != 0) && (i < code.size()); i++) {
+			if (code.get(i) instanceof AccoladeO)
 				accolades++;
-			else if(code.get(i) instanceof AccoladeF)
+			else if (code.get(i) instanceof AccoladeF)
 				accolades--;
 		}
 		fermetureEtoile = i;
-		
+
 		execute(nono);
 	}
 
+	/**
+	 * Teste si l'accolade passée en paramètres est l'accolade fermant la
+	 * dernière étoile trouvée
+	 * 
+	 * @param a
+	 * @return
+	 */
+	public boolean isFermetureEtoile(AccoladeF a) {
+		if (fermetureEtoile >= 0)
+			return a == code.get(fermetureEtoile);
+		else
+			throw new PanicException("Pas d'étoile ouverte");
+	}
+
+	/**
+	 * Retourne au début de la dernière étoile rencontrée
+	 * 
+	 * @param nono
+	 */
+	public void retourAlEtoile(Robots nono) {
+		exec = lastStarMet;
+		execute(nono);
+	}
+
+	/**
+	 * change l'opérateur d'action en execution
+	 * @param o
+	 * @param nono
+	 */
+	public void opeAExec(Operateurs o, Robots nono){
+		enExec = o;
+		execute(nono);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		Automates a = new Automates("*{H >K > {P::}}");
 		String aff = a.toString();

@@ -58,9 +58,9 @@ public class Kamikaze implements Operateurs {
 	}
 
 	@Override
-	public void action() {
+	public void action(Automates a, Robots nono) {
 		// TODO Auto-generated method stub
-
+		a.opeAExec(this, nono);
 	}
 
 	@Override

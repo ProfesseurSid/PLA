@@ -58,7 +58,7 @@ public class AccoladeO implements Operateurs {
 	}
 
 	@Override
-	public void action() {
+	public void action(Automates a, Robots nono) {
 		// TODO Auto-generated method stub
 
 	}
