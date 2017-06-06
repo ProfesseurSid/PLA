@@ -58,9 +58,9 @@ public class AccoladeF implements Operateurs {
 	}
 
 	@Override
-	public void action() {
+	public void action(Automates a) {
 		// TODO Auto-generated method stub
-
+		a.
 	}
 
 	@Override

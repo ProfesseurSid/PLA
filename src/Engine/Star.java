@@ -58,9 +58,8 @@ public class Star implements Operateurs {
 	}
 
 	@Override
-	public void action() {
-		// TODO Auto-generated method stub
-
+	public void action(Automates a, Robots nono) {
+		a.metStar(nono);
 	}
 
 	@Override
