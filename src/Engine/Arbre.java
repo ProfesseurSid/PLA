@@ -6,11 +6,11 @@ package Engine;
 public class Arbre {
 	private Operateurs op;
 	private Arbre gauche, droit;
-	
+
 	/**
 	 * Constructeur d'arbre vide avec un element Star et des fils nuls.
 	 */
-	public Arbre(){
+	public Arbre() {
 		op = new Star();
 	}
 
@@ -39,36 +39,60 @@ public class Arbre {
 		g = gauche;
 		d = droit;
 	}
-	
+
 	/**
 	 * Remplace le fils droit du noeud courant par un arbre donné en paramètre.
-	 * @param a Arbre à mettre en fils droit.
+	 * 
+	 * @param a
+	 *            Arbre à mettre en fils droit.
 	 */
-	public void AjouterFilsDroit(Arbre a){
+	public void AjouterFilsDroit(Arbre a) {
 		droit = a;
 	}
-	
+
 	/**
-	 * Remplace le fils droit du noeud courant par un arbre contenant un operateur donné en paramètre.
-	 * @param op Operateur qui doit se retrouver en fils droit.
+	 * Remplace le fils droit du noeud courant par un arbre contenant un
+	 * operateur donné en paramètre.
+	 * 
+	 * @param op
+	 *            Operateur qui doit se retrouver en fils droit.
 	 */
-	public void AjouterFilsDroit(Operateurs op){
+	public void AjouterFilsDroit(Operateurs op) {
 		droit = new Arbre(op);
 	}
-	
+
 	/**
 	 * Remplace le fils gauche du noeud courant par un arbre donné en paramètre.
-	 * @param a Arbre à mettre en fils gauche.
+	 * 
+	 * @param a
+	 *            Arbre à mettre en fils gauche.
 	 */
-	public void AjouterFilsGauche(Arbre a){
+	public void AjouterFilsGauche(Arbre a) {
 		gauche = a;
 	}
-	
+
 	/**
-	 * Remplace le fils gauche du noeud courant par un arbre contenant un operateur donné en paramètre.
-	 * @param op Operateur qui doit se retrouver en fils gauche.
+	 * Remplace le fils gauche du noeud courant par un arbre contenant un
+	 * operateur donné en paramètre.
+	 * 
+	 * @param op
+	 *            Operateur qui doit se retrouver en fils gauche.
 	 */
-	public void AjouterFilsGauche(Operateurs op){
+	public void AjouterFilsGauche(Operateurs op) {
 		gauche = new Arbre(op);
+	}
+
+	/**
+	 * Methode qui ajoute un operateur sur un noeud, décallant le noeud déja en
+	 * place (et son sous arbre) sur le fils gauche.
+	 * 
+	 * @param op
+	 *            Operateur qui doit constituer le nouveau noeud.
+	 */
+	public void RemplacerDecaler(Operateurs op) {
+		Arbre fils = new Arbre(this.op, this.gauche, this.droit);
+		this.op = op;
+		this.gauche = fils;
+		this.droit = null;
 	}
 }

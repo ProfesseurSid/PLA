@@ -2,6 +2,10 @@ package Engine;
 
 import Exception.PanicException;
 
+/**
+ * Classe qui implante l'automate d'un robot. Elle contient les methodes de
+ * lecture sous forme de chaine de caractère et les methodes d'execution.
+ */
 public class Automate {
 	private Arbre code;
 
@@ -30,10 +34,17 @@ public class Automate {
 	 */
 	public Automate(String s) {
 		code = new Arbre(new Star());
+		s.substring(2, s.length() - 1);
 		code.AjouterFilsGauche(stringToArbre(s));
 	}
 
 	public Arbre stringToArbre(String s) {
+
 		throw new PanicException("Not Yet Implemented");
+	}
+
+	public static void main(String[] args) {
+		String s = "*{A>B;C}";
+		System.out.println(s.substring(2, s.length() - 1));
 	}
 }
