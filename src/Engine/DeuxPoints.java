@@ -12,7 +12,7 @@ public class DeuxPoints implements Operateurs {
 	 */
 	public DeuxPoints() {
 		x = 0;
-		y = 0;
+		y = 12;
 	}
 
 	/**
