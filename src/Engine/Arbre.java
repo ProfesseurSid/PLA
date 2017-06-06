@@ -1,0 +1,74 @@
+package Engine;
+
+/**
+ * Classe qui implante le type arbre avec un operateur en élément.
+ */
+public class Arbre {
+	private Operateurs op;
+	private Arbre gauche, droit;
+	
+	/**
+	 * Constructeur d'arbre vide avec un element Star et des fils nuls.
+	 */
+	public Arbre(){
+		op = new Star();
+	}
+
+	/**
+	 * Constructeur d'arbre vide avec un element et des fils nuls.
+	 * 
+	 * @param elem
+	 *            Operateur qui sera en element de l'arbre.
+	 */
+	public Arbre(Operateurs elem) {
+		op = elem;
+	}
+
+	/**
+	 * Constructeur d'arbre avec un element et ses fils.
+	 * 
+	 * @param elem
+	 *            Operateur qui sera élément du neoud
+	 * @param g
+	 *            Fils gauche.
+	 * @param d
+	 *            Fils droit.
+	 */
+	public Arbre(Operateurs elem, Arbre g, Arbre d) {
+		op = elem;
+		g = gauche;
+		d = droit;
+	}
+	
+	/**
+	 * Remplace le fils droit du noeud courant par un arbre donné en paramètre.
+	 * @param a Arbre à mettre en fils droit.
+	 */
+	public void AjouterFilsDroit(Arbre a){
+		droit = a;
+	}
+	
+	/**
+	 * Remplace le fils droit du noeud courant par un arbre contenant un operateur donné en paramètre.
+	 * @param op Operateur qui doit se retrouver en fils droit.
+	 */
+	public void AjouterFilsDroit(Operateurs op){
+		droit = new Arbre(op);
+	}
+	
+	/**
+	 * Remplace le fils gauche du noeud courant par un arbre donné en paramètre.
+	 * @param a Arbre à mettre en fils gauche.
+	 */
+	public void AjouterFilsGauche(Arbre a){
+		gauche = a;
+	}
+	
+	/**
+	 * Remplace le fils gauche du noeud courant par un arbre contenant un operateur donné en paramètre.
+	 * @param op Operateur qui doit se retrouver en fils gauche.
+	 */
+	public void AjouterFilsGauche(Operateurs op){
+		gauche = new Arbre(op);
+	}
+}

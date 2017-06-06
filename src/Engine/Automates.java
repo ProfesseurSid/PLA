@@ -65,7 +65,8 @@ public class Automates {
 	 * 
 	 * @require les caractères de la chaine correspondent à des opérateurs
 	 * @ensure l'automate est correct
-	 * @param s la chaine servant à la création de l'automate
+	 * @param s
+	 *            la chaine servant à la création de l'automate
 	 */
 	public Automates(String s) {
 		char[] c = new char[1];

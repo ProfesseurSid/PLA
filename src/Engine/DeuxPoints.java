@@ -12,7 +12,7 @@ public class DeuxPoints implements Operateurs {
 	 */
 	public DeuxPoints() {
 		x = 0;
-		y = 12;
+		y = 0;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class DeuxPoints implements Operateurs {
 	}
 
 	@Override
-	public void action() {
+	public void action(Automates a, Robots nono) {
 		// TODO Auto-generated method stub
 
 	}
