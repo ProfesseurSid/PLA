@@ -201,8 +201,24 @@ public class Automates {
 	 * 
 	 * @param nono
 	 */
-	public void execute(Robot nono) {
+	public void execute(Robots nono) {
+		code.get(exec).action(this, nono);
+		exec++;
+	}
+	
+	public void metStar(Robots nono){
+		lastStarMet = exec;
+		int accolades = 1;
+		int i;
+		for(i=exec+2; (accolades!=0) && (i<code.size()); i++){
+			if(code.get(i) instanceof AccoladeO)
+				accolades++;
+			else if(code.get(i) instanceof AccoladeF)
+				accolades--;
+		}
+		fermetureEtoile = i;
 		
+		execute(nono);
 	}
 
 	public static void main(String[] args) {
