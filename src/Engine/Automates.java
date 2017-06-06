@@ -253,80 +253,15 @@ public class Automates {
 
 	/**
 	 * change l'opérateur d'action en execution
+	 * 
 	 * @param o
 	 * @param nono
 	 */
-	public void opeAExec(Operateurs o, Robots nono){
+	public void opeAExec(Operateurs o, Robots nono) {
 		enExec = o;
 		execute(nono);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public static void main(String[] args) {
 		Automates a = new Automates("*{H >K > {P::}}");
 		String aff = a.toString();

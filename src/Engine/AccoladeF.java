@@ -60,7 +60,7 @@ public class AccoladeF implements Operateurs {
 	@Override
 	public void action(Automates a, Robots nono) {
 		// TODO Auto-generated method stub
-		if(a.isFermetureEtoile(this))
+		if (a.isFermetureEtoile(this))
 			a.retourAlEtoile(nono);
 	}
 
