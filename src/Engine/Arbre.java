@@ -101,12 +101,14 @@ public class Arbre {
 	public void AjouterFilsGauche(Operateurs op) {
 		gauche = new Arbre(op);
 	}
-	
+
 	/**
 	 * Setter de op.
-	 * @param op Operateur à mettre dans le noeud.
+	 * 
+	 * @param op
+	 *            Operateur à mettre dans le noeud.
 	 */
-	public void setValeurNoeud(Operateurs op){
+	public void setValeurNoeud(Operateurs op) {
 		this.op = op;
 	}
 
@@ -124,23 +126,32 @@ public class Arbre {
 		this.droit = null;
 	}
 	
-	public String toString(){
+	/**
+	 * Methode qui ajoute un operateur sur un noeud, décallant le noeud déja en
+	 * place (et son sous arbre) sur le fils droit.
+	 * 
+	 * @param op
+	 *            Operateur qui doit constituer le nouveau noeud.
+	 */
+	public void RemplacerDecalerDroit(Operateurs op) {
+		Arbre fils = new Arbre(this.op, this.gauche, this.droit);
+		this.op = op;
+		this.gauche = null;
+		this.droit = fils;
+	}
+
+	public String toString() {
 		String s = "";
-		if(op instanceof Star){
+		if (op instanceof Star) {
 			s = op.toString() + "{";
-			if (droit == null){
-				return s;
-			}
 			s += droit.toString();
 			s += "}";
-		}
-		else {
-			if(op instanceof DeuxPoints){
+		} else {
+			if (op instanceof DeuxPoints) {
 				s += droit.toString();
 				s += op.toString();
-			}
-			else {
-				if (droit == null && gauche == null){
+			} else {
+				if (droit == null && gauche == null) {
 					return op.toString();
 				}
 				s = gauche.toString();
