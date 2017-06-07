@@ -123,4 +123,31 @@ public class Arbre {
 		this.gauche = fils;
 		this.droit = null;
 	}
+	
+	public String toString(){
+		String s = "";
+		if(op instanceof Star){
+			s = op.toString() + "{";
+			if (droit == null){
+				return s;
+			}
+			s += droit.toString();
+			s += "}";
+		}
+		else {
+			if(op instanceof DeuxPoints){
+				s += droit.toString();
+				s += op.toString();
+			}
+			else {
+				if (droit == null && gauche == null){
+					return op.toString();
+				}
+				s = gauche.toString();
+				s += op.toString();
+				s += droit.toString();
+			}
+		}
+		return s;
+	}
 }

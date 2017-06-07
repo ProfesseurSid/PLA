@@ -127,5 +127,6 @@ public class Automate {
 	public static void main(String[] args) {
 		Arbre a = new Arbre(new Protect(), new Arbre(new Hit()), new Arbre(new Rapport()));
 		Automate auto = new Automate("*{K>H;P}");
+		System.out.println(auto.code.toString());
 	}
 }
