@@ -53,12 +53,20 @@ public class Automate {
 		Arbre AP;
 		Arbre AN;
 		Arbre LastPointVirgule = racine;
+		Arbre OldPointVirgule = null;
 		Arbre LastOu = racine;
+		Arbre LastEtoile = racine;
 
 		for (i = 0; i < s.length(); i++) {
 			c = s.charAt(i);
 			if (c == '*') {
-				
+				AN = new Arbre(new Star());
+				AC.AjouterFilsDroit(AN);
+				// AP = AC;
+				AC = AC.droit();
+				LastEtoile = AC;
+				OldPointVirgule = LastPointVirgule;
+				i++; // On ignore l'accolade
 			} else if (c == ';') {
 				AC = LastPointVirgule.droit();
 				AC.RemplacerDecaler(new PointVirgule());
@@ -71,14 +79,15 @@ public class Automate {
 				AC.RemplacerDecaler(new Barre());
 				LastOu = AC;
 			} else if (c == ':') {
-				
+
 			} else if (c == '}') {
-				
+				AC = LastEtoile;
+				LastPointVirgule = OldPointVirgule;
 			} else {
-				//Normalement c est un operateur d'action
+				// Normalement c est un operateur d'action
 				AN = new Arbre(charToOperator(c));
 				AC.AjouterFilsDroit(AN);
-				AP = AC;
+				// AP = AC;
 				AC = AC.droit();
 			}
 
@@ -131,6 +140,6 @@ public class Automate {
 	public static void main(String[] args) {
 		Arbre a = new Arbre(new Protect(), new Arbre(new Hit()), new Arbre(new Rapport()));
 		a.RemplacerDecaler(new PointVirgule());
-		Automate auto = new Automate("*{H;P>O|J}");
+		Automate auto = new Automate("*{H;*{K;O};P}");
 	}
 }
