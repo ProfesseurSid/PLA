@@ -53,6 +53,7 @@ public class Automate {
 		Arbre AP;
 		Arbre AN;
 		Arbre LastPointVirgule = racine;
+		Arbre LastOu = racine;
 
 		for (i = 0; i < s.length(); i++) {
 			c = s.charAt(i);
@@ -62,10 +63,13 @@ public class Automate {
 				AC = LastPointVirgule.droit();
 				AC.RemplacerDecaler(new PointVirgule());
 				LastPointVirgule = AC;
+				LastOu = AC;
 			} else if (c == '>') {
 				AC.RemplacerDecaler(new Preference());
 			} else if (c == '|') {
+				AC = LastOu.droit();
 				AC.RemplacerDecaler(new Barre());
+				LastOu = AC;
 			} else if (c == ':') {
 				
 			} else if (c == '}') {
@@ -125,8 +129,16 @@ public class Automate {
 	}
 
 	public static void main(String[] args) {
-		Arbre a = new Arbre(new Protect(), new Arbre(new Hit()), new Arbre(new Rapport()));
+		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
+		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
+		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
+		Arbre a4 = new Arbre(new Star(), null, a3);
+		Arbre a = new Arbre(new Star(), null, 
+					new Arbre(new PointVirgule(), new Arbre(new Preference(), new Arbre(new Kamikaze()),
+													new Arbre(new Rapport())),
+						new Arbre(new Preference(), new Arbre(new Hit()),
+							new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
 		Automate auto = new Automate("*{K>H;P}");
-		System.out.println(auto.code.toString());
+		System.out.println(a.toString());
 	}
 }
