@@ -8,10 +8,12 @@ public class Arbre {
 	private Arbre gauche, droit;
 
 	/**
-	 * Constructeur d'arbre vide avec un element Star et des fils nuls.
+	 * Constructeur d'arbre vide avec un element nul et des fils nuls.
 	 */
 	public Arbre() {
-		op = new Star();
+		op = null;
+		gauche = null;
+		droit = null;
 	}
 
 	/**
@@ -38,6 +40,24 @@ public class Arbre {
 		op = elem;
 		g = gauche;
 		d = droit;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return pointeur droit.
+	 */
+	public Arbre droit() {
+		return droit;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return pointeur gauche.
+	 */
+	public Arbre gauche() {
+		return gauche;
 	}
 
 	/**
@@ -80,6 +100,14 @@ public class Arbre {
 	 */
 	public void AjouterFilsGauche(Operateurs op) {
 		gauche = new Arbre(op);
+	}
+	
+	/**
+	 * Setter de op.
+	 * @param op Operateur à mettre dans le noeud.
+	 */
+	public void setValeurNoeud(Operateurs op){
+		this.op = op;
 	}
 
 	/**

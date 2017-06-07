@@ -1,5 +1,7 @@
 package Engine;
 
+import java.util.StringTokenizer;
+
 import Exception.PanicException;
 
 /**
@@ -33,18 +35,67 @@ public class Automate {
 	 *            Code de l'automate.
 	 */
 	public Automate(String s) {
-		code = new Arbre(new Star());
-		s.substring(2, s.length() - 1);
-		code.AjouterFilsGauche(stringToArbre(s));
+		// code = new Arbre(new Star());
+		// code.AjouterFilsGauche(stringToArbre(s.substring(2, s.length() -
+		// 1)));
+
+		// code = new Arbre(new Star(), stringToArbre(s.substring(2, s.length()
+		// - 1)), null);
+
+		code = stringToArbre(s.substring(2, s.length() - 1));
 	}
 
-	public Arbre stringToArbre(String s) {
+	private Arbre stringToArbre(String s) {
+		int i;
+		Arbre racine = new Arbre(new Star());
+		Arbre AC = racine;
+		Arbre AP;
 
-		throw new PanicException("Not Yet Implemented");
+		for (i = 0; i < s.length(); i++) {
+			if (s.charAt(i) == ';') {
+				AC.RemplacerDecaler(new PointVirgule());
+			} else {
+				AP = new Arbre(charToOperator(s.charAt(i)));
+				AC.AjouterFilsDroit(AP);
+				AC = AC.droit();
+			}
+		}
+
+		return racine;
+		// throw new PanicException("Not Yet Implemented");
+	}
+
+	/**
+	 * Methode qui recupere un caractere et lui assigne son operateur.
+	 * @param c Caractere dont on a besoin de connaitre l'operateur.
+	 * @return Operateur correspondant au caractère passé en paramètre.
+	 * @require Le caractere correspond a une action.
+	 */
+	private Operateurs charToOperator(char c) {
+		Operateurs op = null;
+		switch (c) {
+		case 'H':
+			op = new Hit();
+			break;
+		case 'K':
+			op = new Kamikaze();
+			break;
+		case 'O':
+			op = new Others();
+			break;
+		case 'P':
+			op = new Protect();
+			break;
+		case 'J':
+			op = new Rapport();
+			break;
+		default:
+			throw new PanicException("Non-action operator");
+		}
+		return op;
 	}
 
 	public static void main(String[] args) {
-		String s = "*{A>B;C}";
-		System.out.println(s.substring(2, s.length() - 1));
+		Automate auto = new Automate("*{K;H;O}");
 	}
 }
