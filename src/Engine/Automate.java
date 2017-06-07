@@ -62,7 +62,6 @@ public class Automate {
 			if (c == '*') {
 				AN = new Arbre(new Star());
 				AC.AjouterFilsDroit(AN);
-				// AP = AC;
 				AC = AC.droit();
 				LastEtoile = AC;
 				OldPointVirgule = LastPointVirgule;
@@ -79,7 +78,7 @@ public class Automate {
 				AC.RemplacerDecaler(new Barre());
 				LastOu = AC;
 			} else if (c == ':') {
-
+				
 			} else if (c == '}') {
 				AC = LastEtoile;
 				LastPointVirgule = OldPointVirgule;
@@ -87,7 +86,6 @@ public class Automate {
 				// Normalement c est un operateur d'action
 				AN = new Arbre(charToOperator(c));
 				AC.AjouterFilsDroit(AN);
-				// AP = AC;
 				AC = AC.droit();
 			}
 
@@ -136,18 +134,21 @@ public class Automate {
 		}
 		return op;
 	}
+	
+	
 
 	public static void main(String[] args) {
 		Automate auto = new Automate("*{H;*{K;O};P}");
+		Automate b = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
 		Arbre a4 = new Arbre(new Star(), null, a3);
-		Arbre a = new Arbre(new Star(), null, 
-					new Arbre(new DeuxPoints(), new Arbre(new Preference(), new Arbre(new Kamikaze()),
-													new Arbre(new Rapport())),
+		Arbre a = new Arbre(new Star(), null,
+				new Arbre(new DeuxPoints(),
+						new Arbre(new Preference(), new Arbre(new Kamikaze()), new Arbre(new Rapport())),
 						new Arbre(new Preference(), new Arbre(new Hit()),
-							new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
-		System.out.println(auto.code.toString());
+								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
+		System.out.println(b.code.toString());
 	}
 }
