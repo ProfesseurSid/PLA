@@ -55,6 +55,7 @@ public class Automate {
 		Arbre LastPointVirgule = racine;
 		Arbre OldPointVirgule = null;
 		Arbre LastOu = racine;
+		Arbre OldOu = racine;
 		Arbre LastEtoile = racine;
 
 		for (i = 0; i < s.length(); i++) {
@@ -66,6 +67,9 @@ public class Automate {
 				AC = AC.droit();
 				LastEtoile = AC;
 				OldPointVirgule = LastPointVirgule;
+				OldOu = LastOu;
+				LastOu = AC;
+				LastPointVirgule = AC;
 				i++; // On ignore l'accolade
 			} else if (c == ';') {
 				AC = LastPointVirgule.droit();
@@ -83,6 +87,7 @@ public class Automate {
 			} else if (c == '}') {
 				AC = LastEtoile;
 				LastPointVirgule = OldPointVirgule;
+				LastOu = OldOu;
 			} else {
 				// Normalement c est un operateur d'action
 				AN = new Arbre(charToOperator(c));
@@ -138,7 +143,7 @@ public class Automate {
 	}
 
 	public static void main(String[] args) {
-		Automate auto = new Automate("*{H;*{K;O};P}");
+		Automate auto = new Automate("*{K>J;H>*{K;J>H;J}|K}");
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
