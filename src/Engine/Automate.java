@@ -134,7 +134,7 @@ public class Automate {
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
 		Arbre a4 = new Arbre(new Star(), null, a3);
 		Arbre a = new Arbre(new Star(), null, 
-					new Arbre(new PointVirgule(), new Arbre(new Preference(), new Arbre(new Kamikaze()),
+					new Arbre(new DeuxPoints(), new Arbre(new Preference(), new Arbre(new Kamikaze()),
 													new Arbre(new Rapport())),
 						new Arbre(new Preference(), new Arbre(new Hit()),
 							new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
