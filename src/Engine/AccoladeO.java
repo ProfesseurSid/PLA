@@ -56,11 +56,18 @@ public class AccoladeO implements Operateurs {
 	public void stock(Personnages p) {
 		p.addOperator('{');
 	}
-
+	
+	/**
+	 * Si l'accolade ouvre, on ne fait rien
+	 * 
+	 * @param a
+	 *            l'automate d'ou provient l'accolade
+	 * @param nono
+	 *            le robot contenant a
+	 */
 	@Override
 	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-
+		return;
 	}
 
 	@Override

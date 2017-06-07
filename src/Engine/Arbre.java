@@ -128,9 +128,6 @@ public class Arbre {
 		String s = "";
 		if(op instanceof Star){
 			s = op.toString() + "{";
-			if (droit == null){
-				return s;
-			}
 			s += droit.toString();
 			s += "}";
 		}

@@ -59,17 +59,15 @@ public class AccoladeF implements Operateurs {
 	}
 
 	/**
-	 * Si l'accolade ferme une séquence d'étoile, retourne à la première action
-	 * de la séquence
+	 * Si l'accolade ferme, on ne fait rien
 	 * 
 	 * @param a
-	 *            l'automate d'où provient l'accolade
+	 *            l'automate d'ou provient l'accolade
 	 * @param nono
 	 *            le robot contenant a
 	 */
 	public void action(Automates a, Robots nono) {
-		if (a.isFermetureEtoile(this))
-			a.retourAlEtoile(nono);
+		return;
 	}
 
 	@Override
