@@ -50,11 +50,11 @@ public class Automate {
 		char c;
 		Arbre racine = new Arbre(new Star());
 		Arbre AC = racine;
-		Arbre AP;
 		Arbre AN;
 		Arbre LastPointVirgule = racine;
 		Arbre OldPointVirgule = null;
 		Arbre LastOu = racine;
+		Arbre OldOu = racine;
 		Arbre LastEtoile = racine;
 
 		for (i = 0; i < s.length(); i++) {
@@ -65,6 +65,9 @@ public class Automate {
 				AC = AC.droit();
 				LastEtoile = AC;
 				OldPointVirgule = LastPointVirgule;
+				OldOu = LastOu;
+				LastOu = AC;
+				LastPointVirgule = AC;
 				i++; // On ignore l'accolade
 			} else if (c == ';') {
 				AC = LastPointVirgule.droit();
@@ -78,29 +81,21 @@ public class Automate {
 				AC.RemplacerDecaler(new Barre());
 				LastOu = AC;
 			} else if (c == ':') {
-				
+				AC.RemplacerDecalerDroit(new DeuxPoints());
 			} else if (c == '}') {
 				AC = LastEtoile;
 				LastPointVirgule = OldPointVirgule;
+				LastOu = OldOu;
 			} else {
 				// Normalement c est un operateur d'action
 				AN = new Arbre(charToOperator(c));
 				AC.AjouterFilsDroit(AN);
 				AC = AC.droit();
 			}
-
-			// if (s.charAt(i) == ';') {
-			// AC.RemplacerDecaler(new PointVirgule());
-			// } else {
-			// AP = new Arbre(charToOperator(s.charAt(i)));
-			// AC.AjouterFilsDroit(AP);
-			// AC = AC.droit();
-			// }
 		}
 
 		return racine;
 
-		// throw new PanicException("Not Yet Implemented");
 	}
 
 	/**
@@ -138,17 +133,16 @@ public class Automate {
 	
 
 	public static void main(String[] args) {
-		Automate auto = new Automate("*{H;*{K;O};P}");
-		Automate b = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
+		Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
 		Arbre a4 = new Arbre(new Star(), null, a3);
 		Arbre a = new Arbre(new Star(), null,
-				new Arbre(new DeuxPoints(),
+				new Arbre(new PointVirgule(),
 						new Arbre(new Preference(), new Arbre(new Kamikaze()), new Arbre(new Rapport())),
 						new Arbre(new Preference(), new Arbre(new Hit()),
 								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
-		System.out.println(b.code.toString());
+		System.out.println(auto.code.toString());
 	}
 }
