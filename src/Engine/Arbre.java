@@ -41,6 +41,14 @@ public class Arbre {
 		gauche = g;
 		droit = d;
 	}
+	
+	/**
+	 * Getter
+	 * @return Operateur.
+	 */
+	public Operateurs op(){
+		return op;
+	}
 
 	/**
 	 * Getter
