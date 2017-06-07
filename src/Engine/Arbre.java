@@ -38,8 +38,8 @@ public class Arbre {
 	 */
 	public Arbre(Operateurs elem, Arbre g, Arbre d) {
 		op = elem;
-		g = gauche;
-		d = droit;
+		gauche = g;
+		droit = d;
 	}
 
 	/**

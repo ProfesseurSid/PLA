@@ -47,27 +47,56 @@ public class Automate {
 
 	private Arbre stringToArbre(String s) {
 		int i;
+		char c;
 		Arbre racine = new Arbre(new Star());
 		Arbre AC = racine;
 		Arbre AP;
+		Arbre AN;
+		Arbre LastPointVirgule = racine;
 
 		for (i = 0; i < s.length(); i++) {
-			if (s.charAt(i) == ';') {
+			c = s.charAt(i);
+			if (c == '*') {
+				
+			} else if (c == ';') {
+				AC = LastPointVirgule.droit();
 				AC.RemplacerDecaler(new PointVirgule());
+				LastPointVirgule = AC;
+			} else if (c == '>') {
+				AC.RemplacerDecaler(new Preference());
+			} else if (c == '|') {
+				AC.RemplacerDecaler(new Barre());
+			} else if (c == ':') {
+				
+			} else if (c == '}') {
+				
 			} else {
-				AP = new Arbre(charToOperator(s.charAt(i)));
-				AC.AjouterFilsDroit(AP);
+				//Normalement c est un operateur d'action
+				AN = new Arbre(charToOperator(c));
+				AC.AjouterFilsDroit(AN);
+				AP = AC;
 				AC = AC.droit();
 			}
+
+			// if (s.charAt(i) == ';') {
+			// AC.RemplacerDecaler(new PointVirgule());
+			// } else {
+			// AP = new Arbre(charToOperator(s.charAt(i)));
+			// AC.AjouterFilsDroit(AP);
+			// AC = AC.droit();
+			// }
 		}
 
 		return racine;
+
 		// throw new PanicException("Not Yet Implemented");
 	}
 
 	/**
 	 * Methode qui recupere un caractere et lui assigne son operateur.
-	 * @param c Caractere dont on a besoin de connaitre l'operateur.
+	 * 
+	 * @param c
+	 *            Caractere dont on a besoin de connaitre l'operateur.
 	 * @return Operateur correspondant au caractère passé en paramètre.
 	 * @require Le caractere correspond a une action.
 	 */
@@ -96,6 +125,7 @@ public class Automate {
 	}
 
 	public static void main(String[] args) {
-		Automate auto = new Automate("*{K;H;O}");
+		Arbre a = new Arbre(new Protect(), new Arbre(new Hit()), new Arbre(new Rapport()));
+		Automate auto = new Automate("*{K>H;P}");
 	}
 }
