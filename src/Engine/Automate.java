@@ -53,6 +53,7 @@ public class Automate {
 		Arbre AP;
 		Arbre AN;
 		Arbre LastPointVirgule = racine;
+		Arbre LastOu = racine;
 
 		for (i = 0; i < s.length(); i++) {
 			c = s.charAt(i);
@@ -62,10 +63,13 @@ public class Automate {
 				AC = LastPointVirgule.droit();
 				AC.RemplacerDecaler(new PointVirgule());
 				LastPointVirgule = AC;
+				LastOu = AC;
 			} else if (c == '>') {
 				AC.RemplacerDecaler(new Preference());
 			} else if (c == '|') {
+				AC = LastOu.droit();
 				AC.RemplacerDecaler(new Barre());
+				LastOu = AC;
 			} else if (c == ':') {
 				
 			} else if (c == '}') {
@@ -126,6 +130,7 @@ public class Automate {
 
 	public static void main(String[] args) {
 		Arbre a = new Arbre(new Protect(), new Arbre(new Hit()), new Arbre(new Rapport()));
-		Automate auto = new Automate("*{K>H;P}");
+		a.RemplacerDecaler(new PointVirgule());
+		Automate auto = new Automate("*{H;P>O|J}");
 	}
 }
