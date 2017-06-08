@@ -19,7 +19,11 @@ public class Timer extends AnimationTimer {
 					rob1.step();
 				if (rob2 != null)
 					rob1.step();
+			
 			}
+			System.out.println("Vie P1 : " + Terrain.personnage1.getHealth());
+			System.out.println("Vie P2 : " + Terrain.personnage2.getHealth());
+			System.out.println("Vie R1P1 : " + Terrain.personnage1.getRobot(1).PV);
 			lastTime = date;
 		}
 	}

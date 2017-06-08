@@ -62,7 +62,7 @@ public class RechercheChemin {
 		this.destY = destY;
 		this.origX = origX;
 		this.origY = origY;
-		System.out.println("Cherche " + destX + " " + destY + " Depuis " + origX + " " + origY);
+		//System.out.println("Cherche " + destX + " " + destY + " Depuis " + origX + " " + origY);
 
 		grid = new int[height][width];
 		for (int i = 0; i < plate.nbLignes(); i++)
@@ -87,9 +87,9 @@ public class RechercheChemin {
 		ArrayList<PointCardinal> retour = new ArrayList<PointCardinal>();
 		int x = origX;
 		int y = origY;
-		System.out.println("JE SUIS LA");
+		//System.out.println("JE SUIS LA");
 		if (solve()) {
-			System.out.println("ET LA");
+			//System.out.println("ET LA");
 			for (int i = 0; i < nbPas; i++)
 				if (y > 0 && map[x][y - 1] == PATH)
 					retour.add(PointCardinal.OUEST);
@@ -99,7 +99,7 @@ public class RechercheChemin {
 					retour.add(PointCardinal.SUD);
 				else if (x > 0 && map[x - 1][y] == PATH)
 					retour.add(PointCardinal.NORD);
-			System.out.println("LENGTH : " + retour.size());
+			//System.out.println("LENGTH : " + retour.size());
 		}
 		return retour;
 	}

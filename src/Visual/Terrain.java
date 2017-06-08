@@ -22,7 +22,8 @@ public class Terrain extends Parent {
 
 	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView r1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+	static ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+	//static ImageView r1P2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 	static ImageView op = new ImageView(
 			new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 
@@ -31,8 +32,12 @@ public class Terrain extends Parent {
 	public static Personnages personnage1 = new Personnages(plateau, 0, visuel1);
 	private static PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	public static Personnages personnage2 = new Personnages(plateau, 1, visuel2);
-	RobotVisual visuel3 = new RobotVisual(r1, 0, plateau);
-	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3);
+	
+	RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau);
+	Robots robot1P1 = new Robots(plateau, personnage1, 0, visuelRobot1P1);
+	//RobotVisual visuelRobot1P2 = new RobotVisual(r1P2, 1, plateau);
+	//Robots robot1P2 = new Robots(plateau, personnage2, 1, visuelRobot1P2);
+	
 	
 	OperateursVisual operateur = new OperateursVisual(op, plateau);
 
@@ -55,13 +60,16 @@ public class Terrain extends Parent {
 		for (Tuile tuile : Tuiles) {
 			this.getChildren().add(tuile);
 		}
-		robot1.setBehavior("*{O;J:;O}");
-		personnage1.addRobot(robot1, 1);
+		robot1P1.setBehavior("*{H>O}");
+		personnage1.addRobot(robot1P1, 1);
 		
+		//robot1P2.setBehavior("*{O}");
+		//personnage2.addRobot(robot1P2, 1);
 		
 		
 		this.getChildren().add(visuel1);
-		this.getChildren().add(visuel3);
+		this.getChildren().add(visuelRobot1P1);
+		//this.getChildren().add(visuelRobot1P2);
 		this.getChildren().add(visuel2);
 		this.getChildren().add(operateur);
 	}
