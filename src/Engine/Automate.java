@@ -8,6 +8,7 @@ import Exception.PanicException;
  */
 public class Automate {
 	private Arbre code;
+	private int count = 1;
 
 	/**
 	 * Constructeur d'arbre d'automate par défault.
@@ -43,6 +44,13 @@ public class Automate {
 		code = stringToArbre(s.substring(2, s.length() - 1));
 	}
 
+	/**
+	 * Methode qui transforme la string de code en arbre.
+	 * 
+	 * @param s
+	 *            String transformer en arbre
+	 * @return Arbre complet de l'execution.
+	 */
 	private Arbre stringToArbre(String s) {
 		int i;
 		char c;
@@ -91,9 +99,51 @@ public class Automate {
 				AC = AC.droit();
 			}
 		}
-
 		return racine;
+	}
 
+	public void RunAutomate(Arbre a) {
+		if (a.op() instanceof Star) {
+			RunAutomate(a.droit());
+		} else if (a.op() instanceof PointVirgule) {
+			RunAutomate(a.gauche());
+			RunAutomate(a.droit());
+		} else if (a.op() instanceof Barre) {
+			if (Math.random() < 0.5) {
+				RunAutomate(a.gauche());
+			} else {
+				RunAutomate(a.droit());
+			}
+		} else if (a.op() instanceof Preference) {
+			if (a.gauche().op().isPossible()) {
+				RunAutomate(a.gauche());
+			} else {
+				RunAutomate(a.droit());
+			}
+		} else if (a.op() instanceof DeuxPoints) {
+			count++;
+			RunAutomate(a.droit());
+		} else if (a.op() instanceof Hit) {
+			for (int i = 0; i < count; i++)
+				Hit.action();
+			count = 1;
+		} else if (a.op() instanceof Kamikaze) {
+			for (int i = 0; i < count; i++)
+				Kamikaze.action();
+			count = 1;
+		} else if (a.op() instanceof Protect) {
+			for (int i = 0; i < count; i++)
+				Protect.action();
+			count = 1;
+		} else if (a.op() instanceof Rapport) {
+			for (int i = 0; i < count; i++)
+				Rapport.action();
+			count = 1;
+		} else if (a.op() instanceof Others) {
+			for (int i = 0; i < count; i++)
+				Others.action();
+			count = 1;
+		}
 	}
 
 	/**
@@ -130,6 +180,7 @@ public class Automate {
 
 	public static void main(String[] args) {
 		Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
+		// Automate auto = new Automate("*{*{H;P}>K}");
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
