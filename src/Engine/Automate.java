@@ -168,8 +168,8 @@ public class Automate {
 			RunAutomate(a.droit(), bot);
 		} else {			
 			for (int i = 0; i < count; i++) {
-				//a.op().action(bot);
-				 System.out.println(a.op().toString() + " s'execute.");
+				a.op().action(bot);
+				//System.out.println(a.op().toString() + " s'execute.");
 			}
 			count = 1;
 		}
