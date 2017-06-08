@@ -47,14 +47,14 @@ public class Plateau {
 	/**
 	 * @return la largeur du plateau
 	 */
-	public int width() {
+	public int nbLignes() {
 		return grilleWidth;
 	}
 
 	/**
 	 * @return la hauteur du plateau
 	 */
-	public int height() {
+	public int nbColonnes() {
 		return grilleWidth;
 	}
 
