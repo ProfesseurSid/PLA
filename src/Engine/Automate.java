@@ -8,13 +8,18 @@ import Exception.PanicException;
  */
 public class Automate {
 	private Arbre code;
+	private Arbre aExec;
+	private Arbre StarExec;
 	private int count = 1;
+	private boolean exec = false;
 
 	/**
 	 * Constructeur d'arbre d'automate par défault.
 	 */
 	public Automate() {
 		code = new Arbre(new Star(), new Arbre(new Others()), null);
+		aExec = code;
+		StarExec = code;
 	}
 
 	/**
@@ -25,6 +30,8 @@ public class Automate {
 	 */
 	public Automate(Operateurs op) {
 		code = new Arbre(new Star(), new Arbre(op), null);
+		aExec = code;
+		StarExec = code;
 	}
 
 	/**
@@ -42,6 +49,8 @@ public class Automate {
 		// - 1)), null);
 
 		code = stringToArbre(s.substring(2, s.length() - 1));
+		aExec = code;
+		StarExec = code;
 	}
 
 	/**
@@ -102,46 +111,48 @@ public class Automate {
 		return racine;
 	}
 
-	public void RunAutomate(Arbre a) {
+	public void Run(Robots bot) {
+		RunAutomate(aExec, bot);
+	}
+
+	// FIXME : Cas
+	// de l'exemple dans main.
+	public void RunAutomate(Arbre a, Robots bot) {
 		if (a.op() instanceof Star) {
-			RunAutomate(a.droit());
+			StarExec = a;
+			RunAutomate(a.droit(), bot);
 		} else if (a.op() instanceof PointVirgule) {
-			RunAutomate(a.gauche());
-			RunAutomate(a.droit());
-		} else if (a.op() instanceof Barre) {
-			if (Math.random() < 0.5) {
-				RunAutomate(a.gauche());
+			if (exec == false) {
+				exec = true;
+				aExec = a;
+				RunAutomate(a.gauche(), bot);
 			} else {
-				RunAutomate(a.droit());
+				exec = false;
+				aExec = StarExec;
+				RunAutomate(a.droit(), bot);
+			}
+		} else if (a.op() instanceof Barre) {
+			aExec = StarExec;
+			if (Math.random() < 0.5) {
+				RunAutomate(a.gauche(), bot);
+			} else {
+				RunAutomate(a.droit(), bot);
 			}
 		} else if (a.op() instanceof Preference) {
-			if (a.gauche().op().isPossible()) {
-				RunAutomate(a.gauche());
+			aExec = StarExec;
+			// if (a.gauche().op().isPossible(bot)) {
+			if (true) {
+				RunAutomate(a.gauche(), bot);
 			} else {
-				RunAutomate(a.droit());
+				RunAutomate(a.droit(), bot);
 			}
 		} else if (a.op() instanceof DeuxPoints) {
 			count++;
-			RunAutomate(a.droit());
-		} else if (a.op() instanceof Hit) {
+			RunAutomate(a.droit(), bot);
+		} else {
 			for (int i = 0; i < count; i++)
-				Hit.action();
-			count = 1;
-		} else if (a.op() instanceof Kamikaze) {
-			for (int i = 0; i < count; i++)
-				Kamikaze.action();
-			count = 1;
-		} else if (a.op() instanceof Protect) {
-			for (int i = 0; i < count; i++)
-				Protect.action();
-			count = 1;
-		} else if (a.op() instanceof Rapport) {
-			for (int i = 0; i < count; i++)
-				Rapport.action();
-			count = 1;
-		} else if (a.op() instanceof Others) {
-			for (int i = 0; i < count; i++)
-				Others.action();
+				// a.op().action(bot);
+				System.out.println(a.op().toString() + " s'execute.");
 			count = 1;
 		}
 	}
@@ -179,8 +190,8 @@ public class Automate {
 	}
 
 	public static void main(String[] args) {
-		Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
-		// Automate auto = new Automate("*{*{H;P}>K}");
+		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
+		Automate auto = new Automate("*{O::;*{H>K}}");
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
@@ -191,5 +202,14 @@ public class Automate {
 						new Arbre(new Preference(), new Arbre(new Hit()),
 								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
 		System.out.println(auto.code.toString());
+		Robots bot = new Robots(1);
+		auto.Run(bot);
+		auto.Run(bot);
+		auto.Run(bot);
+		auto.Run(bot);
+		auto.Run(bot);
+		auto.Run(bot);
+		auto.Run(bot);
+		auto.Run(bot);
 	}
 }
