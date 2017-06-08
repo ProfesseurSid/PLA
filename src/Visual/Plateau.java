@@ -3,32 +3,59 @@ package Visual;
 import Engine.Entite;
 
 public class Plateau {
-	public static final int nblignes = 11;
-	public static final int nbcolonnes = 21;
 
-	private static Entite[][] plateau = new Entite[nblignes][nbcolonnes];
+	int grilleWidth = Terrain.getGrilleWidth();
+	int grilleHeight = Terrain.getGrilleHeight();
+
+	public Entite[][] plateau = new Entite[grilleHeight][grilleWidth];
 
 	/**
-	 * Affiche à l'écran chaque élément du tableau
+	 * recupere l'entite contenue dans la case d'indices l,c
+	 * 
+	 * @param l
+	 *            la ligne recherchée
+	 * @param c
+	 *            la colonne recherchée
+	 * @require l E [0, nblignes-1] ; c E [0, nbcolonnes-1]
+	 * @return l'elemment contenu dans le plateau
 	 */
-	public void afficher() {
-		for (int i = 0; i < nblignes; i++)
-			for (int j = 0; j < nbcolonnes; j++)
-				plateau[i][j].apparaitre();
+	public Entite unsafeGet(int l, int c) {
+		return plateau[l][c];
+	}
+
+	public int verification(int newX, int newY) {
+		if (plateau[newY][newX] == null) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
+	public void move(int oldX, int oldY, int newX, int newY) {
+		plateau[newY][newX] = plateau[oldY][oldX];
+		plateau[oldY][oldX] = null;
+	}
+
+	public void put(int newX, int newY, Entite e) {
+		plateau[newY][newX] = e;
+	}
+
+	public void remove(int x, int y, Entite e) {
+		plateau[y][x] = e;
 	}
 
 	/**
-	 * récupère l'entité contenue dans la case d'indices lig,col
-	 * 
-	 * @param lig
-	 *            la ligne recherchée
-	 * @param col
-	 *            la colonne recherchée
-	 * @require lig E [0, nblignes-1] ; col E [0, nbcolonnes-1]
-	 * @return l'élément contenu dans le plateau
+	 * @return la largeur du plateau
 	 */
-	static public Entite unsafeGet(int lig, int col) {
-		return plateau[lig][col];
+	public int width() {
+		return grilleWidth;
+	}
+
+	/**
+	 * @return la hauteur du plateau
+	 */
+	public int height() {
+		return grilleWidth;
 	}
 
 }
