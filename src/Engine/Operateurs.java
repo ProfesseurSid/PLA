@@ -9,6 +9,8 @@ public interface Operateurs extends Entite {
 	 */
 	public void stock(Personnages p);
 
+	public boolean doable(Robots nono);
+
 	public void action(Automates a, Robots nono);
 
 	public String toString();

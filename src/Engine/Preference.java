@@ -57,10 +57,13 @@ public class Preference implements Operateurs {
 		p.addOperator('>');
 	}
 
-	@Override
-	public void action() {
-		// TODO Auto-generated method stub
+	public boolean doable(Robots nono) {
+		return true;
+	}
 
+	@Override
+	public void action(Automates a, Robots nono) {
+		a.preference();
 	}
 
 	@Override

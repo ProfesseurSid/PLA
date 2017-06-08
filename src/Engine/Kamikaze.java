@@ -57,10 +57,16 @@ public class Kamikaze implements Operateurs {
 		p.addOperator('K');
 	}
 
+	public boolean doable(Robots nono) {
+		return nono.ennemiAdjacent() != null;
+	}
+
 	@Override
 	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-		a.opeAExec(this, nono);
+		if (a.realAction())
+			nono.boom();
+		else
+			a.opeAExec(this, nono);
 	}
 
 	@Override

@@ -57,10 +57,13 @@ public class AccoladeO implements Operateurs {
 		p.addOperator('{');
 	}
 
+	public boolean doable(Robots nono) {
+		return true;
+	}
+
 	@Override
 	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-
+		// On ignore l'accolade
 	}
 
 	@Override

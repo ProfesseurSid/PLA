@@ -57,6 +57,10 @@ public class Star implements Operateurs {
 		p.addOperator('*');
 	}
 
+	public boolean doable(Robots nono) {
+		return true;
+	}
+
 	@Override
 	public void action(Automates a, Robots nono) {
 		a.metStar(nono);

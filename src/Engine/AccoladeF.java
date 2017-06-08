@@ -57,6 +57,10 @@ public class AccoladeF implements Operateurs {
 		p.addOperator('}');
 	}
 
+	public boolean doable(Robots nono) {
+		return true;
+	}
+
 	/**
 	 * Si l'accolade ferme une séquence d'étoile, retourne à la première action
 	 * de la séquence

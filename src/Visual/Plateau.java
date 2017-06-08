@@ -6,7 +6,7 @@ public class Plateau {
 	public static final int nblignes = 11;
 	public static final int nbcolonnes = 21;
 
-	Entite[][] plateau = new Entite[nblignes][nbcolonnes];
+	private static Entite[][] plateau = new Entite[nblignes][nbcolonnes];
 
 	/**
 	 * Affiche à l'écran chaque élément du tableau
@@ -27,7 +27,7 @@ public class Plateau {
 	 * @require lig E [0, nblignes-1] ; col E [0, nbcolonnes-1]
 	 * @return l'élément contenu dans le plateau
 	 */
-	public Entite unsafeGet(int lig, int col) {
+	static public Entite unsafeGet(int lig, int col) {
 		return plateau[lig][col];
 	}
 

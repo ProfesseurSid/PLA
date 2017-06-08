@@ -57,10 +57,16 @@ public class Rapport implements Operateurs {
 		p.addOperator('J');
 	}
 
-	@Override
-	public void action() {
-		// TODO Auto-generated method stub
+	public boolean doable(Robots nono) {
+		return nono.allieAdjacent() == null;
+	}
 
+	@Override
+	public void action(Automates a, Robots nono) {
+		if (a.realAction())
+			nono.versJoueur(a.nbExec());
+		else
+			a.opeAExec(this, nono);
 	}
 
 	@Override

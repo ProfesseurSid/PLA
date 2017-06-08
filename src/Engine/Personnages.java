@@ -16,6 +16,7 @@ public class Personnages implements Vivante {
 	private Robots Units[] = new Robots[3];
 	private int x, y, numberRobots;
 	int equipe;
+	int PV = maxPV;
 
 	/**
 	 * Contructeur de personnage de l'équipe e
@@ -214,11 +215,30 @@ public class Personnages implements Vivante {
 		return retour;
 	}
 
+	/**
+	 * Renvoie le numero d'equipe du personnage
+	 */
 	public int getEquipe() {
 		return equipe;
 	}
 
+	/**
+	 * Indique si le personnage est de la meme equipe que la Vivante v
+	 * 
+	 * @param v
+	 *            la vivante a tester
+	 */
 	public boolean memeEquipe(Vivante v) {
 		return equipe == v.getEquipe();
+	}
+
+	/**
+	 * On reçoit nbHits coup(s) d'un adversaire
+	 * 
+	 * @param nbHits
+	 *            le nombre de coups reçus
+	 */
+	public void isHit(int nbHits) {
+		PV -= nbHits;
 	}
 }

@@ -6,12 +6,20 @@ import Exception.PanicException;
 
 public class Automates {
 	ArrayList<Operateurs> code = new ArrayList<Operateurs>();
-	int lastAccoladeOMet;
-	int lastStarMet;
-	int fermetureEtoile;
-	int exec = 0;
-	Operateurs enExec = null;
-	Operateurs barreEnCours = null;
+	private int lastAccoladeOMet;
+	private int lastStarMet;
+	private int fermetureEtoile;
+	private int exec;
+	private Operateurs enExec;
+	private Operateurs barreEnCours;
+	/**
+	 * indique à l'appel d'un opérateur d'action s'il doit s'exécuter ou
+	 */
+	private boolean execution = false;
+	/**
+	 * Indique le nombre de répétitions de l'acttion (nécessaire en cas de :)
+	 */
+	private int nbExec = 1;
 
 	/**
 	 * crée un automate de base : se dirige vers l'ennemi le plus proche
@@ -65,7 +73,8 @@ public class Automates {
 	 * 
 	 * @require les caractères de la chaine correspondent à des opérateurs
 	 * @ensure l'automate est correct
-	 * @param s la chaine servant à la création de l'automate
+	 * @param s
+	 *            la chaine servant à la création de l'automate
 	 */
 	public Automates(String s) {
 		char[] c = new char[1];
@@ -158,16 +167,23 @@ public class Automates {
 
 	/**
 	 * Permet de tester la validité de l'automate (cohérence de la chaine
-	 * d'opérateurs)
+	 * d'opérateurs) Ajout du test de non-imbrication (au plus 3 operateurs
+	 * entre deux point virgules
 	 * 
 	 * @return
 	 */
 	boolean estValide() {
 		boolean retour = true;
 		int accolades = 0;
+		int pointvirg = 0;
 		retour = code.get(0) instanceof Star && code.get(1) instanceof AccoladeO
 				&& code.get(code.size() - 1) instanceof AccoladeF;
-		for (int i = 2; retour && i < code.size() - 1; i++) {
+		for (int i = 2; pointvirg < 4 && accolades >= 0 && retour && i < code.size() - 1; i++) {
+			if(code.get(i) instanceof PointVirgule)
+				pointvirg = 0;
+			else
+				pointvirg++;
+			
 			if (code.get(i) instanceof AccoladeO) {
 				accolades++;
 				retour &= !(code.get(i - 1) instanceof AccoladeF || code.get(i - 1) instanceof DeuxPoints
@@ -201,7 +217,8 @@ public class Automates {
 			else
 				throw new PanicException("Opérateur incorrect présent dans l'automate");
 		}
-		return retour && (accolades == 0);
+
+		return retour && (accolades == 0) && (pointvirg < 4);
 	}
 
 	public String toString() {
@@ -209,6 +226,10 @@ public class Automates {
 		for (int i = 0; i < code.size(); i++)
 			retour += code.get(i).toString();
 		return retour;
+	}
+
+	public boolean realAction() {
+		return execution;
 	}
 
 	/**
@@ -261,7 +282,7 @@ public class Automates {
 	 * @param nono
 	 */
 	public void retourAlEtoile(Robots nono) {
-		exec = lastStarMet;
+		exec = lastStarMet + 1;
 		execute(nono);
 	}
 
@@ -273,6 +294,7 @@ public class Automates {
 	 */
 	public void opeAExec(Operateurs o, Robots nono) {
 		enExec = o;
+		exec++;
 		execute(nono);
 	}
 
@@ -281,9 +303,10 @@ public class Automates {
 	 */
 	public void random(Robots nono) {
 		if (Math.random() < 0.5)
-			code.get(exec - 1).action(this, nono);
+			enExec = code.get(exec - 1);
 		else
-			code.get(exec + 1).action(this, nono);
+			enExec = code.get(exec + 1);
+		realExec(nono);
 	}
 
 	/**
@@ -297,13 +320,63 @@ public class Automates {
 		return b == barreEnCours;
 	}
 
-	public static void main(String[] args) {
-		Automates a = new Automates("*{H >K > {P::}}");
-		String aff = a.toString();
-		if (a.estValide())
-			aff += " est un automate correct";
-		else
-			aff += " est un automate  vraiment incorrect";
-		System.out.println(aff);
+	/**
+	 * Avance l'execution jusqu'à l'opérateur suivant le prochain point virgule
+	 */
+	public void skipToPointVirgule() {
+		while (!(code.get(exec) instanceof PointVirgule))
+			exec++;
+		exec++;
 	}
+
+	/**
+	 * Execute les actions réelles comme Hit, Protect etc depuis le robot nono
+	 * 
+	 * @param nono
+	 *            le robot effectuant l'action
+	 * @require enExec != null
+	 */
+	public void realExec(Robots nono) {
+		if (enExec != null) {
+			execution = true;
+			enExec.action(this, nono);
+			execution = false;
+			enExec = null;
+			nbExec = 1;
+			skipToPointVirgule();
+		} else
+			throw new PanicException("appel de realExec sur un opérateur null");
+	}
+
+	/**
+	 * renvoie le nombre d'executions de l'action à effectuer
+	 * 
+	 * @return
+	 */
+	public int nbExec() {
+		return nbExec;
+	}
+
+	/**
+	 * Incrémente le nombre d'éxecutions de l'action en cours
+	 */
+	public void execIncr(Robots nono) {
+		nbExec++;
+		exec++;
+		execute(nono);
+	}
+
+	public void preference() {
+
+	}
+
+	 public static void main(String[] args) {
+	 Automates a = new Automates("*{H >K > {P::}}");
+	 String aff = a.toString();
+	 if (a.estValide())
+	 aff += " est un automate correct";
+	 else
+	 aff += " est un automate vraiment incorrect";
+	 System.out.println(aff);
+	 }
 }

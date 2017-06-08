@@ -57,10 +57,16 @@ public class Protect implements Operateurs {
 		p.addOperator('P');
 	}
 
+	public boolean doable(Robots nono) {
+		return nono.ennemiAdjacent() != null;
+	}
+
 	@Override
 	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-		a.opeAExec(this, nono);
+		if (a.realAction())
+			nono.protect(a.nbExec());
+		else
+			a.opeAExec(this, nono);
 	}
 
 	@Override

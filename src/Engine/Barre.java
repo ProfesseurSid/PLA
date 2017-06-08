@@ -56,6 +56,10 @@ public class Barre implements Operateurs {
 		p.addOperator('|');
 	}
 
+	public boolean doable(Robots nono) {
+		return true;
+	}
+
 	/**
 	 * Si cette barre n'a pas encore été testée, lance l'aléatoire
 	 * 
@@ -67,6 +71,8 @@ public class Barre implements Operateurs {
 	public void action(Automates a, Robots nono) {
 		if (!a.isBarreExec(this))
 			a.random(nono);
+		else
+			a.skipToPointVirgule();
 	}
 
 	@Override
