@@ -1,5 +1,7 @@
 package Engine;
 
+import java.util.ArrayList;
+
 import Exception.PanicException;
 import Visual.Plateau;
 
@@ -103,7 +105,8 @@ public class Robots implements Vivante {
 	 * Si un ennemi est place sur une case adjacente, ressort la position de cet
 	 * ennemi par rapport au robot
 	 * 
-	 * @return la direction de l'ennemi adjacent, ou null s'il n'y a pas d'ennemi adjacent
+	 * @return la direction de l'ennemi adjacent, ou null s'il n'y a pas
+	 *         d'ennemi adjacent
 	 */
 	public PointCardinal ennemiAdjacent() {
 		PointCardinal retour = null;
@@ -118,22 +121,26 @@ public class Robots implements Vivante {
 
 		return retour;
 	}
-	
+
 	/**
 	 * Si un joueur est place sur une case adjacente, ressort la position de ce
 	 * joueur par rapport au robot
 	 * 
-	 * @return la direction du joueur adjacent, ou null s'il n'y a pas de joueur adjacent
+	 * @return la direction du joueur adjacent, ou null s'il n'y a pas de joueur
+	 *         adjacent
 	 */
 	public PointCardinal allieAdjacent() {
 		PointCardinal retour = null;
 		if (Plateau.unsafeGet(x + 1, y) instanceof Personnages && memeEquipe((Personnages) Plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
-		else if (Plateau.unsafeGet(x - 1, y) instanceof Personnages && memeEquipe((Personnages) Plateau.unsafeGet(x - 1, y)))
+		else if (Plateau.unsafeGet(x - 1, y) instanceof Personnages
+				&& memeEquipe((Personnages) Plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (Plateau.unsafeGet(x, y + 1) instanceof Personnages && memeEquipe((Personnages) Plateau.unsafeGet(x, y + 1)))
+		else if (Plateau.unsafeGet(x, y + 1) instanceof Personnages
+				&& memeEquipe((Personnages) Plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
-		else if (Plateau.unsafeGet(x, y - 1) instanceof Personnages && memeEquipe((Personnages) Plateau.unsafeGet(x, y - 1)))
+		else if (Plateau.unsafeGet(x, y - 1) instanceof Personnages
+				&& memeEquipe((Personnages) Plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
 		return retour;
@@ -215,6 +222,14 @@ public class Robots implements Vivante {
 	public void versEnnemi(int nbMov) {
 		// TODO : Algorithme de recherche de l'ennemi le plus proche + plus
 		// court chemin
+
+		// Recherche des coordonnees de l'ennemi
+		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
+		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
+		mvmt = trajet.xPas(nbMov);
+		for (int i = 0; i < mvmt.size(); i++)
+			if (mvmt.get(i) != null)
+				mouvement(mvmt.get(i), 1);
 	}
 
 	/**
@@ -225,5 +240,14 @@ public class Robots implements Vivante {
 	 */
 	public void versJoueur(int nbMov) {
 		// TODO : Algorithme de recherche de l'allié + plus court chemin
+
+		// Recherche des coordonnees de l'allie
+		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
+		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
+		mvmt = trajet.xPas(nbMov);
+		for (int i = 0; i < mvmt.size(); i++)
+			if (mvmt.get(i) != null)
+				mouvement(mvmt.get(i), 1);
 	}
 }
+                                                                                                                                                                        
