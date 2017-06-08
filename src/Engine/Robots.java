@@ -20,6 +20,13 @@ public class Robots implements Vivante {
 	Personnages personnage;
 
 	/**
+	 * DO NOT USE THIS CONSTRUCTOR
+	 */
+	public Robots() {
+
+	}
+
+	/**
 	 * cree un robot et le place dans l'équipe e
 	 * 
 	 * @param e
@@ -49,18 +56,18 @@ public class Robots implements Vivante {
 	 * @param e
 	 * @param a
 	 */
-//	public Robots(int e, Automates a) {
-//		if (e == 0) {
-//			x = Terrain.getTuileY() / 2;
-//			y = 1;
-//		} else if (e == 1) {
-//			x = Terrain.getTuileY() / 2;
-//			y = Terrain.getTuileX() - 1;
-//		} else
-//			throw new PanicException("Numéro d'équipe incorrect");
-//		equipe = e;
-//		behavior = new Automate(a);
-//	}
+	// public Robots(int e, Automates a) {
+	// if (e == 0) {
+	// x = Terrain.getTuileY() / 2;
+	// y = 1;
+	// } else if (e == 1) {
+	// x = Terrain.getTuileY() / 2;
+	// y = Terrain.getTuileX() - 1;
+	// } else
+	// throw new PanicException("Numéro d'équipe incorrect");
+	// equipe = e;
+	// behavior = new Automate(a);
+	// }
 
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
@@ -311,7 +318,7 @@ public class Robots implements Vivante {
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
 	}
-	
+
 	/**
 	 * Accesseur de visuel associe au robot
 	 * 
@@ -320,8 +327,8 @@ public class Robots implements Vivante {
 	public RobotVisual getVisual() {
 		return visuel;
 	}
-	
-	public void step(){
+
+	public void step() {
 		behavior.Run(this);
 	}
 }

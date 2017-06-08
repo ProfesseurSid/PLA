@@ -1,6 +1,7 @@
 package Engine;
 
 import Exception.PanicException;
+import Exception.ParsingException;
 
 /**
  * Classe qui implante l'automate d'un robot. Elle contient les methodes de
@@ -10,8 +11,8 @@ public class Automate {
 	private Arbre code;
 	private Arbre aExec;
 	private Arbre StarExec;
-	private int count = 1;
-	private boolean exec = false;
+	private int count;
+	private boolean exec;
 
 	/**
 	 * Constructeur d'arbre d'automate par défault.
@@ -20,6 +21,8 @@ public class Automate {
 		code = new Arbre(new Star(), null, new Arbre(new Others()));
 		aExec = code;
 		StarExec = code;
+		exec = false;
+		count = 1;
 	}
 
 	/**
@@ -32,6 +35,8 @@ public class Automate {
 		code = new Arbre(new Star(), null, new Arbre(op));
 		aExec = code;
 		StarExec = code;
+		exec = false;
+		count = 1;
 	}
 
 	/**
@@ -41,9 +46,14 @@ public class Automate {
 	 *            Code de l'automate.
 	 */
 	public Automate(String s) {
+		if (s.length() < 4)
+			throw new ParsingException("Chaine vide");
+		CheckValide(s.substring(2, s.length() - 1));
 		code = stringToArbre(s.substring(2, s.length() - 1));
 		aExec = code;
 		StarExec = code;
+		exec = false;
+		count = 1;
 	}
 
 	/**
@@ -145,7 +155,8 @@ public class Automate {
 			}
 		} else if (a.op() instanceof Preference) {
 			aExec = StarExec;
-			if (a.gauche().op().isPossible(bot)) {
+			 if (a.gauche().op().isPossible(bot)) {
+			//if (true) {
 				RunAutomate(a.gauche(), bot);
 			} else {
 				RunAutomate(a.droit(), bot);
@@ -154,9 +165,11 @@ public class Automate {
 			count++;
 			RunAutomate(a.droit(), bot);
 		} else {
-			for (int i = 0; i < count; i++)
-				a.op().action(bot);
-//			 System.out.println(a.op().toString() + " s'execute.");
+			aExec = StarExec;
+			for (int i = 0; i < count; i++) {
+				 a.op().action(bot);
+				//System.out.println(a.op().toString() + " s'execute.");
+			}
 			count = 1;
 		}
 	}
@@ -193,9 +206,62 @@ public class Automate {
 		return op;
 	}
 
+	private void CheckValide(String s) {
+		char c, cs;
+		boolean open = false;
+		for (int i = 0; i < s.length() - 1; i++) {
+			c = s.charAt(i);
+			cs = s.charAt(i + 1);
+			if (c == 'H' || c == 'K' || c == 'O' || c == 'P' || c == 'J')
+				c = '.';
+			if (cs == 'H' || cs == 'K' || cs == 'O' || cs == 'P' || cs == 'J')
+				cs = '.';
+			if (i == 0 && (c != '.' && c != '*'))
+				throw new ParsingException("Chaine Incorrecte");
+			switch (c) {
+			case '*':
+				if (cs != '{')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			case '{':
+				open = true;
+				if (cs != '.')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			case '}':
+				if ((cs != ';' && cs != '>' && cs != '|') || !open)
+					throw new ParsingException("Chaine Incorrecte");
+				open = false;
+				break;
+			case '>':
+				if (cs != '.' && cs != '*')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			case '|':
+				if (cs != '.' && cs != '*')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			case ';':
+				if (cs != '.' && cs != '*')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			case ':':
+				if (cs != ':' && cs != ';' && cs != '>' && cs != '|' && cs != '}')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			case '.':
+				if (cs != ':' && cs != ';' && cs != '|' && cs != '>' && cs != '}')
+					throw new ParsingException("Chaine Incorrecte");
+				break;
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
-		Automate auto = new Automate("*{O::;*{H>K}}");
+		// Automate auto = new Automate("*{O::;*{H|K}}");
+		Automate auto = new Automate("*{H;*{O};P}");
+		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
 		// Automate auto = new Automate(new Protect());
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
@@ -207,14 +273,14 @@ public class Automate {
 						new Arbre(new Preference(), new Arbre(new Hit()),
 								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
 		System.out.println(auto.code.toString());
-		// Robots bot = new Robots(1);
-		// auto.Run(bot);
-		// auto.Run(bot);
-		// auto.Run(bot);
-		// auto.Run(bot);
-		// auto.Run(bot);
-		// auto.Run(bot);
-		// auto.Run(bot);
-		// auto.Run(bot);
+		Robots bot = new Robots();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
+		auto.Run(bot);System.out.println();
 	}
 }
