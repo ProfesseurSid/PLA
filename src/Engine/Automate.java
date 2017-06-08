@@ -155,8 +155,8 @@ public class Automate {
 			}
 		} else if (a.op() instanceof Preference) {
 			aExec = StarExec;
-			 if (a.gauche().op().isPossible(bot)) {
-			//if (true) {
+			if (a.gauche().op().isPossible(bot)) {
+				// if (true) {
 				RunAutomate(a.gauche(), bot);
 			} else {
 				RunAutomate(a.droit(), bot);
@@ -167,8 +167,8 @@ public class Automate {
 		} else {
 			aExec = StarExec;
 			for (int i = 0; i < count; i++) {
-				 a.op().action(bot);
-				//System.out.println(a.op().toString() + " s'execute.");
+				a.op().action(bot);
+				// System.out.println(a.op().toString() + " s'execute.");
 			}
 			count = 1;
 		}
@@ -274,13 +274,21 @@ public class Automate {
 								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
 		System.out.println(auto.code.toString());
 		Robots bot = new Robots();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
-		auto.Run(bot);System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
+		auto.Run(bot);
+		System.out.println();
 	}
 }
