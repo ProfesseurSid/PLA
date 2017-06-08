@@ -12,13 +12,14 @@ public class Robots implements Vivante {
 	int equipe;
 	int nbcoups = 0;
 	int PV = 3;
+	Plateau plateau;
 
 	/**
 	 * crée un robot et le place dans l'équipe e
 	 * 
 	 * @param e
 	 */
-	public Robots(int e) {
+	public Robots(Plateau plateau, int e) {
 		if (e == 0) {
 			x = Plateau.nblignes / 2;
 			y = 1;
@@ -29,6 +30,7 @@ public class Robots implements Vivante {
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
 		behavior = new Automates();
+		this.plateau = plateau;
 	}
 
 	/**
@@ -52,18 +54,6 @@ public class Robots implements Vivante {
 
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
-	}
-
-	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -222,8 +212,23 @@ public class Robots implements Vivante {
 	public void versEnnemi(int nbMov) {
 		// TODO : Algorithme de recherche de l'ennemi le plus proche + plus
 		// court chemin
-
+		Entite caze;
+		int destX = x;
+		int destY = y;
 		// Recherche des coordonnees de l'ennemi
+		for(int i=0; i<plateau.nblignes; i++)
+			for(int j=0; j<plateau.nbcolonnes; i++){
+				caze = plateau.unsafeGet(i, j);
+				if(caze instanceof Vivante){
+					if(!memeEquipe((Vivante)caze) && ((Math.abs(x - caze.getX()) + Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))){
+						destX = caze.getX();
+						destY = caze.getY();
+					}
+						
+				}
+			}
+		
+		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
@@ -242,6 +247,20 @@ public class Robots implements Vivante {
 		// TODO : Algorithme de recherche de l'allié + plus court chemin
 
 		// Recherche des coordonnees de l'allie
+		Entite caze;
+		int destX = -1;
+		int destY = -1;
+		// Recherche des coordonnees de l'ennemi
+		for(int i=0; destX < 0 && i<plateau.nblignes; i++)
+			for(int j=0; destX < 0 && j<plateau.nbcolonnes; i++){
+				caze = plateau.unsafeGet(i, j);
+				if(caze instanceof Personnages && memeEquipe((Personnages)caze)){
+					destX = caze.getX();
+					destY = caze.getY();
+				}
+			}
+		
+		// Recherche des nbMov premiers pas du plus cours chemin vers l'allie
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
@@ -250,4 +269,3 @@ public class Robots implements Vivante {
 				mouvement(mvmt.get(i), 1);
 	}
 }
-                                                                                                                                                                        

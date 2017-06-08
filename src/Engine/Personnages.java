@@ -156,18 +156,6 @@ public class Personnages implements Vivante {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	/**
 	 * Methode qui permet de faire avancer le personnage d'un certain pas dans
 	 * une certaine direction.
