@@ -30,7 +30,8 @@ public class Automates {
 	 * crée un automate en ajoutant le premier élément
 	 * 
 	 * @param o
-	 *            l'opérateur à placer dans l'automate (comportement *{o}) créé
+	 *            l'opérateur à placer dans l'automate (comportement *{o})
+	 *            créé
 	 * @require l'opérateur décrit une action (pas un test comme >, |... par
 	 *          exemple)
 	 */
@@ -223,7 +224,8 @@ public class Automates {
 	}
 
 	/**
-	 * Met à jour la dernière étoile rencontrée et la fin de l'action répétée
+	 * Met à jour la dernière étoile rencontrée et la fin de l'action
+	 * répétée
 	 * 
 	 * @param nono
 	 */

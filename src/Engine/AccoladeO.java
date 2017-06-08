@@ -2,7 +2,7 @@ package Engine;
 
 public class AccoladeO implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de accolade ouvrante
@@ -26,18 +26,6 @@ public class AccoladeO implements Operateurs {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getX() {
 		return x;
 	}
@@ -56,17 +44,12 @@ public class AccoladeO implements Operateurs {
 	public void stock(Personnages p) {
 		p.addOperator('{');
 	}
-	
+
 	/**
 	 * Si l'accolade ouvre, on ne fait rien
-	 * 
-	 * @param a
-	 *            l'automate d'ou provient l'accolade
-	 * @param nono
-	 *            le robot contenant a
 	 */
 	@Override
-	public void action(Automates a, Robots nono) {
+	public void action(Robots nono) {
 		return;
 	}
 
@@ -75,4 +58,11 @@ public class AccoladeO implements Operateurs {
 		return "{";
 	}
 
+	@Override
+	/**
+	 * Accolade ouvrante toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
+	}
 }

@@ -1,9 +1,10 @@
 package Engine;
+
 import Engine.Personnages;
 
 public class AccoladeF implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de accolade fermante
@@ -27,18 +28,6 @@ public class AccoladeF implements Operateurs {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getX() {
 		return x;
 	}
@@ -58,21 +47,25 @@ public class AccoladeF implements Operateurs {
 		p.addOperator('}');
 	}
 
+	@Override
 	/**
 	 * Si l'accolade ferme, on ne fait rien
-	 * 
-	 * @param a
-	 *            l'automate d'ou provient l'accolade
-	 * @param nono
-	 *            le robot contenant a
 	 */
-	public void action(Automates a, Robots nono) {
+	public void action(Robots nono) {
 		return;
 	}
 
 	@Override
 	public String toString() {
 		return "}";
+	}
+
+	@Override
+	/**
+	 * Accolade fermante toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
 	}
 
 }

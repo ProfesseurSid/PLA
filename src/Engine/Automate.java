@@ -1,7 +1,5 @@
 package Engine;
 
-import java.util.StringTokenizer;
-
 import Exception.PanicException;
 
 /**
@@ -129,8 +127,6 @@ public class Automate {
 		}
 		return op;
 	}
-	
-	
 
 	public static void main(String[] args) {
 		Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");

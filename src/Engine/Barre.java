@@ -2,7 +2,7 @@ package Engine;
 
 public class Barre implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de barre
@@ -26,18 +26,6 @@ public class Barre implements Operateurs {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getX() {
 		return x;
 	}
@@ -57,21 +45,24 @@ public class Barre implements Operateurs {
 	}
 
 	/**
-	 * Si cette barre n'a pas encore été testée, lance l'aléatoire
-	 * 
-	 * @param a
-	 *            l'automate d'où provient la barre
-	 * @param nono
-	 *            le robot contenant ledit automate
+	 * Si on a un "|", on execute rien
 	 */
-	public void action(Automates a, Robots nono) {
-		if (!a.isBarreExec(this))
-			a.random(nono);
+	@Override
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
 	public String toString() {
 		return "|";
+	}
+
+	@Override
+	/**
+	 * Barre toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
 	}
 
 }

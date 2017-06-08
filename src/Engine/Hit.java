@@ -1,8 +1,10 @@
 package Engine;
 
+import Exception.PanicException;
+
 public class Hit implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de hit
@@ -26,18 +28,6 @@ public class Hit implements Operateurs {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getX() {
 		return x;
 	}
@@ -58,14 +48,23 @@ public class Hit implements Operateurs {
 	}
 
 	@Override
-	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-		a.opeAExec(this, nono);
+	public void action(Robots nono) {
+		// TODO
+		throw new PanicException("Not implemented");
 	}
 
 	@Override
 	public String toString() {
 		return "H";
+	}
+
+	@Override
+	/**
+	 * 
+	 */
+	public boolean isPossible(Robots nono) {
+		// TODO
+		throw new PanicException("Not implemented");
 	}
 
 }
