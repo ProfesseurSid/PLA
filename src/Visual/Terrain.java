@@ -32,7 +32,7 @@ public class Terrain extends Parent {
 	PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	Personnages personnage2 = new Personnages(plateau, 1, visuel2);
 	RobotVisual visuel3 = new RobotVisual(r1, 0, plateau);
-	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3, "*{K>O}");
+	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3);
 	
 	OperateursVisual operateur = new OperateursVisual(op, plateau);
 
@@ -55,6 +55,7 @@ public class Terrain extends Parent {
 		for (Tuile tuile : Tuiles) {
 			this.getChildren().add(tuile);
 		}
+		robot1.setBehavior("*{O;J:;O;*{J}}");
 		personnage1.addRobot(robot1, 1);
 		
 		

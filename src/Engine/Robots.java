@@ -42,7 +42,6 @@ public class Robots implements Vivante {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		behavior = new Automate();
 		this.visuel = visuel;
 		this.personnage = personnage;
 		behavior = new Automate();
@@ -60,7 +59,6 @@ public class Robots implements Vivante {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		behavior = new Automate();
 		this.visuel = visuel;
 		this.personnage = personnage;
 		behavior = new Automate(behave);
@@ -316,8 +314,8 @@ public class Robots implements Vivante {
 		int destX = -1;
 		int destY = -1;
 		// Recherche des coordonnees de l'ennemi
-		for (int i = 0; destX < 0 && i < plateau.nbLignes(); i++)
-			for (int j = 0; destX < 0 && j < plateau.nbColonnes(); i++) {
+		for (int i = 0; destX < 0 && i < plateau.nbColonnes(); i++)
+			for (int j = 0; destX < 0 && j < plateau.nbLignes(); j++) {
 				caze = plateau.unsafeGet(i, j);
 				if (caze instanceof Personnages && memeEquipe((Personnages) caze)) {
 					destX = caze.getX();
@@ -326,7 +324,7 @@ public class Robots implements Vivante {
 			}
 
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'allie
-		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
+		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
 		for (int i = 0; i < mvmt.size(); i++)
@@ -345,5 +343,9 @@ public class Robots implements Vivante {
 
 	public void step() {
 		behavior.Run(this);
+	}
+	
+	public void setBehavior(String s){
+		behavior = new Automate(s);
 	}
 }
