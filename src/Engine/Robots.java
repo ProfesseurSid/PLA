@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Exception.PanicException;
 import Visual.Plateau;
+import Visual.Terrain;
 
 public class Robots implements Vivante {
 
@@ -21,11 +22,11 @@ public class Robots implements Vivante {
 	 */
 	public Robots(Plateau plateau, int e) {
 		if (e == 0) {
-			x = Plateau.nblignes / 2;
+			x = Terrain.getTuileY() / 2;
 			y = 1;
 		} else if (e == 1) {
-			x = Plateau.nblignes / 2;
-			y = Plateau.nbcolonnes - 1;
+			x = Terrain.getTuileY() / 2;
+			y = Terrain.getTuileX() - 1;
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
@@ -41,11 +42,11 @@ public class Robots implements Vivante {
 	 */
 	public Robots(int e, Automates a) {
 		if (e == 0) {
-			x = Plateau.nblignes / 2;
+			x = Terrain.getTuileY() / 2;
 			y = 1;
 		} else if (e == 1) {
-			x = Plateau.nblignes / 2;
-			y = Plateau.nbcolonnes - 1;
+			x = Terrain.getTuileY() / 2;
+			y = Terrain.getTuileX() - 1;
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
@@ -57,9 +58,8 @@ public class Robots implements Vivante {
 	}
 
 	@Override
-	public void mouvement(PointCardinal p, int nb) {
+	public void mouvement(PointCardinal p) {
 		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -100,13 +100,13 @@ public class Robots implements Vivante {
 	 */
 	public PointCardinal ennemiAdjacent() {
 		PointCardinal retour = null;
-		if (Plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x + 1, y)))
+		if (plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
-		else if (Plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x - 1, y)))
+		else if (plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (Plateau.unsafeGet(x, y + 1) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x, y + 1)))
+		else if (plateau.unsafeGet(x, y + 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
-		else if (Plateau.unsafeGet(x, y - 1) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x, y - 1)))
+		else if (plateau.unsafeGet(x, y - 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
 		return retour;
@@ -121,16 +121,16 @@ public class Robots implements Vivante {
 	 */
 	public PointCardinal allieAdjacent() {
 		PointCardinal retour = null;
-		if (Plateau.unsafeGet(x + 1, y) instanceof Personnages && memeEquipe((Personnages) Plateau.unsafeGet(x + 1, y)))
+		if (plateau.unsafeGet(x + 1, y) instanceof Personnages && memeEquipe((Personnages) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
-		else if (Plateau.unsafeGet(x - 1, y) instanceof Personnages
-				&& memeEquipe((Personnages) Plateau.unsafeGet(x - 1, y)))
+		else if (plateau.unsafeGet(x - 1, y) instanceof Personnages
+				&& memeEquipe((Personnages) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (Plateau.unsafeGet(x, y + 1) instanceof Personnages
-				&& memeEquipe((Personnages) Plateau.unsafeGet(x, y + 1)))
+		else if (plateau.unsafeGet(x, y + 1) instanceof Personnages
+				&& memeEquipe((Personnages) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
-		else if (Plateau.unsafeGet(x, y - 1) instanceof Personnages
-				&& memeEquipe((Personnages) Plateau.unsafeGet(x, y - 1)))
+		else if (plateau.unsafeGet(x, y - 1) instanceof Personnages
+				&& memeEquipe((Personnages) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
 		return retour;
@@ -157,30 +157,30 @@ public class Robots implements Vivante {
 		// ((Vivante) Plateau.unsafeGet(x, y - 1)).isHit(nbHits);
 		switch (ennemiAdjacent()) {
 		case NORD:
-			((Vivante) Plateau.unsafeGet(x, y - 1)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(nbHits);
 			break;
 		case SUD:
-			((Vivante) Plateau.unsafeGet(x, y + 1)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x, y + 1)).isHit(nbHits);
 			break;
 		case EST:
-			((Vivante) Plateau.unsafeGet(x + 1, y)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(nbHits);
 			break;
 		case OUEST:
-			((Vivante) Plateau.unsafeGet(x - 1, y)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x - 1, y)).isHit(nbHits);
 			break;
 		default:
 		}
 	}
 
 	public void boom() {
-		if (Plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x + 1, y)))
-			((Vivante) Plateau.unsafeGet(x + 1, y)).isHit(PV);
-		if (Plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x - 1, y)))
-			((Vivante) Plateau.unsafeGet(x - 1, y)).isHit(PV);
-		if (Plateau.unsafeGet(x, y + 1) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x, y + 1)))
-			((Vivante) Plateau.unsafeGet(x, y + 1)).isHit(PV);
-		if (Plateau.unsafeGet(x, y - 1) instanceof Vivante && !memeEquipe((Vivante) Plateau.unsafeGet(x, y - 1)))
-			((Vivante) Plateau.unsafeGet(x, y - 1)).isHit(PV);
+		if (plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
+			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(PV);
+		if (plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
+			((Vivante) plateau.unsafeGet(x - 1, y)).isHit(PV);
+		if (plateau.unsafeGet(x, y + 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
+			((Vivante) plateau.unsafeGet(x, y + 1)).isHit(PV);
+		if (plateau.unsafeGet(x, y - 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
+			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(PV);
 	}
 
 	/**
@@ -216,25 +216,26 @@ public class Robots implements Vivante {
 		int destX = x;
 		int destY = y;
 		// Recherche des coordonnees de l'ennemi
-		for(int i=0; i<plateau.nblignes; i++)
-			for(int j=0; j<plateau.nbcolonnes; i++){
+		for (int i = 0; i < plateau.nbLignes(); i++)
+			for (int j = 0; j < plateau.nbColonnes(); i++) {
 				caze = plateau.unsafeGet(i, j);
-				if(caze instanceof Vivante){
-					if(!memeEquipe((Vivante)caze) && ((Math.abs(x - caze.getX()) + Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))){
+				if (caze instanceof Vivante) {
+					if (!memeEquipe((Vivante) caze) && ((Math.abs(x - caze.getX())
+							+ Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))) {
 						destX = caze.getX();
 						destY = caze.getY();
 					}
-						
+
 				}
 			}
-		
+
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
-				mouvement(mvmt.get(i), 1);
+				mouvement(mvmt.get(i));
 	}
 
 	/**
@@ -251,8 +252,8 @@ public class Robots implements Vivante {
 		int destX = -1;
 		int destY = -1;
 		// Recherche des coordonnees de l'ennemi
-		for(int i=0; destX < 0 && i<plateau.nblignes; i++)
-			for(int j=0; destX < 0 && j<plateau.nbcolonnes; i++){
+		for(int i=0; destX < 0 && i<plateau.nbLignes(); i++)
+			for(int j=0; destX < 0 && j<plateau.nbColonnes(); i++){
 				caze = plateau.unsafeGet(i, j);
 				if(caze instanceof Personnages && memeEquipe((Personnages)caze)){
 					destX = caze.getX();
@@ -266,6 +267,6 @@ public class Robots implements Vivante {
 		mvmt = trajet.xPas(nbMov);
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
-				mouvement(mvmt.get(i), 1);
+				mouvement(mvmt.get(i));
 	}
 }

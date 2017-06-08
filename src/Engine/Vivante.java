@@ -1,9 +1,10 @@
 package Engine;
 
 public interface Vivante extends Entite {
+	
 	public static int maxPV = 10;
 	
-	void mouvement(PointCardinal p, int nb);
+	void mouvement(PointCardinal p);
 
 	public int getEquipe();
 
