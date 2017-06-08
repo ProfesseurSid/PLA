@@ -111,13 +111,20 @@ public class Automate {
 		return racine;
 	}
 
+	/**
+	 * Methode à appeler pour executer l'automate d'un robot.
+	 * @param bot Robot qui doit executer l'automate.
+	 */
 	public void Run(Robots bot) {
 		RunAutomate(aExec, bot);
 	}
 
-	// FIXME : Cas
-	// de l'exemple dans main.
-	public void RunAutomate(Arbre a, Robots bot) {
+	/**
+	 * Methode reccursive d'execution de l'automate code.
+	 * @param a Parametre reccursif, automate restant a executer.
+	 * @param bot Robot sur lequel l'automate s'execute.
+	 */
+	private void RunAutomate(Arbre a, Robots bot) {
 		if (a.op() instanceof Star) {
 			StarExec = a;
 			RunAutomate(a.droit(), bot);
@@ -140,8 +147,7 @@ public class Automate {
 			}
 		} else if (a.op() instanceof Preference) {
 			aExec = StarExec;
-			// if (a.gauche().op().isPossible(bot)) {
-			if (true) {
+			if (a.gauche().op().isPossible(bot)) {
 				RunAutomate(a.gauche(), bot);
 			} else {
 				RunAutomate(a.droit(), bot);
@@ -151,8 +157,8 @@ public class Automate {
 			RunAutomate(a.droit(), bot);
 		} else {
 			for (int i = 0; i < count; i++)
-				// a.op().action(bot);
-				System.out.println(a.op().toString() + " s'execute.");
+				a.op().action(bot);
+				//System.out.println(a.op().toString() + " s'execute.");
 			count = 1;
 		}
 	}
