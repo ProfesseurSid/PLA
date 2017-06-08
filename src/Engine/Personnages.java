@@ -3,7 +3,6 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
-import Visual.Plateau;
 
 /**
  * Classe repr�sentant un personnage, avec des coordon�es, un inventaire
@@ -25,10 +24,10 @@ public class Personnages implements Vivante {
 	public Personnages(int e) {
 		if (e == 0) {
 			x = 0;
-			y = 0;
+			y = 5;
 		} else if (e == 1) {
-			x = Plateau.nblignes;
-			y = Plateau.nbcolonnes;
+			x = 20;
+			y = 5;
 		}
 		equipe = e;
 		numberRobots = 0;
@@ -135,7 +134,8 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'�quipe du personnage.
+	 * Methode qui permet la suppression d'un robots � l'�quipe du
+	 * personnage.
 	 * 
 	 * @param room
 	 *            case ou se trouve le robot � supprimer
@@ -177,19 +177,19 @@ public class Personnages implements Vivante {
 	 *            Distance/Pas duquel on avance.
 	 * @since Version 1.0
 	 */
-	public void mouvement(PointCardinal p, int nb) {
+	public void mouvement(PointCardinal p) {
 		switch (p) {
 		case NORD:
-			y -= nb;
+			y--;
 			break;
 		case SUD:
-			y += nb;
+			y++;
 			break;
 		case EST:
-			x += nb;
+			x++;
 			break;
 		case OUEST:
-			x -= nb;
+			x--;
 			break;
 		default:
 			throw new PanicException("Deplacement Personnage : Point Cardinal incorrect.");
@@ -220,5 +220,11 @@ public class Personnages implements Vivante {
 
 	public boolean memeEquipe(Vivante v) {
 		return equipe == v.getEquipe();
+	}
+
+	@Override
+	public void mouvement(PointCardinal p, int nb) {
+		// TODO Auto-generated method stub
+		
 	}
 }
