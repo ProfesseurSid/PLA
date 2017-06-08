@@ -49,15 +49,15 @@ public class RechercheChemin {
 	 *            la ligne d'arrivee
 	 */
 	public RechercheChemin(Plateau plate, int origY, int origX, int destY, int destX) {
-		this.height = plate.nblignes;
-		this.width = plate.nbcolonnes;
+		this.height = plate.nbLignes();
+		this.width = plate.nbColonnes();
 		this.destX = destX;
 		this.destY = destY;
 		this.origX = origX;
 		this.origY = origY;
 		grid = new int[height][width];
-		for (int i = 0; i < plate.nblignes; i++)
-			for (int j = 0; j < plate.nbcolonnes; j++)
+		for (int i = 0; i < plate.nbLignes(); i++)
+			for (int j = 0; j < plate.nbColonnes(); j++)
 				if (plate.unsafeGet(i, j) instanceof Vivante)
 					grid[i][j] = 0;
 				else
