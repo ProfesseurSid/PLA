@@ -17,7 +17,7 @@ public class Automate {
 	 * Constructeur d'arbre d'automate par défault.
 	 */
 	public Automate() {
-		code = new Arbre(new Star(), new Arbre(new Others()), null);
+		code = new Arbre(new Star(), null, new Arbre(new Others()));
 		aExec = code;
 		StarExec = code;
 	}
@@ -29,7 +29,7 @@ public class Automate {
 	 *            Instruction unique de l'automate crée.
 	 */
 	public Automate(Operateurs op) {
-		code = new Arbre(new Star(), new Arbre(op), null);
+		code = new Arbre(new Star(), null, new Arbre(op));
 		aExec = code;
 		StarExec = code;
 	}
@@ -202,7 +202,8 @@ public class Automate {
 
 	public static void main(String[] args) {
 		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
-		Automate auto = new Automate("*{O::;*{H>K}}");
+		//Automate auto = new Automate("*{O::;*{H>K}}");
+		Automate auto = new Automate(new Protect());
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
 		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
 		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
@@ -213,14 +214,14 @@ public class Automate {
 						new Arbre(new Preference(), new Arbre(new Hit()),
 								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
 		System.out.println(auto.code.toString());
-		Robots bot = new Robots(1);
-		auto.Run(bot);
-		auto.Run(bot);
-		auto.Run(bot);
-		auto.Run(bot);
-		auto.Run(bot);
-		auto.Run(bot);
-		auto.Run(bot);
-		auto.Run(bot);
+//		Robots bot = new Robots(1);
+//		auto.Run(bot);
+//		auto.Run(bot);
+//		auto.Run(bot);
+//		auto.Run(bot);
+//		auto.Run(bot);
+//		auto.Run(bot);
+//		auto.Run(bot);
+//		auto.Run(bot);
 	}
 }
