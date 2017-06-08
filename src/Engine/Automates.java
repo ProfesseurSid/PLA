@@ -376,7 +376,7 @@ public class Automates {
 	 if (a.estValide())
 	 aff += " est un automate correct";
 	 else
-	 aff += " est un automate vraiment incorrect";
+	 aff += " est un automate incorrect";
 	 System.out.println(aff);
 	 }
 }
