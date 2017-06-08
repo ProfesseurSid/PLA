@@ -6,8 +6,8 @@ import Visual.Plateau;
 public class Robots implements Vivante {
 
 	Automates behavior;
-	int x, y;
-	int equipe;
+	private int x, y;
+	private int equipe;
 
 	/**
 	 * crée un robot et le place dans l'équipe e
@@ -48,18 +48,6 @@ public class Robots implements Vivante {
 
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
-	}
-
-	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

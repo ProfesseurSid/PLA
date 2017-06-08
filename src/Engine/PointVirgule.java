@@ -26,18 +26,6 @@ public class PointVirgule implements Operateurs {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getX() {
 		return x;
 	}
@@ -57,14 +45,24 @@ public class PointVirgule implements Operateurs {
 		p.addOperator(';');
 	}
 
+	/**
+	 * Si on a un ";", on execute rien
+	 */
 	@Override
-	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
 	public String toString() {
 		return ";";
+	}
+
+	@Override
+	/**
+	 * ; toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
 	}
 }
