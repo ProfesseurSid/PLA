@@ -24,7 +24,6 @@ public class Test extends Application {
 	}
 
 	public void start(Stage primaryStage) {
-
 		primaryStage.setTitle("ARF - Autonomous Robot Fight");
 		Group root = new Group();
 		int dimX = Terrain.getTuileX() * Tuile.getTaille() + 2 * Barre.getDimX() + 3 * marge;
