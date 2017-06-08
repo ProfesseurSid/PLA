@@ -6,10 +6,10 @@ import javafx.scene.shape.Rectangle;
 
 public class Case extends Parent {
 
-	private int posX ;
-	private int posY ;
+	private int posX;
+	private int posY;
 
-	private static int taille = 2 * Tuile.getTaille();
+	private static int taille = (Tuile.getTaille() * 3) / 2;
 
 	Rectangle fond_case;
 
@@ -18,7 +18,7 @@ public class Case extends Parent {
 		posY = Y;
 
 		fond_case = new Rectangle(taille, taille, Color.rgb(220, 220, 220, 1.0));
-		fond_case.setStroke(Color.rgb(150, 150, 150, 1.0));
+		fond_case.setStroke(Color.rgb(150, 150, 150, 0.1));
 		fond_case.setStrokeWidth(2);
 		fond_case.setArcHeight(10);
 		fond_case.setArcWidth(10);

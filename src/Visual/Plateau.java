@@ -1,6 +1,7 @@
 package Visual;
 
 import Engine.Entite;
+import Engine.Operateurs;
 
 public class Plateau {
 
@@ -9,7 +10,6 @@ public class Plateau {
 
 	public Entite[][] plateau = new Entite[grilleHeight][grilleWidth];
 
-	
 	/**
 	 * recupere l'entite contenue dans la case d'indices l,c
 	 * 
@@ -25,7 +25,8 @@ public class Plateau {
 	}
 
 	public int verification(int newX, int newY) {
-		if (plateau[newY][newX] == null) {
+
+		if (plateau[newY][newX] == null || plateau[newY][newX] instanceof Operateurs) {
 			return 0;
 		} else {
 			return 1;
@@ -40,9 +41,10 @@ public class Plateau {
 	public void put(int newX, int newY, Entite e) {
 		plateau[newY][newX] = e;
 	}
-	
-	public void remove(int x, int y, Entite e) {
-		plateau[y][x] = e;
+
+	public void remove(int x, int y) {
+		plateau[y][x] = null;
+
 	}
-	
+
 }

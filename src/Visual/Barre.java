@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 public class Barre extends Parent {
 
 	private static int nb = 3;
-	private static int dimX = nb * Case.getTaille() + (nb - 1) * Tuile.getTaille();
+	private static int dimX = nb * Case.getTaille() + ((nb - 1) / 2) * Tuile.getTaille();
 
 	public Barre() {
 
@@ -20,7 +20,7 @@ public class Barre extends Parent {
 
 		Case Cases[] = new Case[nb];
 		for (int i = 0; i < nb; i++) {
-			Cases[i] = new Case(i * (Case.getTaille() + Tuile.getTaille()), 0);
+			Cases[i] = new Case(i * (Case.getTaille() + Tuile.getTaille() / 2), 0);
 		}
 
 		this.getChildren().add(fond_barre);

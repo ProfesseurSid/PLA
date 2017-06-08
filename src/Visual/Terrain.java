@@ -3,13 +3,6 @@ package Visual;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-//import javafx.scene.input.KeyCode;
-//import javafx.scene.input.KeyEvent;
-
-//import javafx.event.EventHandler;
-
 public class Terrain extends Parent {
 
 	private static int tuileX = 21;
@@ -18,22 +11,22 @@ public class Terrain extends Parent {
 	private static int grilleWidth = Tuile.getTaille() * tuileX;
 	private static int grilleHeight = Tuile.getTaille() * tuileY;
 
-	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotBleu.png")));
+	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotRouge.png")));
 	static ImageView op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 
 	Plateau plateau = new Plateau();
-	PersonnagesVisual personnage1 = new PersonnagesVisual(p1, 0, plateau);
-	PersonnagesVisual personnage2 = new PersonnagesVisual(p2, 1, plateau);
-	
+
 	OperateursVisual operateur = new OperateursVisual(op, plateau);
+
+	PersonnagesVisual personnage1 = new PersonnagesVisual(p1, 0, plateau, operateur);
+	PersonnagesVisual personnage2 = new PersonnagesVisual(p2, 1, plateau, operateur);
 
 	public Terrain() {
 
-		Rectangle fond_grille = new Rectangle();
-		fond_grille.setWidth(grilleWidth);
-		fond_grille.setHeight(grilleHeight);
-		fond_grille.setFill(Color.rgb(150, 150, 150, 1.0));
+		ImageView fond_grille = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Terrain.png")));
+		fond_grille.setFitWidth(grilleWidth);
+		fond_grille.setFitHeight(grilleHeight);
 
 		Tuile Tuiles[] = new Tuile[21 * 11];
 		for (int i = 0; i < Terrain.tuileX; i++) {
@@ -78,10 +71,10 @@ public class Terrain extends Parent {
 		return personnage2;
 	}
 
-	public OperateursVisual getoperateur(){
+	public OperateursVisual getoperateur() {
 		return operateur;
 	}
-	
+
 	public ImageView getImagePersonnage1() {
 		return p1;
 	}
@@ -89,8 +82,13 @@ public class Terrain extends Parent {
 	public ImageView getImagePersonnage2() {
 		return p2;
 	}
-	
+
 	public ImageView getImageOperateur() {
 		return op;
+	}
+
+	public Plateau getPlateau() {
+		return plateau;
+
 	}
 }
