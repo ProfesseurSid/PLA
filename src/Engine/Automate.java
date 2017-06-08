@@ -113,7 +113,9 @@ public class Automate {
 
 	/**
 	 * Methode à appeler pour executer l'automate d'un robot.
-	 * @param bot Robot qui doit executer l'automate.
+	 * 
+	 * @param bot
+	 *            Robot qui doit executer l'automate.
 	 */
 	public void Run(Robots bot) {
 		RunAutomate(aExec, bot);
@@ -121,8 +123,11 @@ public class Automate {
 
 	/**
 	 * Methode reccursive d'execution de l'automate code.
-	 * @param a Parametre reccursif, automate restant a executer.
-	 * @param bot Robot sur lequel l'automate s'execute.
+	 * 
+	 * @param a
+	 *            Parametre reccursif, automate restant a executer.
+	 * @param bot
+	 *            Robot sur lequel l'automate s'execute.
 	 */
 	private void RunAutomate(Arbre a, Robots bot) {
 		if (a.op() instanceof Star) {
@@ -158,7 +163,7 @@ public class Automate {
 		} else {
 			for (int i = 0; i < count; i++)
 				a.op().action(bot);
-				//System.out.println(a.op().toString() + " s'execute.");
+			// System.out.println(a.op().toString() + " s'execute.");
 			count = 1;
 		}
 	}

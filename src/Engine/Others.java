@@ -2,6 +2,10 @@ package Engine;
 
 import Exception.PanicException;
 
+/**
+ * Classe de l'operateur Others. Permet au robot de se deplacer vers les
+ * ennemis.
+ */
 public class Others implements Operateurs {
 
 	private int x, y;
@@ -10,7 +14,6 @@ public class Others implements Operateurs {
 	 * Constructeur de others
 	 * 
 	 * @disclamer not sure of this constructor
-	 * @since Version 1.0
 	 */
 	public Others() {
 		x = 0;
@@ -19,38 +22,48 @@ public class Others implements Operateurs {
 
 	/**
 	 * Constructeur de others
-	 * 
-	 * @since Version 1.0
 	 */
 	public Others(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	@Override
+	/**
+	 * Getter de x
+	 * 
+	 * @return x;
+	 */
 	public int getX() {
 		return x;
 	}
 
-	@Override
+	/**
+	 * Getter de y
+	 * 
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
 
-	@Override
 	/**
 	 * Ajoute l'operateur a l'inventaire du personnage
 	 * 
-	 * @since Version 1.0
+	 * @param p
+	 *            Personnage qui doit recevoir l'operateur.
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('O');
 	}
 
-	@Override
+	/**
+	 * Methode qui fait executer l'action Others à un robot.
+	 * 
+	 * @param nono
+	 *            Robot qui va executer l'action.
+	 */
 	public void action(Robots nono) {
-		// TODO
-		throw new PanicException("Not implemented");
+		nono.versEnnemi(1);
 	}
 
 	@Override
@@ -58,13 +71,15 @@ public class Others implements Operateurs {
 		return "O";
 	}
 
-	@Override
 	/**
+	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
 	 * 
+	 * @param nono
+	 *            Robot qui doit executer l'action.
+	 * @return true si l'action est possible false sinon.
 	 */
 	public boolean isPossible(Robots nono) {
-		// TODO
-		throw new PanicException("Not implemented");
+		return true;
 	}
 
 }

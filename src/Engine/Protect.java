@@ -2,6 +2,9 @@ package Engine;
 
 import Exception.PanicException;
 
+/**
+ * Classe de l'operateur Protect. Permet au robot de se proteger des coups.
+ */
 public class Protect implements Operateurs {
 
 	private int x, y;
@@ -10,7 +13,6 @@ public class Protect implements Operateurs {
 	 * Constructeur de protect
 	 * 
 	 * @disclamer not sure of this constructor
-	 * @since Version 1.0
 	 */
 	public Protect() {
 		x = 0;
@@ -19,38 +21,48 @@ public class Protect implements Operateurs {
 
 	/**
 	 * Constructeur de protect
-	 * 
-	 * @since Version 1.0
 	 */
 	public Protect(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	@Override
+	/**
+	 * Getter de x
+	 * 
+	 * @return x;
+	 */
 	public int getX() {
 		return x;
 	}
 
-	@Override
+	/**
+	 * Getter de y
+	 * 
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
 
-	@Override
 	/**
 	 * Ajoute l'operateur a l'inventaire du personnage
 	 * 
-	 * @since Version 1.0
+	 * @param p
+	 *            Personnage qui doit recevoir l'operateur.
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('P');
 	}
 
-	@Override
+	/**
+	 * Methode qui fait executer l'action Protect à un robot.
+	 * 
+	 * @param nono
+	 *            Robot qui va executer l'action.
+	 */
 	public void action(Robots nono) {
-		// TODO
-		throw new PanicException("Not implemented");
+		nono.protect(1);
 	}
 
 	@Override
@@ -58,13 +70,15 @@ public class Protect implements Operateurs {
 		return "P";
 	}
 
-	@Override
 	/**
+	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
 	 * 
+	 * @param nono
+	 *            Robot qui doit executer l'action.
+	 * @return true si l'action est possible false sinon.
 	 */
 	public boolean isPossible(Robots nono) {
-		// TODO
-		throw new PanicException("Not implemented");
+		return true;
 	}
 
 }

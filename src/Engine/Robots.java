@@ -216,18 +216,19 @@ public class Robots implements Vivante {
 		int destX = x;
 		int destY = y;
 		// Recherche des coordonnees de l'ennemi
-		for(int i=0; i<plateau.nblignes; i++)
-			for(int j=0; j<plateau.nbcolonnes; i++){
+		for (int i = 0; i < plateau.nblignes; i++)
+			for (int j = 0; j < plateau.nbcolonnes; i++) {
 				caze = plateau.unsafeGet(i, j);
-				if(caze instanceof Vivante){
-					if(!memeEquipe((Vivante)caze) && ((Math.abs(x - caze.getX()) + Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))){
+				if (caze instanceof Vivante) {
+					if (!memeEquipe((Vivante) caze) && ((Math.abs(x - caze.getX())
+							+ Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))) {
 						destX = caze.getX();
 						destY = caze.getY();
 					}
-						
+
 				}
 			}
-		
+
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
@@ -251,15 +252,15 @@ public class Robots implements Vivante {
 		int destX = -1;
 		int destY = -1;
 		// Recherche des coordonnees de l'ennemi
-		for(int i=0; destX < 0 && i<plateau.nblignes; i++)
-			for(int j=0; destX < 0 && j<plateau.nbcolonnes; i++){
+		for (int i = 0; destX < 0 && i < plateau.nblignes; i++)
+			for (int j = 0; destX < 0 && j < plateau.nbcolonnes; i++) {
 				caze = plateau.unsafeGet(i, j);
-				if(caze instanceof Personnages && memeEquipe((Personnages)caze)){
+				if (caze instanceof Personnages && memeEquipe((Personnages) caze)) {
 					destX = caze.getX();
 					destY = caze.getY();
 				}
 			}
-		
+
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'allie
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
