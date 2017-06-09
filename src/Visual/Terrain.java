@@ -56,10 +56,10 @@ public class Terrain extends Parent {
 			this.getChildren().add(tuile);
 		}
 
-		robot1P1.setBehavior("*{P;O}");
+		robot1P1.setBehavior("*{P;J}");
 		personnage1.addRobot(robot1P1, 1);
 
-		robot1P2.setBehavior("*{H:>O}");
+		robot1P2.setBehavior("*{H:>J}");
 		personnage2.addRobot(robot1P2, 1);
 
 		this.getChildren().add(visuel1);
