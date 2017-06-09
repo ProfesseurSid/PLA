@@ -3,6 +3,8 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
+import Visual.PersonnagesVisual;
+import Visual.Plateau;
 
 /**
  * Classe representant un personnage, avec des coordonees, un inventaire
@@ -16,27 +18,35 @@ public class Personnages implements Vivante {
 	private int x, y, numberRobots;
 	int equipe;
 	int PV = maxPV;
+	Plateau plateau;
+	PersonnagesVisual visuel;
 
 	/**
 	 * Contructeur de personnage de l'équipe e
 	 * 
-	 * @since Version 1.0
+	 * @param e
+	 *            l'equipe dans laquelle ajouter le personnage
+	 * @require e == 0 || e == 1
 	 */
-	public Personnages(int e) {
+	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
+		this.plateau = plateau;
 		if (e == 0) {
 			x = 0;
-			y = 5;
+			y = plateau.nbLignes() / 2;
 		} else if (e == 1) {
-			x = 20;
-			y = 5;
-		}
+			x = plateau.nbColonnes() - 1;
+			y = plateau.nbLignes() / 2;
+		} else
+			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
 		numberRobots = 0;
 		initInventory();
+		this.visuel = visuel;
+		plateau.put(x, y, this);
 	}
 
 	/**
-	 * Methode qui initialise l'inventaire d'op�rateurs
+	 * Methode qui initialise l'inventaire d'operateurs
 	 * 
 	 * @since Version 1.0
 	 */
@@ -84,7 +94,7 @@ public class Personnages implements Vivante {
 	 */
 	public void addOperator(char op) {
 		if (!(Inventory.containsKey(op))) {
-			throw new PanicException("Ajout d'objet � l'inventaire du personnage : Objet inconnu");
+			throw new PanicException("Ajout d'objet a l'inventaire du personnage : Objet inconnu");
 		}
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
@@ -166,18 +176,47 @@ public class Personnages implements Vivante {
 	 * @since Version 1.0
 	 */
 	public void mouvement(PointCardinal p) {
+		plateau.toString();
 		switch (p) {
 		case NORD:
-			y--;
+			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
+				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x, y - 1)).stock(this);
+				y--;
+				plateau.move(x, y + 1, x, y);
+				visuel.Haut();
+				visuel.requestFocus();
+			}
 			break;
 		case SUD:
-			y++;
+			if (y < plateau.nbLignes() - 1 && !(plateau.unsafeGet(x, y + 1) instanceof Vivante)) {
+				if (plateau.unsafeGet(x, y + 1) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x, y + 1)).stock(this);
+				y++;
+				plateau.move(x, y - 1, x, y);
+				visuel.Bas();
+				visuel.requestFocus();
+			}
 			break;
 		case EST:
-			x++;
+			if (x < plateau.nbColonnes() - 1 && !(plateau.unsafeGet(x + 1, y) instanceof Vivante)) {
+				if (plateau.unsafeGet(x + 1, y) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x + 1, y)).stock(this);
+				x++;
+				plateau.move(x - 1, y, x, y);
+				visuel.Droite();
+				visuel.requestFocus();
+			}
 			break;
 		case OUEST:
-			x--;
+			if (x > 0 && !(plateau.unsafeGet(x - 1, y) instanceof Vivante)) {
+				if (plateau.unsafeGet(x - 1, y) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x - 1, y)).stock(this);
+				x--;
+				plateau.move(x + 1, y, x, y);
+				visuel.Gauche();
+				visuel.requestFocus();
+			}
 			break;
 		default:
 			throw new PanicException("Deplacement Personnage : Point Cardinal incorrect.");
@@ -227,5 +266,14 @@ public class Personnages implements Vivante {
 	 */
 	public void isHit(int nbHits) {
 		PV -= nbHits;
+	}
+
+	/**
+	 * Accesseur de visuel associe au personnage
+	 * 
+	 * @return
+	 */
+	public PersonnagesVisual getVisual() {
+		return visuel;
 	}
 }

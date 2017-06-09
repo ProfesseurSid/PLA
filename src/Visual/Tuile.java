@@ -9,7 +9,7 @@ public class Tuile extends Parent {
 	private int posX = 0;
 	private int posY = 0;
 
-	private static int taille = 40;
+	private static int taille = 35;
 
 	Rectangle fond_tuile;
 

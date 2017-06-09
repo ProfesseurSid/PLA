@@ -30,12 +30,10 @@ public class Test extends Application {
 		monTerrain.setTranslateX(20 + Barre.getDimX());
 		monTerrain.setTranslateY(10);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(),
-				monTerrain.getImagePersonnage1(), monTerrain.getImagePersonnage2());
+		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2());
 
 		scene.setOnKeyPressed(keyboard);
-		
-		
+
 		OperateursVisual operateur;
 		operateur = monTerrain.getoperateur();
 

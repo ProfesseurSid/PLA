@@ -2,13 +2,13 @@ package Visual;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.Parent;
-import Engine.Personnages;
-import Engine.PointCardinal;
+import Exception.PanicException;
 
 /**
  * S
  ***************************************************************************************
- * PersonnagesVisual est la classe qui affiche et deplace un personnage sur le terrain *
+ * PersonnagesVisual est la classe qui affiche et deplace un personnage sur le
+ * terrain *
  ***************************************************************************************
  */
 public class PersonnagesVisual extends Parent {
@@ -16,13 +16,12 @@ public class PersonnagesVisual extends Parent {
 	private int indY; // Index d'une ligne du terrain
 
 	int taille = Tuile.getTaille();
-	// Plateau plateau = new Plateau();
 
-	Personnages p;
 	Plateau plateau;
+	ImageView personnage;
 
 	/**
-	 * Constructeur qui affiche l'image "personnage" dans la case de coordonn�es
+	 * Constructeur qui affiche l'image "personnage" dans la case de coordonn�es
 	 * (indY,indX)
 	 * 
 	 * @param personnage
@@ -30,21 +29,25 @@ public class PersonnagesVisual extends Parent {
 	 * @param e
 	 *            Represente le numero de l'equipe ( 0 pour le personnage 1, 1
 	 *            pour le personnage 2)
+	 * @require e == 0 || e == 1
 	 */
 	public PersonnagesVisual(ImageView personnage, int e, Plateau plateau) {
-		p = new Personnages(e);
-		this.indX = p.getX();
-		this.indY = p.getY();
+		if (e == 0) {
+			indX = 0;
+			indY = plateau.nbLignes() / 2;
+		} else if (e == 1) {
+			indX = plateau.nbColonnes() - 1;
+			indY = plateau.nbLignes() / 2;
+		} else
+			throw new PanicException("Numéro d'équipe incorrect");
+		this.personnage = personnage;
 		personnage.setTranslateX(indX * taille);
 		personnage.setTranslateY(indY * taille);
 		personnage.setFitWidth(taille);
 		personnage.setFitHeight(taille);
 		this.getChildren().add(personnage);
-		
+
 		this.plateau = plateau;
-		plateau.put(indX, indY, p);
-		//plateau.plateau[indY][indX] = p;
-	
 	}
 
 	/**
@@ -64,68 +67,46 @@ public class PersonnagesVisual extends Parent {
 	/**
 	 * Deplace le personnage d'une case vers le haut
 	 */
-	public void Haut(ImageView personnage) {
+	public void Haut() {
 		System.out.println(plateau.verification(indX, indY - 1));
-		if (indY > 0 && plateau.verification(indX, indY - 1) == 0 /*plateau.plateau[indX][indY-1]==null*/) {
-			indY--;
-			p.mouvement(PointCardinal.NORD);
-			plateau.move(indX, indY + 1, indX, indY);
-			personnage.setTranslateX(indX * taille);
-			personnage.setTranslateY(indY * taille);
-			personnage.setFitWidth(taille);
-			personnage.setFitHeight(taille);
-
-		}
+		indY--;
+		personnage.setTranslateX(indX * taille);
+		personnage.setTranslateY(indY * taille);
+		personnage.setFitWidth(taille);
+		personnage.setFitHeight(taille);
 	}
 
 	/**
 	 * Deplace le personnage d'une case vers le bas
 	 */
-	public void Bas(ImageView personnage) {
-		if (indY < Terrain.getTuileY() - 1 && plateau.verification(indX, indY + 1) == 0) {
-			indY++;
-			p.mouvement(PointCardinal.SUD);
-			plateau.move(indX, indY - 1, indX, indY);
-			personnage.setTranslateX(indX * taille);
-			personnage.setTranslateY(indY * taille);
-			personnage.setFitWidth(taille);
-			personnage.setFitHeight(taille);
-
-		}
-
+	public void Bas() {
+		indY++;
+		personnage.setTranslateX(indX * taille);
+		personnage.setTranslateY(indY * taille);
+		personnage.setFitWidth(taille);
+		personnage.setFitHeight(taille);
 	}
 
 	/**
 	 * Delace le personnage d'une case vers la gauche
 	 */
-	public void Gauche(ImageView personnage) {
-		if (indX > 0 && plateau.verification(indX - 1, indY) == 0) {
-			indX--;
-			p.mouvement(PointCardinal.OUEST);
-			plateau.move(indX + 1, indY, indX, indY);
-			personnage.setTranslateX(indX * taille);
-			personnage.setTranslateY(indY * taille);
-			personnage.setFitWidth(taille);
-			personnage.setFitHeight(taille);
-			
-
-		}
+	public void Gauche() {
+		indX--;
+		personnage.setTranslateX(indX * taille);
+		personnage.setTranslateY(indY * taille);
+		personnage.setFitWidth(taille);
+		personnage.setFitHeight(taille);
 	}
 
 	/**
 	 * Deplace le personnage d'une case vers la droite
 	 */
-	public void Droite(ImageView personnage) {
-		if (indX < Terrain.getTuileX() - 1 && plateau.verification(indX + 1, indY) == 0) {
-			indX++;
-			p.mouvement(PointCardinal.EST);
-			plateau.move(indX - 1, indY, indX, indY);
-			personnage.setTranslateX(indX * taille);
-			personnage.setTranslateY(indY * taille);
-			personnage.setFitWidth(taille);
-			personnage.setFitHeight(taille);
-
-		}
+	public void Droite() {
+		indX++;
+		personnage.setTranslateX(indX * taille);
+		personnage.setTranslateY(indY * taille);
+		personnage.setFitWidth(taille);
+		personnage.setFitHeight(taille);
 	}
 
 }

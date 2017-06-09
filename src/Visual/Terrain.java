@@ -1,5 +1,6 @@
 package Visual;
 
+import Engine.Personnages;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,12 +21,15 @@ public class Terrain extends Parent {
 
 	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
+	static ImageView op = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 
 	Plateau plateau = new Plateau();
-	PersonnagesVisual personnage1 = new PersonnagesVisual(p1, 0, plateau);
-	PersonnagesVisual personnage2 = new PersonnagesVisual(p2, 1, plateau);
-	
+	PersonnagesVisual visuel1 = new PersonnagesVisual(p1, 0, plateau);
+	Personnages personnage1 = new Personnages(plateau, 0, visuel1);
+	PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
+	Personnages personnage2 = new Personnages(plateau, 1, visuel2);
+
 	OperateursVisual operateur = new OperateursVisual(op, plateau);
 
 	public Terrain() {
@@ -48,8 +52,8 @@ public class Terrain extends Parent {
 			this.getChildren().add(tuile);
 		}
 
-		this.getChildren().add(personnage1);
-		this.getChildren().add(personnage2);
+		this.getChildren().add(visuel1);
+		this.getChildren().add(visuel2);
 		this.getChildren().add(operateur);
 
 	}
@@ -70,18 +74,18 @@ public class Terrain extends Parent {
 		return grilleHeight;
 	}
 
-	public PersonnagesVisual getpersonnage1() {
+	public Personnages getpersonnage1() {
 		return personnage1;
 	}
 
-	public PersonnagesVisual getpersonnage2() {
+	public Personnages getpersonnage2() {
 		return personnage2;
 	}
 
-	public OperateursVisual getoperateur(){
+	public OperateursVisual getoperateur() {
 		return operateur;
 	}
-	
+
 	public ImageView getImagePersonnage1() {
 		return p1;
 	}
@@ -89,7 +93,7 @@ public class Terrain extends Parent {
 	public ImageView getImagePersonnage2() {
 		return p2;
 	}
-	
+
 	public ImageView getImageOperateur() {
 		return op;
 	}

@@ -4,20 +4,34 @@ import java.util.ArrayList;
 
 import Exception.PanicException;
 
+/**
+ * Implémentation du code executable des robots en version simplifiee (pas
+ * d'encapsulation) et sous format de tableau d'operateurs
+ * 
+ * @author CHANET Zoran
+ *
+ */
 public class Automates {
+	/**
+	 * la suite d'operateurs executable
+	 */
 	ArrayList<Operateurs> code = new ArrayList<Operateurs>();
 	private int lastAccoladeOMet;
 	private int lastStarMet;
 	private int fermetureEtoile;
+	/**
+	 * l'indice dans code du prochain operateur a executer
+	 */
 	private int exec;
 	private Operateurs enExec;
 	private Operateurs barreEnCours;
 	/**
 	 * indique à l'appel d'un opérateur d'action s'il doit s'exécuter ou
+	 * verifier la suite du code
 	 */
 	private boolean execution = false;
 	/**
-	 * Indique le nombre de répétitions de l'acttion (nécessaire en cas de :)
+	 * Indique le nombre de répétitions de l'action (nécessaire en cas de :)
 	 */
 	private int nbExec = 1;
 
@@ -179,11 +193,11 @@ public class Automates {
 		retour = code.get(0) instanceof Star && code.get(1) instanceof AccoladeO
 				&& code.get(code.size() - 1) instanceof AccoladeF;
 		for (int i = 2; pointvirg < 4 && accolades >= 0 && retour && i < code.size() - 1; i++) {
-			if(code.get(i) instanceof PointVirgule)
+			if (code.get(i) instanceof PointVirgule)
 				pointvirg = 0;
 			else
 				pointvirg++;
-			
+
 			if (code.get(i) instanceof AccoladeO) {
 				accolades++;
 				retour &= !(code.get(i - 1) instanceof AccoladeF || code.get(i - 1) instanceof DeuxPoints
@@ -370,13 +384,13 @@ public class Automates {
 
 	}
 
-	 public static void main(String[] args) {
-	 Automates a = new Automates("*{H >K > {P::}}");
-	 String aff = a.toString();
-	 if (a.estValide())
-	 aff += " est un automate correct";
-	 else
-	 aff += " est un automate incorrect";
-	 System.out.println(aff);
-	 }
+	public static void main(String[] args) {
+		Automates a = new Automates("*{H >K > {P::}}");
+		String aff = a.toString();
+		if (a.estValide())
+			aff += " est un automate correct";
+		else
+			aff += " est un automate incorrect";
+		System.out.println(aff);
+	}
 }

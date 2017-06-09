@@ -16,9 +16,11 @@ public class Robots implements Vivante {
 	Plateau plateau;
 
 	/**
-	 * crée un robot et le place dans l'équipe e
+	 * cree un robot et le place dans l'équipe e
 	 * 
 	 * @param e
+	 *            l'equipe dans laquelle ajouter le robot
+	 * @require e == 0 || e == 1
 	 */
 	public Robots(Plateau plateau, int e) {
 		if (e == 0) {
@@ -252,15 +254,15 @@ public class Robots implements Vivante {
 		int destX = -1;
 		int destY = -1;
 		// Recherche des coordonnees de l'ennemi
-		for(int i=0; destX < 0 && i<plateau.nbLignes(); i++)
-			for(int j=0; destX < 0 && j<plateau.nbColonnes(); i++){
+		for (int i = 0; destX < 0 && i < plateau.nbLignes(); i++)
+			for (int j = 0; destX < 0 && j < plateau.nbColonnes(); i++) {
 				caze = plateau.unsafeGet(i, j);
-				if(caze instanceof Personnages && memeEquipe((Personnages)caze)){
+				if (caze instanceof Personnages && memeEquipe((Personnages) caze)) {
 					destX = caze.getX();
 					destY = caze.getY();
 				}
 			}
-		
+
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'allie
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
