@@ -13,7 +13,7 @@ public class Robots implements Vivante {
 	int equipe;
 	int nbcoups = 0;
 	int PV = 3;
-	int nbCoupsRecus = 0;
+	public int nbCoupsRecus = 0;
 	Plateau plateau;
 	RobotVisual visuel;
 	Personnages personnage;
@@ -28,8 +28,14 @@ public class Robots implements Vivante {
 	/**
 	 * cree un robot et le place dans l'équipe e
 	 * 
+	 * @param plateau
+	 *            le plateau dans lequel le robot evolue
+	 * @param personnage
+	 *            le personnage associe au robot
 	 * @param e
 	 *            l'equipe dans laquelle ajouter le robot
+	 * @param visuel
+	 *            le "robot graphique" associe au robot
 	 * @require e == 0 || e == 1
 	 */
 	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel) {
@@ -49,6 +55,21 @@ public class Robots implements Vivante {
 		plateau.put(x, y, this);
 	}
 
+	/**
+	 * cree un robot et le place dans l'équipe e
+	 * 
+	 * @param plateau
+	 *            le plateau dans lequel le robot evolue
+	 * @param personnage
+	 *            le personnage associe au robot
+	 * @param e
+	 *            l'equipe dans laquelle ajouter le robot
+	 * @param visuel
+	 *            le "robot graphique" associe au robot
+	 * @param behave
+	 *            la chaine de caracteres decrivant l'automate du robot
+	 * @require e == 0 || e == 1
+	 */
 	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) {
 		this.plateau = plateau;
 		if (e == 0) {
@@ -66,32 +87,19 @@ public class Robots implements Vivante {
 		plateau.put(x, y, this);
 	}
 
-	/**
-	 * Crée un robot de comportement a, et le place dans l'équipe e
-	 * 
-	 * @param e
-	 * @param a
-	 */
-	// public Robots(int e, Automates a) {
-	// if (e == 0) {
-	// x = Terrain.getTuileY() / 2;
-	// y = 1;
-	// } else if (e == 1) {
-	// x = Terrain.getTuileY() / 2;
-	// y = Terrain.getTuileX() - 1;
-	// } else
-	// throw new PanicException("Numéro d'équipe incorrect");
-	// equipe = e;
-	// behavior = new Automate(a);
-	// }
-
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
 	}
 
 	@Override
+	/**
+	 * Deplace le robot d'une case dans la direction du point cardinal p
+	 * 
+	 * @param p
+	 *            le point cardinal donnant la direction du mouvement
+	 */
 	public void mouvement(PointCardinal p) {
-		plateau.toString();
+		// plateau.toString();
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
@@ -201,15 +209,16 @@ public class Robots implements Vivante {
 	 */
 	public PointCardinal allieAdjacent() {
 		PointCardinal retour = null;
-		if (plateau.unsafeGet(x + 1, y) instanceof Personnages && memeEquipe((Personnages) plateau.unsafeGet(x + 1, y)))
+		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Personnages
+				&& memeEquipe((Personnages) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
-		else if (plateau.unsafeGet(x - 1, y) instanceof Personnages
+		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Personnages
 				&& memeEquipe((Personnages) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (plateau.unsafeGet(x, y + 1) instanceof Personnages
+		else if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Personnages
 				&& memeEquipe((Personnages) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
-		else if (plateau.unsafeGet(x, y - 1) instanceof Personnages
+		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Personnages
 				&& memeEquipe((Personnages) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
@@ -218,38 +227,47 @@ public class Robots implements Vivante {
 
 	/**
 	 * Si un ennemi est localise dans une case adjacente, le frappe
-	 * 
-	 * @param nbHits
-	 *            le nombre de coups a donner
 	 */
 	public void hit() {
 		switch (ennemiAdjacent()) {
 		case NORD:
-			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(1);
+			((Vivante) plateau.unsafeGet(x, y - 1)).isHit();
 			break;
 		case SUD:
-			((Vivante) plateau.unsafeGet(x, y + 1)).isHit(1);
+			((Vivante) plateau.unsafeGet(x, y + 1)).isHit();
 			break;
 		case EST:
-			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(1);
+			((Vivante) plateau.unsafeGet(x + 1, y)).isHit();
 			break;
 		case OUEST:
-			((Vivante) plateau.unsafeGet(x - 1, y)).isHit(1);
+			((Vivante) plateau.unsafeGet(x - 1, y)).isHit();
 			break;
 		default:
 		}
 	}
 
+	/**
+	 * Le robot explose (meurt), en infligeant autour de lui dans les quatre
+	 * directions des degats egaux a ses points de vie actuels
+	 */
 	public void boom() {
 		nbCoupsRecus = PV;
-		if (plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
-			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(PV);
-		if (plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
-			((Vivante) plateau.unsafeGet(x - 1, y)).isHit(PV);
-		if (plateau.unsafeGet(x, y + 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
-			((Vivante) plateau.unsafeGet(x, y + 1)).isHit(PV);
-		if (plateau.unsafeGet(x, y - 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
-			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(PV);
+		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x + 1, y)).isHit();
+		if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x - 1, y)).isHit();
+		if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x, y + 1)).isHit();
+		if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x, y - 1)).isHit();
 	}
 
 	/**
@@ -258,7 +276,7 @@ public class Robots implements Vivante {
 	 * @param nbHits
 	 *            le nombre de coups reçus
 	 */
-	public void isHit(int nbHits) {
+	public void isHit() {
 		nbCoupsRecus++;
 	}
 
@@ -374,8 +392,13 @@ public class Robots implements Vivante {
 		nbCoupsRecus = 0;
 		return PV > 0;
 	}
-	
-	public int getHealth(){
+
+	/**
+	 * Donne le nombre de PV actuels du robot
+	 * 
+	 * @return le nombre de PV du robot
+	 */
+	public int getHealth() {
 		return PV;
 	}
 }

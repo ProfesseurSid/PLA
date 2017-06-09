@@ -36,14 +36,14 @@ public class Test extends Application {
 		scene.setOnKeyPressed(keyboard);
 
 		OperateursVisual operateur;
-		operateur = monTerrain.getoperateur();
+//		operateur = monTerrain.getoperateur();
 
-		Timeline blinker = operateur.Blinker(monTerrain.getImageOperateur());
-		FadeTransition fader = operateur.Fader(monTerrain.getImageOperateur());
+//		Timeline blinker = operateur.Blinker(monTerrain.getImageOperateur());
+//		FadeTransition fader = operateur.Fader(monTerrain.getImageOperateur());
 
-		SequentialTransition blinkThenFade = new SequentialTransition(monTerrain.getImageOperateur(), blinker, fader);
+//		SequentialTransition blinkThenFade = new SequentialTransition(monTerrain.getImageOperateur(), blinker, fader);
 
-		blinkThenFade.play();
+//		blinkThenFade.play();
 
 		Boite boiteGauche = new Boite();
 		boiteGauche.setTranslateX(10);
@@ -69,7 +69,7 @@ public class Test extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 
-		Timer game = new Timer();
+		Timer game = new Timer(monTerrain);
 		game.start();
 	}
 

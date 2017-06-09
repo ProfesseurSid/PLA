@@ -1,8 +1,13 @@
 package Engine;
 
+import Visual.*;
+import javafx.scene.Parent;
+
 public class Barre implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de barre
@@ -20,9 +25,12 @@ public class Barre implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public Barre(int x, int y) {
+	public Barre(int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
 	}
 
 	@Override
@@ -36,12 +44,14 @@ public class Barre implements Operateurs {
 	}
 
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('|');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	public boolean doable(Robots nono) {
@@ -67,6 +77,13 @@ public class Barre implements Operateurs {
 	 */
 	public boolean isPossible(Robots nono) {
 		return true;
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 
 }

@@ -1,6 +1,9 @@
 package Engine;
 
 import Exception.PanicException;
+import Visual.OperateursVisual;
+import javafx.scene.Parent;
+import Visual.*;
 
 /**
  * Classe de l'operateur Hit. Lorsque un robot rencontre un ennemi il le frappe.
@@ -8,6 +11,8 @@ import Exception.PanicException;
 public class Hit implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de hit
@@ -22,9 +27,13 @@ public class Hit implements Operateurs {
 	/**
 	 * Constructeur de hit
 	 */
-	public Hit(int x, int y) {
+	public Hit(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	/**
@@ -46,13 +55,14 @@ public class Hit implements Operateurs {
 	}
 
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
-	 * @param p
-	 *            Personnage qui doit recevoir l'operateur.
+	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('H');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	/**
@@ -78,7 +88,13 @@ public class Hit implements Operateurs {
 	 */
 	public boolean isPossible(Robots nono) {
 		return (nono.ennemiAdjacent() != null);
-		//return true;
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 
 }

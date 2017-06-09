@@ -3,6 +3,7 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
+import Visual.OperateursVisual;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 
@@ -180,8 +181,9 @@ public class Personnages implements Vivante {
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
-				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs)
+				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs){
 					((Operateurs) plateau.unsafeGet(x, y - 1)).stock(this);
+				}
 				y--;
 				plateau.move(x, y + 1, x, y);
 				visuel.Haut();
@@ -224,9 +226,9 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Fonction d'affichage de la classe Personnages.
+	 * Fonction de creation d'une chaine d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caract�re correspondant � l'affichage.
+	 * @return La chaine de caracteres correspondant a l'affichage.
 	 * @since Version 1.0
 	 */
 	public String toString() {
@@ -264,8 +266,8 @@ public class Personnages implements Vivante {
 	 * @param nbHits
 	 *            le nombre de coups reçus
 	 */
-	public void isHit(int nbHits) {
-		PV -= nbHits;
+	public void isHit() {
+		PV--;
 	}
 
 	/**
@@ -287,11 +289,10 @@ public class Personnages implements Vivante {
 	 * @require num == 1 || num == 2 || num == 3
 	 */
 	public Robots getRobot(int num) {
-		try{
+		try {
 			return Units[num - 1];
-		}
-		catch(Exception e){
-			throw new PanicException("getRobots personnage equipe "+equipe+" mauvais indice");
+		} catch (Exception e) {
+			throw new PanicException("getRobots personnage equipe " + equipe + " mauvais indice");
 		}
 	}
 

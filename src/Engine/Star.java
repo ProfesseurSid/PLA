@@ -1,8 +1,13 @@
 package Engine;
 
+import Visual.*;
+import javafx.scene.Parent;
+
 public class Star implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de *
@@ -20,9 +25,12 @@ public class Star implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public Star(int x, int y) {
+	public Star(int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
 	}
 
 	@Override
@@ -37,12 +45,14 @@ public class Star implements Operateurs {
 
 	@Override
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('*');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	/**
@@ -64,5 +74,12 @@ public class Star implements Operateurs {
 	 */
 	public boolean isPossible(Robots nono) {
 		return true;
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 }

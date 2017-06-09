@@ -1,6 +1,8 @@
 package Engine;
 
 import Exception.PanicException;
+import Visual.*;
+import javafx.scene.Parent;
 
 /**
  * Classe de l'operateur Kamikaze. Lorsque un robot rencontre un ennemi il
@@ -9,6 +11,8 @@ import Exception.PanicException;
 public class Kamikaze implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de kamikaze
@@ -23,9 +27,13 @@ public class Kamikaze implements Operateurs {
 	/**
 	 * Constructeur de kamikaze
 	 */
-	public Kamikaze(int x, int y) {
+	public Kamikaze(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	/**
@@ -47,13 +55,14 @@ public class Kamikaze implements Operateurs {
 	}
 
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
-	 * @param p
-	 *            Personnage qui doit recevoir l'operateur.
+	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('K');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	/**
@@ -80,6 +89,13 @@ public class Kamikaze implements Operateurs {
 	 */
 	public boolean isPossible(Robots nono) {
 		return (nono.ennemiAdjacent() != null);
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 
 }

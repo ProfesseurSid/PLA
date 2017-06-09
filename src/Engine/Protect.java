@@ -1,6 +1,10 @@
 package Engine;
 
 import Exception.PanicException;
+import Visual.OperateursVisual;
+import Visual.Plateau;
+import Visual.Terrain;
+import javafx.scene.Parent;
 
 /**
  * Classe de l'operateur Protect. Permet au robot de se proteger des coups.
@@ -8,6 +12,9 @@ import Exception.PanicException;
 public class Protect implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
+	
 
 	/**
 	 * Constructeur de protect
@@ -22,9 +29,13 @@ public class Protect implements Operateurs {
 	/**
 	 * Constructeur de protect
 	 */
-	public Protect(int x, int y) {
+	public Protect(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	/**
@@ -46,13 +57,14 @@ public class Protect implements Operateurs {
 	}
 
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
-	 * @param p
-	 *            Personnage qui doit recevoir l'operateur.
+	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('P');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	/**
@@ -78,7 +90,11 @@ public class Protect implements Operateurs {
 	 * @return true si l'action est possible false sinon.
 	 */
 	public boolean isPossible(Robots nono) {
-		return true;
+		return nono.ennemiAdjacent() != null;
+	}
+
+	public Parent getVisual(){
+		return visuel;
 	}
 
 }

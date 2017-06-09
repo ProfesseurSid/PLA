@@ -1,6 +1,9 @@
 package Visual;
 
 import Engine.Entite;
+import Engine.Operateurs;
+import Engine.Personnages;
+import Engine.Robots;
 import Engine.Vivante;
 import Exception.PanicException;
 
@@ -11,10 +14,13 @@ public class Plateau {
 
 	public Entite[][] plateau;
 
-	public Plateau() {
+	Terrain t;
+
+	public Plateau(Terrain t) {
 		grilleWidth = Terrain.getTuileX();
 		grilleHeight = Terrain.getTuileY();
 		plateau = new Entite[grilleHeight][grilleWidth];
+		this.t = t;
 	}
 
 	/**
@@ -97,7 +103,7 @@ public class Plateau {
 	 *            l'entite a placer
 	 */
 	public void remove(int x, int y, Entite e) {
-		if(plateau[y][x] == e)
+		if (plateau[y][x] == e)
 			plateau[y][x] = null;
 	}
 
@@ -118,10 +124,14 @@ public class Plateau {
 	public String toString() {
 		for (int i = 0; i < grilleWidth; i++) {
 			for (int j = 0; j < grilleHeight; j++) {
-				if (plateau[j][i] != null)
-					System.out.print("R");
-				else
+				if (plateau[j][i] == null)
 					System.out.print("_");
+				else if (plateau[j][i] instanceof Operateurs)
+					System.out.print(plateau[j][i].toString());
+				else if (plateau[j][i] instanceof Robots)
+					System.out.print("R");
+				else if (plateau[j][i] instanceof Personnages)
+					System.out.print("P");
 			}
 			System.out.print("\n");
 		}
