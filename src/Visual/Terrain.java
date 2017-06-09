@@ -1,6 +1,7 @@
 package Visual;
 
 import Engine.Personnages;
+import Engine.Robots;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +22,7 @@ public class Terrain extends Parent {
 
 	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+	static ImageView r1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 	static ImageView op = new ImageView(
 			new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 
@@ -29,7 +31,9 @@ public class Terrain extends Parent {
 	Personnages personnage1 = new Personnages(plateau, 0, visuel1);
 	PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	Personnages personnage2 = new Personnages(plateau, 1, visuel2);
-
+	RobotVisual visuel3 = new RobotVisual(r1, 0, plateau);
+	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3);
+	
 	OperateursVisual operateur = new OperateursVisual(op, plateau);
 
 	public Terrain() {
@@ -51,11 +55,14 @@ public class Terrain extends Parent {
 		for (Tuile tuile : Tuiles) {
 			this.getChildren().add(tuile);
 		}
-
+		personnage1.addRobot(robot1, 1);
+		
+		
+		
 		this.getChildren().add(visuel1);
+		this.getChildren().add(visuel3);
 		this.getChildren().add(visuel2);
 		this.getChildren().add(operateur);
-
 	}
 
 	public static int getTuileX() {

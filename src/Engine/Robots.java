@@ -3,7 +3,9 @@ package Engine;
 import java.util.ArrayList;
 
 import Exception.PanicException;
+import Visual.PersonnagesVisual;
 import Visual.Plateau;
+import Visual.RobotVisual;
 import Visual.Terrain;
 
 public class Robots implements Vivante {
@@ -14,6 +16,8 @@ public class Robots implements Vivante {
 	int nbcoups = 0;
 	int PV = 3;
 	Plateau plateau;
+	RobotVisual visuel;
+	Personnages personnage;
 
 	/**
 	 * cree un robot et le place dans l'équipe e
@@ -22,7 +26,8 @@ public class Robots implements Vivante {
 	 *            l'equipe dans laquelle ajouter le robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, int e) {
+	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel) {
+		this.plateau = plateau;
 		if (e == 0) {
 			x = Terrain.getTuileY() / 2;
 			y = 1;
@@ -33,7 +38,9 @@ public class Robots implements Vivante {
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
 		behavior = new Automates();
-		this.plateau = plateau;
+		this.visuel = visuel;
+		this.personnage = personnage;
+		behavior = new Automates();
 	}
 
 	/**
@@ -61,7 +68,51 @@ public class Robots implements Vivante {
 
 	@Override
 	public void mouvement(PointCardinal p) {
-		// TODO Auto-generated method stub
+		plateau.toString();
+		switch (p) {
+		case NORD:
+			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
+				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x, y - 1)).stock(personnage);
+				y--;
+				plateau.move(x, y + 1, x, y);
+				visuel.Haut();
+				visuel.requestFocus();
+			}
+			break;
+		case SUD:
+			if (y < plateau.nbLignes() - 1 && !(plateau.unsafeGet(x, y + 1) instanceof Vivante)) {
+				if (plateau.unsafeGet(x, y + 1) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x, y + 1)).stock(personnage);
+				y++;
+				plateau.move(x, y - 1, x, y);
+				visuel.Bas();
+				visuel.requestFocus();
+			}
+			break;
+		case EST:
+			if (x < plateau.nbColonnes() - 1 && !(plateau.unsafeGet(x + 1, y) instanceof Vivante)) {
+				if (plateau.unsafeGet(x + 1, y) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x + 1, y)).stock(personnage);
+				x++;
+				plateau.move(x - 1, y, x, y);
+				visuel.Droite();
+				visuel.requestFocus();
+			}
+			break;
+		case OUEST:
+			if (x > 0 && !(plateau.unsafeGet(x - 1, y) instanceof Vivante)) {
+				if (plateau.unsafeGet(x - 1, y) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x - 1, y)).stock(personnage);
+				x--;
+				plateau.move(x + 1, y, x, y);
+				visuel.Gauche();
+				visuel.requestFocus();
+			}
+			break;
+		default:
+			throw new PanicException("Deplacement Personnage : Point Cardinal incorrect.");
+		}
 	}
 
 	/**
@@ -145,18 +196,6 @@ public class Robots implements Vivante {
 	 *            le nombre de coups a donner
 	 */
 	public void hit(int nbHits) {
-		// if (Plateau.unsafeGet(x + 1, y) instanceof Vivante &&
-		// !memeEquipe((Vivante) Plateau.unsafeGet(x + 1, y)))
-		// ((Vivante) Plateau.unsafeGet(x + 1, y)).isHit(nbHits);
-		// else if (Plateau.unsafeGet(x - 1, y) instanceof Vivante &&
-		// !memeEquipe((Vivante) Plateau.unsafeGet(x - 1, y)))
-		// ((Vivante) Plateau.unsafeGet(x - 1, y)).isHit(nbHits);
-		// else if (Plateau.unsafeGet(x, y + 1) instanceof Vivante &&
-		// !memeEquipe((Vivante) Plateau.unsafeGet(x, y + 1)))
-		// ((Vivante) Plateau.unsafeGet(x, y + 1)).isHit(nbHits);
-		// else if (Plateau.unsafeGet(x, y - 1) instanceof Vivante &&
-		// !memeEquipe((Vivante) Plateau.unsafeGet(x, y - 1)))
-		// ((Vivante) Plateau.unsafeGet(x, y - 1)).isHit(nbHits);
 		switch (ennemiAdjacent()) {
 		case NORD:
 			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(nbHits);
@@ -270,5 +309,18 @@ public class Robots implements Vivante {
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
+	}
+	
+	/**
+	 * Accesseur de visuel associe au robot
+	 * 
+	 * @return
+	 */
+	public RobotVisual getVisual() {
+		return visuel;
+	}
+	
+	public void step(){
+		behavior.execute(this);
 	}
 }

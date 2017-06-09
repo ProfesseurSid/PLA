@@ -119,14 +119,14 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Methode qui permet l'ajout d'un robots � l'�quipe du personnage.
+	 * Methode qui permet l'ajout d'un robots a l'equipe du personnage.
 	 * 
 	 * @param robot
-	 *            Robot � ajouter � l'inventaire de robot du personnage.
+	 *            Robot a ajouter a l'inventaire de robot du personnage.
 	 * @param room
 	 *            Case dans laquelle mettre le robot.
 	 * @require room comprit entre 1 et 3. Pas plus de 3 robots dans
-	 *          l'inventaire. room ne contient pas d�ja un robot.
+	 *          l'inventaire. room ne contient pas deja un robot.
 	 * @since Version 1.0
 	 */
 	public void addRobot(Robots robot, int room) {
@@ -138,7 +138,7 @@ public class Personnages implements Vivante {
 			throw new PanicException("Ajout d'un robot au personnage : Case invalide");
 		}
 		if (Units[indexUnit] != null) {
-			throw new PanicException("Ajout d'un robot au personnage : Case occup�e");
+			throw new PanicException("Ajout d'un robot au personnage : Case occupee");
 		}
 		Units[indexUnit] = robot;
 		numberRobots++;
@@ -275,5 +275,9 @@ public class Personnages implements Vivante {
 	 */
 	public PersonnagesVisual getVisual() {
 		return visuel;
+	}
+	
+	public Robots getRobot(int num){
+		return Units[num-1];
 	}
 }

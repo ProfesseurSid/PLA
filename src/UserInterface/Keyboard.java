@@ -61,6 +61,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 //				personnage1.getVisual().Haut(/*p1*/);
 //				personnage1.getVisual().requestFocus();
 				personnage1.mouvement(PointCardinal.NORD);
+				personnage1.getRobot(1).step();
 			} else if (event.getCode() == KeyCode.S) {
 //				personnage1.getVisual().Bas(/*p1*/);
 //				personnage1.getVisual().requestFocus();
