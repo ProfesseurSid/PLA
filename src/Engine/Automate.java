@@ -124,6 +124,7 @@ public class Automate {
 		RunAutomate(aExec, bot);
 	}
 
+	//FIXME
 	/**
 	 * Methode reccursive d'execution de l'automate code.
 	 * 
