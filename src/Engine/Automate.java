@@ -17,7 +17,7 @@ public class Automate {
 	private boolean pref;
 
 	/**
-	 * Constructeur d'arbre d'automate par défault.
+	 * Constructeur d'arbre d'automate par défault. 
 	 */
 	public Automate() {
 		code = new Arbre(new Star(), null, new Arbre(new Others()));
