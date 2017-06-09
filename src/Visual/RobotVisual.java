@@ -101,5 +101,9 @@ public class RobotVisual extends Parent {
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
 	}
+	
+	public void remove(){
+		this.getChildren().remove(robot);
+	}
 
 }

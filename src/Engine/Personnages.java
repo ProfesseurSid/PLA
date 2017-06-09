@@ -276,14 +276,38 @@ public class Personnages implements Vivante {
 	public PersonnagesVisual getVisual() {
 		return visuel;
 	}
-	
-	public Robots getRobot(int num){
-		return Units[num-1];
+
+	/**
+	 * Renvoie l'un des robots associes au joueur, s'il existe
+	 * 
+	 * @param num
+	 *            le numero du robot recerche
+	 * @return le robot numero num associe au joueur, ou null s'il ne dispose
+	 *         pas de robot numero num
+	 * @require num == 1 || num == 2 || num == 3
+	 */
+	public Robots getRobot(int num) {
+		try{
+			return Units[num - 1];
+		}
+		catch(Exception e){
+			throw new PanicException("getRobots personnage equipe "+equipe+" mauvais indice");
+		}
 	}
-	
-	public int getHealth(){
+
+	/**
+	 * Getter de PV du personnage
+	 * 
+	 * @return le nombre de PV restants du personnages
+	 */
+	public int getHealth() {
 		return PV;
 	}
-	
-	
+
+	/**
+	 * Indique si le personnage dipose encoure de PV ou non
+	 */
+	public boolean estEnVie() {
+		return PV > 0;
+	}
 }

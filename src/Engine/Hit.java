@@ -62,7 +62,7 @@ public class Hit implements Operateurs {
 	 *            Robot qui va executer l'action.
 	 */
 	public void action(Robots nono) {
-		nono.hit(1);
+		nono.hit();
 	}
 
 	public String toString() {

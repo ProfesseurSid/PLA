@@ -13,7 +13,7 @@ public class Robots implements Vivante {
 	int equipe;
 	int nbcoups = 0;
 	int PV = 3;
-	boolean isProtected = false;
+	int nbCoupsRecus = 0;
 	Plateau plateau;
 	RobotVisual visuel;
 	Personnages personnage;
@@ -176,13 +176,17 @@ public class Robots implements Vivante {
 	 */
 	public PointCardinal ennemiAdjacent() {
 		PointCardinal retour = null;
-		if (plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
+		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
-		else if (plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
+		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (plateau.unsafeGet(x, y + 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
+		else if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
-		else if (plateau.unsafeGet(x, y - 1) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
+		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
 		return retour;
@@ -218,27 +222,26 @@ public class Robots implements Vivante {
 	 * @param nbHits
 	 *            le nombre de coups a donner
 	 */
-	public void hit(int nbHits) {
-		isProtected = false;
+	public void hit() {
 		switch (ennemiAdjacent()) {
 		case NORD:
-			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x, y - 1)).isHit(1);
 			break;
 		case SUD:
-			((Vivante) plateau.unsafeGet(x, y + 1)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x, y + 1)).isHit(1);
 			break;
 		case EST:
-			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(1);
 			break;
 		case OUEST:
-			((Vivante) plateau.unsafeGet(x - 1, y)).isHit(nbHits);
+			((Vivante) plateau.unsafeGet(x - 1, y)).isHit(1);
 			break;
 		default:
 		}
 	}
 
 	public void boom() {
-		isProtected = false;
+		nbCoupsRecus = PV;
 		if (plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(PV);
 		if (plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
@@ -256,9 +259,7 @@ public class Robots implements Vivante {
 	 *            le nombre de coups reçus
 	 */
 	public void isHit(int nbHits) {
-		if(!isProtected){
-			PV--;
-		}
+		nbCoupsRecus++;
 	}
 
 	/**
@@ -268,7 +269,7 @@ public class Robots implements Vivante {
 	 *            le nombre de coups dont on se protege
 	 */
 	public void protect(int nbHits) {
-		isProtected = true;
+		nbCoupsRecus--;
 	}
 
 	/**
@@ -287,23 +288,24 @@ public class Robots implements Vivante {
 				caze = plateau.unsafeGet(i, j);
 				if (caze instanceof Vivante) {
 					if (!memeEquipe((Vivante) caze) && ((Math.abs(x - caze.getX())
-							+ Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))) {
+							+ Math.abs(y - caze.getY()) < (Math.abs(x - destX) + Math.abs(y - destY))))) {
 						destX = i;
 						destY = j;
-						//System.out.println("JE PASSE LAAAAA " + destX + " " + destY);
+						// System.out.println("JE PASSE LAAAAA " + destX + " " +
+						// destY);
 					}
 				}
 			}
-		//System.out.println("Cherche : " + destX + " " + destY);
+		// System.out.println("Cherche : " + destX + " " + destY);
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
-		//System.out.println("LENGTH : " + mvmt.size());
+		// System.out.println("LENGTH : " + mvmt.size());
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
-		//System.out.println("Vie P1 : " + personnage.getHealth());
+		// System.out.println("Vie P1 : " + personnage.getHealth());
 	}
 
 	/**
@@ -339,17 +341,41 @@ public class Robots implements Vivante {
 	/**
 	 * Accesseur de visuel associe au robot
 	 * 
-	 * @return
+	 * @return le visuel associe au robot
 	 */
 	public RobotVisual getVisual() {
 		return visuel;
 	}
 
+	/**
+	 * Execute une etape de l'automate behavior
+	 */
 	public void step() {
 		behavior.Run(this);
 	}
-	
-	public void setBehavior(String s){
+
+	/**
+	 * donne l'automate correspondant a la string s comme comportement au robot
+	 * 
+	 * @param s
+	 *            la chaine de caracteres decrivant l'automate
+	 */
+	public void setBehavior(String s) {
 		behavior = new Automate(s);
+	}
+
+	/**
+	 * Calcule le nouveau montant de PV du robot, puis indique s'il est encore
+	 * en vie
+	 */
+	public boolean estEnVie() {
+		if (nbCoupsRecus > 0)
+			PV -= nbCoupsRecus;
+		nbCoupsRecus = 0;
+		return PV > 0;
+	}
+	
+	public int getHealth(){
+		return PV;
 	}
 }
