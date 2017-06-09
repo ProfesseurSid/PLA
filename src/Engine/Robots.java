@@ -3,10 +3,8 @@ package Engine;
 import java.util.ArrayList;
 
 import Exception.PanicException;
-import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
-import Visual.Terrain;
 
 public class Robots implements Vivante {
 
@@ -29,11 +27,11 @@ public class Robots implements Vivante {
 	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel) {
 		this.plateau = plateau;
 		if (e == 0) {
-			x = Terrain.getTuileY() / 2;
-			y = 1;
+			x = 1;
+			y = plateau.nbLignes() / 2;
 		} else if (e == 1) {
-			x = Terrain.getTuileY() / 2;
-			y = Terrain.getTuileX() - 1;
+			x = plateau.nbColonnes() - 2;
+			y = plateau.nbLignes() / 2;
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
@@ -41,6 +39,7 @@ public class Robots implements Vivante {
 		this.visuel = visuel;
 		this.personnage = personnage;
 		behavior = new Automate();
+		plateau.put(x, y, this);
 	}
 
 	/**
@@ -49,18 +48,18 @@ public class Robots implements Vivante {
 	 * @param e
 	 * @param a
 	 */
-//	public Robots(int e, Automates a) {
-//		if (e == 0) {
-//			x = Terrain.getTuileY() / 2;
-//			y = 1;
-//		} else if (e == 1) {
-//			x = Terrain.getTuileY() / 2;
-//			y = Terrain.getTuileX() - 1;
-//		} else
-//			throw new PanicException("Numéro d'équipe incorrect");
-//		equipe = e;
-//		behavior = new Automate(a);
-//	}
+	// public Robots(int e, Automates a) {
+	// if (e == 0) {
+	// x = Terrain.getTuileY() / 2;
+	// y = 1;
+	// } else if (e == 1) {
+	// x = Terrain.getTuileY() / 2;
+	// y = Terrain.getTuileX() - 1;
+	// } else
+	// throw new PanicException("Numéro d'équipe incorrect");
+	// equipe = e;
+	// behavior = new Automate(a);
+	// }
 
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
@@ -251,11 +250,9 @@ public class Robots implements Vivante {
 	 *            le nombre de pas du robot
 	 */
 	public void versEnnemi(int nbMov) {
-		// TODO : Algorithme de recherche de l'ennemi le plus proche + plus
-		// court chemin
 		Entite caze;
-		int destX = x;
-		int destY = y;
+		int destX = 3*plateau.nbColonnes();
+		int destY = 3*plateau.nbLignes();
 		// Recherche des coordonnees de l'ennemi
 		for (int i = 0; i < plateau.nbColonnes(); i++)
 			for (int j = 0; j < plateau.nbLignes(); j++) {
@@ -263,18 +260,18 @@ public class Robots implements Vivante {
 				if (caze instanceof Vivante) {
 					if (!memeEquipe((Vivante) caze) && ((Math.abs(x - caze.getX())
 							+ Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))) {
-						destX = caze.getX();
-						destY = caze.getY();
+						destX = i;
+						destY = j;
+						System.out.println("JE PASSE LAAAAA "+destX+" "+destY);
 					}
-
 				}
 			}
-		System.out.println("Cherche" + destX + " " + destY);
-
+		System.out.println("Cherche : "+destX+" "+destY);
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
-		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
+		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
+		System.out.println("LENGTH : "+mvmt.size());
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
@@ -287,8 +284,6 @@ public class Robots implements Vivante {
 	 *            le nombre de pas du robot
 	 */
 	public void versJoueur(int nbMov) {
-		// TODO : Algorithme de recherche de l'allié + plus court chemin
-
 		// Recherche des coordonnees de l'allie
 		Entite caze;
 		int destX = -1;
@@ -311,7 +306,7 @@ public class Robots implements Vivante {
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
 	}
-	
+
 	/**
 	 * Accesseur de visuel associe au robot
 	 * 
@@ -320,8 +315,8 @@ public class Robots implements Vivante {
 	public RobotVisual getVisual() {
 		return visuel;
 	}
-	
-	public void step(){
+
+	public void step() {
 		behavior.Run(this);
 	}
 }

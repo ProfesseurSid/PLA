@@ -3,7 +3,10 @@ package Engine;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Visual.PersonnagesVisual;
 import Visual.Plateau;
+import Visual.RobotVisual;
+import javafx.scene.image.ImageView;
 
 /**
  * Implémente les fonctions propres a la recherche du plus court chemin en
@@ -16,13 +19,17 @@ public class RechercheChemin {
 	final static int TRIED = 2;
 	final static int PATH = 3;
 
-	public static void main(String[] args) {
-		Plateau plat = new Plateau();
-		RechercheChemin maze = new RechercheChemin(plat, 10, 0, 7, 5);
-		boolean solved = maze.solve();
-		System.out.println("Solved: " + solved);
-		System.out.println(maze.toString());
-	}
+	 public static void main(String[] args) {
+	 Plateau plat = new Plateau();
+	 Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new ImageView(), 0, plat));
+	 Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new ImageView(), 1, plat));
+	 Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0, plat));
+	 plat.toString();
+	 RechercheChemin maze = new RechercheChemin(plat, 1, 5, 20, 5);
+	 boolean solved = maze.solve();
+	 System.out.println("Solved: " + solved);
+	 System.out.println(maze.toString());
+	 }
 
 	private int[][] grid;
 	private int height;
@@ -55,10 +62,12 @@ public class RechercheChemin {
 		this.destY = destY;
 		this.origX = origX;
 		this.origY = origY;
+		System.out.println("Cherche " + destX + " " + destY + " Depuis " + origX + " " + origY);
+
 		grid = new int[height][width];
 		for (int i = 0; i < plate.nbLignes(); i++)
 			for (int j = 0; j < plate.nbColonnes(); j++)
-				if (plate.unsafeGet(i, j) instanceof Vivante)
+				if (plate.unsafeGet(j, i) instanceof Vivante)
 					grid[i][j] = 0;
 				else
 					grid[i][j] = 1;
@@ -78,16 +87,20 @@ public class RechercheChemin {
 		ArrayList<PointCardinal> retour = new ArrayList<PointCardinal>();
 		int x = origX;
 		int y = origY;
-		if (solve())
+		System.out.println("JE SUIS LA");
+		if (solve()) {
+			System.out.println("ET LA");
 			for (int i = 0; i < nbPas; i++)
-				if (map[x][y - 1] == PATH)
-					retour.add(PointCardinal.NORD);
-				else if (map[x][y + 1] == PATH)
-					retour.add(PointCardinal.SUD);
-				else if (map[x + 1][y] == PATH)
-					retour.add(PointCardinal.EST);
-				else if (map[x - 1][y] == PATH)
+				if (y > 0 && map[x][y - 1] == PATH)
 					retour.add(PointCardinal.OUEST);
+				else if (y < width-1 && map[x][y + 1] == PATH)
+					retour.add(PointCardinal.EST);
+				else if (x < height-1 && map[x + 1][y] == PATH)
+					retour.add(PointCardinal.SUD);
+				else if (x > 0 && map[x - 1][y] == PATH)
+					retour.add(PointCardinal.NORD);
+			System.out.println("LENGTH : " + retour.size());
+		}
 		return retour;
 	}
 
@@ -113,7 +126,7 @@ public class RechercheChemin {
 		if (!isValid(i, j)) {
 			return false;
 		}
-
+		
 		if (isEnd(i, j)) {
 			map[i][j] = PATH;
 			return true;
@@ -157,6 +170,19 @@ public class RechercheChemin {
 	private boolean isEnd(int i, int j) {
 		return i == destX && j == destY;
 	}
+	
+	/**
+	 * la case (i,j) est-elle le depart ?
+	 * 
+	 * @param i
+	 *            colonne de la case a tester
+	 * @param j
+	 *            ligne de la case a tester
+	 * @return booleen : la case est le depart
+	 */
+	private boolean isStart(int i, int j) {
+		return i == origX && j == origY;
+	}
 
 	/**
 	 * la case (i,j) est-elle valide pour la recherche ?
@@ -185,7 +211,7 @@ public class RechercheChemin {
 	 * @return booleen : la case est libre
 	 */
 	private boolean isOpen(int i, int j) {
-		return grid[i][j] == 1;
+		return isStart(i, j) || isEnd(i, j) || grid[i][j] == 1;
 	}
 
 	/**
@@ -224,7 +250,7 @@ public class RechercheChemin {
 	 *         destination
 	 */
 	private boolean inHeight(int i) {
-		return (i >= origX && i <= destX) || (i <= origX && i >= destX);
+		return i>=0 && i<height && (i >= origX && i <= destX) || (i <= origX && i >= destX);
 	}
 
 	/**
@@ -237,7 +263,7 @@ public class RechercheChemin {
 	 *         destination
 	 */
 	private boolean inWidth(int j) {
-		return (j >= origY && j <= destY) || (j <= origY && j >= destY);
+		return j>=0 && j<width && (j >= origY && j <= destY) || (j <= origY && j >= destY);
 	}
 
 	/**
