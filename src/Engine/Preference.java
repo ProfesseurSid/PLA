@@ -2,7 +2,7 @@ package Engine;
 
 public class Preference implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de >
@@ -45,13 +45,12 @@ public class Preference implements Operateurs {
 		p.addOperator('>');
 	}
 
-	public boolean doable(Robots nono) {
-		return true;
-	}
-
+	/**
+	 * Si on a un ">", on execute rien
+	 */
 	@Override
-	public void action(Automates a, Robots nono) {
-		a.preference();
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
@@ -59,4 +58,11 @@ public class Preference implements Operateurs {
 		return ">";
 	}
 
+	@Override
+	/**
+	 * > toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
+	}
 }

@@ -2,7 +2,7 @@ package Engine;
 
 public class AccoladeO implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de accolade ouvrante
@@ -45,13 +45,12 @@ public class AccoladeO implements Operateurs {
 		p.addOperator('{');
 	}
 
-	public boolean doable(Robots nono) {
-		return true;
-	}
-
+	/**
+	 * Si l'accolade ouvre, on ne fait rien
+	 */
 	@Override
-	public void action(Automates a, Robots nono) {
-		// On ignore l'accolade
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
@@ -59,4 +58,11 @@ public class AccoladeO implements Operateurs {
 		return "{";
 	}
 
+	@Override
+	/**
+	 * Accolade ouvrante toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
+	}
 }

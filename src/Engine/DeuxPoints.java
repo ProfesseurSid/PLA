@@ -2,7 +2,7 @@ package Engine;
 
 public class DeuxPoints implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de deux points
@@ -45,18 +45,25 @@ public class DeuxPoints implements Operateurs {
 		p.addOperator(':');
 	}
 
-	public boolean doable(Robots nono) {
-		return true;
-	}
-
+	/**
+	 * Si on a un ":", on execute rien
+	 */
 	@Override
-	public void action(Automates a, Robots nono) {
-		a.execIncr(nono);
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
 	public String toString() {
 		return ":";
+	}
+
+	@Override
+	/**
+	 * Deux points toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
 	}
 
 }

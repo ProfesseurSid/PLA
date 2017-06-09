@@ -10,7 +10,7 @@ import Visual.Terrain;
 
 public class Robots implements Vivante {
 
-	Automates behavior;
+	Automate behavior;
 	int x, y;
 	int equipe;
 	int nbcoups = 0;
@@ -37,10 +37,10 @@ public class Robots implements Vivante {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		behavior = new Automates();
+		behavior = new Automate();
 		this.visuel = visuel;
 		this.personnage = personnage;
-		behavior = new Automates();
+		behavior = new Automate();
 	}
 
 	/**
@@ -49,18 +49,18 @@ public class Robots implements Vivante {
 	 * @param e
 	 * @param a
 	 */
-	public Robots(int e, Automates a) {
-		if (e == 0) {
-			x = Terrain.getTuileY() / 2;
-			y = 1;
-		} else if (e == 1) {
-			x = Terrain.getTuileY() / 2;
-			y = Terrain.getTuileX() - 1;
-		} else
-			throw new PanicException("Numéro d'équipe incorrect");
-		equipe = e;
-		behavior = new Automates(a);
-	}
+//	public Robots(int e, Automates a) {
+//		if (e == 0) {
+//			x = Terrain.getTuileY() / 2;
+//			y = 1;
+//		} else if (e == 1) {
+//			x = Terrain.getTuileY() / 2;
+//			y = Terrain.getTuileX() - 1;
+//		} else
+//			throw new PanicException("Numéro d'équipe incorrect");
+//		equipe = e;
+//		behavior = new Automate(a);
+//	}
 
 	public String toString() {
 		return "R(" + x + "," + y + ") : " + behavior.toString();
@@ -257,8 +257,8 @@ public class Robots implements Vivante {
 		int destX = x;
 		int destY = y;
 		// Recherche des coordonnees de l'ennemi
-		for (int i = 0; i < plateau.nbLignes(); i++)
-			for (int j = 0; j < plateau.nbColonnes(); i++) {
+		for (int i = 0; i < plateau.nbColonnes(); i++)
+			for (int j = 0; j < plateau.nbLignes(); j++) {
 				caze = plateau.unsafeGet(i, j);
 				if (caze instanceof Vivante) {
 					if (!memeEquipe((Vivante) caze) && ((Math.abs(x - caze.getX())
@@ -269,6 +269,7 @@ public class Robots implements Vivante {
 
 				}
 			}
+		System.out.println("Cherche" + destX + " " + destY);
 
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
@@ -321,6 +322,6 @@ public class Robots implements Vivante {
 	}
 	
 	public void step(){
-		behavior.execute(this);
+		behavior.Run(this);
 	}
 }

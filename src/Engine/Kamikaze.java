@@ -1,14 +1,19 @@
 package Engine;
 
+import Exception.PanicException;
+
+/**
+ * Classe de l'operateur Kamikaze. Lorsque un robot rencontre un ennemi il
+ * explose.
+ */
 public class Kamikaze implements Operateurs {
 
-	int x, y;
+	private int x, y;
 
 	/**
 	 * Constructeur de kamikaze
 	 * 
 	 * @disclamer not sure of this constructor
-	 * @since Version 1.0
 	 */
 	public Kamikaze() {
 		x = 0;
@@ -17,49 +22,64 @@ public class Kamikaze implements Operateurs {
 
 	/**
 	 * Constructeur de kamikaze
-	 * 
-	 * @since Version 1.0
 	 */
 	public Kamikaze(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	@Override
+	/**
+	 * Getter de x
+	 * 
+	 * @return x;
+	 */
 	public int getX() {
 		return x;
 	}
 
-	@Override
+	/**
+	 * Getter de y
+	 * 
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
 
-	@Override
 	/**
 	 * Ajoute l'operateur a l'inventaire du personnage
 	 * 
-	 * @since Version 1.0
+	 * @param p
+	 *            Personnage qui doit recevoir l'operateur.
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('K');
 	}
 
-	public boolean doable(Robots nono) {
-		return nono.ennemiAdjacent() != null;
-	}
-
-	@Override
-	public void action(Automates a, Robots nono) {
-		if (a.realAction())
-			nono.boom();
-		else
-			a.opeAExec(this, nono);
+	/**
+	 * Methode qui fait executer l'action Kamikaze à un robot.
+	 * 
+	 * @param nono
+	 *            Robot qui va executer l'action.
+	 */
+	public void action(Robots nono) {
+		nono.boom();
 	}
 
 	@Override
 	public String toString() {
 		return "K";
+	}
+
+	/**
+	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
+	 * 
+	 * @param nono
+	 *            Robot qui doit executer l'action.
+	 * @return true si l'action est possible false sinon.
+	 */
+	public boolean isPossible(Robots nono) {
+		return (nono.ennemiAdjacent() != null);
 	}
 
 }

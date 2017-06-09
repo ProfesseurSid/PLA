@@ -45,17 +45,24 @@ public class PointVirgule implements Operateurs {
 		p.addOperator(';');
 	}
 
-	public boolean doable(Robots nono) {
-		return true;
-	}
-
+	/**
+	 * Si on a un ";", on execute rien
+	 */
 	@Override
-	public void action(Automates a, Robots nono) {
-		a.realExec(nono);
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
 	public String toString() {
 		return ";";
+	}
+
+	@Override
+	/**
+	 * ; toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
 	}
 }
