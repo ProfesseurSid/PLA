@@ -78,6 +78,7 @@ public class Hit implements Operateurs {
 	 */
 	public boolean isPossible(Robots nono) {
 		return (nono.ennemiAdjacent() != null);
+		//return true;
 	}
 
 }

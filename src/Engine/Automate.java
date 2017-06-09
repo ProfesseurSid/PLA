@@ -11,8 +11,10 @@ public class Automate {
 	private Arbre code;
 	private Arbre aExec;
 	private Arbre StarExec;
+	private Arbre PrefExec = null;
 	private int count;
 	private boolean exec;
+	private boolean pref;
 
 	/**
 	 * Constructeur d'arbre d'automate par défault.
@@ -22,6 +24,7 @@ public class Automate {
 		aExec = code;
 		StarExec = code;
 		exec = false;
+		pref = false;
 		count = 1;
 	}
 
@@ -36,6 +39,7 @@ public class Automate {
 		aExec = code;
 		StarExec = code;
 		exec = false;
+		pref = false;
 		count = 1;
 	}
 
@@ -53,6 +57,7 @@ public class Automate {
 		aExec = code;
 		StarExec = code;
 		exec = false;
+		pref = false;
 		count = 1;
 	}
 
@@ -124,7 +129,6 @@ public class Automate {
 		RunAutomate(aExec, bot);
 	}
 
-	//FIXME
 	/**
 	 * Methode reccursive d'execution de l'automate code.
 	 * 
@@ -158,8 +162,9 @@ public class Automate {
 			}
 		} else if (a.op() instanceof Preference) {
 			aExec = StarExec;
+			PrefExec = a.droit();
 			if (a.gauche().op().isPossible(bot)) {
-				// if (true) {
+				pref = true;
 				RunAutomate(a.gauche(), bot);
 			} else {
 				RunAutomate(a.droit(), bot);
@@ -167,12 +172,18 @@ public class Automate {
 		} else if (a.op() instanceof DeuxPoints) {
 			count++;
 			RunAutomate(a.droit(), bot);
-		} else {			
-			for (int i = 0; i < count; i++) {
-				a.op().action(bot);
-				//System.out.println(a.op().toString() + " s'execute.");
+		} else {
+			if (pref && !(a.op().isPossible(bot))) {
+				count = 1;
+				RunAutomate(PrefExec, bot);
+			} else {
+				for (int i = 0; i < count; i++) {
+					a.op().action(bot);
+					// System.out.println(a.op().toString() + " s'execute.");
+				}
+				count = 1;
 			}
-			count = 1;
+
 		}
 	}
 
@@ -261,8 +272,8 @@ public class Automate {
 
 	public static void main(String[] args) {
 		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
-		 //Automate auto = new Automate("*{O::;*{H;K}}");
-		Automate auto = new Automate("*{O;K;*{P};H;J}");
+		// Automate auto = new Automate("*{O::;*{H;K}}");
+		Automate auto = new Automate("*{H:::>O}");
 		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
 		// Automate auto = new Automate(new Protect());
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
