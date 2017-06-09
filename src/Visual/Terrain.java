@@ -5,8 +5,6 @@ import Engine.Robots;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Terrain extends Parent {
 
@@ -16,10 +14,14 @@ public class Terrain extends Parent {
 	private static int grilleWidth = Tuile.getTaille() * tuileX;
 	private static int grilleHeight = Tuile.getTaille() * tuileY;
 
-	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView r1P2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+	static ImageView p1 = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotBleu.png")));
+	static ImageView p2 = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotRouge.png")));
+	static ImageView r1P1 = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
+	static ImageView r1P2 = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
 	static ImageView op = new ImageView(
 			new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 
@@ -38,10 +40,9 @@ public class Terrain extends Parent {
 
 	public Terrain() {
 
-		Rectangle fond_grille = new Rectangle();
-		fond_grille.setWidth(grilleWidth);
-		fond_grille.setHeight(grilleHeight);
-		fond_grille.setFill(Color.rgb(150, 150, 150, 1.0));
+		ImageView fond_grille = new ImageView(new Image(Terrain.class.getResourceAsStream("images/Terrain.png")));
+		fond_grille.setFitWidth(grilleWidth);
+		fond_grille.setFitHeight(grilleHeight);
 
 		Tuile Tuiles[] = new Tuile[21 * 11];
 		for (int i = 0; i < Terrain.tuileX; i++) {
