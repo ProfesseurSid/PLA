@@ -260,7 +260,7 @@ public class Automate {
 	public static void main(String[] args) {
 		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
 		// Automate auto = new Automate("*{O::;*{H|K}}");
-		Automate auto = new Automate("*{H;*{O};P}");
+		Automate auto = new Automate("*{H:;*{O};P}");
 		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
 		// Automate auto = new Automate(new Protect());
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
