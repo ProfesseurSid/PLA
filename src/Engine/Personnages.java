@@ -281,5 +281,9 @@ public class Personnages implements Vivante {
 		return Units[num-1];
 	}
 	
+	public int getHealth(){
+		return PV;
+	}
+	
 	
 }

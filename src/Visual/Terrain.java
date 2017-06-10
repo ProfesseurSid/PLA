@@ -32,7 +32,7 @@ public class Terrain extends Parent {
 	PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	Personnages personnage2 = new Personnages(plateau, 1, visuel2);
 	RobotVisual visuel3 = new RobotVisual(r1, 0, plateau);
-	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3);
+	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3, "*{K>O}");
 	
 	OperateursVisual operateur = new OperateursVisual(op, plateau);
 

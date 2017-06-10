@@ -48,6 +48,24 @@ public class Robots implements Vivante {
 		behavior = new Automate();
 		plateau.put(x, y, this);
 	}
+	
+	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) {
+		this.plateau = plateau;
+		if (e == 0) {
+			x = 1;
+			y = plateau.nbLignes() / 2;
+		} else if (e == 1) {
+			x = plateau.nbColonnes() - 2;
+			y = plateau.nbLignes() / 2;
+		} else
+			throw new PanicException("Numéro d'équipe incorrect");
+		equipe = e;
+		behavior = new Automate();
+		this.visuel = visuel;
+		this.personnage = personnage;
+		behavior = new Automate(behave);
+		plateau.put(x, y, this);
+	}
 
 	/**
 	 * Crée un robot de comportement a, et le place dans l'équipe e
@@ -220,6 +238,7 @@ public class Robots implements Vivante {
 	}
 
 	public void boom() {
+		System.out.println("OUIIIIIIIIIIIIIIIIIII");
 		if (plateau.unsafeGet(x + 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			((Vivante) plateau.unsafeGet(x + 1, y)).isHit(PV);
 		if (plateau.unsafeGet(x - 1, y) instanceof Vivante && !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
@@ -282,6 +301,7 @@ public class Robots implements Vivante {
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
+		System.out.println("Vie : "+personnage.getHealth());
 	}
 
 	/**
