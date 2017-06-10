@@ -42,7 +42,6 @@ public class Robots implements Vivante {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		behavior = new Automate();
 		this.visuel = visuel;
 		this.personnage = personnage;
 		behavior = new Automate();
@@ -60,7 +59,6 @@ public class Robots implements Vivante {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		behavior = new Automate();
 		this.visuel = visuel;
 		this.personnage = personnage;
 		behavior = new Automate(behave);
@@ -345,5 +343,9 @@ public class Robots implements Vivante {
 
 	public void step() {
 		behavior.Run(this);
+	}
+	
+	public void setBehavior(String s){
+		behavior = new Automate(s);
 	}
 }

@@ -16,14 +16,14 @@ import javafx.scene.input.KeyEvent;
 public class Keyboard implements EventHandler<KeyEvent> {
 	Personnages personnage1;
 	Personnages personnage2;
-//	ImageView p1;
-//	ImageView p2;
+	// ImageView p1;
+	// ImageView p2;
 
 	public Keyboard(Personnages personnage1, Personnages personnage2) {
 		this.personnage1 = personnage1;
 		this.personnage2 = personnage2;
-//		this.p1 = p1;
-//		this.p2 = p2;
+		// this.p1 = p1;
+		// this.p2 = p2;
 	}
 
 	/**
@@ -38,41 +38,40 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			// player 1
 
 			if (event.getCode() == KeyCode.UP) {
-//				personnage2.getVisual().Haut(/*p2*/);
-//				personnage2.getVisual().requestFocus();
+				// personnage2.getVisual().Haut(/*p2*/);
+				// personnage2.getVisual().requestFocus();
 				personnage2.mouvement(PointCardinal.NORD);
 			} else if (event.getCode() == KeyCode.DOWN) {
-//				personnage2.getVisual().Bas(/*p2*/);
-//				personnage2.getVisual().requestFocus();
+				// personnage2.getVisual().Bas(/*p2*/);
+				// personnage2.getVisual().requestFocus();
 				personnage2.mouvement(PointCardinal.SUD);
 			} else if (event.getCode() == KeyCode.LEFT) {
-//				personnage2.getVisual().Gauche(/*p2*/);
-//				personnage2.getVisual().requestFocus();
+				// personnage2.getVisual().Gauche(/*p2*/);
+				// personnage2.getVisual().requestFocus();
 				personnage2.mouvement(PointCardinal.OUEST);
 			} else {
-//				personnage2.getVisual().Droite(/*p2*/);
-//				personnage2.getVisual().requestFocus();
+				// personnage2.getVisual().Droite(/*p2*/);
+				// personnage2.getVisual().requestFocus();
 				personnage2.mouvement(PointCardinal.EST);
 			}
 		} else if (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
 				|| event.getCode() == KeyCode.D) {
 			// Player 2
 			if (event.getCode() == KeyCode.Z) {
-//				personnage1.getVisual().Haut(/*p1*/);
-//				personnage1.getVisual().requestFocus();
+				// personnage1.getVisual().Haut(/*p1*/);
+				// personnage1.getVisual().requestFocus();
 				personnage1.mouvement(PointCardinal.NORD);
-				personnage1.getRobot(1).step();
 			} else if (event.getCode() == KeyCode.S) {
-//				personnage1.getVisual().Bas(/*p1*/);
-//				personnage1.getVisual().requestFocus();
+				// personnage1.getVisual().Bas(/*p1*/);
+				// personnage1.getVisual().requestFocus();
 				personnage1.mouvement(PointCardinal.SUD);
 			} else if (event.getCode() == KeyCode.Q) {
-//				personnage1.getVisual().Gauche(/*p1*/);
-//				personnage1.getVisual().requestFocus();
+				// personnage1.getVisual().Gauche(/*p1*/);
+				// personnage1.getVisual().requestFocus();
 				personnage1.mouvement(PointCardinal.OUEST);
 			} else {
-//				personnage1.getVisual().Droite(/*p1*/);
-//				personnage1.getVisual().requestFocus();
+				// personnage1.getVisual().Droite(/*p1*/);
+				// personnage1.getVisual().requestFocus();
 				personnage1.mouvement(PointCardinal.EST);
 			}
 		}
