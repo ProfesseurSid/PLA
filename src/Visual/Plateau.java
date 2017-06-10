@@ -97,7 +97,8 @@ public class Plateau {
 	 *            l'entite a placer
 	 */
 	public void remove(int x, int y, Entite e) {
-		plateau[y][x] = e;
+		if(plateau[y][x] == e)
+			plateau[y][x] = null;
 	}
 
 	/**

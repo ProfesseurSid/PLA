@@ -11,5 +11,7 @@ public interface Vivante extends Entite {
 	public boolean memeEquipe(Vivante ent);
 	
 	public void isHit(int nbHits);
+	
+	public boolean estEnVie();
 
 }
