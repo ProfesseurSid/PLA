@@ -1,0 +1,107 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(ComportementRobots)
+package Parsing;
+
+public class ComportementRobots
+{
+  public static void main(String args []) throws ParseException
+  {
+    ComportementRobots parser = new ComportementRobots(System.in);
+    while (true)
+    {
+      System.out.println("Reading from standard input...");
+      System.out.println("Enter an expression :");
+      try
+      {
+        ComportementRobots.loop();
+        //System.out.println(new ComportementRobots("*{P>H}").loop());
+      }
+      catch (Exception e)
+      {
+        System.out.println("NOK.");
+        System.out.println(e.getMessage());
+        ComportementRobots.ReInit(System.in);
+      }
+      catch (Error e)
+      {
+        System.out.println("Oops.");
+        System.out.println(e.getMessage());
+        break;
+      }
+    }
+  }
+}
+
+PARSER_END(ComportementRobots)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\r"
+| "\n"
+}
+
+TOKEN : /* OPERATORS */
+{
+  < STAR : "*" >
+| < AO : "{" >
+| < AF : "}" >
+| < PV : ";" >
+| < OU : "|" >
+| < DP : ":" >
+| < PREF : ">" >
+}
+
+TOKEN :
+{
+  < ACTION : < LETTER > >
+| < #LETTER : [ "H", "K", "O", "J", "P" ] >
+}
+
+void loop() :
+{}
+{
+  < STAR > < AO > comp() < AF >
+}
+
+void comp() :
+{}
+{
+  action()
+  (
+    < PREF > comp()
+  | pv() ou()
+  )
+| loop()
+| < AO > comp() < AF >
+}
+
+void action() :
+{}
+{
+  < ACTION > (< DP >)*
+}
+
+void pv() :
+{}
+{
+  (
+    < PV > comp()
+  )*
+}
+
+void ou() :
+{}
+{
+  (
+    < OU > comp()
+  )*
+}
