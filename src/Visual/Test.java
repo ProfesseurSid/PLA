@@ -1,5 +1,6 @@
 package Visual;
 
+import Engine.Timer;
 import UserInterface.Keyboard;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
@@ -68,6 +69,8 @@ public class Test extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 
+		Timer game = new Timer();
+		game.start();
 	}
 
 }

@@ -48,7 +48,7 @@ public class Robots implements Vivante {
 		behavior = new Automate();
 		plateau.put(x, y, this);
 	}
-	
+
 	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) {
 		this.plateau = plateau;
 		if (e == 0) {
@@ -277,8 +277,8 @@ public class Robots implements Vivante {
 	 */
 	public void versEnnemi(int nbMov) {
 		Entite caze;
-		int destX = 3*plateau.nbColonnes();
-		int destY = 3*plateau.nbLignes();
+		int destX = 3 * plateau.nbColonnes();
+		int destY = 3 * plateau.nbLignes();
 		// Recherche des coordonnees de l'ennemi
 		for (int i = 0; i < plateau.nbColonnes(); i++)
 			for (int j = 0; j < plateau.nbLignes(); j++) {
@@ -288,20 +288,20 @@ public class Robots implements Vivante {
 							+ Math.abs(y - caze.getY()) < (Math.abs(y - destX) + Math.abs(y - destY))))) {
 						destX = i;
 						destY = j;
-						System.out.println("JE PASSE LAAAAA "+destX+" "+destY);
+						System.out.println("JE PASSE LAAAAA " + destX + " " + destY);
 					}
 				}
 			}
-		System.out.println("Cherche : "+destX+" "+destY);
+		System.out.println("Cherche : " + destX + " " + destY);
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
-		System.out.println("LENGTH : "+mvmt.size());
+		System.out.println("LENGTH : " + mvmt.size());
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
-		System.out.println("Vie : "+personnage.getHealth());
+		System.out.println("Vie : " + personnage.getHealth());
 	}
 
 	/**
@@ -316,8 +316,8 @@ public class Robots implements Vivante {
 		int destX = -1;
 		int destY = -1;
 		// Recherche des coordonnees de l'ennemi
-		for (int i = 0; destX < 0 && i < plateau.nbLignes(); i++)
-			for (int j = 0; destX < 0 && j < plateau.nbColonnes(); i++) {
+		for (int i = 0; destX < 0 && i < plateau.nbColonnes(); i++)
+			for (int j = 0; destX < 0 && j < plateau.nbLignes(); j++) {
 				caze = plateau.unsafeGet(i, j);
 				if (caze instanceof Personnages && memeEquipe((Personnages) caze)) {
 					destX = caze.getX();
@@ -326,7 +326,7 @@ public class Robots implements Vivante {
 			}
 
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'allie
-		RechercheChemin trajet = new RechercheChemin(plateau, y, x, destY, destX);
+		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
 		for (int i = 0; i < mvmt.size(); i++)

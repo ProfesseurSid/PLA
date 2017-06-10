@@ -26,11 +26,11 @@ public class Terrain extends Parent {
 	static ImageView op = new ImageView(
 			new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 
-	Plateau plateau = new Plateau();
-	PersonnagesVisual visuel1 = new PersonnagesVisual(p1, 0, plateau);
-	Personnages personnage1 = new Personnages(plateau, 0, visuel1);
-	PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
-	Personnages personnage2 = new Personnages(plateau, 1, visuel2);
+	static Plateau plateau = new Plateau();
+	private static PersonnagesVisual visuel1 = new PersonnagesVisual(p1, 0, plateau);
+	public static Personnages personnage1 = new Personnages(plateau, 0, visuel1);
+	private static PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
+	public static Personnages personnage2 = new Personnages(plateau, 1, visuel2);
 	RobotVisual visuel3 = new RobotVisual(r1, 0, plateau);
 	Robots robot1 = new Robots(plateau, personnage1, 0, visuel3, "*{K>O}");
 	
