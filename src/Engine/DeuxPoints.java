@@ -1,8 +1,13 @@
 package Engine;
 
+import Visual.*;
+import javafx.scene.Parent;
+
 public class DeuxPoints implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de deux points
@@ -20,9 +25,12 @@ public class DeuxPoints implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public DeuxPoints(int x, int y) {
+	public DeuxPoints(int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
 	}
 
 	@Override
@@ -37,12 +45,14 @@ public class DeuxPoints implements Operateurs {
 
 	@Override
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator(':');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	/**
@@ -64,6 +74,13 @@ public class DeuxPoints implements Operateurs {
 	 */
 	public boolean isPossible(Robots nono) {
 		return true;
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 
 }

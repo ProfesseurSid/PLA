@@ -1,10 +1,14 @@
 package Engine;
 
 import Engine.Personnages;
+import Visual.*;
+import javafx.scene.Parent;
 
 public class AccoladeF implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de accolade fermante
@@ -22,9 +26,12 @@ public class AccoladeF implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public AccoladeF(int x, int y) {
+	public AccoladeF(int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
 	}
 
 	@Override
@@ -39,12 +46,14 @@ public class AccoladeF implements Operateurs {
 
 	@Override
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('}');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	@Override
@@ -68,4 +77,10 @@ public class AccoladeF implements Operateurs {
 		return true;
 	}
 
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
+	}
 }

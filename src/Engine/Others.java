@@ -1,6 +1,7 @@
 package Engine;
 
-import Exception.PanicException;
+import Visual.*;
+import javafx.scene.Parent;
 
 /**
  * Classe de l'operateur Others. Permet au robot de se deplacer vers les
@@ -9,6 +10,8 @@ import Exception.PanicException;
 public class Others implements Operateurs {
 
 	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de others
@@ -23,9 +26,12 @@ public class Others implements Operateurs {
 	/**
 	 * Constructeur de others
 	 */
-	public Others(int x, int y) {
+	public Others(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		t.addVisual(visuel);
 	}
 
 	/**
@@ -47,13 +53,14 @@ public class Others implements Operateurs {
 	}
 
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
-	 * @param p
-	 *            Personnage qui doit recevoir l'operateur.
+	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('O');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
 	/**
@@ -63,7 +70,6 @@ public class Others implements Operateurs {
 	 *            Robot qui va executer l'action.
 	 */
 	public void action(Robots nono) {
-		System.out.println("OUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 		nono.versEnnemi(1);
 	}
 
@@ -83,4 +89,10 @@ public class Others implements Operateurs {
 		return true;
 	}
 
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
+	}
 }
