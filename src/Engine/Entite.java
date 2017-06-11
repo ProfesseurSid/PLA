@@ -1,13 +1,13 @@
 package Engine;
 
+import javafx.scene.Parent;
+
 public interface Entite {
-
-	void detruire();
-
-	void apparaitre();
 
 	public int getX();
 
 	public int getY();
+
+	public Parent getVisual();
 
 }

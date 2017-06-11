@@ -1,14 +1,23 @@
 package Engine;
 
+import Exception.PanicException;
+import Visual.OperateursVisual;
+import javafx.scene.Parent;
+import Visual.*;
+
+/**
+ * Classe de l'operateur Hit. Lorsque un robot rencontre un ennemi il le frappe.
+ */
 public class Hit implements Operateurs {
 
-	int x, y;
+	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de hit
 	 * 
 	 * @disclamer not sure of this constructor
-	 * @since Version 1.0
 	 */
 	public Hit() {
 		x = 0;
@@ -17,55 +26,75 @@ public class Hit implements Operateurs {
 
 	/**
 	 * Constructeur de hit
-	 * 
-	 * @since Version 1.0
 	 */
-	public Hit(int x, int y) {
+	public Hit(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
-	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
+	/**
+	 * Getter de x
+	 * 
+	 * @return x;
+	 */
 	public int getX() {
 		return x;
 	}
 
-	@Override
+	/**
+	 * Getter de y
+	 * 
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
 
-	@Override
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('H');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
-	@Override
-	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-		a.opeAExec(this, nono);
+	/**
+	 * Methode qui fait executer l'action Hit à un robot.
+	 * 
+	 * @param nono
+	 *            Robot qui va executer l'action.
+	 */
+	public void action(Robots nono) {
+		nono.hit();
 	}
 
-	@Override
 	public String toString() {
 		return "H";
+	}
+
+	/**
+	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
+	 * 
+	 * @param nono
+	 *            Robot qui doit executer l'action.
+	 * @return true si l'action est possible false sinon.
+	 */
+	public boolean isPossible(Robots nono) {
+		return (nono.ennemiAdjacent() != null);
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 
 }

@@ -1,8 +1,13 @@
 package Engine;
 
+import Visual.*;
+import javafx.scene.Parent;
+
 public class AccoladeO implements Operateurs {
 
-	int x, y;
+	private int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de accolade ouvrante
@@ -20,21 +25,13 @@ public class AccoladeO implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public AccoladeO(int x, int y) {
+	public AccoladeO(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	@Override
@@ -49,18 +46,22 @@ public class AccoladeO implements Operateurs {
 
 	@Override
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator('{');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
+	/**
+	 * Si l'accolade ouvre, on ne fait rien
+	 */
 	@Override
-	public void action(Automates a, Robots nono) {
-		// TODO Auto-generated method stub
-
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
@@ -68,4 +69,18 @@ public class AccoladeO implements Operateurs {
 		return "{";
 	}
 
+	@Override
+	/**
+	 * Accolade ouvrante toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
+	}
 }

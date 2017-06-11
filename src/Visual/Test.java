@@ -1,9 +1,7 @@
 package Visual;
 
+import Engine.Timer;
 import UserInterface.Keyboard;
-import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -24,6 +22,7 @@ public class Test extends Application {
 	}
 
 	public void start(Stage primaryStage) {
+
 		primaryStage.setTitle("ARF - Autonomous Robot Fight");
 		Group root = new Group();
 		int dimX = Terrain.getTuileX() * Tuile.getTaille() + 2 * Barre.getDimX() + 3 * marge;
@@ -34,21 +33,19 @@ public class Test extends Application {
 		monTerrain.setTranslateX(2 * marge + Barre.getDimX());
 		monTerrain.setTranslateY(marge);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(),
-				monTerrain.getImagePersonnage1(), monTerrain.getImagePersonnage2());
+		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2());
 
 		scene.setOnKeyPressed(keyboard);
-		
-		
-		OperateursVisual operateur;
-		operateur = monTerrain.getoperateur();
 
-		Timeline blinker = operateur.Blinker(monTerrain.getImageOperateur());
-		FadeTransition fader = operateur.Fader(monTerrain.getImageOperateur());
+//		OperateursVisual operateur;
+//		operateur = monTerrain.getoperateur();
 
-		SequentialTransition blinkThenFade = new SequentialTransition(monTerrain.getImageOperateur(), blinker, fader);
+//		Timeline blinker = operateur.Blinker(monTerrain.getImageOperateur());
+//		FadeTransition fader = operateur.Fader(monTerrain.getImageOperateur());
 
-		blinkThenFade.play();
+//		SequentialTransition blinkThenFade = new SequentialTransition(monTerrain.getImageOperateur(), blinker, fader);
+
+//		blinkThenFade.play();
 
 		Boite boiteGauche = new Boite();
 		boiteGauche.setTranslateX(marge);
@@ -116,6 +113,9 @@ public class Test extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		
+		Timer game = new Timer(monTerrain);
+		game.start();
 
 	}
 

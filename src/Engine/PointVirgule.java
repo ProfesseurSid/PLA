@@ -1,8 +1,13 @@
 package Engine;
 
+import Visual.*;
+import javafx.scene.Parent;
+
 public class PointVirgule implements Operateurs {
 
 	int x, y;
+	Plateau plateau;
+	OperateursVisual visuel;
 
 	/**
 	 * Constructeur de point virgule
@@ -20,21 +25,13 @@ public class PointVirgule implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public PointVirgule(int x, int y) {
+	public PointVirgule(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
-	}
-
-	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
+		this.plateau = plateau;
+		this.visuel = visuel;
+		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	@Override
@@ -49,22 +46,41 @@ public class PointVirgule implements Operateurs {
 
 	@Override
 	/**
-	 * Ajoute l'operateur a l'inventaire du personnage
+	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
 	 * @since Version 1.0
 	 */
 	public void stock(Personnages p) {
 		p.addOperator(';');
+		plateau.remove(x, y, this);
+		visuel.remove();
 	}
 
+	/**
+	 * Si on a un ";", on execute rien
+	 */
 	@Override
-	public void action() {
-		// TODO Auto-generated method stub
-
+	public void action(Robots nono) {
+		return;
 	}
 
 	@Override
 	public String toString() {
 		return ";";
+	}
+
+	@Override
+	/**
+	 * ; toujours possible
+	 */
+	public boolean isPossible(Robots nono) {
+		return true;
+	}
+
+	/**
+	 * Getter de visuel
+	 */
+	public Parent getVisual() {
+		return visuel;
 	}
 }

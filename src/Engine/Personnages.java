@@ -3,9 +3,12 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
+import Visual.OperateursVisual;
+import Visual.PersonnagesVisual;
+import Visual.Plateau;
 
 /**
- * Classe repr�sentant un personnage, avec des coordon�es, un inventaire
+ * Classe representant un personnage, avec des coordonees, un inventaire
  * d'objet, et un inventaire de robots.
  * 
  * @version Version 1.0
@@ -15,27 +18,36 @@ public class Personnages implements Vivante {
 	private Robots Units[] = new Robots[3];
 	private int x, y, numberRobots;
 	int equipe;
+	int PV = maxPV;
+	Plateau plateau;
+	PersonnagesVisual visuel;
 
 	/**
-	 * Contructeur de personnage de l'équipe e
+	 * Contructeur de personnage de l'equipe e
 	 * 
-	 * @since Version 1.0
+	 * @param e
+	 *            l'equipe dans laquelle ajouter le personnage
+	 * @require e == 0 || e == 1
 	 */
-	public Personnages(int e) {
+	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
+		this.plateau = plateau;
 		if (e == 0) {
 			x = 0;
-			y = 5;
+			y = plateau.nbLignes() / 2;
 		} else if (e == 1) {
-			x = 20;
-			y = 5;
-		}
+			x = plateau.nbColonnes() - 1;
+			y = plateau.nbLignes() / 2;
+		} else
+			throw new PanicException("Numero d'equipe incorrect");
 		equipe = e;
 		numberRobots = 0;
 		initInventory();
+		this.visuel = visuel;
+		plateau.put(x, y, this);
 	}
 
 	/**
-	 * Methode qui initialise l'inventaire d'op�rateurs
+	 * Methode qui initialise l'inventaire d'operateurs
 	 * 
 	 * @since Version 1.0
 	 */
@@ -77,13 +89,13 @@ public class Personnages implements Vivante {
 	 * l'inventaire.
 	 * 
 	 * @param op
-	 *            Operateur dont le nombre est � augmenter.
-	 * @require op est un op�rateur connu de l'inventaire.
+	 *            Operateur dont le nombre est a augmenter.
+	 * @require op est un operateur connu de l'inventaire.
 	 * @since version 1.0
 	 */
 	public void addOperator(char op) {
 		if (!(Inventory.containsKey(op))) {
-			throw new PanicException("Ajout d'objet � l'inventaire du personnage : Objet inconnu");
+			throw new PanicException("Ajout d'objet a l'inventaire du personnage : Objet inconnu");
 		}
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
@@ -93,8 +105,8 @@ public class Personnages implements Vivante {
 	 * l'inventaire.
 	 * 
 	 * @param op
-	 *            Operateur dont le nombre est à décrementer.
-	 * @require op est un opérateur connu de l'inventaire.
+	 *            Operateur dont le nombre est a� decrementer.
+	 * @require op est un operateur connu de l'inventaire.
 	 */
 	public void removeOperator(char op) {
 		if (!(Inventory.containsKey(op))) {
@@ -102,20 +114,20 @@ public class Personnages implements Vivante {
 		}
 		if (Inventory.get(op) == 0) {
 			throw new PanicException(
-					"Suppression d'objet de l'inventaire du personnage : Il y a déja 0 objets de ce type dans l'inventaire.");
+					"Suppression d'objet de l'inventaire du personnage : Il y a deja 0 objets de ce type dans l'inventaire.");
 		}
 		Inventory.put(op, Inventory.get(op) - 1);
 	}
 
 	/**
-	 * Methode qui permet l'ajout d'un robots � l'�quipe du personnage.
+	 * Methode qui permet l'ajout d'un robots a l'equipe du personnage.
 	 * 
 	 * @param robot
-	 *            Robot � ajouter � l'inventaire de robot du personnage.
+	 *            Robot a ajouter a l'inventaire de robot du personnage.
 	 * @param room
 	 *            Case dans laquelle mettre le robot.
 	 * @require room comprit entre 1 et 3. Pas plus de 3 robots dans
-	 *          l'inventaire. room ne contient pas d�ja un robot.
+	 *          l'inventaire. room ne contient pas deja un robot.
 	 * @since Version 1.0
 	 */
 	public void addRobot(Robots robot, int room) {
@@ -127,18 +139,17 @@ public class Personnages implements Vivante {
 			throw new PanicException("Ajout d'un robot au personnage : Case invalide");
 		}
 		if (Units[indexUnit] != null) {
-			throw new PanicException("Ajout d'un robot au personnage : Case occup�e");
+			throw new PanicException("Ajout d'un robot au personnage : Case occupee");
 		}
 		Units[indexUnit] = robot;
 		numberRobots++;
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'�quipe du
-	 * personnage.
+	 * Methode qui permet la suppression d'un robots � l'equipe du personnage.
 	 * 
 	 * @param room
-	 *            case ou se trouve le robot � supprimer
+	 *            case ou se trouve le robot a supprimer
 	 * @require L'equipe n'est pas vide. La case est comprise entre 1 et 3.
 	 * @since Version 1.0
 	 */
@@ -155,18 +166,6 @@ public class Personnages implements Vivante {
 	}
 
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void apparaitre() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	/**
 	 * Methode qui permet de faire avancer le personnage d'un certain pas dans
 	 * une certaine direction.
@@ -178,18 +177,48 @@ public class Personnages implements Vivante {
 	 * @since Version 1.0
 	 */
 	public void mouvement(PointCardinal p) {
+		plateau.toString();
 		switch (p) {
 		case NORD:
-			y--;
+			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
+				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs){
+					((Operateurs) plateau.unsafeGet(x, y - 1)).stock(this);
+				}
+				y--;
+				plateau.move(x, y + 1, x, y);
+				visuel.Haut();
+				visuel.requestFocus();
+			}
 			break;
 		case SUD:
-			y++;
+			if (y < plateau.nbLignes() - 1 && !(plateau.unsafeGet(x, y + 1) instanceof Vivante)) {
+				if (plateau.unsafeGet(x, y + 1) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x, y + 1)).stock(this);
+				y++;
+				plateau.move(x, y - 1, x, y);
+				visuel.Bas();
+				visuel.requestFocus();
+			}
 			break;
 		case EST:
-			x++;
+			if (x < plateau.nbColonnes() - 1 && !(plateau.unsafeGet(x + 1, y) instanceof Vivante)) {
+				if (plateau.unsafeGet(x + 1, y) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x + 1, y)).stock(this);
+				x++;
+				plateau.move(x - 1, y, x, y);
+				visuel.Droite();
+				visuel.requestFocus();
+			}
 			break;
 		case OUEST:
-			x--;
+			if (x > 0 && !(plateau.unsafeGet(x - 1, y) instanceof Vivante)) {
+				if (plateau.unsafeGet(x - 1, y) instanceof Operateurs)
+					((Operateurs) plateau.unsafeGet(x - 1, y)).stock(this);
+				x--;
+				plateau.move(x + 1, y, x, y);
+				visuel.Gauche();
+				visuel.requestFocus();
+			}
 			break;
 		default:
 			throw new PanicException("Deplacement Personnage : Point Cardinal incorrect.");
@@ -197,9 +226,9 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Fonction d'affichage de la classe Personnages.
+	 * Fonction de creation d'une chaine d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caract�re correspondant � l'affichage.
+	 * @return La chaine de caracteres correspondant a l'affichage.
 	 * @since Version 1.0
 	 */
 	public String toString() {
@@ -214,17 +243,72 @@ public class Personnages implements Vivante {
 		return retour;
 	}
 
+	/**
+	 * Renvoie le numero d'equipe du personnage
+	 */
 	public int getEquipe() {
 		return equipe;
 	}
 
+	/**
+	 * Indique si le personnage est de la meme equipe que la Vivante v
+	 * 
+	 * @param v
+	 *            la vivante a tester
+	 */
 	public boolean memeEquipe(Vivante v) {
 		return equipe == v.getEquipe();
 	}
 
-	@Override
-	public void mouvement(PointCardinal p, int nb) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * On reçoit nbHits coup(s) d'un adversaire
+	 * 
+	 * @param nbHits
+	 *            le nombre de coups reçus
+	 */
+	public void isHit() {
+		PV--;
+	}
+
+	/**
+	 * Accesseur de visuel associe au personnage
+	 * 
+	 * @return
+	 */
+	public PersonnagesVisual getVisual() {
+		return visuel;
+	}
+
+	/**
+	 * Renvoie l'un des robots associes au joueur, s'il existe
+	 * 
+	 * @param num
+	 *            le numero du robot recerche
+	 * @return le robot numero num associe au joueur, ou null s'il ne dispose
+	 *         pas de robot numero num
+	 * @require num == 1 || num == 2 || num == 3
+	 */
+	public Robots getRobot(int num) {
+		try {
+			return Units[num - 1];
+		} catch (Exception e) {
+			throw new PanicException("getRobots personnage equipe " + equipe + " mauvais indice");
+		}
+	}
+
+	/**
+	 * Getter de PV du personnage
+	 * 
+	 * @return le nombre de PV restants du personnages
+	 */
+	public int getHealth() {
+		return PV;
+	}
+
+	/**
+	 * Indique si le personnage dipose encoure de PV ou non
+	 */
+	public boolean estEnVie() {
+		return PV > 0;
 	}
 }
