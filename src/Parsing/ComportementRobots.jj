@@ -75,19 +75,22 @@ void loop() :
 void comp() :
 {}
 {
-  action()
-  (
-    < PREF > comp()
-  | pv() ou()
-  )
+  action() op()
 | loop()
-| < AO > comp() < AF >
+| < AO > comp() < AF > op()
 }
 
 void action() :
 {}
 {
   < ACTION > (< DP >)*
+}
+
+void op() :
+{}
+{
+  < PREF > comp()
+| pv() ou()
 }
 
 void pv() :

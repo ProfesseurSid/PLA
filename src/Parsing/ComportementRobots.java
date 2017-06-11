@@ -40,16 +40,7 @@ public class ComportementRobots implements ComportementRobotsConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ACTION:
       action();
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case PREF:
-        jj_consume_token(PREF);
-        comp();
-        break;
-      default:
-        jj_la1[0] = jj_gen;
-        pv();
-        ou();
-      }
+      op();
       break;
     case STAR:
       loop();
@@ -58,9 +49,10 @@ public class ComportementRobots implements ComportementRobotsConstants {
       jj_consume_token(AO);
       comp();
       jj_consume_token(AF);
+      op();
       break;
     default:
-      jj_la1[1] = jj_gen;
+      jj_la1[0] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -75,10 +67,23 @@ public class ComportementRobots implements ComportementRobotsConstants {
         ;
         break;
       default:
-        jj_la1[2] = jj_gen;
+        jj_la1[1] = jj_gen;
         break label_1;
       }
       jj_consume_token(DP);
+    }
+  }
+
+  static final public void op() throws ParseException {
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case PREF:
+      jj_consume_token(PREF);
+      comp();
+      break;
+    default:
+      jj_la1[2] = jj_gen;
+      pv();
+      ou();
     }
   }
 
@@ -130,7 +135,7 @@ public class ComportementRobots implements ComportementRobotsConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x800,0x1060,0x400,0x100,0x200,};
+      jj_la1_0 = new int[] {0x1060,0x400,0x800,0x100,0x200,};
    }
 
   /** Constructor with InputStream. */
