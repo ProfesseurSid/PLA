@@ -31,6 +31,7 @@ public class Others implements Operateurs {
 		this.y = y;
 		this.plateau = plateau;
 		this.visuel = visuel;
+		plateau.put(x, y, this);
 		t.addVisual(visuel);
 	}
 
