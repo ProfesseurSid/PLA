@@ -258,38 +258,29 @@ public class Automate {
 		}
 	}
 
-	public static void main(String[] args) {
-		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
-		 //Automate auto = new Automate("*{O::;*{H;K}}");
-		Automate auto = new Automate("*{O;K;*{P};H;J}");
-		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
-		// Automate auto = new Automate(new Protect());
-		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
-		Arbre a2 = new Arbre(new PointVirgule(), a1, new Arbre(new Rapport()));
-		Arbre a3 = new Arbre(new PointVirgule(), new Arbre(new Kamikaze()), a2);
-		Arbre a4 = new Arbre(new Star(), null, a3);
-		Arbre a = new Arbre(new Star(), null,
-				new Arbre(new PointVirgule(),
-						new Arbre(new Preference(), new Arbre(new Kamikaze()), new Arbre(new Rapport())),
-						new Arbre(new Preference(), new Arbre(new Hit()),
-								new Arbre(new Barre(), a4, new Arbre(new Kamikaze())))));
-		System.out.println(auto.code.toString());
-		Robots bot = new Robots();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-		auto.Run(bot);
-		System.out.println();
-	}
+	// public static void main(String[] args) {
+	// // Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
+	// //Automate auto = new Automate("*{O::;*{H;K}}");
+	// Automate auto = new Automate("*{O;K;*{P};H;J}");
+	// // Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
+	// // Automate auto = new Automate(new Protect());
+	// System.out.println(auto.code.toString());
+	// Robots bot = new Robots();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// auto.Run(bot);
+	// System.out.println();
+	// }
 }

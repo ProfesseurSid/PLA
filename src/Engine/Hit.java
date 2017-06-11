@@ -1,7 +1,5 @@
 package Engine;
 
-import Exception.PanicException;
-
 /**
  * Classe de l'operateur Hit. Lorsque un robot rencontre un ennemi il le frappe.
  */
@@ -70,7 +68,8 @@ public class Hit implements Operateurs {
 	}
 
 	/**
-	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
+	 * Methode qui teste si l'action est possible ou efficace a un moment
+	 * donné.
 	 * 
 	 * @param nono
 	 *            Robot qui doit executer l'action.

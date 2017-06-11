@@ -1,7 +1,5 @@
 package Engine;
 
-import Exception.PanicException;
-
 /**
  * Classe de l'operateur Others. Permet au robot de se deplacer vers les
  * ennemis.
@@ -63,7 +61,6 @@ public class Others implements Operateurs {
 	 *            Robot qui va executer l'action.
 	 */
 	public void action(Robots nono) {
-		System.out.println("OUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
 		nono.versEnnemi(1);
 	}
 
@@ -73,7 +70,8 @@ public class Others implements Operateurs {
 	}
 
 	/**
-	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
+	 * Methode qui teste si l'action est possible ou efficace a un moment
+	 * donné.
 	 * 
 	 * @param nono
 	 *            Robot qui doit executer l'action.

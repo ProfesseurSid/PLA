@@ -53,19 +53,16 @@ public class Personnages implements Vivante {
 	private void initInventory() {
 		Inventory.clear();
 		Inventory.put('*', 0); // Loop
+		Inventory.put('{', 0); // AccoladeO
+		Inventory.put('}', 0); // AccoladeF
+		Inventory.put(';', 0); // Separateur
+		Inventory.put('|', 0); // Hasar
 		Inventory.put('>', 0); // Preference
-		Inventory.put('S', 0); // Split
 		Inventory.put('H', 0); // Hit
-		Inventory.put('E', 0); // Escape
 		Inventory.put('K', 0); // Kamikaze
 		Inventory.put('P', 0); // Protect
-		Inventory.put('F', 0); // Follow
 		Inventory.put(':', 0); // Repeat
 		Inventory.put('J', 0); // Rapporte
-		Inventory.put('X', 0); // Explore
-		Inventory.put('C', 0); // Closest
-		Inventory.put('B', 0); // Best
-		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
 	}
 
@@ -145,7 +142,8 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'�quipe du personnage.
+	 * Methode qui permet la suppression d'un robots � l'�quipe du
+	 * personnage.
 	 * 
 	 * @param room
 	 *            case ou se trouve le robot � supprimer
@@ -287,11 +285,10 @@ public class Personnages implements Vivante {
 	 * @require num == 1 || num == 2 || num == 3
 	 */
 	public Robots getRobot(int num) {
-		try{
+		try {
 			return Units[num - 1];
-		}
-		catch(Exception e){
-			throw new PanicException("getRobots personnage equipe "+equipe+" mauvais indice");
+		} catch (Exception e) {
+			throw new PanicException("getRobots personnage equipe " + equipe + " mauvais indice");
 		}
 	}
 
