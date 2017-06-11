@@ -60,11 +60,13 @@ TOKEN : /* OPERATORS */
 | < PREF : ">" >
 }
 
+/*
 TOKEN :
 {
   < ACTION : < LETTER > >
 | < #LETTER : [ "H", "K", "O", "J", "P" ] >
 }
+*/
 
 void loop() :
 {}
@@ -83,7 +85,20 @@ void comp() :
 void action() :
 {}
 {
-  < ACTION > (< DP >)*
+  //< ACTION > (< DP >)*
+  "H" dp()
+| "K" dp()
+| "O" dp()
+| "J" dp()
+| "P" dp()
+}
+
+void dp() :
+{}
+{
+  (
+    < DP >
+  )*
 }
 
 void op() :
@@ -105,6 +120,6 @@ void ou() :
 {}
 {
   (
-    < OU > comp()
+    < OU >  comp()
   )*
 }
