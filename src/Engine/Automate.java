@@ -166,10 +166,10 @@ public class Automate {
 		} else if (a.op() instanceof DeuxPoints) {
 			count++;
 			RunAutomate(a.droit(), bot);
-		} else {			
+		} else {
 			for (int i = 0; i < count; i++) {
 				a.op().action(bot);
-				//System.out.println(a.op().toString() + " s'execute.");
+				// System.out.println(a.op().toString() + " s'execute.");
 			}
 			count = 1;
 		}

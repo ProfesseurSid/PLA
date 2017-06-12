@@ -19,13 +19,6 @@ public class Robots implements Vivante {
 	Personnages personnage;
 
 	/**
-	 * DO NOT USE THIS CONSTRUCTOR
-	 */
-	public Robots() {
-
-	}
-
-	/**
 	 * cree un robot et le place dans l'équipe e
 	 * 
 	 * @param e
@@ -291,21 +284,16 @@ public class Robots implements Vivante {
 							+ Math.abs(y - caze.getY()) < (Math.abs(x - destX) + Math.abs(y - destY))))) {
 						destX = i;
 						destY = j;
-						// System.out.println("JE PASSE LAAAAA " + destX + " " +
-						// destY);
 					}
 				}
 			}
-		// System.out.println("Cherche : " + destX + " " + destY);
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'ennemi
 		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
 		mvmt = trajet.xPas(nbMov);
-		// System.out.println("LENGTH : " + mvmt.size());
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
-		// System.out.println("Vie P1 : " + personnage.getHealth());
 	}
 
 	/**
@@ -328,7 +316,6 @@ public class Robots implements Vivante {
 					destY = caze.getY();
 				}
 			}
-
 		// Recherche des nbMov premiers pas du plus cours chemin vers l'allie
 		RechercheChemin trajet = new RechercheChemin(plateau, x, y, destX, destY);
 		ArrayList<PointCardinal> mvmt = new ArrayList<PointCardinal>();
@@ -374,8 +361,8 @@ public class Robots implements Vivante {
 		nbCoupsRecus = 0;
 		return PV > 0;
 	}
-	
-	public int getHealth(){
+
+	public int getHealth() {
 		return PV;
 	}
 }

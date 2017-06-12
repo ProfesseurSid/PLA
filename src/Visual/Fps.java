@@ -1,17 +1,15 @@
 package Visual;
 
 import java.applet.*;
-import java.awt.*;
-import java.text.DecimalFormat;
 
 public class Fps extends Applet implements Runnable {
-	public Thread animation;
 
+	private static final long serialVersionUID = 1L;
+	public Thread animation;
 	private long framerate;
 
 	public void init() {
 		animation = new Thread(this);
-
 		framerate = 1000 / 60;
 	}
 
@@ -51,7 +49,6 @@ public class Fps extends Applet implements Runnable {
 				frameCount = 0;
 				totalElapsedTime = 0;
 			}
-
 		}
 	}
 

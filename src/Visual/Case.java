@@ -6,8 +6,8 @@ import javafx.scene.shape.Rectangle;
 
 public class Case extends Parent {
 
-	private int posX ;
-	private int posY ;
+	private int posX;
+	private int posY;
 
 	private static int taille = 2 * Tuile.getTaille();
 

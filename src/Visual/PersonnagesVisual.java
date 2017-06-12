@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import Exception.PanicException;
 
 /**
- * S
+ * 
  ***************************************************************************************
  * PersonnagesVisual est la classe qui affiche et deplace un personnage sur le
  * terrain *
@@ -21,8 +21,8 @@ public class PersonnagesVisual extends Parent {
 	ImageView personnage;
 
 	/**
-	 * Constructeur qui affiche l'image "personnage" dans la case de coordonn�es
-	 * (indY,indX)
+	 * Constructeur qui affiche l'image "personnage" dans la case de
+	 * coordonn�es (indY,indX)
 	 * 
 	 * @param personnage
 	 *            L'image avatar du personnage
@@ -46,7 +46,6 @@ public class PersonnagesVisual extends Parent {
 		personnage.setFitWidth(taille);
 		personnage.setFitHeight(taille);
 		this.getChildren().add(personnage);
-
 		this.plateau = plateau;
 	}
 
@@ -108,5 +107,4 @@ public class PersonnagesVisual extends Parent {
 		personnage.setFitWidth(taille);
 		personnage.setFitHeight(taille);
 	}
-
 }

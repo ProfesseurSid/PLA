@@ -1,7 +1,5 @@
 package Engine;
 
-import Exception.PanicException;
-
 /**
  * Classe de l'operateur Protect. Permet au robot de se proteger des coups.
  */
@@ -71,7 +69,8 @@ public class Protect implements Operateurs {
 	}
 
 	/**
-	 * Methode qui teste si l'action est possible ou efficace a un moment donné.
+	 * Methode qui teste si l'action est possible ou efficace a un moment
+	 * donné.
 	 * 
 	 * @param nono
 	 *            Robot qui doit executer l'action.

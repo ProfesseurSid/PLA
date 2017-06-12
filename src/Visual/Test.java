@@ -1,6 +1,5 @@
 package Visual;
 
-import Engine.Timer;
 import UserInterface.Keyboard;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;

@@ -10,7 +10,7 @@ public interface Operateurs extends Entite {
 	public void stock(Personnages p);
 
 	public void action(Robots nono);
-	
+
 	public boolean isPossible(Robots nono);
 
 	public String toString();

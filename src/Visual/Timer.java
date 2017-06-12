@@ -1,8 +1,8 @@
-package Engine;
+package Visual;
 
 import java.util.Date;
 
-import Visual.Terrain;
+import Engine.Robots;
 import javafx.animation.AnimationTimer;
 
 /**
@@ -63,8 +63,6 @@ public class Timer extends AnimationTimer {
 				}
 			System.out.println("Vie P1 : " + Terrain.personnage1.getHealth());
 			System.out.println("Vie P2 : " + Terrain.personnage2.getHealth());
-			// System.out.println("Vie R1P1 : " +
-			// Terrain.personnage1.getRobot(1).PV);
 			lastTime = date;
 		}
 	}
