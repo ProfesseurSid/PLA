@@ -91,7 +91,7 @@ public class Timer extends AnimationTimer {
 			lastTime = date;
 		}
 
-		if (date - lastTime_op > 3000) {
+		if (date - lastTime_op > 15000) {
 			rand = (int) (Math.random() * 4);
 			switch (rand) {
 			case 0:
@@ -131,7 +131,7 @@ public class Timer extends AnimationTimer {
 			lastTime_op = date;
 		}
 		
-		/*if (date - lastTime_op2 > 5000) {
+		if (date - lastTime_op2 > 5000) {
 			rand = (int) (Math.random() * 8);
 			switch (rand) {
 			case 0:
@@ -140,6 +140,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 1:
 				op = new ImageView(
@@ -147,6 +148,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeO accoladeO = new AccoladeO(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 2:
 				op = new ImageView(
@@ -154,6 +156,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Barre barre = new Barre(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 3:
 				op = new ImageView(
@@ -161,6 +164,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				DeuxPoints deuxPoints = new DeuxPoints(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 4:
 				op = new ImageView(
@@ -168,6 +172,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 5:
 				op = new ImageView(
@@ -175,6 +180,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 6:
 				op = new ImageView(
@@ -182,6 +188,7 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Rapport rapport = new Rapport(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			case 7:
 				op = new ImageView(
@@ -189,11 +196,12 @@ public class Timer extends AnimationTimer {
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Star star = new Star(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel,op);
 				break;
 			default: throw new PanicException("Random sur operateur : nombre non gere");
 			}
 			lastTime_op2 = date;		
-		}*/
+		}
 	}
 	
 	public void blink (OperateursVisual visuel, ImageView image){

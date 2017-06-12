@@ -23,7 +23,6 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	int ligne1 = 0;
 	int ligne2 = 0;
 	public String c = "";
-	TextField expression;
 	Group root;
 	Text expr_rouge, expr_bleue;
 	int marge;
@@ -92,7 +91,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (focus != 4) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 1, personnage2);
-						updateExpression();
+						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
 						root.getChildren().add(boite2);
@@ -102,7 +101,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (focus != 4) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 2, personnage2);
-						updateExpression();
+						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
 						root.getChildren().add(boite2);
@@ -112,7 +111,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (focus != 4) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 3, personnage2);
-						updateExpression();
+						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
 						root.getChildren().add(boite2);
@@ -224,7 +223,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 1, personnage1);
-						updateExpression();
+						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
@@ -234,7 +233,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 2, personnage1);
-						updateExpression();
+						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
@@ -244,7 +243,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 3, personnage1);
-						updateExpression();
+						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
@@ -330,66 +329,61 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	public void getOperateur(int ligne, int number, Personnages personnage) {
 		switch (ligne) {
 		case 0:
-			if (number == 1 && c.length() < 25) {
+			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "*";
-				//try {
-					personnage.removeOperator('*');
-				//}
-				//catch (PanicException e){
-					
-				//}
+				personnage.removeOperator('*');
 				// TODO
 				// il faut decrementer le chiffre affiche plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2 && c.length() < 25) {
+			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "{";
 				personnage.removeOperator('{');
-			} else if (number == 3 && c.length() < 25) {
+			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "}";
 				personnage.removeOperator('}');
 			}
 			break;
 		case 1:
-			if (number == 1 && c.length() < 25) {
+			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + ";";
 				personnage.removeOperator(';');
 				// TODO
 				// il fau decrementer le chiffre affiche plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2 && c.length() < 25) {
+			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "|";
 				personnage.removeOperator('|');
-			} else if (number == 3 && c.length() < 25) {
+			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + ":";
 				personnage.removeOperator(':');
 			}
 			break;
 		case 2:
-			if (number == 1 && c.length() < 25) {
+			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + ">";
 				personnage.removeOperator('>');
 				// TODO
 				// il faut decrementer le chiffre affiché plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2 && c.length() < 25) {
+			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "H";
 				personnage.removeOperator('H');
-			} else if (number == 3 && c.length() < 25) {
+			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "K";
 				personnage.removeOperator('K');
 			}
 			break;
 		case 3:
-			if (number == 1 && c.length() < 25) {
+			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "O";
 				personnage.removeOperator('O');
 				// TODO
 				// il faut decrementer le chiffre affiché plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2 && c.length() < 25) {
+			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "J";
 				personnage.removeOperator('J');
-			} else if (number == 3 && c.length() < 25) {
+			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
 				c = c + "P";
 				personnage.removeOperator('P');
 			}
@@ -408,7 +402,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		}
 	}
 
-	public void updateExpression() {
+	public void updateExpression_bleue() {
 		root.getChildren().remove(expr_bleue);
 		Text expr_bleue = new Text(c);
 		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
@@ -416,6 +410,16 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_bleue);
+	}
+	
+	public void updateExpression_rouge() {
+		root.getChildren().remove(expr_rouge);
+		Text expr_rouge = new Text(c);
+		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
+		expr_rouge.setFill(Color.rgb(72, 145, 220, 1.0));
+		expr_rouge.setX(3 * marge + Barre.getDimX());
+		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
+		root.getChildren().add(expr_rouge);
 	}
 
 	/*

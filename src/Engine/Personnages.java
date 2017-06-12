@@ -118,14 +118,21 @@ public class Personnages implements Vivante {
 	 * @require op est un opérateur connu de l'inventaire.
 	 */
 	public void removeOperator(char op) {
-		if (!(Inventory.containsKey(op))) {
+		/*if (!(Inventory.containsKey(op))) {
 			throw new PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu");
 		}
 		if (Inventory.get(op) == 0) {
 			throw new PanicException(
 					"Suppression d'objet de l'inventaire du personnage : Il y a dja 0 objets de ce type dans l'inventaire.");
+		}*/
+		Inventory.put(op, Inventory.get(op)-1);
+	}
+	
+	public boolean isEmpty (char op){
+		if (Inventory.get(op)==0){
+			return true;
 		}
-		Inventory.put(op, Inventory.get(op) - 1);
+		return false;
 	}
 
 	/**
