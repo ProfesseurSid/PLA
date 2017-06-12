@@ -1,3 +1,4 @@
+
 package UserInterface;
 
 import Engine.*;
@@ -28,10 +29,12 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	Boite boite1, boite2;
 	Team team1, team2;
 	String c;
-	String curseur = "|";
-	public String expression_rouge = "";
-	public String expression_bleue = "";
-	
+	public String expression_rouge = "|";
+	public String expression_bleue = "|";
+	int nb;
+	int nb_rouge = 1;
+	int nb_bleu = 1;
+
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
 			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
 		this.personnage1 = personnage1;
@@ -79,7 +82,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						ligne2 = ligne2 + 1;
 					boite2.visible(ligne2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.LEFT) {
+				} else if (event.getCode() == KeyCode.B) {
 					personnage2.sortir();
 					boite2.invisible(ligne2);
 					root.getChildren().remove(boite2);
@@ -326,58 +329,61 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void getOperateur(int ligne, int number, Personnages personnage, int color) {
-		if (color == 1){
+
+		System.out.println(nb_bleu);
+		if (color == 1) {
 			c = expression_bleue;
-		}
-		else if (color == 2){
+			nb = nb_bleu;
+		} else if (color == 2) {
 			c = expression_rouge;
+			nb = nb_rouge;
 		}
 		switch (ligne) {
 		case 0:
 			if (number == 1 && !personnage.isEmpty('*')) {
-				c = c + "*";
+				updateExpression("*");
 				personnage.removeOperator('*');
 			} else if (number == 2 && !personnage.isEmpty('{')) {
-				c = c + "{";
+				updateExpression("{");
 				personnage.removeOperator('{');
 			} else if (number == 3 && !personnage.isEmpty('}')) {
-				c = c + "}";
+				updateExpression("}");
 				personnage.removeOperator('}');
 			}
 			break;
 		case 1:
 			if (number == 1 && !personnage.isEmpty(';')) {
-				c = c + ";";
+				updateExpression(";");
 				personnage.removeOperator(';');
-			} else if (number == 2  && !personnage.isEmpty('|')) {
-				c = c + "|";
+			} else if (number == 2 && !personnage.isEmpty('|')) {
+				updateExpression("|");
 				personnage.removeOperator('|');
 			} else if (number == 3 && !personnage.isEmpty(':')) {
-				c = c + ":";
+				updateExpression(":");
 				personnage.removeOperator(':');
 			}
 			break;
 		case 2:
 			if (number == 1 && !personnage.isEmpty('>')) {
-				c = c + ">";
+				updateExpression(">");
 				personnage.removeOperator('>');
 			} else if (number == 2 && !personnage.isEmpty('H')) {
-				c = c + "H";
+				updateExpression("H");
 				personnage.removeOperator('H');
 			} else if (number == 3 && !personnage.isEmpty('K')) {
-				c = c + "K";
+				updateExpression("K");
 				personnage.removeOperator('K');
 			}
 			break;
 		case 3:
 			if (number == 1 && !personnage.isEmpty('O')) {
-				c = c + "O";
+				updateExpression("O");
 				personnage.removeOperator('O');
 			} else if (number == 2 && !personnage.isEmpty('J')) {
-				c = c + "J";
+				updateExpression("J");
 				personnage.removeOperator('J');
 			} else if (number == 3 && !personnage.isEmpty('P')) {
-				c = c + "P";
+				updateExpression("P");
 				personnage.removeOperator('P');
 			}
 			break;
@@ -393,40 +399,47 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				// supprimer le caractere
 			}
 		}
-		if (color == 1){
+		if (color == 1) {
 			expression_bleue = c;
-		}
-		else if (color == 2){
+			nb_bleu = nb;
+		} else if (color == 2) {
 			expression_rouge = c;
+			nb_rouge = nb;
 		}
+
+		System.out.println(nb_bleu);
 	}
 
 	public void updateExpression_bleue() {
 		root.getChildren().remove(expr_bleue);
-		Text expr_bleue = new Text(expression_bleue);
+		expr_bleue = new Text(expression_bleue);
 		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_bleue);
-		/*TranslateTransition tt = new TranslateTransition(Duration.millis(30000),expr_bleue);
-		tt.setFromX(0-expr_bleue.getWrappingWidth()-10);
-		tt.setCycleCount(Timeline.INDEFINITE);
-		tt.play();*/
-		
 	}
 
 	public void updateExpression_rouge() {
 		root.getChildren().remove(expr_rouge);
-		Text expr_rouge = new Text(expression_rouge);
+		expr_rouge = new Text(expression_rouge);
 		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
 	}
-	
-	/*public void updateCurseur (){
-		c = 
-	}*/
+
+	public void updateExpression(String new_c) {
+		if (nb == 1) {
+			c = new_c + c;
+		} else if (nb == c.length()) {
+			c = c.substring(0, c.length() - 1) + new_c + "|";
+		} else {
+			c = c.substring(0, nb - 1) + "|" + new_c + c.substring(nb + 1, c.length() - 1);
+		}
+		nb++;
+		System.out.println(nb);
+		return;
+	}
 }

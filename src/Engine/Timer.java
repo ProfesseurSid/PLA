@@ -99,7 +99,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Hit hit = new Hit(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 1:
@@ -107,7 +106,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/ARF.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Kamikaze kamikaze = new Kamikaze(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 2:
@@ -115,7 +113,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/ARFtest.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Others others = new Others(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 3:
@@ -123,7 +120,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Protect protect = new Protect(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			default: throw new PanicException("Random sur operateur : nombre non gere");
@@ -139,7 +135,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/AccoladeOuvrante.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 1:
@@ -147,7 +142,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/ARF.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				AccoladeO accoladeO = new AccoladeO(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 2:
@@ -155,7 +149,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/ARFtest.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Barre barre = new Barre(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 3:
@@ -163,7 +156,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				DeuxPoints deuxPoints = new DeuxPoints(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 4:
@@ -171,7 +163,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 5:
@@ -179,7 +170,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 6:
@@ -187,7 +177,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Rapport rapport = new Rapport(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			case 7:
@@ -195,7 +184,6 @@ public class Timer extends AnimationTimer {
 						new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Star star = new Star(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel,op);
 				break;
 			default: throw new PanicException("Random sur operateur : nombre non gere");
