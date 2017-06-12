@@ -44,7 +44,7 @@ TOKEN :
 | < #LETTER : [ "H", "K", "O", "J", "P" ] >
 }
 */
-  static final public Arbre loop() throws ParseException {
+  final public Arbre loop() throws ParseException {
   Arbre fd;
     jj_consume_token(STAR);
     jj_consume_token(AO);
@@ -54,7 +54,7 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static final public Arbre comp() throws ParseException {
+  final public Arbre comp() throws ParseException {
   Arbre fg, fd;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 12:
@@ -105,7 +105,7 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static final public Arbre action() throws ParseException {
+  final public Arbre action() throws ParseException {
   Arbre retour;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 12:
@@ -141,7 +141,7 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static final public Arbre dp(Operateurs o) throws ParseException {
+  final public Arbre dp(Operateurs o) throws ParseException {
   Arbre retour;
     retour = new Arbre(o);
     label_1:
@@ -161,7 +161,7 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static final public Arbre op() throws ParseException {
+  final public Arbre op() throws ParseException {
   Arbre fd, fg;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PREF:
@@ -187,7 +187,7 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static final public Arbre pv() throws ParseException {
+  final public Arbre pv() throws ParseException {
   Arbre fd, retour;
     retour = new Arbre(new PointVirgule());
     label_2:
@@ -211,7 +211,7 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static final public Arbre ou() throws ParseException {
+  final public Arbre ou() throws ParseException {
   Arbre fd, retour;
     retour = new Arbre(new Barre());
     label_3:
@@ -235,17 +235,16 @@ TOKEN :
     throw new Error("Missing return statement in function");
   }
 
-  static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
-  static public ComportementRobotsTokenManager token_source;
-  static SimpleCharStream jj_input_stream;
+  public ComportementRobotsTokenManager token_source;
+  SimpleCharStream jj_input_stream;
   /** Current token. */
-  static public Token token;
+  public Token token;
   /** Next token. */
-  static public Token jj_nt;
-  static private int jj_ntk;
-  static private int jj_gen;
-  static final private int[] jj_la1 = new int[6];
+  public Token jj_nt;
+  private int jj_ntk;
+  private int jj_gen;
+  final private int[] jj_la1 = new int[6];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
@@ -260,13 +259,6 @@ TOKEN :
   }
   /** Constructor with InputStream and supplied encoding */
   public ComportementRobots(java.io.InputStream stream, String encoding) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser.  ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new ComportementRobotsTokenManager(jj_input_stream);
     token = new Token();
@@ -276,11 +268,11 @@ TOKEN :
   }
 
   /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream) {
+  public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream, String encoding) {
+  public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -291,13 +283,6 @@ TOKEN :
 
   /** Constructor. */
   public ComportementRobots(java.io.Reader stream) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new ComportementRobotsTokenManager(jj_input_stream);
     token = new Token();
@@ -307,7 +292,7 @@ TOKEN :
   }
 
   /** Reinitialise. */
-  static public void ReInit(java.io.Reader stream) {
+  public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -318,13 +303,6 @@ TOKEN :
 
   /** Constructor with generated Token Manager. */
   public ComportementRobots(ComportementRobotsTokenManager tm) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
@@ -341,7 +319,7 @@ TOKEN :
     for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
-  static private Token jj_consume_token(int kind) throws ParseException {
+  private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -357,7 +335,7 @@ TOKEN :
 
 
 /** Get the next Token. */
-  static final public Token getNextToken() {
+  final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
@@ -366,7 +344,7 @@ TOKEN :
   }
 
 /** Get the specific Token. */
-  static final public Token getToken(int index) {
+  final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
@@ -375,19 +353,19 @@ TOKEN :
     return t;
   }
 
-  static private int jj_ntk() {
+  private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-  static private int[] jj_expentry;
-  static private int jj_kind = -1;
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  private int[] jj_expentry;
+  private int jj_kind = -1;
 
   /** Generate ParseException. */
-  static public ParseException generateParseException() {
+  public ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[17];
     if (jj_kind >= 0) {
@@ -418,11 +396,11 @@ TOKEN :
   }
 
   /** Enable tracing. */
-  static final public void enable_tracing() {
+  final public void enable_tracing() {
   }
 
   /** Disable tracing. */
-  static final public void disable_tracing() {
+  final public void disable_tracing() {
   }
 
 }
