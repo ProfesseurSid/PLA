@@ -1,12 +1,10 @@
 package UserInterface;
 
 import Engine.*;
-import Exception.PanicException;
 import Visual.*;
 import Visual.Barre;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.TextField;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -32,7 +30,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	Boite boite2;
 	Team team1;
 	Team team2;
-
+	
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
 			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
 		this.personnage1 = personnage1;
@@ -329,61 +327,49 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	public void getOperateur(int ligne, int number, Personnages personnage) {
 		switch (ligne) {
 		case 0:
-			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
+			if (number == 1 && !personnage.isEmpty('*')) {
 				c = c + "*";
 				personnage.removeOperator('*');
-				// TODO
-				// il faut decrementer le chiffre affiche plus l'operateur dans
-				// l'inventaire
-			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 2 && !personnage.isEmpty('{')) {
 				c = c + "{";
 				personnage.removeOperator('{');
-			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 3 && !personnage.isEmpty('}')) {
 				c = c + "}";
 				personnage.removeOperator('}');
 			}
 			break;
 		case 1:
-			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
+			if (number == 1 && !personnage.isEmpty(';')) {
 				c = c + ";";
 				personnage.removeOperator(';');
-				// TODO
-				// il fau decrementer le chiffre affiche plus l'operateur dans
-				// l'inventaire
-			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 2  && !personnage.isEmpty('|')) {
 				c = c + "|";
 				personnage.removeOperator('|');
-			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 3 && !personnage.isEmpty(':')) {
 				c = c + ":";
 				personnage.removeOperator(':');
 			}
 			break;
 		case 2:
-			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
+			if (number == 1 && !personnage.isEmpty('>')) {
 				c = c + ">";
 				personnage.removeOperator('>');
-				// TODO
-				// il faut decrementer le chiffre affiché plus l'operateur dans
-				// l'inventaire
-			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 2 && !personnage.isEmpty('H')) {
 				c = c + "H";
 				personnage.removeOperator('H');
-			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 3 && !personnage.isEmpty('K')) {
 				c = c + "K";
 				personnage.removeOperator('K');
 			}
 			break;
 		case 3:
-			if (number == 1 && c.length() < 25 && !personnage.isEmpty('*')) {
+			if (number == 1 && !personnage.isEmpty('O')) {
 				c = c + "O";
 				personnage.removeOperator('O');
-				// TODO
-				// il faut decrementer le chiffre affiché plus l'operateur dans
-				// l'inventaire
-			} else if (number == 2 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 2 && !personnage.isEmpty('J')) {
 				c = c + "J";
 				personnage.removeOperator('J');
-			} else if (number == 3 && c.length() < 25 && !personnage.isEmpty('*')) {
+			} else if (number == 3 && !personnage.isEmpty('P')) {
 				c = c + "P";
 				personnage.removeOperator('P');
 			}
@@ -410,8 +396,13 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_bleue);
+		/*TranslateTransition tt = new TranslateTransition(Duration.millis(30000),expr_bleue);
+		tt.setFromX(0-expr_bleue.getWrappingWidth()-10);
+		tt.setCycleCount(Timeline.INDEFINITE);
+		tt.play();*/
+		
 	}
-	
+
 	public void updateExpression_rouge() {
 		root.getChildren().remove(expr_rouge);
 		Text expr_rouge = new Text(c);
@@ -421,17 +412,5 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
 	}
-
-	/*
-	 * public void rectangleSelec(int ligne){ selection = new Rectangle();
-	 * selection.setWidth(Barre.getDimX());
-	 * selection.setHeight(Case.getTaille()); selection.setStroke(Color.RED);
-	 * selection.setStrokeWidth(4); selection.setFill(Color.TRANSPARENT);
-	 * selection.setTranslateX(marge); selection.setTranslateY(marge+
-	 * ligne*(Case.getTaille() + Tuile.getTaille() / 2));
-	 * root.getChildren().add(selection); }
-	 * 
-	 * public void remove(){ root.getChildren().remove(selection); }
-	 */
-
+	
 }
