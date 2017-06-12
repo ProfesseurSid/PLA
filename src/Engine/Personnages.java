@@ -54,25 +54,25 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
-		Inventory.put('*', 0); // Loop
-		Inventory.put('>', 0); // Preference
-		Inventory.put('S', 0); // Split
-		Inventory.put('H', 0); // Hit
-		Inventory.put('E', 0); // Escape
-		Inventory.put('K', 0); // Kamikaze
-		Inventory.put('P', 0); // Protect
-		Inventory.put('F', 0); // Follow
-		Inventory.put(':', 0); // Repeat
-		Inventory.put('J', 0); // Rapporte
-		Inventory.put('X', 0); // Explore
-		Inventory.put('C', 0); // Closest
-		Inventory.put('B', 0); // Best
-		Inventory.put('W', 0); // Where
-		Inventory.put('O', 0); // Others
-		Inventory.put('{', 0);
-		Inventory.put('}', 0);
-		Inventory.put(';', 0); // And
-		Inventory.put('|', 0); // Or
+		Inventory.put('*', 10); // Loop
+		Inventory.put('>', 10); // Preference
+		Inventory.put('S', 10); // Split
+		Inventory.put('H', 10); // Hit
+		Inventory.put('E', 10); // Escape
+		Inventory.put('K', 10); // Kamikaze
+		Inventory.put('P', 10); // Protect
+		Inventory.put('F', 10); // Follow
+		Inventory.put(':', 10); // Repeat
+		Inventory.put('J', 10); // Rapporte
+		Inventory.put('X', 10); // Explore
+		Inventory.put('C', 10); // Closest
+		Inventory.put('B', 10); // Best
+		Inventory.put('W', 10); // Where
+		Inventory.put('O', 10); // Others
+		Inventory.put('{', 10);
+		Inventory.put('}', 10);
+		Inventory.put(';', 10); // And
+		Inventory.put('|', 10); // Or
 	}
 
 	/**
@@ -105,10 +105,6 @@ public class Personnages implements Vivante {
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
 
-	// public void addOperator(int x, int y) {
-	// char op[][] =;
-	// }
-
 	/**
 	 * Methode permettant de décrementer le nombre d'un operateur connu par
 	 * l'inventaire.
@@ -126,6 +122,11 @@ public class Personnages implements Vivante {
 					"Suppression d'objet de l'inventaire du personnage : Il y a déja 0 objets de ce type dans l'inventaire.");
 		}
 		Inventory.put(op, Inventory.get(op) - 1);
+	}
+
+	public void removeOperator(int x, int y) {
+		char op[][] = { { '*', '{', '}' }, { ';', '|', ':' }, { '>', 'H', 'K' }, { 'O', 'J', 'P' } };
+		removeOperator(op[x][y]);
 	}
 
 	/**

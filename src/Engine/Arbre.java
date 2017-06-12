@@ -41,12 +41,13 @@ public class Arbre {
 		gauche = g;
 		droit = d;
 	}
-	
+
 	/**
 	 * Getter
+	 * 
 	 * @return Operateur.
 	 */
-	public Operateurs op(){
+	public Operateurs op() {
 		return op;
 	}
 
@@ -69,8 +70,7 @@ public class Arbre {
 	}
 
 	/**
-	 * Remplace le fils droit du noeud courant par un arbre donné en
-	 * paramètre.
+	 * Remplace le fils droit du noeud courant par un arbre donné en paramètre.
 	 * 
 	 * @param a
 	 *            Arbre à mettre en fils droit.
@@ -91,8 +91,7 @@ public class Arbre {
 	}
 
 	/**
-	 * Remplace le fils gauche du noeud courant par un arbre donné en
-	 * paramètre.
+	 * Remplace le fils gauche du noeud courant par un arbre donné en paramètre.
 	 * 
 	 * @param a
 	 *            Arbre à mettre en fils gauche.
@@ -123,8 +122,8 @@ public class Arbre {
 	}
 
 	/**
-	 * Methode qui ajoute un operateur sur un noeud, décallant le noeud déja
-	 * en place (et son sous arbre) sur le fils gauche.
+	 * Methode qui ajoute un operateur sur un noeud, décallant le noeud déja en
+	 * place (et son sous arbre) sur le fils gauche.
 	 * 
 	 * @param op
 	 *            Operateur qui doit constituer le nouveau noeud.
@@ -137,8 +136,8 @@ public class Arbre {
 	}
 
 	/**
-	 * Methode qui ajoute un operateur sur un noeud, décallant le noeud déja
-	 * en place (et son sous arbre) sur le fils droit.
+	 * Methode qui ajoute un operateur sur un noeud, décallant le noeud déja en
+	 * place (et son sous arbre) sur le fils droit.
 	 * 
 	 * @param op
 	 *            Operateur qui doit constituer le nouveau noeud.

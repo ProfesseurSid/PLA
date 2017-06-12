@@ -374,8 +374,8 @@ public class Robots implements Vivante {
 		nbCoupsRecus = 0;
 		return PV > 0;
 	}
-	
-	public int getHealth(){
+
+	public int getHealth() {
 		return PV;
 	}
 }

@@ -20,8 +20,8 @@ public class RobotVisual extends Parent {
 	 * @param robot
 	 *            L'image avatar du robot
 	 * @param e
-	 *            Represente le numero de l'equipe ( 0 pour le robot 1, 1
-	 *            pour le robot 2)
+	 *            Represente le numero de l'equipe ( 0 pour le robot 1, 1 pour
+	 *            le robot 2)
 	 * @require e == 0 || e == 1
 	 */
 	public RobotVisual(ImageView robot, int e, Plateau plateau) {
@@ -101,8 +101,8 @@ public class RobotVisual extends Parent {
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
 	}
-	
-	public void remove(){
+
+	public void remove() {
 		this.getChildren().remove(robot);
 	}
 

@@ -14,7 +14,7 @@ public class OperateursVisual extends Parent {
 	int taille = Tuile.getTaille();
 	ImageView operateur;
 	Operateurs op;
-	
+
 	public OperateursVisual(ImageView operateur, Plateau plateau) {
 		this.plateau = plateau;
 		this.operateur = operateur;
@@ -25,8 +25,8 @@ public class OperateursVisual extends Parent {
 			indX = (int) (Math.random() * (Terrain.getTuileY() - 1));
 		}
 
-		//TODO
-		//plateau.put(indX, indY, op);
+		// TODO
+		// plateau.put(indX, indY, op);
 
 		operateur.setTranslateX(indX * taille);
 		operateur.setTranslateY(indY * taille);
@@ -53,13 +53,13 @@ public class OperateursVisual extends Parent {
 
 		return fade;
 	}
-	
-	public void manger (){
+
+	public void manger() {
 		FadeTransition fade = new FadeTransition(Duration.seconds(0), operateur);
 		fade.setFromValue(1);
 		fade.setToValue(0);
-		//TODO
-		//plateau.remove(indX, indY, op);
+		// TODO
+		// plateau.remove(indX, indY, op);
 	}
 
 }

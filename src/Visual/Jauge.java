@@ -25,7 +25,7 @@ public class Jauge extends Parent {
 		jauge.setFill(Color.rgb(0, 0, 0, 0.));
 		this.getChildren().add(jauge);
 	}
-	
+
 	public Jauge(int X, int Y, int hauteur, int equipe) {
 		posX = X;
 		posY = Y;

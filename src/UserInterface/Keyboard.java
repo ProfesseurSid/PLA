@@ -74,14 +74,36 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().remove(boite2);
 					boite2 = new Boite(personnage2);
 					root.getChildren().add(boite2);
+				} else if (event.getCode() == KeyCode.SEMICOLON) {
+					int focus = boite2.focused();
+					if (focus != 4) {
+						personnage2.removeOperator(focus, 0);
+						root.getChildren().remove(boite2);
+						boite2 = new Boite(personnage2);
+						boite2.visible(focus);
+						root.getChildren().add(boite2);
+					}
+				} else if (event.getCode() == KeyCode.COLON) {
+					int focus = boite2.focused();
+					if (focus != 4) {
+						personnage2.removeOperator(focus, 1);
+						root.getChildren().remove(boite2);
+						boite2 = new Boite(personnage2);
+						boite2.visible(focus);
+						root.getChildren().add(boite2);
+					}
+
+				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
+					int focus = boite2.focused();
+					if (focus != 4) {
+						personnage2.removeOperator(focus, 2);
+						root.getChildren().remove(boite2);
+						boite2 = new Boite(personnage2);
+						boite2.visible(focus);
+						root.getChildren().add(boite2);
+					}
+
 				}
-				// } else if (event.getCode() == KeyCode.SEMICOLON) {
-				// select2.sel(0);
-				// } else if (event.getCode() == KeyCode.COLON) {
-				// select2.sel(1);
-				// } else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
-				// select2.sel(2);
-				// }
 
 			} else {
 				if (event.getCode() == KeyCode.SEMICOLON) {
@@ -107,7 +129,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team2.invisible(2);
 						team2.visible(1);
 						root.getChildren().add(team2);
-					};
+					}
+					;
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 					if (team2.getVisible(2)) {
 						root.getChildren().remove(team2);
@@ -182,12 +205,33 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-					// } else if (event.getCode() == KeyCode.DIGIT1) {
-					// select1.sel(0);
-					// } else if (event.getCode() == KeyCode.DIGIT2) {
-					// select1.sel(1);
-					// } else if (event.getCode() == KeyCode.DIGIT3) {
-					// select1.sel(2);
+				} else if (event.getCode() == KeyCode.DIGIT1) {
+					int focus = boite1.focused();
+					if (focus != 4) {
+						personnage1.removeOperator(focus, 0);
+						root.getChildren().remove(boite1);
+						boite1 = new Boite(personnage1);
+						boite1.visible(focus);
+						root.getChildren().add(boite1);
+					}
+				} else if (event.getCode() == KeyCode.DIGIT2) {
+					int focus = boite1.focused();
+					if (focus != 4) {
+						personnage1.removeOperator(focus, 1);
+						root.getChildren().remove(boite1);
+						boite1 = new Boite(personnage1);
+						boite1.visible(focus);
+						root.getChildren().add(boite1);
+					}
+				} else if (event.getCode() == KeyCode.DIGIT3) {
+					int focus = boite1.focused();
+					if (focus != 4) {
+						personnage1.removeOperator(focus, 2);
+						root.getChildren().remove(boite1);
+						boite1 = new Boite(personnage1);
+						boite1.visible(focus);
+						root.getChildren().add(boite1);
+					}
 				}
 
 			} else {
@@ -214,7 +258,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team1.invisible(2);
 						team1.visible(1);
 						root.getChildren().add(team1);
-					};
+					}
+					;
 				} else if (event.getCode() == KeyCode.DIGIT3) {
 					if (team1.getVisible(2)) {
 						root.getChildren().remove(team1);

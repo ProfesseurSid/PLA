@@ -14,6 +14,8 @@ public class Barre extends Parent {
 	Case Cases[];
 	Text commandes[];
 
+	private boolean visible;
+
 	Color couleur;
 
 	Rectangle fond_barre;
@@ -84,7 +86,7 @@ public class Barre extends Parent {
 
 	public void visible(boolean t) {
 		if (t) {
-
+			visible = true;
 			for (Case cases : Cases) {
 				this.getChildren().remove(cases);
 			}
@@ -102,11 +104,16 @@ public class Barre extends Parent {
 				i++;
 			}
 		} else {
+			visible = false;
 			this.getChildren().remove(fond_barre);
 			for (Text commande : commandes) {
 				this.getChildren().remove(commande);
 			}
 		}
+	}
+
+	public boolean getVisible() {
+		return visible;
 	}
 
 }

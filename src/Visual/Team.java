@@ -49,19 +49,9 @@ public class Team extends Parent {
 		Mates[i].visible(false);
 		this.getChildren().add(Mates[i]);
 	}
-	
-	public boolean getVisible(int i){
+
+	public boolean getVisible(int i) {
 		return Mates[i].getVisible();
 	}
-	
-	public int focused(){
-		if (Mates[0].getVisible())
-			return 0;
-		if (Mates[1].getVisible())
-			return 1;
-		if (Mates[2].getVisible())
-			return 2;
-		else
-			return 3;
-	}
+
 }
