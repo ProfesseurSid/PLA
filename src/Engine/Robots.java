@@ -384,7 +384,12 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate
 	 */
 	public void setBehavior(String s) {
-		behavior = new Automate(s);
+		try {
+			behavior = new Automate(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
