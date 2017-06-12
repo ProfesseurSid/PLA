@@ -74,10 +74,10 @@ public class Test extends Application {
 		root.getChildren().add(team2);
 
 		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge, tailleExpression, boiteGauche, boiteDroite, team1, team2);
+				expr_rouge, marge , tailleExpression, boiteGauche, boiteDroite, team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
-
+		
 		root.getChildren().add(monTerrain);
 
 		ImageView PersoRouge = new ImageView(new Image(Test.class.getResourceAsStream("images/PersoRouge.png")));
@@ -101,6 +101,7 @@ public class Test extends Application {
 
 		Timer game = new Timer(monTerrain);
 		game.start();
+
 	}
 
 }

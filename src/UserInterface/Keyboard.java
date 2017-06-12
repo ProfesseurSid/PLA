@@ -20,7 +20,6 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	Personnages personnage2;
 	int ligne1 = 0;
 	int ligne2 = 0;
-	public String c = "";
 	Group root;
 	Text expr_rouge, expr_bleue;
 	int marge;
@@ -30,6 +29,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	Boite boite2;
 	Team team1;
 	Team team2;
+	String c;
+	String curseur = "|";
+	public String expression_rouge = "";
+	public String expression_bleue = "";
 
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
 			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
@@ -54,6 +57,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
+
 		if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
 				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
 				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK) {
@@ -87,7 +91,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					int focus = boite2.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite2);
-						getOperateur(ligne2, 1, personnage2);
+						getOperateur(ligne2, 1, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
@@ -97,7 +101,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					int focus = boite2.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite2);
-						getOperateur(ligne2, 2, personnage2);
+						getOperateur(ligne2, 2, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
@@ -107,7 +111,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					int focus = boite2.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite2);
-						getOperateur(ligne2, 3, personnage2);
+						getOperateur(ligne2, 3, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
@@ -219,7 +223,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
-						getOperateur(ligne1, 1, personnage1);
+						getOperateur(ligne1, 1, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
@@ -229,7 +233,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
-						getOperateur(ligne1, 2, personnage1);
+						getOperateur(ligne1, 2, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
@@ -239,7 +243,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
-						getOperateur(ligne1, 3, personnage1);
+						getOperateur(ligne1, 3, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
@@ -323,7 +327,12 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		}
 	}
 
-	public void getOperateur(int ligne, int number, Personnages personnage) {
+	public void getOperateur(int ligne, int number, Personnages personnage, int color) {
+		if (color == 1) {
+			c = expression_bleue;
+		} else if (color == 2) {
+			c = expression_rouge;
+		}
 		switch (ligne) {
 		case 0:
 			if (number == 1 && !personnage.isEmpty('*')) {
@@ -385,11 +394,16 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				// supprimer le caractere
 			}
 		}
+		if (color == 1) {
+			expression_bleue = c;
+		} else if (color == 2) {
+			expression_rouge = c;
+		}
 	}
 
 	public void updateExpression_bleue() {
 		root.getChildren().remove(expr_bleue);
-		Text expr_bleue = new Text(c);
+		Text expr_bleue = new Text(expression_bleue);
 		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
@@ -406,12 +420,15 @@ public class Keyboard implements EventHandler<KeyEvent> {
 
 	public void updateExpression_rouge() {
 		root.getChildren().remove(expr_rouge);
-		Text expr_rouge = new Text(c);
+		Text expr_rouge = new Text(expression_rouge);
 		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
-		expr_rouge.setFill(Color.rgb(72, 145, 220, 1.0));
-		expr_rouge.setX(3 * marge + Barre.getDimX());
+		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
+		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
 	}
 
+	/*
+	 * public void updateCurseur (){ c = }
+	 */
 }

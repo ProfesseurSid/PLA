@@ -84,9 +84,9 @@ public class Robots implements Vivante {
 		equipe = e;
 		this.visuel = visuel;
 		this.personnage = personnage;
-		try{
+		try {
 			behavior = new Automate(behave);
-		} catch(ParseException ex){
+		} catch (ParseException ex) {
 			behavior = null;
 		}
 		plateau.put(x, y, this);
