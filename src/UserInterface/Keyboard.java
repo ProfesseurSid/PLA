@@ -426,7 +426,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		root.getChildren().add(expr_rouge);
 	}
 	
-	public void updateCurseur (){
+	/*public void updateCurseur (){
 		c = 
-	}
+	}*/
 }
