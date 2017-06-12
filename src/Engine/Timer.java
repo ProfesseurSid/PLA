@@ -92,31 +92,27 @@ public class Timer extends AnimationTimer {
 			rand = (int) (Math.random() * 4);
 			switch (rand) {
 			case 0:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Hit hit = new Hit(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 1:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/kam.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/kam.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Kamikaze kamikaze = new Kamikaze(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 2:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/other.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/other.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Others others = new Others(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 3:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/protect.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/protect.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Protect protect = new Protect(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			default:
@@ -132,56 +128,48 @@ public class Timer extends AnimationTimer {
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/af.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 1:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				AccoladeO accoladeO = new AccoladeO(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 2:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/barre.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Barre barre = new Barre(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 3:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/dp.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				DeuxPoints deuxPoints = new DeuxPoints(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 4:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pv.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pref.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 6:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/rapport.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/rapport.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Rapport rapport = new Rapport(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 7:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/star.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/star.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Star star = new Star(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			default:
