@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 
 /**
  * Implemente un timer afin d'executer certaines actions pour chaque laps de
- * <<<<<<< HEAD temps donne <<<<<<< HEAD
+ * <<<<<<< HEAD <<<<<<< HEAD temps donne <<<<<<< HEAD
  * 
  * @author CHANET Zoran
  *
@@ -20,7 +20,11 @@ import javafx.scene.image.ImageView;
  * 
  * @author CHANET Zoran
  *
- *         >>>>>>> origin/master
+ *         >>>>>>> origin/master ======= temps donne
+ * 
+ * @author CHANET Zoran
+ *
+ *         >>>>>>> refs/remotes/origin/Graphique2
  */
 public class Timer extends AnimationTimer {
 	long lastTime = new Date().getTime();
