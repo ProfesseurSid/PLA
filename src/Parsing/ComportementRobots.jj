@@ -8,6 +8,7 @@ options
 
 PARSER_BEGIN(ComportementRobots)
 package Parsing;
+import Engine.*;
 
 public class ComportementRobots
 {
@@ -18,11 +19,12 @@ public class ComportementRobots
     {
       System.out.println("Reading from standard input...");
       System.out.println("Enter an expression :");
-      try
-      {
-        ComportementRobots.loop();
-        //System.out.println(new ComportementRobots("*{P>H}").loop());
-      }
+      //try
+      //{
+      //ComportementRobots.loop();
+      Arbre a = ComportementRobots.loop();
+      System.out.println(a.toString());
+      /*}
       catch (Exception e)
       {
         System.out.println("NOK.");
@@ -34,7 +36,7 @@ public class ComportementRobots
         System.out.println("Oops.");
         System.out.println(e.getMessage());
         break;
-      }
+      }*/
     }
   }
 }
@@ -68,59 +70,160 @@ TOKEN :
 }
 */
 
-void loop() :
-{}
+Arbre loop() :
 {
-  < STAR > < AO > comp() < AF >
+  Arbre fd;
+}
+{
+  < STAR > < AO > fd = comp() < AF >
+  {
+    return new Arbre(new Star(), null, fd);
+  }
 }
 
-void comp() :
-{}
+Arbre comp() :
 {
-  action() op()
-| loop()
-| < AO > comp() < AF > op()
+  Arbre fg, fd;
+}
+{
+  fg = action() fd = op()
+  {
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      return fd;
+    }
+    else return fg;
+  }
+| fg = loop()
+  {
+    return fg;
+  }
+| < AO > fg = comp() < AF > fd = op()
+  {
+    fd.AjouterFilsGauche(fg);
+    return fd;
+  }
 }
 
-void action() :
-{}
+Arbre action() :
+{
+  Arbre retour;
+}
 {
   //< ACTION > (< DP >)*
-  "H" dp()
-| "K" dp()
-| "O" dp()
-| "J" dp()
-| "P" dp()
+  "H" retour = dp
+  (
+    new Hit()
+  )
+  {
+    return retour;
+  }
+| "K" retour = dp
+  (
+    new Kamikaze()
+  )
+  {
+    return retour;
+  }
+| "O" retour = dp
+  (
+    new Others()
+  )
+  {
+    return retour;
+  }
+| "J" retour = dp
+  (
+    new Rapport()
+  )
+  {
+    return retour;
+  }
+| "P" retour = dp
+  (
+    new Protect()
+  )
+  {
+    return retour;
+  }
 }
 
-void dp() :
-{}
+Arbre dp(Operateurs o) :
 {
+  Arbre retour;
+}
+{
+  {
+    retour = new Arbre(o);
+  }
   (
     < DP >
+    {
+      retour = new Arbre(new DeuxPoints(), null, retour);
+    }
   )*
+  {
+    return retour;
+  }
 }
 
-void op() :
-{}
+Arbre op() :
 {
-  < PREF > comp()
-| pv() ou()
+  Arbre fd, fg;
+}
+{
+  < PREF > fd = comp()
+  {
+    return new Arbre(new Preference(), null, fd);
+  }
+| fg = ou() fd = pv()
+  {
+    if (fd != null && fg != null) fd.AjouterFilsDroit(fg);
+    return fd;
+  }
 }
 
-void pv() :
-{}
+Arbre pv() :
 {
+  Arbre fd, retour;
+}
+{
+  {
+    retour = new Arbre(new PointVirgule());
+  }
   (
-    < PV > comp()
+    < PV > fd = comp()
+    {
+      retour.AjouterFilsDroit(fd);
+    }
   )*
+  {
+    if (retour.droit() == null) 
+    return null;
+    else 
+    return retour;
+  }
 }
 
-void ou() :
-{}
+Arbre ou() :
 {
-  (
-    < OU >  comp()
-  )*
+  Arbre fd, retour;
 }
-
+{
+  {
+    retour = new Arbre(new Barre());
+  }
+  (
+    < OU > fd = comp()
+    {
+      retour.AjouterFilsDroit(fd);
+    }
+  )*
+  {
+    if (retour.droit() == null) 
+    return null;
+    else 
+    return retour;
+  }
+}
