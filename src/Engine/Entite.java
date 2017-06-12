@@ -1,7 +1,13 @@
 package Engine;
 
-public interface Entite {
-	void detruire();
+import javafx.scene.Parent;
 
-	void apparaitre();
+public interface Entite {
+
+	public int getX();
+
+	public int getY();
+
+	public Parent getVisual();
+
 }

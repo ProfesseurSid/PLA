@@ -1,48 +1,17 @@
 package Engine;
 
 public interface Vivante extends Entite {
-	public class Coord {
-		private double abs, ord;
 
-		/**
-		 * Retourne l'abscisse du point
-		 */
-		public double abscisse() {
-			return abs;
-		}
+	public static int maxPV = 10;
 
-		/**
-		 * Retourne l'ordonnee du point
-		 */
-		public double ordonnee() {
-			return ord;
-		}
+	void mouvement(PointCardinal p);
 
-		/**
-		 * Construction d'un point au point {0, 0}.
-		 */
-		public Coord() {
-			positionner(0.0, 0.0);
-		}
+	public int getEquipe();
 
-		/**
-		 * Construction d'un point
-		 */
-		public Coord(double abscisse, double ordonnee) {
-			positionner(abscisse, ordonnee);
-		}
+	public boolean memeEquipe(Vivante ent);
 
-		/**
-		 * Positionne le point � {x, y}
-		 */
-		public void positionner(double abscisse, double ordonnee) {
-			abs = abscisse;
-			ord = ordonnee;
-		}
-	}
+	public void isHit();
 
-	int PV = 5;
-
-	void mouvement(Coord p, int nb);
+	public boolean estEnVie();
 
 }
