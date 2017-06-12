@@ -11,6 +11,21 @@ public class Jauge extends Parent {
 
 	Rectangle jauge;
 
+	public Jauge(int X, int Y, int hauteur) {
+		posX = X;
+		posY = Y;
+
+		jauge = new Rectangle(5 * hauteur, hauteur);
+		jauge.setTranslateX(posX);
+		jauge.setTranslateY(posY);
+		jauge.setStroke(Color.WHITE);
+		jauge.setStrokeWidth(5);
+		jauge.setArcHeight(10);
+		jauge.setArcWidth(10);
+		jauge.setFill(Color.rgb(0, 0, 0, 0.));
+		this.getChildren().add(jauge);
+	}
+	
 	public Jauge(int X, int Y, int hauteur, int equipe) {
 		posX = X;
 		posY = Y;
@@ -19,7 +34,7 @@ public class Jauge extends Parent {
 		jauge.setTranslateX(posX);
 		jauge.setTranslateY(posY);
 		jauge.setStroke(Color.WHITE);
-		jauge.setStrokeWidth(1);
+		jauge.setStrokeWidth(2);
 		jauge.setArcHeight(10);
 		jauge.setArcWidth(10);
 

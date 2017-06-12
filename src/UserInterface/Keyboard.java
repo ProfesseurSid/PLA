@@ -1,14 +1,16 @@
 package UserInterface;
 
-import Engine.Personnages;
-import Engine.PointCardinal;
-import Visual.Boite;
-import Visual.PersonnagesVisual;
+import Engine.*;
+import Exception.PanicException;
+import Visual.*;
+import Visual.Barre;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.*;
+import javafx.scene.shape.*;
 
 /**
  **************************************************************
@@ -20,14 +22,31 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	Personnages personnage2;
 	int ligne1 = 0;
 	int ligne2 = 0;
-	String c;
-	boolean ok1 = false;
-	boolean ok2 = false;
+	public String c = "";
 	TextField expression;
+	Group root;
+	Text expr_rouge, expr_bleue;
+	int marge;
+	int tailleExpression;
+	Rectangle selection;
+	Boite boite1;
+	Boite boite2;
+	Team team1;
+	Team team2;
 
-	public Keyboard(Personnages personnage1, Personnages personnage2) {
+	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
+			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
 		this.personnage1 = personnage1;
 		this.personnage2 = personnage2;
+		this.root = root;
+		this.expr_rouge = expr_rouge;
+		this.expr_bleue = expr_bleue;
+		this.marge = marge;
+		this.tailleExpression = tailleExpression;
+		this.boite1 = boite1;
+		this.boite2 = boite2;
+		this.team1 = team1;
+		this.team2 = team2;
 	}
 
 	/**
@@ -43,121 +62,336 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
 				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK) {
 			// player 2
-			if (!ok2) {
-				if (event.getCode() == KeyCode.RIGHT && personnage2.getX() == 0
-						&& (personnage2.getY() == 4 || personnage2.getY() == 5 || personnage2.getY() == 6)) {
-					ok2 = true;
-				} else {
-					if (event.getCode() == KeyCode.UP) {
-						personnage2.mouvement(PointCardinal.NORD);
-					} else if (event.getCode() == KeyCode.DOWN) {
-						personnage2.mouvement(PointCardinal.SUD);
-					} else if (event.getCode() == KeyCode.LEFT) {
-						personnage2.mouvement(PointCardinal.OUEST);
-					} else if (event.getCode() == KeyCode.RIGHT) {
-						personnage2.mouvement(PointCardinal.EST);
+			if (personnage2.dansBase()) {
+				if (event.getCode() == KeyCode.UP) {
+					root.getChildren().remove(boite2);
+					boite2.invisible(ligne2);
+					if (ligne2 == 0)
+						ligne2 = 4;
+					else
+						ligne2--;
+					boite2.visible(ligne2);
+					root.getChildren().add(boite2);
+				} else if (event.getCode() == KeyCode.DOWN) {
+					root.getChildren().remove(boite2);
+					boite2.invisible(ligne2);
+					if (ligne2 == 4)
+						ligne2 = 0;
+					else
+						ligne2 = ligne2 + 1;
+					boite2.visible(ligne2);
+					root.getChildren().add(boite2);
+				} else if (event.getCode() == KeyCode.LEFT) {
+					personnage2.sortir();
+					boite2.invisible(ligne2);
+					root.getChildren().remove(boite2);
+					boite2 = new Boite(personnage2);
+					root.getChildren().add(boite2);
+				} else if (event.getCode() == KeyCode.SEMICOLON) {
+					int focus = boite2.focused();
+					if (focus != 4) {
+						root.getChildren().remove(boite2);
+						getOperateur(ligne2, 1, personnage2);
+						updateExpression();
+						boite2 = new Boite(personnage2);
+						boite2.visible(focus);
+						root.getChildren().add(boite2);
+					}
+				} else if (event.getCode() == KeyCode.COLON) {
+					int focus = boite2.focused();
+					if (focus != 4) {
+						root.getChildren().remove(boite2);
+						getOperateur(ligne2, 2, personnage2);
+						updateExpression();
+						boite2 = new Boite(personnage2);
+						boite2.visible(focus);
+						root.getChildren().add(boite2);
+					}
+				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
+					int focus = boite2.focused();
+					if (focus != 4) {
+						root.getChildren().remove(boite2);
+						getOperateur(ligne2, 3, personnage2);
+						updateExpression();
+						boite2 = new Boite(personnage2);
+						boite2.visible(focus);
+						root.getChildren().add(boite2);
 					}
 				}
+
 			} else {
-				if (event.getCode() == KeyCode.UP && ligne2 > 0) {
-					ligne2--;
-				} else if (event.getCode() == KeyCode.DOWN && ligne2 < Boite.getNb() - 1) {
-					ligne2++;
-				} else if (event.getCode() == KeyCode.SEMICOLON) {
-					getOperateur(ligne2, 1);
+				if (event.getCode() == KeyCode.SEMICOLON) {
+					if (team2.getVisible(0)) {
+						root.getChildren().remove(team2);
+						team2.invisible(0);
+						root.getChildren().add(team2);
+					} else {
+						root.getChildren().remove(team2);
+						team2.invisible(1);
+						team2.invisible(2);
+						team2.visible(0);
+						root.getChildren().add(team2);
+					}
 				} else if (event.getCode() == KeyCode.COLON) {
-					getOperateur(ligne2, 2);
+					if (team2.getVisible(1)) {
+						root.getChildren().remove(team2);
+						team2.invisible(1);
+						root.getChildren().add(team2);
+					} else {
+						root.getChildren().remove(team2);
+						team2.invisible(0);
+						team2.invisible(2);
+						team2.visible(1);
+						root.getChildren().add(team2);
+					}
+					;
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
-					getOperateur(ligne2, 3);
+					if (team2.getVisible(2)) {
+						root.getChildren().remove(team2);
+						team2.invisible(2);
+						root.getChildren().add(team2);
+					} else {
+						root.getChildren().remove(team2);
+						team2.invisible(0);
+						team2.invisible(1);
+						team2.visible(2);
+						root.getChildren().add(team2);
+					}
+				} else if (event.getCode() == KeyCode.UP) {
+					personnage2.mouvement(PointCardinal.NORD);
+					root.getChildren().remove(boite2);
+					boite2 = new Boite(personnage2);
+					root.getChildren().add(boite2);
+				} else if (event.getCode() == KeyCode.DOWN) {
+					personnage2.mouvement(PointCardinal.SUD);
+					root.getChildren().remove(boite2);
+					boite2 = new Boite(personnage2);
+					root.getChildren().add(boite2);
 				} else if (event.getCode() == KeyCode.LEFT) {
-					ok2 = false;
+					personnage2.mouvement(PointCardinal.OUEST);
+				} else {
+					if (personnage2.getX() == 20
+							&& (personnage2.getY() == 4 || personnage2.getY() == 5 || personnage2.getY() == 6)) {
+						personnage2.rentrer();
+						root.getChildren().remove(team2);
+						team2.invisible(0);
+						team2.invisible(1);
+						team2.invisible(2);
+						root.getChildren().add(team2);
+						ligne2 = 0;
+						root.getChildren().remove(boite2);
+						boite2.visible(ligne2);
+						root.getChildren().add(boite2);
+					} else {
+						personnage2.mouvement(PointCardinal.EST);
+						root.getChildren().remove(boite2);
+						boite2 = new Boite(personnage2);
+						root.getChildren().add(boite2);
+					}
 				}
 			}
 		} else if (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
 				|| event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
 				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3) {
-			// Player 1
-			if (!ok1) {
-				if (event.getCode() == KeyCode.Q && personnage1.getX() == 0
-						&& (personnage1.getY() == 4 || personnage1.getY() == 5 || personnage1.getY() == 6)) {
-					ok1 = true;
-				} else {
-					if (event.getCode() == KeyCode.Z) {
-						personnage1.mouvement(PointCardinal.NORD);
-					} else if (event.getCode() == KeyCode.S) {
-						personnage1.mouvement(PointCardinal.SUD);
-					} else if (event.getCode() == KeyCode.Q) {
-						personnage1.mouvement(PointCardinal.OUEST);
-					} else if (event.getCode() == KeyCode.D) {
-						personnage1.mouvement(PointCardinal.EST);
+			// player 1
+			if (personnage1.dansBase()) {
+				if (event.getCode() == KeyCode.Z) {
+					root.getChildren().remove(boite1);
+					boite1.invisible(ligne1);
+					if (ligne1 == 0)
+						ligne1 = 4;
+					else
+						ligne1 = ligne1 - 1;
+					boite1.visible(ligne1);
+					root.getChildren().add(boite1);
+				} else if (event.getCode() == KeyCode.S) {
+					root.getChildren().remove(boite1);
+					boite1.invisible(ligne1);
+					if (ligne1 == 4)
+						ligne1 = 0;
+					else
+						ligne1 = ligne1 + 1;
+					boite1.visible(ligne1);
+					root.getChildren().add(boite1);
+				} else if (event.getCode() == KeyCode.D) {
+					personnage1.sortir();
+					boite1.invisible(ligne1);
+					root.getChildren().remove(boite1);
+					boite1 = new Boite(personnage1);
+					root.getChildren().add(boite1);
+				} else if (event.getCode() == KeyCode.DIGIT1) {
+					int focus = boite1.focused();
+					if (focus != 4) {
+						root.getChildren().remove(boite1);
+						getOperateur(ligne1, 1, personnage1);
+						updateExpression();
+						boite1 = new Boite(personnage1);
+						boite1.visible(focus);
+						root.getChildren().add(boite1);
+					}
+				} else if (event.getCode() == KeyCode.DIGIT2) {
+					int focus = boite1.focused();
+					if (focus != 4) {
+						root.getChildren().remove(boite1);
+						getOperateur(ligne1, 2, personnage1);
+						updateExpression();
+						boite1 = new Boite(personnage1);
+						boite1.visible(focus);
+						root.getChildren().add(boite1);
+					}
+				} else if (event.getCode() == KeyCode.DIGIT3) {
+					int focus = boite1.focused();
+					if (focus != 4) {
+						root.getChildren().remove(boite1);
+						getOperateur(ligne1, 3, personnage1);
+						updateExpression();
+						boite1 = new Boite(personnage1);
+						boite1.visible(focus);
+						root.getChildren().add(boite1);
 					}
 				}
 			} else {
-				if (event.getCode() == KeyCode.Z && ligne2 > 0) {
-					ligne1--;
-				} else if (event.getCode() == KeyCode.S && ligne2 < Boite.getNb() - 1) {
-					ligne1++;
-				} else if (event.getCode() == KeyCode.DIGIT1) {
-					getOperateur(ligne1, 1);
+				if (event.getCode() == KeyCode.DIGIT1) {
+					if (team1.getVisible(0)) {
+						root.getChildren().remove(team1);
+						team1.invisible(0);
+						root.getChildren().add(team1);
+					} else {
+						root.getChildren().remove(team1);
+						team1.invisible(1);
+						team1.invisible(2);
+						team1.visible(0);
+						root.getChildren().add(team1);
+					}
 				} else if (event.getCode() == KeyCode.DIGIT2) {
-					getOperateur(ligne1, 2);
+					if (team1.getVisible(1)) {
+						root.getChildren().remove(team1);
+						team1.invisible(1);
+						root.getChildren().add(team1);
+					} else {
+						root.getChildren().remove(team1);
+						team1.invisible(0);
+						team1.invisible(2);
+						team1.visible(1);
+						root.getChildren().add(team1);
+					}
+					;
 				} else if (event.getCode() == KeyCode.DIGIT3) {
-					getOperateur(ligne1, 3);
-				} else if (event.getCode() == KeyCode.D) {
-					ok1 = false;
+					if (team1.getVisible(2)) {
+						root.getChildren().remove(team1);
+						team1.invisible(2);
+						root.getChildren().add(team1);
+					} else {
+						root.getChildren().remove(team1);
+						team1.invisible(0);
+						team1.invisible(1);
+						team1.visible(2);
+						root.getChildren().add(team1);
+					}
+				} else if (event.getCode() == KeyCode.Z) {
+					personnage1.mouvement(PointCardinal.NORD);
+					root.getChildren().remove(boite1);
+					boite1 = new Boite(personnage1);
+					root.getChildren().add(boite1);
+				} else if (event.getCode() == KeyCode.S) {
+					personnage1.mouvement(PointCardinal.SUD);
+					root.getChildren().remove(boite1);
+					boite1 = new Boite(personnage1);
+					root.getChildren().add(boite1);
+				} else if (event.getCode() == KeyCode.Q) {
+					if (personnage1.getX() == 0
+							&& (personnage1.getY() == 4 || personnage1.getY() == 5 || personnage1.getY() == 6)) {
+						personnage1.rentrer();
+						root.getChildren().remove(team1);
+						team1.invisible(0);
+						team1.invisible(1);
+						team1.invisible(2);
+						root.getChildren().add(team1);
+						ligne1 = 0;
+						root.getChildren().remove(boite1);
+						boite1.visible(ligne1);
+						root.getChildren().add(boite1);
+					} else {
+						personnage1.mouvement(PointCardinal.OUEST);
+						root.getChildren().remove(boite1);
+						boite1 = new Boite(personnage1);
+						root.getChildren().add(boite1);
+					}
+				} else {
+					personnage1.mouvement(PointCardinal.EST);
+					root.getChildren().remove(boite1);
+					boite1 = new Boite(personnage1);
+					root.getChildren().add(boite1);
 				}
 			}
 		}
 	}
 
-	public void getOperateur(int ligne, int number) {
+	public void getOperateur(int ligne, int number, Personnages personnage) {
 		switch (ligne) {
 		case 0:
-			if (number == 1) {
-				c = "*";
+			if (number == 1 && c.length() < 25) {
+				c = c + "*";
+				//try {
+					personnage.removeOperator('*');
+				//}
+				//catch (PanicException e){
+					
+				//}
 				// TODO
 				// il faut decrementer le chiffre affiche plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2) {
-				c = "{";
-			} else {
-				c = "}";
+			} else if (number == 2 && c.length() < 25) {
+				c = c + "{";
+				personnage.removeOperator('{');
+			} else if (number == 3 && c.length() < 25) {
+				c = c + "}";
+				personnage.removeOperator('}');
 			}
 			break;
 		case 1:
-			if (number == 1) {
-				c = ";";
+			if (number == 1 && c.length() < 25) {
+				c = c + ";";
+				personnage.removeOperator(';');
 				// TODO
 				// il fau decrementer le chiffre affiche plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2) {
-				c = "|";
-			} else {
-				c = ":";
+			} else if (number == 2 && c.length() < 25) {
+				c = c + "|";
+				personnage.removeOperator('|');
+			} else if (number == 3 && c.length() < 25) {
+				c = c + ":";
+				personnage.removeOperator(':');
 			}
 			break;
 		case 2:
-			if (number == 1) {
-				c = ">";
+			if (number == 1 && c.length() < 25) {
+				c = c + ">";
+				personnage.removeOperator('>');
 				// TODO
 				// il faut decrementer le chiffre affiché plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2) {
-				c = "H";
-			} else {
-				c = "K";
+			} else if (number == 2 && c.length() < 25) {
+				c = c + "H";
+				personnage.removeOperator('H');
+			} else if (number == 3 && c.length() < 25) {
+				c = c + "K";
+				personnage.removeOperator('K');
 			}
 			break;
 		case 3:
-			if (number == 1) {
-				c = "O";
+			if (number == 1 && c.length() < 25) {
+				c = c + "O";
+				personnage.removeOperator('O');
 				// TODO
 				// il faut decrementer le chiffre affiché plus l'operateur dans
 				// l'inventaire
-			} else if (number == 2) {
-				c = "J";
-			} else {
-				c = "P";
+			} else if (number == 2 && c.length() < 25) {
+				c = c + "J";
+				personnage.removeOperator('J');
+			} else if (number == 3 && c.length() < 25) {
+				c = c + "P";
+				personnage.removeOperator('P');
 			}
 			break;
 		case 4:
@@ -173,5 +407,27 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			}
 		}
 	}
+
+	public void updateExpression() {
+		root.getChildren().remove(expr_bleue);
+		Text expr_bleue = new Text(c);
+		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
+		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
+		expr_bleue.setX(3 * marge + Barre.getDimX());
+		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
+		root.getChildren().add(expr_bleue);
+	}
+
+	/*
+	 * public void rectangleSelec(int ligne){ selection = new Rectangle();
+	 * selection.setWidth(Barre.getDimX());
+	 * selection.setHeight(Case.getTaille()); selection.setStroke(Color.RED);
+	 * selection.setStrokeWidth(4); selection.setFill(Color.TRANSPARENT);
+	 * selection.setTranslateX(marge); selection.setTranslateY(marge+
+	 * ligne*(Case.getTaille() + Tuile.getTaille() / 2));
+	 * root.getChildren().add(selection); }
+	 * 
+	 * public void remove(){ root.getChildren().remove(selection); }
+	 */
 
 }

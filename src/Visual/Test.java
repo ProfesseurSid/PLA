@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class Test extends Application {
 
 	static int marge = Tuile.getTaille() / 5;
-	
+
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
@@ -29,35 +29,56 @@ public class Test extends Application {
 		int dimY = Barre.getDimX() + Boite.getHeight() + 4 * marge;
 		Scene scene = new Scene(root, dimX, dimY);
 
+		int tailleExpression = (Terrain.getTuileX() / 2) * Tuile.getTaille();
+
 		Terrain monTerrain = new Terrain();
 		monTerrain.setTranslateX(2 * marge + Barre.getDimX());
 		monTerrain.setTranslateY(marge);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2());
+		Rectangle champBleu = new Rectangle();
+		champBleu.setHeight(Tuile.getTaille());
+		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+		champBleu.setTranslateX(2 * marge + Barre.getDimX());
+		champBleu.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
+		root.getChildren().add(champBleu);
 
-		scene.setOnKeyPressed(keyboard);
+		Text expr_bleue = new Text("EXPRESSION");
+		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
+		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
+		expr_bleue.setX(3 * marge + Barre.getDimX());
+		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
+		root.getChildren().add(expr_bleue);
 
-//		OperateursVisual operateur;
-//		operateur = monTerrain.getoperateur();
+		Rectangle champRouge = new Rectangle();
+		champRouge.setHeight(Tuile.getTaille());
+		champRouge.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+		champRouge.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
+		champRouge.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
+		root.getChildren().add(champRouge);
 
-//		Timeline blinker = operateur.Blinker(monTerrain.getImageOperateur());
-//		FadeTransition fader = operateur.Fader(monTerrain.getImageOperateur());
-
-//		SequentialTransition blinkThenFade = new SequentialTransition(monTerrain.getImageOperateur(), blinker, fader);
-
-//		blinkThenFade.play();
-
-		Boite boiteGauche = new Boite();
-		boiteGauche.setTranslateX(marge);
-		boiteGauche.setTranslateY(marge);
-
-		Boite boiteDroite = new Boite();
-		boiteDroite.setTranslateX(Tuile.getTaille() * Terrain.getTuileX() + Barre.getDimX() + 3 * marge);
-		boiteDroite.setTranslateY(marge);
-
-		root.getChildren().add(monTerrain);
+		Text expr_rouge = new Text("EXPRESSION");
+		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
+		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
+		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
+		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
+		root.getChildren().add(expr_rouge);
+		
+		Boite boiteGauche = new Boite(monTerrain.getpersonnage1());
+		Boite boiteDroite = new Boite(monTerrain.getpersonnage2());
 		root.getChildren().add(boiteDroite);
 		root.getChildren().add(boiteGauche);
+		
+		Team team1 = new Team(0);
+		Team team2 = new Team(1);
+		root.getChildren().add(team1);
+		root.getChildren().add(team2);
+
+		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
+				expr_rouge, marge , tailleExpression, boiteGauche, boiteDroite, team1, team2);
+
+		scene.setOnKeyPressed(keyboard);
+		
+		root.getChildren().add(monTerrain);
 
 		ImageView PersoRouge = new ImageView(new Image(Test.class.getResourceAsStream("images/PersoRouge.png")));
 		PersoRouge.setFitWidth(Barre.getDimX());
@@ -73,47 +94,11 @@ public class Test extends Application {
 		PersoBleu.setTranslateY(Boite.getHeight() + 4 * marge);
 		root.getChildren().add(PersoBleu);
 
-		Rectangle champBleu = new Rectangle();
-		champBleu.setHeight(Tuile.getTaille());
-		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
-		champBleu.setTranslateX(2 * marge + Barre.getDimX());
-		champBleu.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
-		root.getChildren().add(champBleu);
-		Text expr_bleue = new Text("EXPRESSION{|>;}KIPJ:HO");
-		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
-		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
-		expr_bleue.setX(3 * marge + Barre.getDimX());
-		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
-		root.getChildren().add(expr_bleue);
-
-		Rectangle champRouge = new Rectangle();
-		champRouge.setHeight(Tuile.getTaille());
-		champRouge.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
-		champRouge.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
-		champRouge.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
-		root.getChildren().add(champRouge);
-		Text expr_rouge = new Text("EXPRESSION{|>;}KIPJ:HO");
-		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
-		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
-		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
-		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
-		root.getChildren().add(expr_rouge);
-
-		Team team1 = new Team(0);
-		team1.setTranslateX(2 * marge + Barre.getDimX());
-		team1.setTranslateY(4 * marge + Terrain.getTuileY() * Tuile.getTaille() + Tuile.getTaille());
-		root.getChildren().add(team1);
-
-		Team team2 = new Team(1);
-		team2.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
-		team2.setTranslateY(4 * marge + Terrain.getTuileY() * Tuile.getTaille() + Tuile.getTaille());
-		root.getChildren().add(team2);
-
 		scene.setFill(Color.rgb(210, 200, 190, 1.0));
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		
+
 		Timer game = new Timer(monTerrain);
 		game.start();
 
