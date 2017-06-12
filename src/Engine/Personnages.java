@@ -20,6 +20,7 @@ public class Personnages implements Vivante {
 	int PV = maxPV;
 	Plateau plateau;
 	PersonnagesVisual visuel;
+	private boolean base;
 
 	/**
 	 * Contructeur de personnage de l'équipe e
@@ -30,6 +31,7 @@ public class Personnages implements Vivante {
 	 */
 	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
 		this.plateau = plateau;
+		this.base = false;
 		if (e == 0) {
 			x = 0;
 			y = plateau.nbLignes() / 2;
@@ -67,6 +69,10 @@ public class Personnages implements Vivante {
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
+		Inventory.put('{', 0);
+		Inventory.put('}', 0);
+		Inventory.put(';', 0); // And
+		Inventory.put('|', 0); // Or
 	}
 
 	/**
@@ -98,6 +104,10 @@ public class Personnages implements Vivante {
 		}
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
+
+	// public void addOperator(int x, int y) {
+	// char op[][] =;
+	// }
 
 	/**
 	 * Methode permettant de décrementer le nombre d'un operateur connu par
@@ -287,11 +297,10 @@ public class Personnages implements Vivante {
 	 * @require num == 1 || num == 2 || num == 3
 	 */
 	public Robots getRobot(int num) {
-		try{
+		try {
 			return Units[num - 1];
-		}
-		catch(Exception e){
-			throw new PanicException("getRobots personnage equipe "+equipe+" mauvais indice");
+		} catch (Exception e) {
+			throw new PanicException("getRobots personnage equipe " + equipe + " mauvais indice");
 		}
 	}
 
@@ -310,4 +319,30 @@ public class Personnages implements Vivante {
 	public boolean estEnVie() {
 		return PV > 0;
 	}
+
+	/**
+	 * Indique si le personnage est dans sa base
+	 */
+	public boolean dansBase() {
+		return base;
+	}
+
+	/**
+	 * Fait rentrer le personnage dans sa base
+	 */
+	public void rentrer() {
+		this.base = true;
+	}
+
+	/**
+	 * Fait sortir le personnage de sa base
+	 */
+	public void sortir() {
+		this.base = false;
+	}
+
+	public HashMap<Character, Integer> getInventory() {
+		return Inventory;
+	}
+
 }

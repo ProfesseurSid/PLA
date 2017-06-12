@@ -1,8 +1,6 @@
 package Visual;
 
-import java.applet.*;
-import java.awt.*;
-import java.text.DecimalFormat;
+import java.applet.Applet;
 
 public class Fps extends Applet implements Runnable {
 	public Thread animation;

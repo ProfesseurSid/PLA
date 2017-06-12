@@ -35,8 +35,18 @@ public class Test extends Application {
 		Terrain monTerrain = new Terrain();
 		monTerrain.setTranslateX(20 + Barre.getDimX());
 		monTerrain.setTranslateY(10);
+		Boite boiteGauche = new Boite(monTerrain.getpersonnage1());
+		Boite boiteDroite = new Boite(monTerrain.getpersonnage2());
+		root.getChildren().add(boiteDroite);
+		root.getChildren().add(boiteGauche);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2());
+		Team team1 = new Team(0);
+		Team team2 = new Team(1);
+		root.getChildren().add(team1);
+		root.getChildren().add(team2);
+
+		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, boiteGauche,
+				boiteDroite, team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
 
@@ -50,17 +60,7 @@ public class Test extends Application {
 
 		blinkThenFade.play();
 
-		Boite boiteGauche = new Boite();
-		boiteGauche.setTranslateX(10);
-		boiteGauche.setTranslateY(10);
-
-		Boite boiteDroite = new Boite();
-		boiteDroite.setTranslateX(Tuile.getTaille() * Terrain.getTuileX() + Barre.getDimX() + 3 * marge);
-		boiteDroite.setTranslateY(marge);
-
 		root.getChildren().add(monTerrain);
-		root.getChildren().add(boiteDroite);
-		root.getChildren().add(boiteGauche);
 
 		ImageView PersoRouge = new ImageView(new Image(Test.class.getResourceAsStream("images/PersoRouge.png")));
 		PersoRouge.setFitWidth(Barre.getDimX());
@@ -101,16 +101,6 @@ public class Test extends Application {
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
-
-		Team team1 = new Team(0);
-		team1.setTranslateX(2 * marge + Barre.getDimX());
-		team1.setTranslateY(4 * marge + Terrain.getTuileY() * Tuile.getTaille() + Tuile.getTaille());
-		root.getChildren().add(team1);
-
-		Team team2 = new Team(1);
-		team2.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
-		team2.setTranslateY(4 * marge + Terrain.getTuileY() * Tuile.getTaille() + Tuile.getTaille());
-		root.getChildren().add(team2);
 
 		scene.setFill(Color.rgb(210, 200, 190, 1.0));
 		primaryStage.setScene(scene);
