@@ -8,13 +8,20 @@ options
 
 PARSER_BEGIN(ComportementRobots)
 package Parsing;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import Engine.*;
 
 public class ComportementRobots
 {
+  public ComportementRobots(String s)
+  {
+    this(new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
+  }
+
   public static void main(String args []) throws ParseException
   {
-    ComportementRobots parser = new ComportementRobots(System.in);
+    ComportementRobots parser = new ComportementRobots("*{P;P}");
     while (true)
     {
       System.out.println("Reading from standard input...");
@@ -22,7 +29,7 @@ public class ComportementRobots
       //try
       //{
       //ComportementRobots.loop();
-      Arbre a = ComportementRobots.loop();
+      Arbre a = parser.loop();
       System.out.println(a.toString());
       /*}
       catch (Exception e)
@@ -95,14 +102,27 @@ Arbre comp() :
     }
     else return fg;
   }
-| fg = loop()
+| fg = loop() fd = op()
   {
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      return fd;
+    }
+    else 
     return fg;
   }
 | < AO > fg = comp() < AF > fd = op()
   {
-    fd.AjouterFilsGauche(fg);
-    return fd;
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      return fd;
+    }
+    else
+    {
+      return fg;
+    }
   }
 }
 
@@ -179,8 +199,16 @@ Arbre op() :
   }
 | fg = ou() fd = pv()
   {
-    if (fd != null && fg != null) fd.AjouterFilsDroit(fg);
-    return fd;
+    if (fd != null)
+    {
+      if (fg != null) 
+      fd.AjouterFilsDroit(fg);
+      return fd;
+    }
+    else
+    {
+      return fg;
+    }
   }
 }
 
