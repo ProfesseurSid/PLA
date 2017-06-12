@@ -130,8 +130,8 @@ public class Timer extends AnimationTimer {
 			}
 			lastTime_op = date;
 		}
-		
-		/*if (date - lastTime_op2 > 5000) {
+		// TODO
+		if (date - lastTime_op2 > 5000) {
 			rand = (int) (Math.random() * 8);
 			switch (rand) {
 			case 0:
@@ -193,7 +193,8 @@ public class Timer extends AnimationTimer {
 			default: throw new PanicException("Random sur operateur : nombre non gere");
 			}
 			lastTime_op2 = date;		
-		}*/
+		}
+		// TODO
 	}
 	
 	public void blink (OperateursVisual visuel, ImageView image){

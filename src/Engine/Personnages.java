@@ -53,6 +53,11 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
+		Inventory.put('}', 0); // AccoladeF
+		Inventory.put('{', 0); // AccoladeO
+		Inventory.put(';', 0); // PointVirgule
+		Inventory.put('*', 0); // Star
+		Inventory.put('|', 0); // Barre
 		Inventory.put('*', 0); // Loop
 		Inventory.put('>', 0); // Preference
 		Inventory.put('S', 0); // Split
@@ -105,7 +110,7 @@ public class Personnages implements Vivante {
 	 * l'inventaire.
 	 * 
 	 * @param op
-	 *            Operateur dont le nombre est a  decrementer.
+	 *            Operateur dont le nombre est aï¿½ decrementer.
 	 * @require op est un operateur connu de l'inventaire.
 	 */
 	public void removeOperator(char op) {
