@@ -124,9 +124,9 @@ public class Personnages implements Vivante {
 		Inventory.put(op, Inventory.get(op) - 1);
 	}
 
-	public void removeOperator(int x, int y) {
+	public char toChar(int x, int y) {
 		char op[][] = { { '*', '{', '}' }, { ';', '|', ':' }, { '>', 'H', 'K' }, { 'O', 'J', 'P' } };
-		removeOperator(op[x][y]);
+		return op[x][y];
 	}
 
 	/**

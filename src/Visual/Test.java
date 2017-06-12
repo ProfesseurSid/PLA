@@ -11,9 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Test extends Application {
@@ -44,9 +41,13 @@ public class Test extends Application {
 		Team team2 = new Team(1);
 		root.getChildren().add(team1);
 		root.getChildren().add(team2);
+		Champexpr champBleu = new Champexpr("", 0);
+		Champexpr champRouge = new Champexpr("", 1);
+		root.getChildren().add(champBleu);
+		root.getChildren().add(champRouge);
 
 		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, boiteGauche,
-				boiteDroite, team1, team2);
+				boiteDroite, team1, team2, champBleu, champRouge);
 
 		scene.setOnKeyPressed(keyboard);
 
@@ -75,32 +76,6 @@ public class Test extends Application {
 		PersoBleu.setTranslateX(marge);
 		PersoBleu.setTranslateY(Boite.getHeight() + 4 * marge);
 		root.getChildren().add(PersoBleu);
-
-		Rectangle champBleu = new Rectangle();
-		champBleu.setHeight(Tuile.getTaille());
-		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
-		champBleu.setTranslateX(2 * marge + Barre.getDimX());
-		champBleu.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
-		root.getChildren().add(champBleu);
-		Text expr_bleue = new Text("EXPRESSION{|>;}KIPJ:HO");
-		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
-		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
-		expr_bleue.setX(3 * marge + Barre.getDimX());
-		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
-		root.getChildren().add(expr_bleue);
-
-		Rectangle champRouge = new Rectangle();
-		champRouge.setHeight(Tuile.getTaille());
-		champRouge.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
-		champRouge.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
-		champRouge.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
-		root.getChildren().add(champRouge);
-		Text expr_rouge = new Text("EXPRESSION{|>;}KIPJ:HO");
-		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
-		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
-		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
-		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
-		root.getChildren().add(expr_rouge);
 
 		scene.setFill(Color.rgb(210, 200, 190, 1.0));
 		primaryStage.setScene(scene);

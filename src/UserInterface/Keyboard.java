@@ -3,6 +3,7 @@ package UserInterface;
 import Engine.Personnages;
 import Engine.PointCardinal;
 import Visual.Boite;
+import Visual.Champexpr;
 import Visual.Team;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -26,9 +27,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	String exp2;
 	Team team1;
 	Team team2;
+	Champexpr champ1;
+	Champexpr champ2;
 
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Boite boite1, Boite boite2,
-			Team team1, Team team2) {
+			Team team1, Team team2, Champexpr champ1, Champexpr champ2) {
 		this.personnage1 = personnage1;
 		this.personnage2 = personnage2;
 		this.boite1 = boite1;
@@ -76,31 +79,43 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite2);
 				} else if (event.getCode() == KeyCode.SEMICOLON) {
 					int focus = boite2.focused();
+					exp2 = champ2.getExpr();
 					if (focus != 4) {
-						personnage2.removeOperator(focus, 0);
+						personnage2.removeOperator(personnage2.toChar(focus, 0));
+						root.getChildren().remove(champ2);
 						root.getChildren().remove(boite2);
+						champ2 = new Champexpr(exp2 + personnage2.toChar(focus, 0), 1);
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
 						root.getChildren().add(boite2);
+						root.getChildren().add(champ2);
 					}
 				} else if (event.getCode() == KeyCode.COLON) {
 					int focus = boite2.focused();
+					String expr = champ2.getExpr();
 					if (focus != 4) {
-						personnage2.removeOperator(focus, 1);
+						personnage2.removeOperator(personnage2.toChar(focus, 1));
+						root.getChildren().remove(champ2);
 						root.getChildren().remove(boite2);
+						champ2 = new Champexpr(expr + personnage2.toChar(focus, 1), 1);
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
 						root.getChildren().add(boite2);
+						root.getChildren().add(champ2);
 					}
 
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 					int focus = boite2.focused();
+					String expr = champ2.getExpr();
 					if (focus != 4) {
-						personnage2.removeOperator(focus, 2);
+						personnage2.removeOperator(personnage2.toChar(focus, 2));
+						root.getChildren().remove(champ2);
 						root.getChildren().remove(boite2);
+						champ2 = new Champexpr(expr + personnage2.toChar(focus, 2), 1);
 						boite2 = new Boite(personnage2);
 						boite2.visible(focus);
 						root.getChildren().add(boite2);
+						root.getChildren().add(champ2);
 					}
 
 				}
@@ -208,7 +223,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				} else if (event.getCode() == KeyCode.DIGIT1) {
 					int focus = boite1.focused();
 					if (focus != 4) {
-						personnage1.removeOperator(focus, 0);
+						personnage1.removeOperator(personnage1.toChar(focus, 0));
 						root.getChildren().remove(boite1);
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
@@ -217,7 +232,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				} else if (event.getCode() == KeyCode.DIGIT2) {
 					int focus = boite1.focused();
 					if (focus != 4) {
-						personnage1.removeOperator(focus, 1);
+						personnage1.removeOperator(personnage1.toChar(focus, 1));
 						root.getChildren().remove(boite1);
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
@@ -226,7 +241,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				} else if (event.getCode() == KeyCode.DIGIT3) {
 					int focus = boite1.focused();
 					if (focus != 4) {
-						personnage1.removeOperator(focus, 2);
+						personnage1.removeOperator(personnage1.toChar(focus, 2));
 						root.getChildren().remove(boite1);
 						boite1 = new Boite(personnage1);
 						boite1.visible(focus);
