@@ -105,10 +105,6 @@ public class Personnages implements Vivante {
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
 
-	// public void addOperator(int x, int y) {
-	// char op[][] =;
-	// }
-
 	/**
 	 * Methode permettant de décrementer le nombre d'un operateur connu par
 	 * l'inventaire.
@@ -125,7 +121,9 @@ public class Personnages implements Vivante {
 			throw new PanicException(
 					"Suppression d'objet de l'inventaire du personnage : Il y a dja 0 objets de ce type dans l'inventaire.");
 		}*/
+		if (!isEmpty(op)){
 		Inventory.put(op, Inventory.get(op)-1);
+		}
 	}
 	
 	public boolean isEmpty (char op){
