@@ -46,8 +46,6 @@ public class Test extends Application {
 		pauseText.setX(dimX/2 - 2*Tuile.getTaille());
 		pauseText.setY(dimY/2 - 2*Tuile.getTaille());
 		
-		int tailleExpression = (Terrain.getTuileX() / 2) * Tuile.getTaille();
-
 		Terrain monTerrain = new Terrain();
 		monTerrain.setTranslateX(2 * marge + Barre.getDimX());
 		monTerrain.setTranslateY(marge);
@@ -91,7 +89,7 @@ public class Test extends Application {
 		root.getChildren().add(team2);
 
 		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge, tailleExpression, boiteGauche, boiteDroite, team1, team2);
+				expr_rouge, marge, boiteGauche, boiteDroite, team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
 

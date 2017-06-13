@@ -8,7 +8,6 @@ import javafx.scene.Group;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
-import javafx.scene.shape.*;
 
 /**
  **************************************************************
@@ -16,31 +15,32 @@ import javafx.scene.shape.*;
  **************************************************************
  */
 public class Keyboard implements EventHandler<KeyEvent> {
-	Personnages personnage1;
-	Personnages personnage2;
-	int ligne1 = 0;
-	int ligne2 = 0;
+	Personnages personnage1, personnage2;
+	int ligne1 = 0; // Barre de selection de la boite du Player 1
+	int ligne2 = 0; // Barre de selection de la boite du Player 1
 	Group root;
-	Text expr_rouge, expr_bleue;
-	int marge;
-	int tailleExpression;
-	Rectangle selection;
 	Boite boite1, boite2;
 	Team team1, team2;
-	String c;
-	String curseur = "|";
-	public String expression_rouge = "";
-	public String expression_bleue = "";
+	Text expr_rouge, expr_bleue;
+	int marge;
+
+	private String expression_courante;
+	private String expression_rouge = "I";
+	private String expression_bleue = "I";
+	private int curseur;
+	private int curseur_rouge = 0;
+	private int curseur_bleu = 0;
+	private int robot1 = 0; // Robot selection des robots par les joueurs entre
+	private int robot2 = 0; // -1 et 2. -1 => aucun robot selectionne
 
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
-			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
+			int marge, Boite boite1, Boite boite2, Team team1, Team team2) {
 		this.personnage1 = personnage1;
 		this.personnage2 = personnage2;
 		this.root = root;
 		this.expr_rouge = expr_rouge;
 		this.expr_bleue = expr_bleue;
 		this.marge = marge;
-		this.tailleExpression = tailleExpression;
 		this.boite1 = boite1;
 		this.boite2 = boite2;
 		this.team1 = team1;
@@ -55,104 +55,146 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
-
-		if (!Test.enPause() && (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
-				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
-				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
-			// player 2
+		if (!Test.enPause()
+				&& (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
+						|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
+						|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
+			// Player 2
 			if (personnage2.dansBase()) {
-				if (event.getCode() == KeyCode.UP) {
-					root.getChildren().remove(boite2);
-					boite2.invisible(ligne2);
-					if (ligne2 == 0)
-						ligne2 = 4;
-					else
-						ligne2--;
-					boite2.visible(ligne2);
-					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.DOWN) {
-					root.getChildren().remove(boite2);
-					boite2.invisible(ligne2);
-					if (ligne2 == 4)
-						ligne2 = 0;
-					else
-						ligne2 = ligne2 + 1;
-					boite2.visible(ligne2);
-					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.LEFT) {
-					personnage2.sortir();
-					boite2.invisible(ligne2);
-					root.getChildren().remove(boite2);
-					boite2 = new Boite(personnage2);
-					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.SEMICOLON) {
-					int focus = boite2.focused();
-					if (focus != 4) {
+				if (robot2 != -1) {
+					if (event.getCode() == KeyCode.UP) {
+						root.getChildren().remove(boite2);
+						boite2.invisible(ligne2);
+						if (ligne2 == 0)
+							ligne2 = 4;
+						else
+							ligne2--;
+						boite2.visible(ligne2);
+						root.getChildren().add(boite2);
+					} else if (event.getCode() == KeyCode.DOWN) {
+						root.getChildren().remove(boite2);
+						boite2.invisible(ligne2);
+						if (ligne2 == 4)
+							ligne2 = 0;
+						else
+							ligne2++;
+						boite2.visible(ligne2);
+						root.getChildren().add(boite2);
+					} else if (event.getCode() == KeyCode.LEFT) {
+						personnage2.sortir();
+						personnage2.addRobot(
+								expression_rouge.substring(0, curseur_rouge)
+										+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length()),
+								robot2);
+						root.getChildren().remove(boite2);
+						root.getChildren().remove(team2);
+						boite2.invisible(ligne2);
+						team2.invisible(0);
+						boite2 = new Boite(personnage2);
+						robot2 = -1;
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
+						root.getChildren().add(boite2);
+						root.getChildren().add(team2);
+					} else if (event.getCode() == KeyCode.SEMICOLON) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 1, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
-						boite2.visible(focus);
+						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
-					}
-				} else if (event.getCode() == KeyCode.COLON) {
-					int focus = boite2.focused();
-					if (focus != 4) {
+					} else if (event.getCode() == KeyCode.COLON) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 2, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
-						boite2.visible(focus);
+						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
-					}
-				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
-					int focus = boite2.focused();
-					if (focus != 4) {
+					} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 3, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
-						boite2.visible(focus);
+						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
 					}
+				} else { // Selectionner un Robot
+					if (event.getCode() == KeyCode.SEMICOLON) {
+						root.getChildren().remove(team2);
+						team2.visible(0);
+						robot2 = 0;
+						expression_rouge = personnage2.getRobot(1).toString();
+						updateExpression_rouge();
+						root.getChildren().add(team2);
+					} else if (event.getCode() == KeyCode.COLON) {
+						root.getChildren().remove(team2);
+						team2.visible(1);
+						robot2 = 1;
+						expression_rouge = personnage2.getRobot(2).toString();
+						updateExpression_rouge();
+						root.getChildren().add(team2);
+					} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
+						root.getChildren().remove(team2);
+						team2.visible(2);
+						robot2 = 2;
+						expression_rouge = personnage2.getRobot(3).toString();
+						updateExpression_rouge();
+						root.getChildren().add(team2);
+					}
 				}
-
-			} else {
+			} else { // Player 2 sur le terrain
 				if (event.getCode() == KeyCode.SEMICOLON) {
 					if (team2.getVisible(0)) {
 						root.getChildren().remove(team2);
 						team2.invisible(0);
+						robot2 = -1;
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else {
 						root.getChildren().remove(team2);
 						team2.invisible(1);
 						team2.invisible(2);
 						team2.visible(0);
+						robot2 = 0;
+						expression_rouge = personnage2.getRobot(1).toString();
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
 				} else if (event.getCode() == KeyCode.COLON) {
 					if (team2.getVisible(1)) {
 						root.getChildren().remove(team2);
 						team2.invisible(1);
+						robot2 = -1;
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else {
 						root.getChildren().remove(team2);
 						team2.invisible(0);
 						team2.invisible(2);
 						team2.visible(1);
+						robot2 = 1;
+						expression_rouge = personnage2.getRobot(2).toString();
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
-					;
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 					if (team2.getVisible(2)) {
 						root.getChildren().remove(team2);
 						team2.invisible(2);
+						robot2 = -1;
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else {
 						root.getChildren().remove(team2);
 						team2.invisible(0);
 						team2.invisible(1);
 						team2.visible(2);
+						robot2 = 2;
+						expression_rouge = personnage2.getRobot(3).toString();
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
 				} else if (event.getCode() == KeyCode.UP) {
@@ -167,6 +209,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite2);
 				} else if (event.getCode() == KeyCode.LEFT) {
 					personnage2.mouvement(PointCardinal.OUEST);
+					root.getChildren().remove(boite2);
+					boite2 = new Boite(personnage2);
+					root.getChildren().add(boite2);
 				} else {
 					if (personnage2.getX() == 20
 							&& (personnage2.getY() == 4 || personnage2.getY() == 5 || personnage2.getY() == 6)) {
@@ -175,6 +220,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team2.invisible(0);
 						team2.invisible(1);
 						team2.invisible(2);
+						robot2 = -1;
 						root.getChildren().add(team2);
 						ligne2 = 0;
 						root.getChildren().remove(boite2);
@@ -188,102 +234,146 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			}
-		} else if (!Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
-				|| event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
+
+		} else if (!Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z
+				|| event.getCode() == KeyCode.S || event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
 				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3)) {
-			// player 1
+			// Player 1
 			if (personnage1.dansBase()) {
-				if (event.getCode() == KeyCode.Z) {
-					root.getChildren().remove(boite1);
-					boite1.invisible(ligne1);
-					if (ligne1 == 0)
-						ligne1 = 4;
-					else
-						ligne1 = ligne1 - 1;
-					boite1.visible(ligne1);
-					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.S) {
-					root.getChildren().remove(boite1);
-					boite1.invisible(ligne1);
-					if (ligne1 == 4)
-						ligne1 = 0;
-					else
-						ligne1 = ligne1 + 1;
-					boite1.visible(ligne1);
-					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.D) {
-					personnage1.sortir();
-					boite1.invisible(ligne1);
-					root.getChildren().remove(boite1);
-					boite1 = new Boite(personnage1);
-					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.F1) {
-					int focus = boite1.focused();
-					if (focus != 4) {
+				if (robot1 != -1) {
+					if (event.getCode() == KeyCode.Z) {
+						root.getChildren().remove(boite1);
+						boite1.invisible(ligne1);
+						if (ligne1 == 0)
+							ligne1 = 4;
+						else
+							ligne1--;
+						boite1.visible(ligne1);
+						root.getChildren().add(boite1);
+					} else if (event.getCode() == KeyCode.S) {
+						root.getChildren().remove(boite1);
+						boite1.invisible(ligne1);
+						if (ligne1 == 4)
+							ligne1 = 0;
+						else
+							ligne1++;
+						boite1.visible(ligne1);
+						root.getChildren().add(boite1);
+					} else if (event.getCode() == KeyCode.D) {
+						personnage1.sortir();
+						personnage1.addRobot(
+								expression_bleue.substring(0, curseur_bleu)
+										+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length()),
+								robot1);
+						root.getChildren().remove(boite1);
+						root.getChildren().remove(team1);
+						boite1.invisible(ligne1);
+						team1.invisible(0);
+						boite1 = new Boite(personnage1);
+						robot1 = -1;
+						expression_bleue = "EXPRESSION";
+						updateExpression_bleue();
+						root.getChildren().add(boite1);
+						root.getChildren().add(team1);
+					} else if (event.getCode() == KeyCode.F1) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 1, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
-						boite1.visible(focus);
+						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
-					}
-				} else if (event.getCode() == KeyCode.F2) {
-					int focus = boite1.focused();
-					if (focus != 4) {
+					} else if (event.getCode() == KeyCode.F2) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 2, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
-						boite1.visible(focus);
+						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
-					}
-				} else if (event.getCode() == KeyCode.F3) {
-					int focus = boite1.focused();
-					if (focus != 4) {
+					} else if (event.getCode() == KeyCode.F3) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 3, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
-						boite1.visible(focus);
+						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
 					}
+				} else { // Selectionner un Robot
+					if (event.getCode() == KeyCode.DIGIT1) {
+						root.getChildren().remove(team1);
+						team1.visible(0);
+						robot1 = 0;
+						expression_bleue = personnage1.getRobot(1).toString();
+						updateExpression_bleue();
+						root.getChildren().add(team1);
+					} else if (event.getCode() == KeyCode.DIGIT2) {
+						root.getChildren().remove(team1);
+						team1.visible(1);
+						robot1 = 1;
+						expression_bleue = personnage1.getRobot(2).toString();
+						updateExpression_bleue();
+						root.getChildren().add(team1);
+					} else if (event.getCode() == KeyCode.DIGIT3) {
+						root.getChildren().remove(team1);
+						team1.visible(2);
+						robot1 = 2;
+						expression_bleue = personnage1.getRobot(3).toString();
+						updateExpression_bleue();
+						root.getChildren().add(team1);
+					}
 				}
-			} else {
+			} else { // Player 1 sur le terrain
 				if (event.getCode() == KeyCode.DIGIT1) {
 					if (team1.getVisible(0)) {
 						root.getChildren().remove(team1);
 						team1.invisible(0);
+						robot1 = -1;
+						expression_bleue = "EXPRESSION";
+						updateExpression_bleue();
 						root.getChildren().add(team1);
 					} else {
 						root.getChildren().remove(team1);
 						team1.invisible(1);
 						team1.invisible(2);
 						team1.visible(0);
+						robot1 = 0;
+						expression_bleue = personnage1.getRobot(1).toString();
+						updateExpression_bleue();
 						root.getChildren().add(team1);
 					}
 				} else if (event.getCode() == KeyCode.DIGIT2) {
 					if (team1.getVisible(1)) {
 						root.getChildren().remove(team1);
 						team1.invisible(1);
+						robot1 = -1;
+						expression_bleue = "EXPRESSION";
+						updateExpression_bleue();
 						root.getChildren().add(team1);
 					} else {
 						root.getChildren().remove(team1);
 						team1.invisible(0);
 						team1.invisible(2);
 						team1.visible(1);
+						robot1 = 1;
+						expression_bleue = personnage1.getRobot(2).toString();
+						updateExpression_bleue();
 						root.getChildren().add(team1);
 					}
-					;
 				} else if (event.getCode() == KeyCode.DIGIT3) {
 					if (team1.getVisible(2)) {
 						root.getChildren().remove(team1);
 						team1.invisible(2);
+						robot1 = -1;
+						expression_bleue = "EXPRESSION";
+						updateExpression_bleue();
 						root.getChildren().add(team1);
 					} else {
 						root.getChildren().remove(team1);
-						team1.invisible(0);
 						team1.invisible(1);
+						team1.invisible(0);
 						team1.visible(2);
+						robot1 = 2;
+						expression_bleue = personnage1.getRobot(3).toString();
+						updateExpression_bleue();
 						root.getChildren().add(team1);
 					}
 				} else if (event.getCode() == KeyCode.Z) {
@@ -304,6 +394,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team1.invisible(0);
 						team1.invisible(1);
 						team1.invisible(2);
+						robot1 = -1;
 						root.getChildren().add(team1);
 						ligne1 = 0;
 						root.getChildren().remove(boite1);
@@ -322,112 +413,149 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite1);
 				}
 			}
-		} else if(event.getCode() == KeyCode.P)
+		} else if (event.getCode() == KeyCode.P)
 			Test.PauseGame();
 	}
 
-	public void getOperateur(int ligne, int number, Personnages personnage, int color) {
-		if (color == 1) {
-			c = expression_bleue;
-		} else if (color == 2) {
-			c = expression_rouge;
+	public void getOperateur(int ligne, int number, Personnages personnage, int team) {
+		if (team == 1) {
+			expression_courante = expression_bleue + "I";
+			curseur = expression_bleue.length() - 1;
+		} else if (team == 2) {
+			expression_courante = expression_rouge + "I";
+			curseur = expression_rouge.length() - 1;
 		}
 		switch (ligne) {
 		case 0:
 			if (number == 1 && !personnage.isEmpty('*')) {
-				c = c + "*";
+				updateExpression("*");
 				personnage.removeOperator('*');
 			} else if (number == 2 && !personnage.isEmpty('{')) {
-				c = c + "{";
+				updateExpression("{");
 				personnage.removeOperator('{');
 			} else if (number == 3 && !personnage.isEmpty('}')) {
-				c = c + "}";
+				updateExpression("}");
 				personnage.removeOperator('}');
 			}
 			break;
 		case 1:
 			if (number == 1 && !personnage.isEmpty(';')) {
-				c = c + ";";
+				updateExpression(";");
 				personnage.removeOperator(';');
 			} else if (number == 2 && !personnage.isEmpty('|')) {
-				c = c + "|";
+				updateExpression("|");
 				personnage.removeOperator('|');
 			} else if (number == 3 && !personnage.isEmpty(':')) {
-				c = c + ":";
+				updateExpression(":");
 				personnage.removeOperator(':');
 			}
 			break;
 		case 2:
 			if (number == 1 && !personnage.isEmpty('>')) {
-				c = c + ">";
+				updateExpression(">");
 				personnage.removeOperator('>');
 			} else if (number == 2 && !personnage.isEmpty('H')) {
-				c = c + "H";
+				updateExpression("H");
 				personnage.removeOperator('H');
 			} else if (number == 3 && !personnage.isEmpty('K')) {
-				c = c + "K";
+				updateExpression("K");
 				personnage.removeOperator('K');
 			}
 			break;
 		case 3:
 			if (number == 1 && !personnage.isEmpty('O')) {
-				c = c + "O";
+				updateExpression("O");
 				personnage.removeOperator('O');
 			} else if (number == 2 && !personnage.isEmpty('J')) {
-				c = c + "J";
+				updateExpression("J");
 				personnage.removeOperator('J');
 			} else if (number == 3 && !personnage.isEmpty('P')) {
-				c = c + "P";
+				updateExpression("P");
 				personnage.removeOperator('P');
 			}
 			break;
 		case 4:
-			if (number == 1) {
-				// TODO
-				// Se deplacer d'un caractere a gauche
-			} else if (number == 2) {
-				// TODO
-				// Se deplacer d'un caractere a droite
+			if (number == 2) {
+				// supprimer le caractere (a gauche du curseur)
+				supprimeChar(personnage);
 			} else {
-				// TODO
-				// supprimer le caractere
+				updateCurseur(number); // Decalage du curseur
 			}
 		}
-		if (color == 1) {
-			expression_bleue = c;
-		} else if (color == 2) {
-			expression_rouge = c;
+		if (team == 1) {
+			expression_bleue = expression_courante;
+			curseur_bleu = curseur;
+		} else if (team == 2) {
+			expression_rouge = expression_courante;
+			curseur_rouge = curseur;
 		}
 	}
 
 	public void updateExpression_bleue() {
+		String affichable;
 		root.getChildren().remove(expr_bleue);
-		Text expr_bleue = new Text(expression_bleue);
-		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
+		affichable = exprAffichable(expression_bleue);
+		expr_bleue = new Text(affichable);
+		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_bleue);
-		/*
-		 * TranslateTransition tt = new
-		 * TranslateTransition(Duration.millis(30000),expr_bleue);
-		 * tt.setFromX(0-expr_bleue.getWrappingWidth()-10);
-		 * tt.setCycleCount(Timeline.INDEFINITE); tt.play();
-		 */
-
 	}
 
 	public void updateExpression_rouge() {
+		String affichable;
 		root.getChildren().remove(expr_rouge);
-		Text expr_rouge = new Text(expression_rouge);
-		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
+		affichable = exprAffichable(expression_rouge);
+		expr_rouge = new Text(affichable);
+		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
 	}
 
-	/*
-	 * public void updateCurseur (){ c = }
-	 */
+	public void updateExpression(String new_c) {
+		expression_courante = expression_courante.substring(0, curseur) + new_c
+				+ expression_courante.substring(curseur, expression_courante.length());
+		curseur++;
+	}
+
+	public void supprimeChar(Personnages p) {
+		// Si curseur tout a gauche on ne suprimme rien
+		if (curseur != 0) {
+			char old_c = expression_courante.charAt(curseur - 1);
+			expression_courante = expression_courante.substring(0, curseur - 1)
+					+ expression_courante.substring(curseur, expression_courante.length());
+			curseur--;
+			p.addOperator(old_c);
+		}
+	}
+
+	public void updateCurseur(int decalage) {
+		if (decalage == 3) { // Decalage a droite
+			// Curseur deja tout a droite, on ne fait rien
+			if (curseur != expression_courante.length() - 1) {
+				expression_courante = expression_courante.substring(0, curseur)
+						+ expression_courante.charAt(curseur + 1) + expression_courante.charAt(curseur)
+						+ expression_courante.substring(curseur + 2, expression_courante.length());
+				curseur++;
+			}
+		} else if (decalage == 1) { // Decalage a gauche
+			// Curseur deja tout a gauche, on ne fait rien
+			if (curseur != 0) {
+				expression_courante = expression_courante.substring(0, curseur - 1)
+						+ expression_courante.charAt(curseur) + expression_courante.charAt(curseur - 1)
+						+ expression_courante.substring(curseur + 1, expression_courante.length());
+				curseur--;
+			}
+		}
+	}
+
+	public String exprAffichable(String s) {
+		if (curseur <= 19) {
+			return s.substring(0, Math.min(20, s.length()));
+		}
+		return s.substring(curseur - 19, curseur + 1);
+	}
 }
