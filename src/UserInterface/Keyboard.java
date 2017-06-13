@@ -25,10 +25,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	int marge;
 	int tailleExpression;
 	Rectangle selection;
-	Boite boite1;
-	Boite boite2;
-	Team team1;
-	Team team2;
+	Boite boite1, boite2;
+	Team team1, team2;
 	String c;
 	String curseur = "|";
 	public String expression_rouge = "";
