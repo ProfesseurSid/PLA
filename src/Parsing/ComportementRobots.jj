@@ -109,18 +109,21 @@ Arbre op() :
 {Arbre fd;}
 {
   < PREF > fd = comp() { return new Arbre(new Preference(), null, fd); }
-| fd = pv() { return fd; } // Pourquoi ne pas mettre < PV > comp() directement ?
-| fd = ou() { return fd; }
+| fd = pv() { return fd; } fd = ou() { return fd; }
 }
 
 Arbre pv() :
 {Arbre fd;}
 {
+  (
   < PV > fd = comp() { return new Arbre(new PointVirgule(), null, fd); }
+  )*
 }
 
 Arbre ou() :
 {Arbre fd;}
 {
+  (
   < OU > fd = comp() { return new Arbre(new Barre(), null, fd); }
+  )*
 }

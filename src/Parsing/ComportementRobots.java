@@ -142,35 +142,51 @@ TOKEN :
       fd = comp();
                          {if (true) return new Arbre(new Preference(), null, fd);}
       break;
-    case PV:
-      fd = pv();
-              {if (true) return fd;}
-      break;
-    case OU:
-      fd = ou();
-              {if (true) return fd;}
-      break;
     default:
       jj_la1[3] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
+      fd = pv();
+              {if (true) return fd;}
+      fd = ou();
+                                       {if (true) return fd;}
     }
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre pv() throws ParseException {
  Arbre fd;
-    jj_consume_token(PV);
-    fd = comp();
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case PV:
+        ;
+        break;
+      default:
+        jj_la1[4] = jj_gen;
+        break label_2;
+      }
+      jj_consume_token(PV);
+      fd = comp();
                        {if (true) return new Arbre(new PointVirgule(), null, fd);}
+    }
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre ou() throws ParseException {
  Arbre fd;
-    jj_consume_token(OU);
-    fd = comp();
+    label_3:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case OU:
+        ;
+        break;
+      default:
+        jj_la1[5] = jj_gen;
+        break label_3;
+      }
+      jj_consume_token(OU);
+      fd = comp();
                        {if (true) return new Arbre(new Barre(), null, fd);}
+    }
     throw new Error("Missing return statement in function");
   }
 
@@ -184,13 +200,13 @@ TOKEN :
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[4];
+  static final private int[] jj_la1 = new int[6];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1f060,0x1f000,0x400,0xb00,};
+      jj_la1_0 = new int[] {0x1f060,0x1f000,0x400,0x800,0x100,0x200,};
    }
 
   /** Constructor with InputStream. */
@@ -211,7 +227,7 @@ TOKEN :
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -225,7 +241,7 @@ TOKEN :
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -242,7 +258,7 @@ TOKEN :
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -252,7 +268,7 @@ TOKEN :
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -268,7 +284,7 @@ TOKEN :
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -277,7 +293,7 @@ TOKEN :
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 6; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -333,7 +349,7 @@ TOKEN :
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 6; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
