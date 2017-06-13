@@ -17,23 +17,22 @@ import javafx.scene.shape.*;
  **************************************************************
  */
 public class Keyboard implements EventHandler<KeyEvent> {
-	Personnages personnage1;
-	Personnages personnage2;
-	int ligne1 = 0;
-	int ligne2 = 0;
 	Group root;
-	Text expr_rouge, expr_bleue;
-	int marge;
-	int tailleExpression;
-	Rectangle selection;
-	Boite boite1, boite2;
+	Personnages personnage1, personnage2;
 	Team team1, team2;
-	String c;
+	Boite boite1, boite2;
+	int ligne1 = 0; // Barre de selection de la boite Joueur 1
+	int ligne2 = 0; // Barre de selection de la boite Joueur 2
+	int tailleExpression;
+	Text expr_rouge, expr_bleue;
 	public String expression_rouge = "|";
 	public String expression_bleue = "|";
-	int nb;
-	int nb_rouge = 1;
-	int nb_bleu = 1;
+	String expression_courante;
+	int curseur;
+	int curseur_rouge = 0;
+	int curseur_bleu = 0;
+	int marge;
+	Rectangle selection;
 
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
 			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
@@ -62,13 +61,15 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
 				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
 				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK) {
-			// player 2
+
+			// Player 2
 			if (personnage2.dansBase()) {
 				if (event.getCode() == KeyCode.UP) {
 					root.getChildren().remove(boite2);
 					boite2.invisible(ligne2);
 					if (ligne2 == 0)
-						ligne2 = 4;
+						ligne2 = 4; // Si tout en haut, deplace a la derniere
+									// ligne
 					else
 						ligne2--;
 					boite2.visible(ligne2);
@@ -77,49 +78,42 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().remove(boite2);
 					boite2.invisible(ligne2);
 					if (ligne2 == 4)
-						ligne2 = 0;
+						ligne2 = 0; // Si tout en bas, deplace a la premiere
+									// ligne
 					else
-						ligne2 = ligne2 + 1;
+						ligne2++;
 					boite2.visible(ligne2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.B) {
+				} else if (event.getCode() == KeyCode.LEFT) {
+					// Si on va a gauche on sort de la base
 					personnage2.sortir();
-					boite2.invisible(ligne2);
 					root.getChildren().remove(boite2);
+					boite2.invisible(ligne2);
 					boite2 = new Boite(personnage2);
 					root.getChildren().add(boite2);
 				} else if (event.getCode() == KeyCode.SEMICOLON) {
-					int focus = boite2.focused();
-					if (focus != 4) {
-						root.getChildren().remove(boite2);
-						getOperateur(ligne2, 1, personnage2, 2);
-						updateExpression_rouge();
-						boite2 = new Boite(personnage2);
-						boite2.visible(focus);
-						root.getChildren().add(boite2);
-					}
+					root.getChildren().remove(boite2);
+					getOperateur(ligne2, 1, personnage2, 2);
+					updateExpression_rouge();
+					boite2 = new Boite(personnage2);
+					boite2.visible(ligne2);
+					root.getChildren().add(boite2);
 				} else if (event.getCode() == KeyCode.COLON) {
-					int focus = boite2.focused();
-					if (focus != 4) {
-						root.getChildren().remove(boite2);
-						getOperateur(ligne2, 2, personnage2, 2);
-						updateExpression_rouge();
-						boite2 = new Boite(personnage2);
-						boite2.visible(focus);
-						root.getChildren().add(boite2);
-					}
+					root.getChildren().remove(boite2);
+					getOperateur(ligne2, 2, personnage2, 2);
+					updateExpression_rouge();
+					boite2 = new Boite(personnage2);
+					boite2.visible(ligne2);
+					root.getChildren().add(boite2);
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
-					int focus = boite2.focused();
-					if (focus != 4) {
-						root.getChildren().remove(boite2);
-						getOperateur(ligne2, 3, personnage2, 2);
-						updateExpression_rouge();
-						boite2 = new Boite(personnage2);
-						boite2.visible(focus);
-						root.getChildren().add(boite2);
-					}
+					root.getChildren().remove(boite2);
+					getOperateur(ligne2, 3, personnage2, 2);
+					updateExpression_rouge();
+					boite2 = new Boite(personnage2);
+					boite2.visible(ligne2);
+					root.getChildren().add(boite2);
 				}
-
+				// Sur le terrain
 			} else {
 				if (event.getCode() == KeyCode.SEMICOLON) {
 					if (team2.getVisible(0)) {
@@ -145,7 +139,6 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team2.visible(1);
 						root.getChildren().add(team2);
 					}
-					;
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 					if (team2.getVisible(2)) {
 						root.getChildren().remove(team2);
@@ -194,7 +187,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		} else if (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
 				|| event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
 				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3) {
-			// player 1
+			// Player 1
 			if (personnage1.dansBase()) {
 				if (event.getCode() == KeyCode.Z) {
 					root.getChildren().remove(boite1);
@@ -221,35 +214,26 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
 				} else if (event.getCode() == KeyCode.DIGIT1) {
-					int focus = boite1.focused();
-					if (focus != 4) {
-						root.getChildren().remove(boite1);
-						getOperateur(ligne1, 1, personnage1, 1);
-						updateExpression_bleue();
-						boite1 = new Boite(personnage1);
-						boite1.visible(focus);
-						root.getChildren().add(boite1);
-					}
+					root.getChildren().remove(boite1);
+					getOperateur(ligne1, 1, personnage1, 1);
+					updateExpression_bleue();
+					boite1 = new Boite(personnage1);
+					boite1.visible(ligne1);
+					root.getChildren().add(boite1);
 				} else if (event.getCode() == KeyCode.DIGIT2) {
-					int focus = boite1.focused();
-					if (focus != 4) {
-						root.getChildren().remove(boite1);
-						getOperateur(ligne1, 2, personnage1, 1);
-						updateExpression_bleue();
-						boite1 = new Boite(personnage1);
-						boite1.visible(focus);
-						root.getChildren().add(boite1);
-					}
+					root.getChildren().remove(boite1);
+					getOperateur(ligne1, 2, personnage1, 1);
+					updateExpression_bleue();
+					boite1 = new Boite(personnage1);
+					boite1.visible(ligne1);
+					root.getChildren().add(boite1);
 				} else if (event.getCode() == KeyCode.DIGIT3) {
-					int focus = boite1.focused();
-					if (focus != 4) {
-						root.getChildren().remove(boite1);
-						getOperateur(ligne1, 3, personnage1, 1);
-						updateExpression_bleue();
-						boite1 = new Boite(personnage1);
-						boite1.visible(focus);
-						root.getChildren().add(boite1);
-					}
+					root.getChildren().remove(boite1);
+					getOperateur(ligne1, 3, personnage1, 1);
+					updateExpression_bleue();
+					boite1 = new Boite(personnage1);
+					boite1.visible(ligne1);
+					root.getChildren().add(boite1);
 				}
 			} else {
 				if (event.getCode() == KeyCode.DIGIT1) {
@@ -276,7 +260,6 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team1.visible(1);
 						root.getChildren().add(team1);
 					}
-					;
 				} else if (event.getCode() == KeyCode.DIGIT3) {
 					if (team1.getVisible(2)) {
 						root.getChildren().remove(team1);
@@ -328,15 +311,13 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		}
 	}
 
-	public void getOperateur(int ligne, int number, Personnages personnage, int color) {
-
-		System.out.println(nb_bleu);
-		if (color == 1) {
-			c = expression_bleue;
-			nb = nb_bleu;
-		} else if (color == 2) {
-			c = expression_rouge;
-			nb = nb_rouge;
+	public void getOperateur(int ligne, int number, Personnages personnage, int team) {
+		if (team == 1) {
+			expression_courante = expression_bleue;
+			curseur = curseur_bleu;
+		} else if (team == 2) {
+			expression_courante = expression_rouge;
+			curseur = curseur_rouge;
 		}
 		switch (ligne) {
 		case 0:
@@ -388,26 +369,22 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			}
 			break;
 		case 4:
-			if (number == 1) {
-				// TODO
-				// Se deplacer d'un caractere a gauche
-			} else if (number == 2) {
-				// TODO
-				// Se deplacer d'un caractere a droite
+			if (number == 2) {
+				// supprimer le caractere (a gauche du curseur)
+				expression_courante = expression_courante.substring(0, curseur-1)
+						+ expression_courante.substring(curseur, expression_courante.length());
+				curseur--;
 			} else {
-				// TODO
-				// supprimer le caractere
+				updateCurseur(number); // Decalage du curseur
 			}
 		}
-		if (color == 1) {
-			expression_bleue = c;
-			nb_bleu = nb;
-		} else if (color == 2) {
-			expression_rouge = c;
-			nb_rouge = nb;
+		if (team == 1) {
+			expression_bleue = expression_courante;
+			curseur_bleu = curseur;
+		} else if (team == 2) {
+			expression_rouge = expression_courante;
+			curseur_rouge = curseur;
 		}
-
-		System.out.println(nb_bleu);
 	}
 
 	public void updateExpression_bleue() {
@@ -431,15 +408,37 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void updateExpression(String new_c) {
-		if (nb == 1) {
-			c = new_c + c;
-		} else if (nb == c.length()) {
-			c = c.substring(0, c.length() - 1) + new_c + "|";
-		} else {
-			c = c.substring(0, nb - 1) + "|" + new_c + c.substring(nb + 1, c.length() - 1);
+		// System.out.println("string =" + expression_courante + " " + curseur);
+		// if (curseur == 1) {
+		// expression_courante = '*' + expression_courante;
+		// } else if (curseur == expression_courante.length()) {
+		// expression_courante = expression_courante.substring(0,
+		// expression_courante.length() - 1) + new_c + "|";
+		// } else {
+		expression_courante = expression_courante.substring(0, curseur) + new_c
+				+ expression_courante.substring(curseur, expression_courante.length());
+		// }
+		System.out.println("string =" + expression_courante + " " + curseur);
+		curseur++;
+	}
+
+	public void updateCurseur(int decalage) {
+		if (decalage == 3) { // Decalage a droite
+			// Curseur deja tout a droite, on ne fait rien
+			if (curseur != expression_courante.length()-1) {
+				expression_courante = expression_courante.substring(0, curseur)
+						+ expression_courante.charAt(curseur + 1) + expression_courante.charAt(curseur)
+						+ expression_courante.substring(curseur + 2, expression_courante.length());
+				curseur++;
+			}
+		} else if (decalage == 1) { // Decalage a gauche
+			// Curseur deja tout a gauche, on ne fait rien
+			if (curseur != 0) {
+				expression_courante = expression_courante.substring(0, curseur - 1)
+						+ expression_courante.charAt(curseur) + expression_courante.charAt(curseur - 1)
+						+ expression_courante.substring(curseur + 1, expression_courante.length());
+				curseur--;
+			}
 		}
-		nb++;
-		System.out.println(nb);
-		return;
 	}
 }

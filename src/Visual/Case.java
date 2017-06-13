@@ -50,8 +50,15 @@ public class Case extends Parent {
 		nb = p.getInventory().get(o);
 		String nombre = "" + nb;
 
-		fond_case = new Rectangle(taille, taille, Color.rgb(220, 220, 220, 1.0));
-		fond_case.setStroke(Color.rgb(150, 150, 150, 1.0));
+		fond_case = new Rectangle(taille, taille);
+		if(nb == 0){
+			fond_case.setFill(Color.rgb(150, 150, 150, 1.0));
+			fond_case.setStroke(Color.rgb(100, 100, 100, 1.0));
+		}
+		else {
+			fond_case.setFill(Color.rgb(220, 220, 220, 1.0));
+			fond_case.setStroke(Color.rgb(150, 150, 150, 1.0));
+		}
 		fond_case.setStrokeWidth(2);
 		fond_case.setArcHeight(10);
 		fond_case.setArcWidth(10);
