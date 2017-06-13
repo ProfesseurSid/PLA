@@ -239,9 +239,14 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Fonction de creation d'une chaine d'affichage de la classe Personnages.
+	 * <<<<<<< HEAD Fonction de creation d'une chaine d'affichage de la classe
+	 * Personnages.
 	 * 
-	 * @return La chaine de caracteres correspondant a l'affichage.
+	 * @return La chaine de caracteres correspondant a l'affichage. =======
+	 *         Fonction d'affichage de la classe Personnages.
+	 * 
+	 * @return La chaine de caract�re correspondant � l'affichage. >>>>>>>
+	 *         origin/master
 	 * @since Version 1.0
 	 */
 	public String toString() {
