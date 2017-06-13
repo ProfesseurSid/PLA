@@ -8,6 +8,7 @@ options
 
 PARSER_BEGIN(ComportementRobots)
 package Parsing;
+import Engine.*;
 
 public class ComportementRobots
 {
@@ -68,58 +69,58 @@ TOKEN :
 }
 */
 
-void loop() :
-{}
+Arbre loop() :
 {
-  < STAR > < AO > comp() < AF >
+  Arbre fd;
+}
+{
+  < STAR > < AO > fd = comp() < AF >
+  {
+    return new Arbre(new Star(), null, fd);
+  }
 }
 
-void comp() :
-{}
+Arbre comp() :
+{  Arbre fg, fd;}
 {
-  action() op()
-| loop()
-| < AO > comp() < AF > op()
+  fg = action() fd = op() { fd.AjouterFilsGauche(fg); return fd; }
+| fg = loop() { return fg; }
+| < AO > fg = comp() < AF > fd = op() { fd.AjouterFilsGauche(fg); return fd; }
 }
 
-void action() :
-{}
+Arbre action() :
+{Arbre retour;}
 {
   //< ACTION > (< DP >)*
-  "H" dp()
-| "K" dp()
-| "O" dp()
-| "J" dp()
-| "P" dp()
+  "H" retour = dp(new Hit()) { return retour; }
+| "K" retour = dp(new Kamikaze()) { return retour; }
+| "O" retour = dp(new Others()) { return retour; }
+| "J" retour = dp(new Rapport()) { return retour; }
+| "P" retour = dp(new Protect()) { return retour; }
 }
 
-void dp() :
-{}
+Arbre dp(Operateurs o) :
+{Arbre retour;}
 {
-  (
-  < DP >
-  )*
+  { retour = new Arbre(o); }  (< DP > { retour = new Arbre(new DeuxPoints(), null, retour); })*  { return retour; }
 }
 
-void op() :
-{}
+Arbre op() :
+{Arbre fd;}
 {
-  < PREF > comp()
-| pv() ou()
+  < PREF > fd = comp() { return new Arbre(new Preference(), null, fd); }
+| fd = pv() { return fd; } // Pourquoi ne pas mettre < PV > comp() directement ?
+| fd = ou() { return fd; }
 }
 
-void pv() :
-{}
+Arbre pv() :
+{Arbre fd;}
 {
-  (
-    < PV > comp()
-  )*
+  < PV > fd = comp() { return new Arbre(new PointVirgule(), null, fd); }
 }
 
-void ou() :
-{}
+Arbre ou() :
+{Arbre fd;}
 {
-  (
-    < OU > comp()
-  )*
+  < OU > fd = comp() { return new Arbre(new Barre(), null, fd); }
 }
