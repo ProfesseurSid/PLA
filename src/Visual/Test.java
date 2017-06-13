@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 public class Test extends Application {
 
 	static int marge = Tuile.getTaille() / 5;
-	
+
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
@@ -36,16 +36,6 @@ public class Test extends Application {
 		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2());
 
 		scene.setOnKeyPressed(keyboard);
-
-//		OperateursVisual operateur;
-//		operateur = monTerrain.getoperateur();
-
-//		Timeline blinker = operateur.Blinker(monTerrain.getImageOperateur());
-//		FadeTransition fader = operateur.Fader(monTerrain.getImageOperateur());
-
-//		SequentialTransition blinkThenFade = new SequentialTransition(monTerrain.getImageOperateur(), blinker, fader);
-
-//		blinkThenFade.play();
 
 		Boite boiteGauche = new Boite();
 		boiteGauche.setTranslateX(marge);
@@ -113,7 +103,7 @@ public class Test extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
-		
+
 		Timer game = new Timer(monTerrain);
 		game.start();
 
