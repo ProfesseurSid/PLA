@@ -10,11 +10,12 @@ public class ComportementRobots implements ComportementRobotsConstants {
     {
       System.out.println("Reading from standard input...");
       System.out.println("Enter an expression :");
-      try
-      {
-        ComportementRobots.loop();
-        //System.out.println(new ComportementRobots("*{P>H}").loop());
-      }
+      //try
+      //{
+      //ComportementRobots.loop();
+      Arbre a = ComportementRobots.loop();
+      System.out.println(a.toString());
+      /*}
       catch (Exception e)
       {
         System.out.println("NOK.");
@@ -26,7 +27,7 @@ public class ComportementRobots implements ComportementRobotsConstants {
         System.out.println("Oops.");
         System.out.println(e.getMessage());
         break;
-      }
+      }*/
     }
   }
 
@@ -48,7 +49,7 @@ TOKEN :
   }
 
   static final public Arbre comp() throws ParseException {
-   Arbre fg, fd;
+  Arbre fg, fd;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 12:
     case 13:
@@ -57,18 +58,24 @@ TOKEN :
     case 16:
       fg = action();
       fd = op();
-                            fd.AjouterFilsGauche(fg); {if (true) return fd;}
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      {if (true) return fd;}
+    }
+    else {if (true) return fg;}
       break;
     case STAR:
       fg = loop();
-                {if (true) return fg;}
+    {if (true) return fg;}
       break;
     case AO:
       jj_consume_token(AO);
       fg = comp();
       jj_consume_token(AF);
       fd = op();
-                                        fd.AjouterFilsGauche(fg); {if (true) return fd;}
+    fd.AjouterFilsGauche(fg);
+    {if (true) return fd;}
       break;
     default:
       jj_la1[0] = jj_gen;
@@ -79,32 +86,32 @@ TOKEN :
   }
 
   static final public Arbre action() throws ParseException {
- Arbre retour;
+  Arbre retour;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 12:
       jj_consume_token(12);
       retour = dp(new Hit());
-                               {if (true) return retour;}
+    {if (true) return retour;}
       break;
     case 13:
       jj_consume_token(13);
       retour = dp(new Kamikaze());
-                                    {if (true) return retour;}
+    {if (true) return retour;}
       break;
     case 14:
       jj_consume_token(14);
       retour = dp(new Others());
-                                  {if (true) return retour;}
+    {if (true) return retour;}
       break;
     case 15:
       jj_consume_token(15);
       retour = dp(new Rapport());
-                                   {if (true) return retour;}
+    {if (true) return retour;}
       break;
     case 16:
       jj_consume_token(16);
       retour = dp(new Protect());
-                                   {if (true) return retour;}
+    {if (true) return retour;}
       break;
     default:
       jj_la1[1] = jj_gen;
@@ -115,7 +122,7 @@ TOKEN :
   }
 
   static final public Arbre dp(Operateurs o) throws ParseException {
- Arbre retour;
+  Arbre retour;
     retour = new Arbre(o);
     label_1:
     while (true) {
@@ -128,18 +135,19 @@ TOKEN :
         break label_1;
       }
       jj_consume_token(DP);
-                                        retour = new Arbre(new DeuxPoints(), null, retour);
+      retour = new Arbre(new DeuxPoints(), null, retour);
     }
-                                                                                                   {if (true) return retour;}
+    {if (true) return retour;}
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre op() throws ParseException {
- Arbre fd;
+  Arbre fd, fg;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PREF:
       jj_consume_token(PREF);
       fd = comp();
+<<<<<<< HEAD
                          {if (true) return new Arbre(new Preference(), null, fd);}
       break;
     default:
@@ -148,12 +156,27 @@ TOKEN :
               {if (true) return fd;}
       fd = ou();
                                        {if (true) return fd;}
+=======
+    {if (true) return new Arbre(new Preference(), null, fd);}
+      break;
+    default:
+      jj_la1[3] = jj_gen;
+      fg = ou();
+      fd = pv();
+    if (fd != null && fg != null) fd.AjouterFilsDroit(fg);
+    {if (true) return fd;}
+>>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     }
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre pv() throws ParseException {
+<<<<<<< HEAD
  Arbre fd;
+=======
+  Arbre fd, retour;
+    retour = new Arbre(new PointVirgule());
+>>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -166,13 +189,27 @@ TOKEN :
       }
       jj_consume_token(PV);
       fd = comp();
+<<<<<<< HEAD
                        {if (true) return new Arbre(new PointVirgule(), null, fd);}
     }
+=======
+      retour.AjouterFilsDroit(fd);
+    }
+    if (retour.droit() == null)
+    {if (true) return null;}
+    else
+    {if (true) return retour;}
+>>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre ou() throws ParseException {
+<<<<<<< HEAD
  Arbre fd;
+=======
+  Arbre fd, retour;
+    retour = new Arbre(new Barre());
+>>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     label_3:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -185,8 +222,17 @@ TOKEN :
       }
       jj_consume_token(OU);
       fd = comp();
+<<<<<<< HEAD
                        {if (true) return new Arbre(new Barre(), null, fd);}
     }
+=======
+      retour.AjouterFilsDroit(fd);
+    }
+    if (retour.droit() == null)
+    {if (true) return null;}
+    else
+    {if (true) return retour;}
+>>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     throw new Error("Missing return statement in function");
   }
 
