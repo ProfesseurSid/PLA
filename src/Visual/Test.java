@@ -1,5 +1,7 @@
 package Visual;
 
+import java.util.Date;
+
 import Engine.Timer;
 import UserInterface.Keyboard;
 import javafx.application.Application;
@@ -16,6 +18,11 @@ import javafx.stage.Stage;
 public class Test extends Application {
 
 	static int marge = Tuile.getTaille() / 5;
+	private static Timer game;
+	private static boolean pause = false;
+	private static Group root;
+	private static Rectangle pauseScreen = new Rectangle();
+	private static Text pauseText = new Text("PAUSE");
 
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
@@ -24,17 +31,26 @@ public class Test extends Application {
 	public void start(Stage primaryStage) {
 
 		primaryStage.setTitle("ARF - Autonomous Robot Fight");
-		Group root = new Group();
+		root = new Group();
 		int dimX = Terrain.getTuileX() * Tuile.getTaille() + 2 * Barre.getDimX() + 3 * marge;
 		int dimY = Barre.getDimX() + Boite.getHeight() + 4 * marge;
 		Scene scene = new Scene(root, dimX, dimY);
 
+		pauseScreen.setHeight(dimY);
+		pauseScreen.setWidth(dimX);
+		pauseScreen.setFill(Color.rgb(200, 200, 200, 0.4));
+
+		pauseText.setFont(new Font(Tuile.getTaille()));
+		pauseText.setFill(Color.rgb(0, 0, 0, 1.0));
+		pauseText.setX(dimX/2 - 2*Tuile.getTaille());
+		pauseText.setY(dimY/2 - 2*Tuile.getTaille());
+		
 		int tailleExpression = (Terrain.getTuileX() / 2) * Tuile.getTaille();
 
 		Terrain monTerrain = new Terrain();
 		monTerrain.setTranslateX(2 * marge + Barre.getDimX());
 		monTerrain.setTranslateY(marge);
-
+		
 		Rectangle champBleu = new Rectangle();
 		champBleu.setHeight(Tuile.getTaille());
 		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
@@ -74,10 +90,10 @@ public class Test extends Application {
 		root.getChildren().add(team2);
 
 		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge , tailleExpression, boiteGauche, boiteDroite, team1, team2);
+				expr_rouge, marge, tailleExpression, boiteGauche, boiteDroite, team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
-		
+
 		root.getChildren().add(monTerrain);
 
 		ImageView PersoRouge = new ImageView(new Image(Test.class.getResourceAsStream("images/PersoRouge.png")));
@@ -99,9 +115,27 @@ public class Test extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 
-		Timer game = new Timer(monTerrain);
+		game = new Timer(monTerrain);
 		game.start();
+	}
 
+	static public boolean enPause() {
+		return pause;
+	}
+
+	static public void PauseGame() {
+		pause = !pause;
+		if (pause){
+			game.stop();
+			root.getChildren().add(pauseScreen);
+			root.getChildren().add(pauseText);
+		}
+		else{
+			root.getChildren().remove(pauseScreen);
+			root.getChildren().remove(pauseText);
+			game.setTime(new Date().getTime());
+			game.start();
+		}
 	}
 
 }
