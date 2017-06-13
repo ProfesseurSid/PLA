@@ -88,7 +88,7 @@ public class Robots implements Vivante {
 	}
 
 	public String toString() {
-		return "R(" + x + "," + y + ") : " + behavior.toString();
+		return behavior.toString();
 	}
 
 	@Override

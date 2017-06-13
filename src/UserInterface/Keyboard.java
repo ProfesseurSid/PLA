@@ -119,37 +119,48 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (team2.getVisible(0)) {
 						root.getChildren().remove(team2);
 						team2.invisible(0);
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else {
 						root.getChildren().remove(team2);
 						team2.invisible(1);
 						team2.invisible(2);
 						team2.visible(0);
-						
+						expression_rouge = personnage2.getRobot(1).toString();
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
 				} else if (event.getCode() == KeyCode.COLON) {
 					if (team2.getVisible(1)) {
 						root.getChildren().remove(team2);
 						team2.invisible(1);
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else {
 						root.getChildren().remove(team2);
 						team2.invisible(0);
 						team2.invisible(2);
 						team2.visible(1);
+						expression_rouge = personnage2.getRobot(2).toString();
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 					if (team2.getVisible(2)) {
 						root.getChildren().remove(team2);
 						team2.invisible(2);
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else {
 						root.getChildren().remove(team2);
 						team2.invisible(0);
 						team2.invisible(1);
 						team2.visible(2);
+						expression_rouge = personnage2.getRobot(3).toString();
+						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
 				} else if (event.getCode() == KeyCode.UP) {
