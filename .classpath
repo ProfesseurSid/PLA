@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="/home/servan/eclipse/jre1.8.0_131/lib/ext/jfxrt.jar" sourcepath="/home/servan/eclipse/jdk1.8.0_131/javafx-src.zip"/>
-=======
-	<classpathentry kind="lib" path="/home/drzed/eclipse/eclipse-installer/jre/lib/ext/jfxrt.jar"/>
->>>>>>> branch 'ParserxGraphique2' of https://github.com/ProfesseurSid/PLA.git
+	<classpathentry exported="true" kind="lib" path="/home/servan/eclipse/jre1.8.0_131/lib/ext/jfxrt.jar"/>
+	<classpathentry exported="true" kind="lib" path="/home/servan/eclipse/jdk1.8.0_131"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
