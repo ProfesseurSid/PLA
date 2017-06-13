@@ -3,7 +3,6 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
-import Visual.OperateursVisual;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 
@@ -21,9 +20,10 @@ public class Personnages implements Vivante {
 	int PV = maxPV;
 	Plateau plateau;
 	PersonnagesVisual visuel;
+	private boolean base;
 
 	/**
-	 * Contructeur de personnage de l'equipe e
+	 * Contructeur de personnage de l'équipe e
 	 * 
 	 * @param e
 	 *            l'equipe dans laquelle ajouter le personnage
@@ -31,6 +31,7 @@ public class Personnages implements Vivante {
 	 */
 	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
 		this.plateau = plateau;
+		this.base = false;
 		if (e == 0) {
 			x = 0;
 			y = plateau.nbLignes() / 2;
@@ -38,7 +39,7 @@ public class Personnages implements Vivante {
 			x = plateau.nbColonnes() - 1;
 			y = plateau.nbLignes() / 2;
 		} else
-			throw new PanicException("Numero d'equipe incorrect");
+			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
 		numberRobots = 0;
 		initInventory();
@@ -53,17 +54,12 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
-		Inventory.put('}', 0); // AccoladeF
-		Inventory.put('{', 0); // AccoladeO
-		Inventory.put(';', 0); // PointVirgule
-		Inventory.put('*', 0); // Star
-		Inventory.put('|', 0); // Barre
-		Inventory.put('*', 0); // Loop
-		Inventory.put('>', 0); // Preference
-		Inventory.put('S', 0); // Split
-		Inventory.put('H', 0); // Hit
-		Inventory.put('E', 0); // Escape
-		Inventory.put('K', 0); // Kamikaze
+		Inventory.put('*', 10); // Loop
+		Inventory.put('>', 10); // Preference
+		Inventory.put('S', 10); // Split
+		Inventory.put('H', 10); // Hit
+		Inventory.put('E', 10); // Escape
+		Inventory.put('K', 10); // Kamikaze
 		Inventory.put('P', 0); // Protect
 		Inventory.put('F', 0); // Follow
 		Inventory.put(':', 0); // Repeat
@@ -73,6 +69,10 @@ public class Personnages implements Vivante {
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
+		Inventory.put('{', 0);
+		Inventory.put('}', 0);
+		Inventory.put(';', 0); // And
+		Inventory.put('|', 0); // Or
 	}
 
 	/**
@@ -94,8 +94,8 @@ public class Personnages implements Vivante {
 	 * l'inventaire.
 	 * 
 	 * @param op
-	 *            Operateur dont le nombre est a augmenter.
-	 * @require op est un operateur connu de l'inventaire.
+	 *            Operateur dont le nombre est � augmenter.
+	 * @require op est un op�rateur connu de l'inventaire.
 	 * @since version 1.0
 	 */
 	public void addOperator(char op) {
@@ -105,23 +105,34 @@ public class Personnages implements Vivante {
 		Inventory.put(op, Inventory.get(op) + 1);
 	}
 
+	// public void addOperator(int x, int y) {
+	// char op[][] =;
+	// }
+
 	/**
 	 * Methode permettant de décrementer le nombre d'un operateur connu par
 	 * l'inventaire.
 	 * 
 	 * @param op
-	 *            Operateur dont le nombre est a� decrementer.
-	 * @require op est un operateur connu de l'inventaire.
+	 *            Operateur dont le nombre est à décrementer.
+	 * @require op est un opérateur connu de l'inventaire.
 	 */
 	public void removeOperator(char op) {
-		if (!(Inventory.containsKey(op))) {
+		/*if (!(Inventory.containsKey(op))) {
 			throw new PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu");
 		}
 		if (Inventory.get(op) == 0) {
 			throw new PanicException(
-					"Suppression d'objet de l'inventaire du personnage : Il y a deja 0 objets de ce type dans l'inventaire.");
+					"Suppression d'objet de l'inventaire du personnage : Il y a dja 0 objets de ce type dans l'inventaire.");
+		}*/
+		Inventory.put(op, Inventory.get(op)-1);
+	}
+	
+	public boolean isEmpty (char op){
+		if (Inventory.get(op)==0){
+			return true;
 		}
-		Inventory.put(op, Inventory.get(op) - 1);
+		return false;
 	}
 
 	/**
@@ -151,10 +162,10 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'equipe du personnage.
+	 * Methode qui permet la suppression d'un robots � l'�quipe du personnage.
 	 * 
 	 * @param room
-	 *            case ou se trouve le robot a supprimer
+	 *            case ou se trouve le robot � supprimer
 	 * @require L'equipe n'est pas vide. La case est comprise entre 1 et 3.
 	 * @since Version 1.0
 	 */
@@ -186,9 +197,8 @@ public class Personnages implements Vivante {
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
-				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs){
+				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs)
 					((Operateurs) plateau.unsafeGet(x, y - 1)).stock(this);
-				}
 				y--;
 				plateau.move(x, y + 1, x, y);
 				visuel.Haut();
@@ -231,9 +241,9 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Fonction de creation d'une chaine d'affichage de la classe Personnages.
+	 * Fonction d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caracteres correspondant a l'affichage.
+	 * @return La chaine de caract�re correspondant � l'affichage.
 	 * @since Version 1.0
 	 */
 	public String toString() {
@@ -272,7 +282,7 @@ public class Personnages implements Vivante {
 	 *            le nombre de coups reçus
 	 */
 	public void isHit() {
-		PV--;
+		PV --;
 	}
 
 	/**
@@ -316,4 +326,30 @@ public class Personnages implements Vivante {
 	public boolean estEnVie() {
 		return PV > 0;
 	}
+
+	/**
+	 * Indique si le personnage est dans sa base
+	 */
+	public boolean dansBase() {
+		return base;
+	}
+
+	/**
+	 * Fait rentrer le personnage dans sa base
+	 */
+	public void rentrer() {
+		this.base = true;
+	}
+
+	/**
+	 * Fait sortir le personnage de sa base
+	 */
+	public void sortir() {
+		this.base = false;
+	}
+
+	public HashMap<Character, Integer> getInventory() {
+		return Inventory;
+	}
+
 }

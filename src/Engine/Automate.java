@@ -178,8 +178,8 @@ public class Automate {
 				RunAutomate(PrefExec, bot);
 			} else {
 				for (int i = 0; i < count; i++) {
-					a.op().action(bot);
-					// System.out.println(a.op().toString() + " s'execute.");
+					// a.op().action(bot);
+					System.out.println(a.op().toString() + " s'execute.");
 				}
 				count = 1;
 			}
@@ -273,7 +273,7 @@ public class Automate {
 	public static void main(String[] args) {
 		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
 		// Automate auto = new Automate("*{O::;*{H;K}}");
-		Automate auto = new Automate("*{H:::>O}");
+		Automate auto = new Automate("*{H|P;O}");
 		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
 		// Automate auto = new Automate(new Protect());
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));
