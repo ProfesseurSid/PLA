@@ -27,12 +27,13 @@ public class Rapport implements Operateurs {
 	/**
 	 * Constructeur de rapport
 	 */
-	public Rapport(int x, int y, Plateau plateau, OperateursVisual visuel) {
+	public Rapport(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
 		this.plateau = plateau;
 		this.visuel = visuel;
 		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	/**

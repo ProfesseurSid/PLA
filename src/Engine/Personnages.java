@@ -3,7 +3,6 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
-import Visual.OperateursVisual;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 
@@ -21,6 +20,7 @@ public class Personnages implements Vivante {
 	int PV = maxPV;
 	Plateau plateau;
 	PersonnagesVisual visuel;
+	private boolean base;
 
 	/**
 	 * Contructeur de personnage de l'équipe e
@@ -31,6 +31,7 @@ public class Personnages implements Vivante {
 	 */
 	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
 		this.plateau = plateau;
+		this.base = false;
 		if (e == 0) {
 			x = 0;
 			y = plateau.nbLignes() / 2;
@@ -53,12 +54,12 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
-		Inventory.put('*', 0); // Loop
-		Inventory.put('>', 0); // Preference
-		Inventory.put('S', 0); // Split
-		Inventory.put('H', 0); // Hit
-		Inventory.put('E', 0); // Escape
-		Inventory.put('K', 0); // Kamikaze
+		Inventory.put('*', 10); // Loop
+		Inventory.put('>', 10); // Preference
+		Inventory.put('S', 10); // Split
+		Inventory.put('H', 10); // Hit
+		Inventory.put('E', 10); // Escape
+		Inventory.put('K', 10); // Kamikaze
 		Inventory.put('P', 0); // Protect
 		Inventory.put('F', 0); // Follow
 		Inventory.put(':', 0); // Repeat
@@ -68,6 +69,10 @@ public class Personnages implements Vivante {
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
+		Inventory.put('{', 0);
+		Inventory.put('}', 0);
+		Inventory.put(';', 0); // And
+		Inventory.put('|', 0); // Or
 	}
 
 	/**
@@ -109,14 +114,23 @@ public class Personnages implements Vivante {
 	 * @require op est un opérateur connu de l'inventaire.
 	 */
 	public void removeOperator(char op) {
-		if (!(Inventory.containsKey(op))) {
-			throw new PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu");
+		/*
+		 * if (!(Inventory.containsKey(op))) { throw new
+		 * PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu"
+		 * ); } if (Inventory.get(op) == 0) { throw new PanicException(
+		 * "Suppression d'objet de l'inventaire du personnage : Il y a dja 0 objets de ce type dans l'inventaire."
+		 * ); }
+		 */
+		if (!isEmpty(op)) {
+			Inventory.put(op, Inventory.get(op) - 1);
 		}
+	}
+
+	public boolean isEmpty(char op) {
 		if (Inventory.get(op) == 0) {
-			throw new PanicException(
-					"Suppression d'objet de l'inventaire du personnage : Il y a déja 0 objets de ce type dans l'inventaire.");
+			return true;
 		}
-		Inventory.put(op, Inventory.get(op) - 1);
+		return false;
 	}
 
 	/**
@@ -181,9 +195,8 @@ public class Personnages implements Vivante {
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
-				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs){
+				if (plateau.unsafeGet(x, y - 1) instanceof Operateurs)
 					((Operateurs) plateau.unsafeGet(x, y - 1)).stock(this);
-				}
 				y--;
 				plateau.move(x, y + 1, x, y);
 				visuel.Haut();
@@ -311,4 +324,30 @@ public class Personnages implements Vivante {
 	public boolean estEnVie() {
 		return PV > 0;
 	}
+
+	/**
+	 * Indique si le personnage est dans sa base
+	 */
+	public boolean dansBase() {
+		return base;
+	}
+
+	/**
+	 * Fait rentrer le personnage dans sa base
+	 */
+	public void rentrer() {
+		this.base = true;
+	}
+
+	/**
+	 * Fait sortir le personnage de sa base
+	 */
+	public void sortir() {
+		this.base = false;
+	}
+
+	public HashMap<Character, Integer> getInventory() {
+		return Inventory;
+	}
+
 }

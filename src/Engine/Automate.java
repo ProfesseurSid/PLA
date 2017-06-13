@@ -280,7 +280,6 @@ public class Automate {
 		try {
 			auto = new Automate("*{J|P;O}");
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");

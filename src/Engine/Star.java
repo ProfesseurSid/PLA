@@ -25,12 +25,13 @@ public class Star implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public Star(int x, int y, Plateau plateau, OperateursVisual visuel) {
+	public Star(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
 		this.plateau = plateau;
 		this.visuel = visuel;
 		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	@Override

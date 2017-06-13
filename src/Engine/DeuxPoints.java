@@ -25,12 +25,13 @@ public class DeuxPoints implements Operateurs {
 	 * 
 	 * @since Version 1.0
 	 */
-	public DeuxPoints(int x, int y, Plateau plateau, OperateursVisual visuel) {
+	public DeuxPoints(Terrain t, int x, int y, Plateau plateau, OperateursVisual visuel) {
 		this.x = x;
 		this.y = y;
 		this.plateau = plateau;
 		this.visuel = visuel;
 		plateau.put(x, y, this);
+		t.addVisual(visuel);
 	}
 
 	@Override

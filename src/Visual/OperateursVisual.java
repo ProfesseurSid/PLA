@@ -14,21 +14,12 @@ public class OperateursVisual extends Parent {
 	int taille = Tuile.getTaille();
 	ImageView operateur;
 	Operateurs op;
-	
+
 	public OperateursVisual(int indX, int indY, ImageView operateur, Plateau plateau) {
 		this.plateau = plateau;
 		this.operateur = operateur;
 		this.indX = indX;
 		this.indY = indY;
-		/*indX = (int) (Math.random() * (Terrain.getTuileX() - 1));
-		indX = (int) (Math.random() * (Terrain.getTuileY() - 1));
-		while (plateau.verification(indX, indY) == 1) {
-			indX = (int) (Math.random() * (Terrain.getTuileX() - 1));
-			indX = (int) (Math.random() * (Terrain.getTuileY() - 1));
-		}*/
-
-		//TODO
-		//plateau.put(indX, indY, op);
 
 		operateur.setTranslateX(indX * taille);
 		operateur.setTranslateY(indY * taille);
@@ -41,7 +32,8 @@ public class OperateursVisual extends Parent {
 	public Timeline Blinker(ImageView operateur) {
 		Timeline blink = new Timeline(
 				new KeyFrame(Duration.seconds(0), new KeyValue(operateur.opacityProperty(), 1, Interpolator.DISCRETE)),
-				new KeyFrame(Duration.seconds(0.5), new KeyValue(operateur.opacityProperty(), 0, Interpolator.DISCRETE)),
+				new KeyFrame(Duration.seconds(0.5),
+						new KeyValue(operateur.opacityProperty(), 0, Interpolator.DISCRETE)),
 				new KeyFrame(Duration.seconds(1), new KeyValue(operateur.opacityProperty(), 1, Interpolator.DISCRETE)));
 		blink.setCycleCount(10);
 
@@ -52,11 +44,11 @@ public class OperateursVisual extends Parent {
 		FadeTransition fade = new FadeTransition(Duration.seconds(3), operateur);
 		fade.setFromValue(1);
 		fade.setToValue(0);
-
+		plateau.plateau[indX][indY] = null;
 		return fade;
 	}
-	
-	public void remove (){
+
+	public void remove() {
 		this.getChildren().remove(operateur);
 	}
 
