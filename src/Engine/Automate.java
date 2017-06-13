@@ -53,10 +53,10 @@ public class Automate {
 	public Automate(String s) throws ParseException{
 		if (s.length() < 4)
 			throw new ParsingException("Chaine vide");
-		CheckValide(s.substring(2, s.length() - 1));
-		code = stringToArbre(s.substring(2, s.length() - 1));
-		//ComportementRobots parser = new ComportementRobots(s);
-		//code = parser.loop();
+		//CheckValide(s.substring(2, s.length() - 1));
+		//code = stringToArbre(s.substring(2, s.length() - 1));
+		ComportementRobots parser = new ComportementRobots(s);
+		code = parser.loop();
 		aExec = code;
 		StarExec = code;
 		exec = false;
@@ -157,7 +157,7 @@ public class Automate {
 				RunAutomate(a.droit(), bot);
 			}
 		} else if (a.op() instanceof Barre) {
-			aExec = StarExec;
+			//aExec = StarExec;
 			if (Math.random() < 0.5) {
 				RunAutomate(a.gauche(), bot);
 			} else {
@@ -181,8 +181,8 @@ public class Automate {
 				RunAutomate(PrefExec, bot);
 			} else {
 				for (int i = 0; i < count; i++) {
-					//a.op().action(bot);
-					 System.out.println(a.op().toString() + " s'execute.");
+					a.op().action(bot);
+					//System.out.println(a.op().toString() + " s'execute.");
 				}
 				count = 1;
 			}
@@ -278,7 +278,7 @@ public class Automate {
 		// Automate auto = new Automate("*{O::;*{H;K}}");
 		Automate auto = null;
 		try {
-			auto = new Automate("*{H|P;O}");
+			auto = new Automate("*{J|P;O}");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
