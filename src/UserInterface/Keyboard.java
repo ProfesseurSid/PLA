@@ -386,8 +386,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void updateExpression_bleue() {
+		String affichable;
 		root.getChildren().remove(expr_bleue);
-		expr_bleue = new Text(expression_bleue);
+		affichable = exprAffichable(expression_bleue);
+		expr_bleue = new Text(affichable);
 		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
@@ -396,8 +398,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void updateExpression_rouge() {
+		String affichable;
 		root.getChildren().remove(expr_rouge);
-		expr_rouge = new Text(expression_rouge);
+		affichable = exprAffichable(expression_rouge);
+		expr_rouge = new Text(affichable);
 		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
@@ -440,5 +444,12 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				curseur--;
 			}
 		}
+	}
+	
+	public String exprAffichable(String s){
+		if (curseur <= 17){
+			return s.substring(0, Math.min(18, s.length()));
+		}
+		return s.substring(curseur - 17, curseur + 1);
 	}
 }

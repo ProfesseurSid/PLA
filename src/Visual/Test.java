@@ -43,6 +43,7 @@ public class Test extends Application {
 		root.getChildren().add(champBleu);
 
 		Text expr_bleue = new Text("EXPRESSION");
+		//expr_bleue.setFont(new Font.font("Verdana"));
 		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
