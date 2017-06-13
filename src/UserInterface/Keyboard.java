@@ -53,7 +53,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * Recupere un evenement du clavier afin de l'associer au joueur
 	 * correspondant Le joueur 1 se trouvant a droite du terrain, utilise les
 	 * fleches pour deplacer son avatar. Le joueur 2, quant a lui, utilise les
-	 * touches Q,Z,S,D pour se deplacer à l'interieur du terrain Lorsque le
+	 * touches Q,Z,S,D pour se deplacer ï¿½ l'interieur du terrain Lorsque le
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
