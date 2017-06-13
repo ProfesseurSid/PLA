@@ -138,14 +138,14 @@ public class Timer extends AnimationTimer {
 			switch (rand) {
 			case 0:
 				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
+						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 1:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.PNG")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeO accoladeO = new AccoladeO(t, this.indX, this.indY, t.getPlateau(), visuel);
