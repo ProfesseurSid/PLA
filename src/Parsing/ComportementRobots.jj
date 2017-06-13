@@ -16,7 +16,7 @@ public class ComportementRobots
 {
   public ComportementRobots(String s)
   {
-    this(new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
+    this (new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
   }
 
   public static void main(String args []) throws ParseException
@@ -29,7 +29,7 @@ public class ComportementRobots
       //try
       //{
       //ComportementRobots.loop();
-      System.out.println(a.toString());
+      //System.out.println(a.toString());
       /*}
       catch (Exception e)
       {

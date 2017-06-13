@@ -7,7 +7,7 @@ import Engine.*;
 public class ComportementRobots implements ComportementRobotsConstants {
   public ComportementRobots(String s)
   {
-    this(new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
+    this (new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
   }
 
   public static void main(String args []) throws ParseException
@@ -20,8 +20,7 @@ public class ComportementRobots implements ComportementRobotsConstants {
       //try
       //{
       //ComportementRobots.loop();
-      Arbre a = parser.loop();
-      System.out.println(a.toString());
+      //System.out.println(a.toString());
       /*}
       catch (Exception e)
       {
@@ -168,27 +167,12 @@ TOKEN :
     case PREF:
       jj_consume_token(PREF);
       fd = comp();
-<<<<<<< HEAD
-                         {if (true) return new Arbre(new Preference(), null, fd);}
-      break;
-    default:
-      jj_la1[3] = jj_gen;
-      fd = pv();
-              {if (true) return fd;}
-      fd = ou();
-                                       {if (true) return fd;}
-=======
     {if (true) return new Arbre(new Preference(), null, fd);}
       break;
     default:
       jj_la1[3] = jj_gen;
       fg = ou();
       fd = pv();
-<<<<<<< HEAD
-    if (fd != null && fg != null) fd.AjouterFilsDroit(fg);
-    {if (true) return fd;}
->>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
-=======
     if (fd != null)
     {
       if (fg != null)
@@ -199,18 +183,13 @@ TOKEN :
     {
       {if (true) return fg;}
     }
->>>>>>> 6ff330cfcc74d1c8c2945fe865f0a5ad0f56c8ce
     }
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre pv() throws ParseException {
-<<<<<<< HEAD
- Arbre fd;
-=======
   Arbre fd, retour;
     retour = new Arbre(new PointVirgule());
->>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -223,27 +202,18 @@ TOKEN :
       }
       jj_consume_token(PV);
       fd = comp();
-<<<<<<< HEAD
-                       {if (true) return new Arbre(new PointVirgule(), null, fd);}
-    }
-=======
       retour.AjouterFilsDroit(fd);
     }
     if (retour.droit() == null)
     {if (true) return null;}
     else
     {if (true) return retour;}
->>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     throw new Error("Missing return statement in function");
   }
 
   static final public Arbre ou() throws ParseException {
-<<<<<<< HEAD
- Arbre fd;
-=======
   Arbre fd, retour;
     retour = new Arbre(new Barre());
->>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     label_3:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -256,17 +226,12 @@ TOKEN :
       }
       jj_consume_token(OU);
       fd = comp();
-<<<<<<< HEAD
-                       {if (true) return new Arbre(new Barre(), null, fd);}
-    }
-=======
       retour.AjouterFilsDroit(fd);
     }
     if (retour.droit() == null)
     {if (true) return null;}
     else
     {if (true) return retour;}
->>>>>>> 7694d261f959c5da09b5dd290f6a7b547df32060
     throw new Error("Missing return statement in function");
   }
 
