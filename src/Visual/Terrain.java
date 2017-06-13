@@ -2,6 +2,7 @@ package Visual;
 
 import Engine.Personnages;
 import Engine.Robots;
+import Parsing.ParseException;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -55,13 +56,15 @@ public class Terrain extends Parent {
 		for (Tuile tuile : Tuiles) {
 			this.getChildren().add(tuile);
 		}
+		try{
+			robot1P1.setBehavior("*{K>O}");
+			personnage1.addRobot(robot1P1, 1);
 
-		robot1P1.setBehavior("*{K>O}");
-		personnage1.addRobot(robot1P1, 1);
-
-		robot1P2.setBehavior("*{P:;H>O}");
-		personnage2.addRobot(robot1P2, 1);
-
+			robot1P2.setBehavior("*{P:;H>O}");
+			personnage2.addRobot(robot1P2, 1);
+		} catch(Exception ex){
+			System.out.println("VA TE FAIRE FOUTRE");
+		}
 		this.getChildren().add(visuel1);
 		this.getChildren().add(visuelRobot1P1);
 		this.getChildren().add(visuel2);

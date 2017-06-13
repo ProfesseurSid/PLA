@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Exception.PanicException;
 import Parsing.ParseException;
+import java.text.*;
 import Visual.Plateau;
 import Visual.RobotVisual;
 
@@ -87,6 +88,7 @@ public class Robots implements Vivante {
 		try{
 			behavior = new Automate(behave);
 		} catch(ParseException ex){
+			System.out.println(ex.toString());
 			behavior = null;
 		}
 		plateau.put(x, y, this);
@@ -387,6 +389,7 @@ public class Robots implements Vivante {
 		try{
 			behavior = new Automate(s);
 		} catch(ParseException ex){
+			System.out.println(ex.toString());
 			behavior = null;
 		}
 	}

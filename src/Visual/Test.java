@@ -27,8 +27,11 @@ public class Test extends Application {
 		Group root = new Group();
 		int dimX = Terrain.getTuileX() * Tuile.getTaille() + 2 * Barre.getDimX() + 3 * marge;
 		int dimY = Barre.getDimX() + Boite.getHeight() + 4 * marge;
-		Scene scene = new Scene(root, dimX, dimY);
-
+		try{
+			Scene scene = new Scene(root, dimX, dimY);
+		} catch(Exception ex){
+			System.out.println("puTAIN");
+		}
 		int tailleExpression = (Terrain.getTuileX() / 2) * Tuile.getTaille();
 
 		Terrain monTerrain = new Terrain();
