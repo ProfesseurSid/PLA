@@ -1,0 +1,88 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+}
+
+PARSER_BEGIN(Reader2)
+package Parsing;
+
+public class Reader2
+{
+  public static void main(String args []) throws ParseException
+  {
+    Reader2 parser = new Reader2(System.in);
+    while (true)
+    {
+      System.out.println("Reading from standard input...");
+      System.out.println("Enter an expression :");
+      try
+      {
+        Reader2.loop();
+        //System.out.println(new Reader2("*{P>H}").loop());
+      }
+      catch (Exception e)
+      {
+        System.out.println("NOK.");
+        System.out.println(e.getMessage());
+        Reader2.ReInit(System.in);
+      }
+      catch (Error e)
+      {
+        System.out.println("Oops.");
+        System.out.println(e.getMessage());
+        break;
+      }
+    }
+  }
+}
+
+PARSER_END(Reader2)
+
+TOKEN : /* OPERATORS */
+{
+  < DDOTS : ":" >
+| < LACC : "{" >
+| < RACC : "}" >
+| < PV : ";" >
+| < STAR : "*" >
+| < PREF : ">" >
+| < OR : "|" >
+| < HIT : "H" >
+| < PROTECT : "P" >
+| < RAPPORT : "J" >
+| < OTHER : "O" >
+| < KAMIKAZ : "K" >
+}
+
+Arbre AUTOMATE() :{Arbre behaviour;}{
+< STAR > < LACC > behaviour = COMPORTEMENT() < RACC >{return new Arbre(new Star(), null, behaviour);}
+| < STAR > < LACC > behaviour = ACTION() < RACC >{return new Arbre(new Star(), null, behaviour);}
+}
+
+Arbre COMPORTEMENT() :{Arbre fg, fd;}{
+fg = AUTOMATE() { return fg; }
+| fg = ACTION() < PV > fd = ACTION() { return new Arbre(new PointVirgule(), fg, fd); }
+| fg = COMPORTEMENT() < PV > fd = COMPORTEMENT() { return new Arbre(new PointVirgule(), fg, fd); }
+| fg = ACTION() < OR > fd = ACTION() { return new Arbre(new Barre(), fg, fd); }
+| fg = COMPORTEMENT() < OR > fd = COMPORTEMENT() { return new Arbre(new Barre(), fg, fd); }
+| fg = ACTION() < PREF > fd = ACTION() { return new Arbre(new Preference(), fg, fd); }
+| fg = COMPORTEMENT() < PREF > fd = COMPORTEMENT() { return new Arbre(new Preference(), fg, fd); }
+}
+
+Arbre ACTION() :{Arbre o, retour;}{
+  o = ACTION() retour = DP(o) { return retour; }
+| < LACC > retour = COMPORTEMENT() < RACC > { return retour; }
+| < HIT > { return new Automate(new Hit()); }
+| < PROTECT > { return new Automate(new Protect()); }
+| < RAPPORT > { return new Automate(new Rapport()); }
+| < OTHER > { return new Automate(new Others()); }
+| < KAMIKAZ > { return new Automate(new Kamikaze()); }
+}
+
+Automate DP(Automate o) : { Automate fd;}{
+< DP > fd=DP(o) { return new Automate(new DeuxPoints(), null, fd); }
+| < DP > { return new Automate(new DeuxPoints(), null, o); }
+}
