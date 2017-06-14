@@ -24,13 +24,13 @@ public class RechercheChemin {
 	boolean invert;
 
 	public static void main(String[] args) {
-		Plateau plat = new Plateau(new Terrain());
-		Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new ImageView(), 0, plat));
-		Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new ImageView(), 1, plat));
-		Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0, plat));
-		Robots r2 = new Robots(plat, p, 1, new RobotVisual(new ImageView(), 1, plat));
-		plat.toString();
-		maze = new RechercheChemin(plat, 0, 5, 18, 5);
+		Terrain t = new Terrain();
+		Personnages p = new Personnages(t, 0, new PersonnagesVisual(new ImageView(), 0, t.getPlateau()));
+		Personnages p2 = new Personnages(t, 1, new PersonnagesVisual(new ImageView(), 1, t.getPlateau()));
+		Robots r = new Robots(t, p, 0, new RobotVisual(new ImageView(), 0, t.getPlateau()));
+		Robots r2 = new Robots(t, p, 1, new RobotVisual(new ImageView(), 1, t.getPlateau()));
+		t.toString();
+		maze = new RechercheChemin(t.getPlateau(), 0, 5, 18, 5);
 		boolean solved = maze.solve();
 		System.out.println("Solved: " + solved);
 		System.out.println(maze.toString());
