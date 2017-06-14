@@ -59,10 +59,10 @@ public class Terrain extends Parent {
 			this.setTranslateY(Test.marge);
 		}
 
-		robot1P1.setBehavior("*{O}");
+		robot1P1.setBehavior("*{P;J}");
 		personnage1.addRobot(robot1P1, 1);
 
-		robot1P2.setBehavior("*{H>O}");
+		robot1P2.setBehavior("*{O;H}");
 		personnage2.addRobot(robot1P2, 1);
 
 		this.getChildren().add(visuel1);
