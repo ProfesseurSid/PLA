@@ -9,7 +9,7 @@ public class Team extends Parent {
 	private static int nb = 3;
 	private static int dimX = nb * Mate.getTaille() + ((nb - 1) / 2) * Tuile.getTaille();
 	Mate Mates[];
-	
+
 	public Team(int equipe) {
 
 		Rectangle fond_team = new Rectangle(dimX, Mate.getTaille());
@@ -63,10 +63,5 @@ public class Team extends Parent {
 			return 2;
 		else
 			return 3;
-	}
-	
-
-	public static void set(){
-		dimX = nb * Mate.getTaille() + ((nb - 1) / 2) * Tuile.getTaille();
 	}
 }

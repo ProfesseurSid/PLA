@@ -54,9 +54,6 @@ public class Terrain extends Parent {
 
 		for (Tuile tuile : Tuiles) {
 			this.getChildren().add(tuile);
-
-			this.setTranslateX(2 * Test.marge + Barre.getDimX());
-			this.setTranslateY(Test.marge);
 		}
 
 		robot1P1.setBehavior("*{K>O}");
@@ -109,10 +106,5 @@ public class Terrain extends Parent {
 
 	public Plateau getPlateau() {
 		return plateau;
-	}
-
-	public static void set() {
-		grilleWidth = Tuile.getTaille() * tuileX;
-		grilleHeight = Tuile.getTaille() * tuileY;
 	}
 }

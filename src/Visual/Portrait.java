@@ -8,10 +8,9 @@ public class Portrait extends Parent {
 	private int indX;
 	private int indY;
 
-	static int taille = Tuile.getTaille();
+	int taille = Tuile.getTaille();
 
 	public Portrait(ImageView personnage, int x, int y) {
-		
 		this.indX = x;
 		this.indY = y;
 
@@ -69,11 +68,6 @@ public class Portrait extends Parent {
 			personnage.setFitWidth(taille);
 			personnage.setFitHeight(taille);
 		}
-	}
-	
-	
-	public static void set(){
-		taille = Tuile.getTaille();
 	}
 
 }

@@ -54,7 +54,6 @@ public class Timer extends AnimationTimer {
 			}
 			
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
-				// TODO DRAW GAME
 				Test.EndGame(0);
 				} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
@@ -206,8 +205,9 @@ public class Timer extends AnimationTimer {
 	public void blink(OperateursVisual visuel, ImageView image) {
 		Timeline blinker = visuel.Blinker(image);
 		FadeTransition fader = visuel.Fader(image);
-		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
-		blinkThenFade.play();
+//		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
+//		blinkThenFade.play();
+		blinker.play();
 	}
 
 	public void random() {

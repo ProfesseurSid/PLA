@@ -116,8 +116,4 @@ public class Barre extends Parent {
 		return visible;
 	}
 
-	
-	public static void set(){
-		dimX = nb * Case.getTaille() + ((nb - 1) / 2) * Tuile.getTaille();
-	}
 }
