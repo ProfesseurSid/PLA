@@ -25,8 +25,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	int ligne2 = 0; // Barre de selection de la boite Joueur 2
 	int tailleExpression;
 	Text expr_rouge, expr_bleue;
-	public String expression_rouge = "|";
-	public String expression_bleue = "|";
+	public String expression_rouge = "I";
+	public String expression_bleue = "I";
 	String expression_courante;
 	int curseur;
 	int curseur_rouge = 0;
@@ -371,9 +371,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		case 4:
 			if (number == 2) {
 				// supprimer le caractere (a gauche du curseur)
-				expression_courante = expression_courante.substring(0, curseur-1)
-						+ expression_courante.substring(curseur, expression_courante.length());
-				curseur--;
+				supprimeChar(personnage);
 			} else {
 				updateCurseur(number); // Decalage du curseur
 			}
@@ -388,8 +386,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void updateExpression_bleue() {
+		String affichable;
 		root.getChildren().remove(expr_bleue);
-		expr_bleue = new Text(expression_bleue);
+		affichable = exprAffichable(expression_bleue);
+		expr_bleue = new Text(affichable);
 		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
@@ -398,8 +398,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void updateExpression_rouge() {
+		String affichable;
 		root.getChildren().remove(expr_rouge);
-		expr_rouge = new Text(expression_rouge);
+		affichable = exprAffichable(expression_rouge);
+		expr_rouge = new Text(affichable);
 		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
@@ -408,24 +410,26 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public void updateExpression(String new_c) {
-		// System.out.println("string =" + expression_courante + " " + curseur);
-		// if (curseur == 1) {
-		// expression_courante = '*' + expression_courante;
-		// } else if (curseur == expression_courante.length()) {
-		// expression_courante = expression_courante.substring(0,
-		// expression_courante.length() - 1) + new_c + "|";
-		// } else {
 		expression_courante = expression_courante.substring(0, curseur) + new_c
 				+ expression_courante.substring(curseur, expression_courante.length());
-		// }
-		System.out.println("string =" + expression_courante + " " + curseur);
 		curseur++;
+	}
+
+	public void supprimeChar(Personnages p) {
+		// Si curseur tout a gauche on ne suprimme rien
+		if (curseur != 0) {
+			char old_c = expression_courante.charAt(curseur - 1);
+			expression_courante = expression_courante.substring(0, curseur - 1)
+					+ expression_courante.substring(curseur, expression_courante.length());
+			curseur--;
+			p.addOperator(old_c);
+		}
 	}
 
 	public void updateCurseur(int decalage) {
 		if (decalage == 3) { // Decalage a droite
 			// Curseur deja tout a droite, on ne fait rien
-			if (curseur != expression_courante.length()-1) {
+			if (curseur != expression_courante.length() - 1) {
 				expression_courante = expression_courante.substring(0, curseur)
 						+ expression_courante.charAt(curseur + 1) + expression_courante.charAt(curseur)
 						+ expression_courante.substring(curseur + 2, expression_courante.length());
@@ -440,5 +444,12 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				curseur--;
 			}
 		}
+	}
+	
+	public String exprAffichable(String s){
+		if (curseur <= 17){
+			return s.substring(0, Math.min(18, s.length()));
+		}
+		return s.substring(curseur - 17, curseur + 1);
 	}
 }
