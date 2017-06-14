@@ -54,14 +54,15 @@ public class Timer extends AnimationTimer {
 			}
 			
 			//Le test ne marche pas
+			Test.EndGame(1);
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
 				Test.EndGame(0);
 				} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
-				Test.EndGame(1);
+				Test.EndGame(2);
 			} else if (!t.getpersonnage2().estEnVie()) {
 				// TODO PLAYER 1 WINS HAHAHA
-				Test.EndGame(2);
+				Test.EndGame(1);
 			} else
 				for (int i = 1; i < 4; i++) {
 					rob1 = t.getpersonnage1().getRobot(i);
