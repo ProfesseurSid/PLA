@@ -87,7 +87,6 @@ public class RechercheChemin {
 				else
 					grid[i][j] = 1;
 
-//		grid[5][10] = 5;
 		this.map = new int[height][width];
 	}
 

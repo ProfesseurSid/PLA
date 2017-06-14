@@ -52,13 +52,16 @@ public class Timer extends AnimationTimer {
 				if (rob1 != null)
 					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
 			}
-
+			
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
 				// TODO DRAW GAME
-			} else if (!t.getpersonnage1().estEnVie()) {
+				Test.EndGame(0);
+				} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
+				Test.EndGame(0);
 			} else if (!t.getpersonnage2().estEnVie()) {
 				// TODO PLAYER 1 WINS HAHAHA
+				Test.EndGame(0);
 			} else
 				for (int i = 1; i < 4; i++) {
 					rob1 = t.getpersonnage1().getRobot(i);

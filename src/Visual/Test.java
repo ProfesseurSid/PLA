@@ -24,6 +24,7 @@ public class Test extends Application {
 	private static Rectangle pauseScreen = new Rectangle();
 	private static Text pauseText = new Text("PAUSE");
 	private static Scene scene;
+	private static FinalScreen finalscreen = new FinalScreen();
 	
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
@@ -141,6 +142,12 @@ public class Test extends Application {
 			game.setTime(new Date().getTime());
 			game.start();
 		}
+	}
+	
+	public static void EndGame(int JoueurVictorieux){
+		//finalscreen.display();
+		game.stop();
+		root.getChildren().add(finalscreen.display(JoueurVictorieux));
 	}
 
 }
