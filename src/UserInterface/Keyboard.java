@@ -56,12 +56,12 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 */
 	public void handle(KeyEvent event) {
 
-		if (!Test.enPause() && (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
-				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
+		if (!Test.getMenu() && !Test.enPause() && (event.getCode() == Test.getHaut2() || event.getCode() == Test.getBas2() || event.getCode() == Test.getGauche2()
+				|| event.getCode() == Test.getDroite2() || event.getCode() == KeyCode.SEMICOLON
 				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
 			// player 2
 			if (personnage2.dansBase()) {
-				if (event.getCode() == KeyCode.UP) {
+				if (event.getCode() == Test.getHaut2()) {
 					root.getChildren().remove(boite2);
 					boite2.invisible(ligne2);
 					if (ligne2 == 0)
@@ -70,7 +70,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						ligne2--;
 					boite2.visible(ligne2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.DOWN) {
+				} else if (event.getCode() == Test.getBas2()) {
 					root.getChildren().remove(boite2);
 					boite2.invisible(ligne2);
 					if (ligne2 == 4)
@@ -79,7 +79,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						ligne2 = ligne2 + 1;
 					boite2.visible(ligne2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.LEFT) {
+				} else if (event.getCode() == Test.getGauche2()) {
 					personnage2.sortir();
 					boite2.invisible(ligne2);
 					root.getChildren().remove(boite2);
@@ -155,17 +155,17 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team2.visible(2);
 						root.getChildren().add(team2);
 					}
-				} else if (event.getCode() == KeyCode.UP) {
+				} else if (event.getCode() == Test.getHaut2()) {
 					personnage2.mouvement(PointCardinal.NORD);
 					root.getChildren().remove(boite2);
 					boite2 = new Boite(personnage2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.DOWN) {
+				} else if (event.getCode() == Test.getBas2()) {
 					personnage2.mouvement(PointCardinal.SUD);
 					root.getChildren().remove(boite2);
 					boite2 = new Boite(personnage2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.LEFT) {
+				} else if (event.getCode() == Test.getGauche2()) {
 					personnage2.mouvement(PointCardinal.OUEST);
 				} else {
 					if (personnage2.getX() == 20
@@ -188,12 +188,12 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			}
-		} else if (!Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
-				|| event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
-				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3)) {
+		} else if (!Test.getMenu() && !Test.enPause() && (event.getCode() == Test.getGauche1() || event.getCode() == Test.getHaut1() || event.getCode() == Test.getBas1()
+				|| event.getCode() == Test.getDroite1() || event.getCode() == Test.getChoix11()
+				|| event.getCode() == Test.getChoix12() || event.getCode() == Test.getChoix13())) {
 			// player 1
 			if (personnage1.dansBase()) {
-				if (event.getCode() == KeyCode.Z) {
+				if (event.getCode() == Test.getHaut1()) {
 					root.getChildren().remove(boite1);
 					boite1.invisible(ligne1);
 					if (ligne1 == 0)
@@ -202,7 +202,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						ligne1 = ligne1 - 1;
 					boite1.visible(ligne1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.S) {
+				} else if (event.getCode() == Test.getBas1()) {
 					root.getChildren().remove(boite1);
 					boite1.invisible(ligne1);
 					if (ligne1 == 4)
@@ -211,13 +211,13 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						ligne1 = ligne1 + 1;
 					boite1.visible(ligne1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.D) {
+				} else if (event.getCode() == Test.getDroite1()) {
 					personnage1.sortir();
 					boite1.invisible(ligne1);
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.DIGIT1) {
+				} else if (event.getCode() == Test.getChoix11()) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -227,7 +227,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.DIGIT2) {
+				} else if (event.getCode() == Test.getChoix12()) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -237,7 +237,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.DIGIT3) {
+				} else if (event.getCode() == Test.getChoix13()) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -249,7 +249,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			} else {
-				if (event.getCode() == KeyCode.DIGIT1) {
+				if (event.getCode() == Test.getChoix11()) {
 					if (team1.getVisible(0)) {
 						root.getChildren().remove(team1);
 						team1.invisible(0);
@@ -261,7 +261,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team1.visible(0);
 						root.getChildren().add(team1);
 					}
-				} else if (event.getCode() == KeyCode.DIGIT2) {
+				} else if (event.getCode() == Test.getChoix12()) {
 					if (team1.getVisible(1)) {
 						root.getChildren().remove(team1);
 						team1.invisible(1);
@@ -274,7 +274,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(team1);
 					}
 					;
-				} else if (event.getCode() == KeyCode.DIGIT3) {
+				} else if (event.getCode() == Test.getChoix13()) {
 					if (team1.getVisible(2)) {
 						root.getChildren().remove(team1);
 						team1.invisible(2);
@@ -286,17 +286,17 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						team1.visible(2);
 						root.getChildren().add(team1);
 					}
-				} else if (event.getCode() == KeyCode.Z) {
+				} else if (event.getCode() == Test.getHaut1()) {
 					personnage1.mouvement(PointCardinal.NORD);
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.S) {
+				} else if (event.getCode() == Test.getBas1()) {
 					personnage1.mouvement(PointCardinal.SUD);
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.Q) {
+				} else if (event.getCode() == Test.getGauche1()) {
 					if (personnage1.getX() == 0
 							&& (personnage1.getY() == 4 || personnage1.getY() == 5 || personnage1.getY() == 6)) {
 						personnage1.rentrer();
