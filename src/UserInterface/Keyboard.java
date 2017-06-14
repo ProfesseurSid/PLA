@@ -26,11 +26,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	int marge;
 	Terrain terrain;
 
-	private RobotVisual newRobot;
+	private RobotVisual newRobot1, newRobot2;
 	private String expression_courante;
 	private String expression_rouge;
 	private String expression_bleue;
-	private String newBehavior;
+	private String newBehavior1, newBehavior2;
 	private int curseur;
 	private int curseur_rouge = 0;
 	private int curseur_bleu = 0;
@@ -87,19 +87,19 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(boite2);
 					} else if (event.getCode() == KeyCode.LEFT) {
 						personnage2.sortir();
-						newBehavior = expression_rouge.substring(0, curseur_rouge)
+						newBehavior2 = expression_rouge.substring(0, curseur_rouge)
 								+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length());
 						if (personnage2.getRobot(mate2 + 1) == null){
 							try{
-								newRobot = personnage2.addRobot(newBehavior, mate2 + 1);
-								terrain.addVisual(newRobot);
+								newRobot2 = personnage2.addRobot(newBehavior2, mate2 + 1);
+								terrain.addVisual(newRobot2);
 								expression_rouge = "EXPRESSION";
 							} catch(PanicException e) {
 								expression_rouge = "ERROR SYSTAXE";
 							}
 						} else {
 							try{
-								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior);
+								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior2);
 								expression_rouge = "EXPRESSION";
 							} catch(PanicException e) {
 								expression_rouge = "ERROR SYSTAXE";
@@ -287,16 +287,29 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(boite1);
 					} else if (event.getCode() == KeyCode.D) {
 						personnage1.sortir();
-						personnage1.addRobot(
-								expression_bleue.substring(0, curseur_bleu)
-										+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length()),
-								mate1);
+						newBehavior1 = expression_bleue.substring(0, curseur_bleu)
+								+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length());
+						if (personnage1.getRobot(mate1 + 1) == null){
+							try{
+								newRobot1 = personnage1.addRobot(newBehavior1, mate1 + 1);
+								terrain.addVisual(newRobot1);
+								expression_bleue = "EXPRESSION";
+							} catch(PanicException e) {
+								expression_bleue = "ERROR SYSTAXE";
+							}
+						} else {
+							try{
+								personnage1.getRobot(mate1 + 1).setBehavior(newBehavior1);
+								expression_bleue = "EXPRESSION";
+							} catch(PanicException e) {
+								expression_bleue = "ERROR SYSTAXE";
+							}
+						}
 						root.getChildren().remove(boite1);
 						boite1.invisible(ligne1);
 						boite1 = new Boite(personnage1);
-						expression_bleue = "EXPRESSION";
-						updateExpression_bleue();
 						root.getChildren().add(boite1);
+						updateExpression_bleue();
 						mate1 = -1;
 						updateMates_bleus();
 					} else if (event.getCode() == KeyCode.F1) {
@@ -323,20 +336,44 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				} else { // Selectionner un Robot
 					if (event.getCode() == KeyCode.DIGIT1) {
-						expression_bleue = personnage1.getRobot(1).toString();
+						if (personnage1.getRobot(1) != null) {
+							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							curseur_bleu = expression_bleue.length() - 1;
+						} else {
+							expression_bleue = "I";
+							curseur_bleu = 0;
+						}
 						updateExpression_bleue();
 						mate1 = 0;
 						updateMates_bleus();
 					} else if (event.getCode() == KeyCode.DIGIT2) {
-						expression_bleue = personnage1.getRobot(2).toString();
+						if (personnage1.getRobot(2) != null) {
+							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							curseur_bleu = expression_bleue.length() - 1;
+						} else {
+							expression_bleue = "I";
+							curseur_bleu = 0;
+						}
 						updateExpression_bleue();
 						mate1 = 1;
 						updateMates_bleus();
 					} else if (event.getCode() == KeyCode.DIGIT3) {
-						expression_bleue = personnage1.getRobot(3).toString();
+						if (personnage1.getRobot(3) != null) {
+							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							curseur_bleu = expression_bleue.length() - 1;
+						} else {
+							expression_bleue = "I";
+							curseur_bleu = 0;
+						}
 						updateExpression_bleue();
 						mate1 = 2;
 						updateMates_bleus();
+					} else if (event.getCode() == KeyCode.D) {
+						personnage1.sortir();
+						root.getChildren().remove(boite1);
+						boite1.invisible(ligne1);
+						boite1 = new Boite(personnage1);
+						root.getChildren().add(boite1);
 					}
 				}
 			} else { // Player 1 sur le terrain
@@ -347,7 +384,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate1 = -1;
 						updateMates_bleus();
 					} else {
-						expression_bleue = personnage1.getRobot(1).toString();
+						if (personnage1.getRobot(1) != null) {
+							expression_rouge = personnage1.getRobot(1).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_bleue();
 						mate1 = 0;
 						updateMates_bleus();
@@ -359,7 +400,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate1 = -1;
 						updateMates_bleus();
 					} else {
-						expression_bleue = personnage1.getRobot(2).toString();
+						if (personnage1.getRobot(2) != null) {
+							expression_rouge = personnage1.getRobot(2).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_bleue();
 						mate1 = 1;
 						updateMates_bleus();
@@ -371,7 +416,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate1 = -1;
 						updateMates_bleus();
 					} else {
-						expression_bleue = personnage1.getRobot(3).toString();
+						if (personnage1.getRobot(3) != null) {
+							expression_rouge = personnage1.getRobot(3).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_bleue();
 						mate1 = 2;
 						updateMates_bleus();
@@ -390,6 +439,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (personnage1.getX() == 0
 							&& (personnage1.getY() == 4 || personnage1.getY() == 5 || personnage1.getY() == 6)) {
 						personnage1.rentrer();
+						expression_bleue = "EXPRESSION";
+						updateExpression_bleue();
 						mate1 = -1;
 						updateMates_bleus();
 						ligne1 = 0;
