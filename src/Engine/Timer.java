@@ -53,7 +53,6 @@ public class Timer extends AnimationTimer {
 					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
 			}
 			
-			//Le test ne marche pas
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
 				Test.EndGame(0);
 				} else if (!t.getpersonnage1().estEnVie()) {
@@ -85,6 +84,10 @@ public class Timer extends AnimationTimer {
 				}
 			System.out.println("Vie P1 : " + t.getpersonnage1().getHealth());
 			System.out.println("Vie P2 : " + t.getpersonnage2().getHealth());
+			
+			t.getpersonnage1().updateHealthBar();
+			t.getpersonnage2().updateHealthBar();
+			
 			rob1 = t.getpersonnage1().getRobot(1);
 			if (rob1 != null) {
 				System.out.println("Vie R1P1 : " + t.getpersonnage1().getRobot(1).PV);

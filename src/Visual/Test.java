@@ -158,7 +158,10 @@ public class Test extends Application {
 		PersoBleu.setTranslateX(marge);
 		PersoBleu.setTranslateY(Boite.getHeight() + 4 * marge);
 		jeu.getChildren().add(PersoBleu);
-
+		
+		jeu.getChildren().add(monTerrain.getpersonnage1().getHealthBar());
+		jeu.getChildren().add(monTerrain.getpersonnage2().getHealthBar());
+		
 		System.out.println("jeu est créé");
 
 		/**

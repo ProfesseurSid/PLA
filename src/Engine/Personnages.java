@@ -4,12 +4,17 @@ import java.util.HashMap;
 
 import Exception.PanicException;
 import Parsing.ParseException;
+import Visual.Barre;
+import Visual.Boite;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
 import Visual.Terrain;
+import Visual.Tuile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Classe representant un personnage, avec des coordonees, un inventaire
@@ -27,6 +32,7 @@ public class Personnages implements Vivante {
 	PersonnagesVisual visuel;
 	private boolean base;
 	Terrain t;
+	private Rectangle healthbar;
 	
 	/**
 	 * Contructeur de personnage de l'équipe e
@@ -52,6 +58,13 @@ public class Personnages implements Vivante {
 		initInventory();
 		this.visuel = visuel;
 		plateau.put(x, y, this);
+		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.RED);
+		healthbar.setY(15*Tuile.getTaille());
+		if (e == 0) {
+			healthbar.setX(0.5 * Tuile.getTaille());
+		} else {
+			healthbar.setX(27.43*Tuile.getTaille());
+		}
 	}
 
 	/**
@@ -165,19 +178,19 @@ public class Personnages implements Vivante {
 		Units[indexUnit] = robot;
 		numberRobots++;
 	}
-	
+
 	public void addRobot(String behave) {
 		if (numberRobots > 3) {
 			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
 		}
 		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
-		try{
+		try {
 			Robots robot = new Robots(t, this, getEquipe(), behave);
 			Units[numberRobots] = robot;
 			numberRobots++;
-		} catch(ParseException e){
-			
+		} catch (ParseException e) {
+
 		}
 	}
 
@@ -195,18 +208,17 @@ public class Personnages implements Vivante {
 	 */
 	public void addRobot(String behavior, int room) {
 		int indexUnit = room - 1;
-		try{
+		try {
 			Robots robot = new Robots(t, this, equipe, behavior);
 			Units[indexUnit] = robot;
 			numberRobots++;
-		} catch(Exception ex){
+		} catch (Exception ex) {
 			throw new PanicException("Automate d'ajout du robot incorrect");
 		}
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'�quipe du
-	 * personnage.
+	 * Methode qui permet la suppression d'un robots � l'�quipe du personnage.
 	 * 
 	 * @param room
 	 *            case ou se trouve le robot � supprimer
@@ -398,6 +410,14 @@ public class Personnages implements Vivante {
 
 	public HashMap<Character, Integer> getInventory() {
 		return Inventory;
+	}
+
+	public Rectangle getHealthBar() {
+		return healthbar;
+	}
+	
+	public void updateHealthBar(){
+		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
 	}
 
 }
