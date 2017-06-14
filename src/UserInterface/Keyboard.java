@@ -408,13 +408,6 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_bleue);
-		/*
-		 * TranslateTransition tt = new
-		 * TranslateTransition(Duration.millis(30000),expr_bleue);
-		 * tt.setFromX(0-expr_bleue.getWrappingWidth()-10);
-		 * tt.setCycleCount(Timeline.INDEFINITE); tt.play();
-		 */
-
 	}
 
 	public void updateExpression_rouge() {
@@ -426,8 +419,4 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
 	}
-
-	/*
-	 * public void updateCurseur (){ c = }
-	 */
 }
