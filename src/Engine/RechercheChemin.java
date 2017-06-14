@@ -3,9 +3,11 @@ package Engine;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Exception.PanicException;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import Visual.Terrain;
 import javafx.scene.image.ImageView;
 
 /**
@@ -18,23 +20,21 @@ import javafx.scene.image.ImageView;
 public class RechercheChemin {
 	final static int TRIED = 2;
 	final static int PATH = 3;
+	static RechercheChemin maze;
+	boolean invert;
 
-	// public static void main(String[] args) {
-	// Plateau plat = new Plateau();
-	// Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new
-	// ImageView(), 0, plat));
-	// Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new
-	// ImageView(), 1, plat));
-	// Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0,
-	// plat));
-	// Robots r2 = new Robots(plat, p, 1, new RobotVisual(new ImageView(), 1,
-	// plat));
-	// plat.toString();
-	// RechercheChemin maze = new RechercheChemin(plat, 19, 5, 2, 5);
-	// boolean solved = maze.solve();
-	// System.out.println("Solved: " + solved);
-	// System.out.println(maze.toString());
-	// }
+	public static void main(String[] args) {
+		Plateau plat = new Plateau(new Terrain());
+		Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new ImageView(), 0, plat));
+		Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new ImageView(), 1, plat));
+		Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0, plat));
+		Robots r2 = new Robots(plat, p, 1, new RobotVisual(new ImageView(), 1, plat));
+		plat.toString();
+		maze = new RechercheChemin(plat, 19, 5, 2, 5);
+		boolean solved = maze.solve();
+		System.out.println("Solved: " + solved);
+		System.out.println(maze.toString());
+	}
 
 	private int[][] grid;
 	private int height;
@@ -43,6 +43,7 @@ public class RechercheChemin {
 	private int destY;
 	private int origX;
 	private int origY;
+	private int nbExec = 0;
 
 	private int[][] map;
 
@@ -61,13 +62,22 @@ public class RechercheChemin {
 	 *            la ligne d'arrivee
 	 */
 	public RechercheChemin(Plateau plate, int origY, int origX, int destY, int destX) {
+		if (destY < origY || destX < origY) {
+			invert = true;
+			this.destX = origX;
+			this.destY = origY;
+			this.origX = destX;
+			this.origY = destY;
+		} else {
+			this.destX = destX;
+			this.destY = destY;
+			this.origX = origX;
+			this.origY = origY;
+		}
 		this.height = plate.nbLignes();
 		this.width = plate.nbColonnes();
-		this.destX = destX;
-		this.destY = destY;
-		this.origX = origX;
-		this.origY = origY;
-		//System.out.println("Cherche " + destX + " " + destY + " Depuis " + origX + " " + origY);
+		// System.out.println("Cherche " + destX + " " + destY + " Depuis " +
+		// origX + " " + origY);
 
 		grid = new int[height][width];
 		for (int i = 0; i < plate.nbLignes(); i++)
@@ -77,6 +87,7 @@ public class RechercheChemin {
 				else
 					grid[i][j] = 1;
 
+//		grid[5][10] = 5;
 		this.map = new int[height][width];
 	}
 
@@ -90,21 +101,33 @@ public class RechercheChemin {
 	 */
 	public ArrayList<PointCardinal> xPas(int nbPas) {
 		ArrayList<PointCardinal> retour = new ArrayList<PointCardinal>();
+		ArrayList<PointCardinal> retourne = new ArrayList<PointCardinal>();
 		int x = origX;
 		int y = origY;
-		//System.out.println("JE SUIS LA");
+		// System.out.println("JE SUIS LA");
 		if (solve()) {
-			//System.out.println("ET LA");
+			// System.out.println("ET LA");
 			for (int i = 0; i < nbPas; i++)
 				if (y > 0 && map[x][y - 1] == PATH)
 					retour.add(PointCardinal.OUEST);
-				else if (y < width-1 && map[x][y + 1] == PATH)
+				else if (y < width - 1 && map[x][y + 1] == PATH)
 					retour.add(PointCardinal.EST);
-				else if (x < height-1 && map[x + 1][y] == PATH)
+				else if (x < height - 1 && map[x + 1][y] == PATH)
 					retour.add(PointCardinal.SUD);
 				else if (x > 0 && map[x - 1][y] == PATH)
 					retour.add(PointCardinal.NORD);
-			//System.out.println("LENGTH : " + retour.size());
+			// System.out.println("LENGTH : " + retour.size());
+		}
+		if (invert) {
+			for (int i = retour.size() - 1; i >= 0; i--)
+				switch(retour.get(i)){
+					case NORD: retourne.add(PointCardinal.SUD); break; 
+					case SUD: retourne.add(PointCardinal.NORD); break;
+					case EST: retourne.add(PointCardinal.OUEST); break;
+					case OUEST: retourne.add(PointCardinal.EST); break;
+					default: throw new PanicException("RechercheChemin : PointCardinal incorrect");
+				}
+			return retourne;
 		}
 		return retour;
 	}
@@ -115,7 +138,15 @@ public class RechercheChemin {
 	 * @return booleen : un chemin a ete trouve
 	 */
 	public boolean solve() {
-		return traverse(origX, origY);
+		boolean found = traverse(origX, origY);
+
+		while (!found && nbExec < width) {
+			System.out.println("Exec : " + nbExec);
+			this.map = new int[height][width];
+			nbExec++;
+			found = traverse(origX, origY);
+		}
+		return found;
 	}
 
 	/**
@@ -131,7 +162,9 @@ public class RechercheChemin {
 		if (!isValid(i, j)) {
 			return false;
 		}
-		
+
+		System.out.println("X : " + j + " Y : " + i);
+
 		if (isEnd(i, j)) {
 			map[i][j] = PATH;
 			return true;
@@ -175,7 +208,7 @@ public class RechercheChemin {
 	private boolean isEnd(int i, int j) {
 		return i == destX && j == destY;
 	}
-	
+
 	/**
 	 * la case (i,j) est-elle le depart ?
 	 * 
@@ -255,7 +288,8 @@ public class RechercheChemin {
 	 *         destination
 	 */
 	private boolean inHeight(int i) {
-		return i>=0 && i<height && (i >= origX && i <= destX) || (i <= origX && i >= destX);
+		return i >= 0 && i < height
+				&& ((i >= origX - nbExec && i <= destX + nbExec) || (i <= origX + nbExec && i >= destX - nbExec));
 	}
 
 	/**
@@ -268,7 +302,8 @@ public class RechercheChemin {
 	 *         destination
 	 */
 	private boolean inWidth(int j) {
-		return j>=0 && j<width && (j >= origY && j <= destY) || (j <= origY && j >= destY);
+		return j >= 0 && j < width
+				&& ((j >= origY - nbExec && j <= destY + nbExec) || (j <= origY + nbExec && j >= destY - nbExec));
 	}
 
 	/**
