@@ -59,20 +59,20 @@ public class Boite extends Parent {
 		this.getChildren().add(Barres[i]);
 	}
 	
-	public int focused(){
-		if(Barres[0].getVisible()){
-			return 0;
-		}
-		if(Barres[1].getVisible()){
-			return 1;
-		}
-		if(Barres[2].getVisible()){
-			return 2;
-		}
-		if(Barres[3].getVisible()){
-			return 3;
-		}
-		else
-			return 4;
-	}
+//	public int focused(){
+//		if(Barres[0].getVisible()){
+//			return 0;
+//		}
+//		if(Barres[1].getVisible()){
+//			return 1;
+//		}
+//		if(Barres[2].getVisible()){
+//			return 2;
+//		}
+//		if(Barres[3].getVisible()){
+//			return 3;
+//		}
+//		else
+//			return 4;
+//	}
 }
