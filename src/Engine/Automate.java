@@ -179,6 +179,8 @@ public class Automate {
 				count = 1;
 				RunAutomate(PrefExec, bot);
 			} else {
+				if(a.op() instanceof Kamikaze)
+					count = 1;
 				for (int i = 0; i < count; i++) {
 					a.op().action(bot);
 					// System.out.println(a.op().toString() + " s'execute.");

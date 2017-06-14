@@ -19,8 +19,8 @@ public class Terrain extends Parent {
 	static ImageView p2 = new ImageView(
 			new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotRouge.png")));
 
-	static ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView r1P2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+	static ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
+	static ImageView r1P2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
 
 	public Plateau plateau = new Plateau(this);
 

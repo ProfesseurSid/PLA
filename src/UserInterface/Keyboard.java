@@ -322,7 +322,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite1);
 				}
 			}
-		} else if(event.getCode() == KeyCode.P)
+		} else if(!FinalScreen.getIsFinish() &&  !Test.getMenu() && event.getCode() == KeyCode.P)
 			Test.PauseGame();
 	}
 
