@@ -53,8 +53,7 @@ public class Automate {
 	public Automate(String s) throws ParseException {
 		if (s.length() < 4)
 			throw new ParsingException("Chaine vide");
-		// CheckValide(s.substring(2, s.length() - 1));
-		// code = stringToArbre(s.substring(2, s.length() - 1));
+
 		ComportementRobots parser = new ComportementRobots(s);
 		code = parser.loop();
 		aExec = code;

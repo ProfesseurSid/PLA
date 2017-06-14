@@ -3,8 +3,12 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
+import Parsing.ParseException;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
+import Visual.RobotVisual;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Classe representant un personnage, avec des coordonees, un inventaire
@@ -157,6 +161,21 @@ public class Personnages implements Vivante {
 		}
 		Units[indexUnit] = robot;
 		numberRobots++;
+	}
+	
+	public void addRobot(String behave) {
+		if (numberRobots > 3) {
+			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
+		}
+		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
+		try{
+			Robots robot = new Robots(plateau, this, getEquipe(), visuelRobot, behave);
+			Units[numberRobots] = robot;
+			numberRobots++;
+		} catch(ParseException e){
+			
+		}
 	}
 
 	/**

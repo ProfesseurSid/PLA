@@ -71,7 +71,7 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate du robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) {
+	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) throws ParseException{
 		this.plateau = plateau;
 		if (e == 0) {
 			x = 1;
@@ -84,11 +84,7 @@ public class Robots implements Vivante {
 		equipe = e;
 		this.visuel = visuel;
 		this.personnage = personnage;
-		try {
-			behavior = new Automate(behave);
-		} catch (ParseException ex) {
-			behavior = null;
-		}
+		behavior = new Automate(behave);
 		plateau.put(x, y, this);
 	}
 
