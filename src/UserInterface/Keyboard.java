@@ -12,7 +12,7 @@ import javafx.scene.text.*;
 
 /**
  **************************************************************
- * Keyboard reagit a un evenement exterieur venant du clavier *
+ * Keyboard  reagit a un evenement exterieur venant du clavier *
  **************************************************************
  */
 public class Keyboard implements EventHandler<KeyEvent> {
