@@ -47,6 +47,7 @@ public class FinalScreen {
 		});
 		Rreset.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
+				Test.setMenu(false);
 				Test.refresh(ps);
 			}
 		});
@@ -68,7 +69,7 @@ public class FinalScreen {
 		});
 		Rquit.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				System.exit(0);
+				ps.close();
 			}
 		});
 		
@@ -89,6 +90,7 @@ public class FinalScreen {
 		});
 		Rmenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
+				Test.setMenu(true);
 				Test.refresh(ps);
 			}
 		});
