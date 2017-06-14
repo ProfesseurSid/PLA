@@ -54,7 +54,6 @@ public class Timer extends AnimationTimer {
 			}
 			
 			//Le test ne marche pas
-			Test.EndGame(1);
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
 				Test.EndGame(0);
 				} else if (!t.getpersonnage1().estEnVie()) {
