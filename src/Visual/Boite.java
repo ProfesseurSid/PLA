@@ -76,7 +76,6 @@ public class Boite extends Parent {
 			return 4;
 	}
 	
-
 	public static void set(){
 		Height = Case.getTaille() * Nb + (Tuile.getTaille() / 2) * (Nb - 1);
 	}

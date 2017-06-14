@@ -53,15 +53,15 @@ public class Timer extends AnimationTimer {
 					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
 			}
 			
-			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
-				// TODO DRAW GAME
+			//Le test ne marche pas
+			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
 				Test.EndGame(0);
 				} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
-				Test.EndGame(0);
+				Test.EndGame(2);
 			} else if (!t.getpersonnage2().estEnVie()) {
 				// TODO PLAYER 1 WINS HAHAHA
-				Test.EndGame(0);
+				Test.EndGame(1);
 			} else
 				for (int i = 1; i < 4; i++) {
 					rob1 = t.getpersonnage1().getRobot(i);
@@ -141,14 +141,14 @@ public class Timer extends AnimationTimer {
 			switch (rand) {
 			case 0:
 				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.PNG")));
+						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 1:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeO accoladeO = new AccoladeO(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -206,8 +206,9 @@ public class Timer extends AnimationTimer {
 	public void blink(OperateursVisual visuel, ImageView image) {
 		Timeline blinker = visuel.Blinker(image);
 		FadeTransition fader = visuel.Fader(image);
-		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
-		blinkThenFade.play();
+//		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
+//		blinkThenFade.play();
+		blinker.play();
 	}
 
 	public void random() {

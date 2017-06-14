@@ -42,6 +42,19 @@ public class RobotVisual extends Parent {
 
 		this.plateau = plateau;
 	}
+	
+	public RobotVisual(ImageView robot, int x, int y, Plateau plateau) {
+		indX = x;
+		indY = y;
+		this.robot = robot;
+		robot.setTranslateX(indX * taille);
+		robot.setTranslateY(indY * taille);
+		robot.setFitWidth(taille);
+		robot.setFitHeight(taille);
+		this.getChildren().add(robot);
+
+		this.plateau = plateau;
+	}
 
 	/**
 	 * Getter de l'index X

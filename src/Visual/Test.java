@@ -20,22 +20,26 @@ import javafx.stage.Stage;
 
 public class Test extends Application {
 
-	static int marge;
+	static int marge = Tuile.getTaille() / 5;
 	private static Timer game;
-	private static boolean stop = false, inMenu = true, inParam = false;
+	private static boolean inPause = false, inMenu = true, inParam = false;
 	private static Group root, jeu, pause, menu, param;
 	private static Rectangle pauseScreen = new Rectangle();
-	private static Text pauseText = new Text("PAUSE");
+	private static ImageView pauseText;
 	private static Scene scene;
+	private static FinalScreen finalscreen;
 
-	private static FinalScreen finalscreen = new FinalScreen();
-	
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
 
 	public void start(Stage primaryStage) {
+		restart(primaryStage);
+	}
 
+	public static void restart(Stage primaryStage) {
+
+		finalscreen = new FinalScreen(primaryStage);
 		System.out.println("Le programme se lance");
 		marge = Tuile.getTaille() / 5;
 
@@ -61,10 +65,11 @@ public class Test extends Application {
 		pauseScreen.setWidth(dimX);
 		pauseScreen.setFill(Color.rgb(200, 200, 200, 0.4));
 
-		pauseText.setFont(new Font(Tuile.getTaille()));
-		pauseText.setFill(Color.rgb(0, 0, 0, 1.0));
-		pauseText.setX(dimX / 2 - 2 * Tuile.getTaille());
-		pauseText.setY(dimY / 2 - 2 * Tuile.getTaille());
+		pauseText = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Pause.png")));
+		pauseText.setFitWidth(8*Tuile.getTaille());
+		pauseText.setFitHeight(2*Tuile.getTaille());
+		pauseText.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
+		pauseText.setTranslateY(dimY / 2 - 2 * Tuile.getTaille());
 
 		pause.getChildren().add(pauseScreen);
 		pause.getChildren().add(pauseText);
@@ -148,11 +153,28 @@ public class Test extends Application {
 
 		menu = new Group();
 
+		ImageView iFondM = new ImageView(new Image(Test.class.getResourceAsStream("images/Menu.png")));
+		iFondM.setFitWidth(Terrain.getGrilleWidth());
+		iFondM.setFitHeight(Terrain.getGrilleHeight());
+		iFondM.setTranslateX(2 * marge + Barre.getDimX());
+		iFondM.setTranslateY(marge);
+
+		menu.getChildren().add(iFondM);
+
+		ImageView iTitre = new ImageView(new Image(Test.class.getResourceAsStream("images/GameTitle.png")));
+		iTitre.setFitWidth(12.8 * Tuile.getTaille());
+		iTitre.setFitHeight(4 * Tuile.getTaille());
+		iTitre.setTranslateX(
+				2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 2 - (12.8 * Tuile.getTaille()) / 2);
+		iTitre.setTranslateY(marge + Terrain.getGrilleHeight() / 5 - (4 * Tuile.getTaille()) / 2);
+
+		menu.getChildren().add(iTitre);
+
 		ImageView iJouer = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonJouer.png")));
-		iJouer.setFitWidth(8 * Tuile.getTaille());
-		iJouer.setFitHeight(2 * Tuile.getTaille());
-		iJouer.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
-		iJouer.setTranslateY(dimY / 4 - Tuile.getTaille());
+		iJouer.setFitWidth(6 * Tuile.getTaille());
+		iJouer.setFitHeight((3 * Tuile.getTaille()) / 2);
+		iJouer.setTranslateX(2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 2 - (6 * Tuile.getTaille()) / 2);
+		iJouer.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
 		iJouer.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				iJouer.setImage(new Image(Test.class.getResourceAsStream("images/BoutonJouerSurvol.png")));
@@ -172,10 +194,10 @@ public class Test extends Application {
 		menu.getChildren().add(iJouer);
 
 		ImageView iParam = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonReglages.png")));
-		iParam.setFitWidth(8 * Tuile.getTaille());
-		iParam.setFitHeight(2 * Tuile.getTaille());
-		iParam.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
-		iParam.setTranslateY(dimY / 2 - Tuile.getTaille());
+		iParam.setFitWidth(6 * Tuile.getTaille());
+		iParam.setFitHeight((3 * Tuile.getTaille()) / 2);
+		iParam.setTranslateX(2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 2 - (6 * Tuile.getTaille()) / 2);
+		iParam.setTranslateY(marge + (4 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
 		iParam.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				iParam.setImage(new Image(Test.class.getResourceAsStream("images/BoutonReglagesSurvol.png")));
@@ -193,6 +215,29 @@ public class Test extends Application {
 		});
 		menu.getChildren().add(iParam);
 
+		ImageView iQuitter = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonQuitter.png")));
+		iQuitter.setFitWidth(6 * Tuile.getTaille());
+		iQuitter.setFitHeight((3 * Tuile.getTaille()) / 2);
+		iQuitter.setTranslateX(
+				2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 2 - (6 * Tuile.getTaille()) / 2);
+		iQuitter.setTranslateY(marge + (5 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
+		iQuitter.setOnMouseMoved(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent t) {
+				iQuitter.setImage(new Image(Test.class.getResourceAsStream("images/BoutonQuitterSurvol.png")));
+			}
+		});
+		iQuitter.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent t) {
+				iQuitter.setImage(new Image(Test.class.getResourceAsStream("images/BoutonQuitter.png")));
+			}
+		});
+		iQuitter.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent t) {
+				primaryStage.close();
+			}
+		});
+		menu.getChildren().add(iQuitter);
+
 		/**
 		 * Creation d'un group param, contenant tous les elements visuels des
 		 * paramtres.
@@ -200,31 +245,40 @@ public class Test extends Application {
 
 		param = new Group();
 
-		ImageView iMenu = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonMenu.png")));
-		iMenu.setFitWidth(8 * Tuile.getTaille());
-		iMenu.setFitHeight(2 * Tuile.getTaille());
-		iMenu.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
-		iMenu.setTranslateY((5 * dimY) / 6 - Tuile.getTaille());
-		iMenu.setOnMouseMoved(new EventHandler<MouseEvent>() {
+		ImageView iFondP = new ImageView(new Image(Test.class.getResourceAsStream("images/Menu.png")));
+		iFondP.setFitWidth(Terrain.getGrilleWidth());
+		iFondP.setFitHeight(Terrain.getGrilleHeight());
+		iFondP.setTranslateX(2 * marge + Barre.getDimX());
+		iFondP.setTranslateY(marge);
+
+		param.getChildren().add(iFondP);
+
+		ImageView iRetour = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonRetour.png")));
+		iRetour.setFitWidth(6 * Tuile.getTaille());
+		iRetour.setFitHeight((3 * Tuile.getTaille()) / 2);
+		iRetour.setTranslateX(2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 2 - (6 * Tuile.getTaille()) / 2);
+		iRetour.setTranslateY(marge + (5 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
+		iRetour.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				iMenu.setImage(new Image(Test.class.getResourceAsStream("images/BoutonMenuSurvol.png")));
+				iRetour.setImage(new Image(Test.class.getResourceAsStream("images/BoutonRetourSurvol.png")));
 			}
 		});
-		iMenu.setOnMouseExited(new EventHandler<MouseEvent>() {
+		iRetour.setOnMouseExited(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				iMenu.setImage(new Image(Test.class.getResourceAsStream("images/BoutonMenu.png")));
+				iRetour.setImage(new Image(Test.class.getResourceAsStream("images/BoutonRetour.png")));
 			}
 		});
-		iMenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		iRetour.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				MenuOn();
 			}
 		});
 		ImageView iPetit = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonPetit.png")));
-		iPetit.setFitWidth(6 * Tuile.getTaille());
-		iPetit.setFitHeight((3 * Tuile.getTaille()) / 2);
-		iPetit.setTranslateX(dimX / 4 - 3 * Tuile.getTaille());
-		iPetit.setTranslateY((2 * dimY) / 3 - (3 * Tuile.getTaille()) / 4);
+		iPetit.setFitWidth(4 * Tuile.getTaille());
+		iPetit.setFitHeight(Tuile.getTaille());
+		iPetit.setTranslateX(
+				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 10 - (4 * Tuile.getTaille()) / 2);
+		iPetit.setTranslateY(marge + (4 * Terrain.getGrilleHeight()) / 6 - Tuile.getTaille() / 2);
 		iPetit.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				iPetit.setImage(new Image(Test.class.getResourceAsStream("images/BoutonPetitSurvol.png")));
@@ -242,10 +296,11 @@ public class Test extends Application {
 			}
 		});
 		ImageView iMoyen = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonMoyen.png")));
-		iMoyen.setFitWidth(6 * Tuile.getTaille());
-		iMoyen.setFitHeight((3 * Tuile.getTaille()) / 2);
-		iMoyen.setTranslateX(dimX / 2 - 3 * Tuile.getTaille());
-		iMoyen.setTranslateY((2 * dimY) / 3 - (3 * Tuile.getTaille()) / 4);
+		iMoyen.setFitWidth(4 * Tuile.getTaille());
+		iMoyen.setFitHeight(Tuile.getTaille());
+		iMoyen.setTranslateX(
+				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 10 - (4 * Tuile.getTaille()) / 2);
+		iMoyen.setTranslateY(marge + (4 * Terrain.getGrilleHeight()) / 6 - Tuile.getTaille() / 2);
 		iMoyen.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				iMoyen.setImage(new Image(Test.class.getResourceAsStream("images/BoutonMoyenSurvol.png")));
@@ -264,10 +319,11 @@ public class Test extends Application {
 			}
 		});
 		ImageView iGrand = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonGrand.png")));
-		iGrand.setFitWidth(6 * Tuile.getTaille());
-		iGrand.setFitHeight((3 * Tuile.getTaille()) / 2);
-		iGrand.setTranslateX((3 * dimX) / 4 - 3 * Tuile.getTaille());
-		iGrand.setTranslateY((2 * dimY) / 3 - (3 * Tuile.getTaille()) / 4);
+		iGrand.setFitWidth(4 * Tuile.getTaille());
+		iGrand.setFitHeight(Tuile.getTaille());
+		iGrand.setTranslateX(
+				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 10 - (4 * Tuile.getTaille()) / 2);
+		iGrand.setTranslateY(marge + (4 * Terrain.getGrilleHeight()) / 6 - Tuile.getTaille() / 2);
 		iGrand.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				iGrand.setImage(new Image(Test.class.getResourceAsStream("images/BoutonGrandSurvol.png")));
@@ -284,7 +340,7 @@ public class Test extends Application {
 				refresh(primaryStage);
 			}
 		});
-		param.getChildren().add(iMenu);
+		param.getChildren().add(iRetour);
 		param.getChildren().add(iPetit);
 		param.getChildren().add(iMoyen);
 		param.getChildren().add(iGrand);
@@ -302,18 +358,23 @@ public class Test extends Application {
 		System.out.println(jeu.toString());
 
 		game = new Timer(monTerrain);
-		game.stop();
-		jeu.setEffect(new GaussianBlur(4 * marge));
-		root.getChildren().add(menu);
+
+		if (inMenu) {
+			game.stop();
+			jeu.setEffect(new GaussianBlur(4 * marge));
+			root.getChildren().add(menu);
+		}
+		else
+			game.start();
 	}
 
 	static public boolean enPause() {
-		return stop;
+		return inPause;
 	}
 
 	static public void PauseGame() {
-		stop = !stop;
-		if (stop) {
+		inPause = !inPause;
+		if (inPause) {
 			game.stop();
 			jeu.setEffect(new GaussianBlur(2 * marge));
 			root.getChildren().add(pause);
@@ -324,31 +385,31 @@ public class Test extends Application {
 			game.start();
 		}
 	}
-	
-	public static void EndGame(int JoueurVictorieux){
-		//finalscreen.display();
+
+	public static void EndGame(int JoueurVictorieux) {
+		inPause = !inPause;
 		game.stop();
 		root.getChildren().add(finalscreen.display(JoueurVictorieux));
 	}
 
-	public void MenuOff() {
+	public static void MenuOff() {
 		jeu.setEffect(new GaussianBlur(0));
 		root.getChildren().remove(menu);
 		game.start();
 		inMenu = false;
 	}
 
-	public void MenuOn() {
+	public static void MenuOn() {
 		root.getChildren().remove(param);
 		root.getChildren().add(menu);
 	}
 
-	public void ParamOff() {
+	public static void ParamOff() {
 		root.getChildren().remove(param);
 		root.getChildren().add(menu);
 	}
 
-	public void ParamOn() {
+	public static void ParamOn() {
 		root.getChildren().remove(menu);
 		root.getChildren().add(param);
 	}
@@ -356,12 +417,18 @@ public class Test extends Application {
 	static public boolean getMenu() {
 		return inMenu;
 	}
+	
+	static public void setMenu(boolean t){
+		inMenu = t;
+	}
 
 	static public boolean getParam() {
 		return inParam;
 	}
 
-	public void refresh(Stage stage) {
+	public static void refresh(Stage stage) {
+		inPause = false;
+		finalscreen.undisplay();
 		Case.set();
 		Barre.set();
 		Boite.set();
@@ -369,7 +436,7 @@ public class Test extends Application {
 		Team.set();
 		Portrait.set();
 		Terrain.set();
-		start(stage);
+		restart(stage);
 	}
 
 }

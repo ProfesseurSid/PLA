@@ -56,7 +56,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 */
 	public void handle(KeyEvent event) {
 
-		if (!Test.getMenu() && !Test.enPause() && (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
+		if (!Test.enPause() && (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
 				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
 				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
 			// player 2
@@ -188,7 +188,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			}
-		} else if (!Test.getMenu() && !Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
+		} else if (!Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
 				|| event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
 				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3)) {
 			// player 1
@@ -217,7 +217,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.F1) {
+				} else if (event.getCode() == KeyCode.DIGIT1) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -227,7 +227,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.F2) {
+				} else if (event.getCode() == KeyCode.DIGIT2) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -237,7 +237,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.F3) {
+				} else if (event.getCode() == KeyCode.DIGIT3) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -322,7 +322,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite1);
 				}
 			}
-		} else if(!Test.getMenu() && event.getCode() == KeyCode.P)
+		} else if(!FinalScreen.getIsFinish() &&  !Test.getMenu() && event.getCode() == KeyCode.P)
 			Test.PauseGame();
 	}
 

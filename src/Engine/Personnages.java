@@ -7,6 +7,7 @@ import Parsing.ParseException;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import Visual.Terrain;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -25,7 +26,8 @@ public class Personnages implements Vivante {
 	Plateau plateau;
 	PersonnagesVisual visuel;
 	private boolean base;
-
+	Terrain t;
+	
 	/**
 	 * Contructeur de personnage de l'équipe e
 	 * 
@@ -33,8 +35,9 @@ public class Personnages implements Vivante {
 	 *            l'equipe dans laquelle ajouter le personnage
 	 * @require e == 0 || e == 1
 	 */
-	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
-		this.plateau = plateau;
+	public Personnages(Terrain t, int e, PersonnagesVisual visuel) {
+		this.t = t;
+		this.plateau = t.getPlateau();
 		this.base = false;
 		if (e == 0) {
 			x = 0;

@@ -35,8 +35,7 @@ public class OperateursVisual extends Parent {
 				new KeyFrame(Duration.seconds(0.5),
 						new KeyValue(operateur.opacityProperty(), 0, Interpolator.DISCRETE)),
 				new KeyFrame(Duration.seconds(1), new KeyValue(operateur.opacityProperty(), 1, Interpolator.DISCRETE)));
-		blink.setCycleCount(10);
-
+		blink.setCycleCount(Timeline.INDEFINITE);;
 		return blink;
 	}
 
@@ -44,7 +43,6 @@ public class OperateursVisual extends Parent {
 		FadeTransition fade = new FadeTransition(Duration.seconds(3), operateur);
 		fade.setFromValue(1);
 		fade.setToValue(0);
-		// plateau.plateau[indY][indX] = null;
 		return fade;
 	}
 
