@@ -57,7 +57,7 @@ public class Timer extends AnimationTimer {
 				// TODO DRAW GAME
 			} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
-			} else if (!t.getpersonnage1().estEnVie()) {
+			} else if (!t.getpersonnage2().estEnVie()) {
 				// TODO PLAYER 1 WINS HAHAHA
 			} else
 				for (int i = 1; i < 4; i++) {
@@ -93,6 +93,7 @@ public class Timer extends AnimationTimer {
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
 			rand = (int) (Math.random() * 4);
+			//rand = 0;
 			switch (rand) {
 			case 0:
 				op = new ImageView(
@@ -133,6 +134,7 @@ public class Timer extends AnimationTimer {
 		/* Apparition des operateurs frequents */
 		if (date - lastTime_op2 > 5000) {
 			rand = (int) (Math.random() * 8);
+			//rand = 1;
 			switch (rand) {
 			case 0:
 				op = new ImageView(
