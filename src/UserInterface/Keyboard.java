@@ -217,7 +217,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.F1) {
+				} else if (event.getCode() == KeyCode.DIGIT1) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -227,7 +227,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.F2) {
+				} else if (event.getCode() == KeyCode.DIGIT2) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -237,7 +237,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.F3) {
+				} else if (event.getCode() == KeyCode.DIGIT3) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);

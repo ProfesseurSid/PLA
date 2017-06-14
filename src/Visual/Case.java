@@ -78,4 +78,7 @@ public class Case extends Parent {
 		return taille;
 	}
 
+	public static void set(){
+		taille = (3 * Tuile.getTaille()) / 2;
+	}
 }
