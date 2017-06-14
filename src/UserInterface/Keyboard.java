@@ -92,8 +92,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length());
 						if (personnage2.getRobot(mate2 + 1) == null) {
 							try {
-								newRobot2 = personnage2.addRobot(newBehavior2, mate2 + 1);
-								terrain.addVisual(newRobot2);
+								personnage2.addRobot(newBehavior2, mate2 + 1);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
 								expression_rouge = "ERROR SYSTAXE";
@@ -293,8 +292,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length());
 						if (personnage1.getRobot(mate1 + 1) == null) {
 							try {
-								newRobot1 = personnage1.addRobot(newBehavior1, mate1 + 1);
-								terrain.addVisual(newRobot1);
+								personnage1.addRobot(newBehavior1, mate1 + 1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
 								expression_bleue = "ERROR SYSTAXE";

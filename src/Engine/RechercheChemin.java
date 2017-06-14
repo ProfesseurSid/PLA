@@ -23,18 +23,18 @@ public class RechercheChemin {
 	static RechercheChemin maze;
 	boolean invert;
 
-	public static void main(String[] args) {
-		Terrain t = new Terrain();
-		Personnages p = new Personnages(t, 0, new PersonnagesVisual(new ImageView(), 0, t.getPlateau()));
-		Personnages p2 = new Personnages(t, 1, new PersonnagesVisual(new ImageView(), 1, t.getPlateau()));
-		Robots r = new Robots(t, p, 0, new RobotVisual(new ImageView(), 0, t.getPlateau()));
-		Robots r2 = new Robots(t, p, 1, new RobotVisual(new ImageView(), 1, t.getPlateau()));
-		t.toString();
-		maze = new RechercheChemin(t.getPlateau(), 0, 5, 18, 5);
-		boolean solved = maze.solve();
-		System.out.println("Solved: " + solved);
-		System.out.println(maze.toString());
-	}
+//	public static void main(String[] args) {
+//		Terrain t = new Terrain();
+//		Personnages p = new Personnages(t, 0, new PersonnagesVisual(new ImageView(), 0, t.getPlateau()));
+//		Personnages p2 = new Personnages(t, 1, new PersonnagesVisual(new ImageView(), 1, t.getPlateau()));
+//		Robots r = new Robots(t, p, 0, 0, t.getPlateau()));
+//		Robots r2 = new Robots(t, p, 1, 1, t.getPlateau()));
+//		t.toString();
+//		maze = new RechercheChemin(t.getPlateau(), 0, 5, 18, 5);
+//		boolean solved = maze.solve();
+//		System.out.println("Solved: " + solved);
+//		System.out.println(maze.toString());
+//	}
 
 	private int[][] grid;
 	private int height;
