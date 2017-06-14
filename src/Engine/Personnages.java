@@ -195,8 +195,13 @@ public class Personnages implements Vivante {
 	 */
 	public RobotVisual addRobot(String behavior, int room) {
 		int indexUnit = room - 1;
-		ImageView robot_image = new ImageView(
-				new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+		ImageView robot_image;
+		if(equipe == 0)
+			robot_image = new ImageView(
+				new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
+		else
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
 		RobotVisual visuelRobot = new RobotVisual(robot_image, equipe, plateau);
 		try{
 			Robots robot = new Robots(plateau, this, equipe, visuelRobot, behavior);

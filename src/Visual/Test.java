@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,6 +23,21 @@ import javafx.stage.Stage;
 public class Test extends Application {
 
 	static int marge = Tuile.getTaille() / 5;
+	private static KeyCode haut1 = KeyCode.Z;
+	private static KeyCode bas1 = KeyCode.S;
+	private static KeyCode gauche1 = KeyCode.Q;
+	private static KeyCode droite1 = KeyCode.D;
+	private static KeyCode choix11 = KeyCode.DIGIT1;
+	private static KeyCode choix12 = KeyCode.DIGIT2;
+	private static KeyCode choix13 = KeyCode.DIGIT3;
+	private static KeyCode haut2 = KeyCode.UP;
+	private static KeyCode bas2 = KeyCode.DOWN;
+	private static KeyCode gauche2 = KeyCode.LEFT;
+	private static KeyCode droite2 = KeyCode.RIGHT;
+	private static KeyCode choix21 = KeyCode.SEMICOLON;
+	private static KeyCode choix22 = KeyCode.COLON;
+	private static KeyCode choix23 = KeyCode.EXCLAMATION_MARK;
+
 	private static Timer game;
 	private static boolean inPause = false, inMenu = true, inParam = false;
 	private static Group root, jeu, pause, menu, param;
@@ -343,6 +360,437 @@ public class Test extends Application {
 		param.getChildren().add(iMoyen);
 		param.getChildren().add(iGrand);
 
+		Rectangle tHaut1 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tHaut1.setTranslateX(2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tHaut1.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tHaut1.setArcHeight(marge);
+		tHaut1.setArcWidth(marge);
+		Text textHaut1 = new Text(haut1.toString());
+		textHaut1.setTranslateX(
+				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textHaut1.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textHaut1.setFill(Color.WHITE);
+		textHaut1.setFont(new Font(Tuile.getTaille() - marge));
+		tHaut1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tHaut1.requestFocus();
+			}
+		});
+		tHaut1.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				haut1 = ke.getCode();
+				textHaut1.setText(haut1.toString());
+			}
+		});
+		textHaut1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tHaut1.requestFocus();
+			}
+		});
+		param.getChildren().add(tHaut1);
+		param.getChildren().add(textHaut1);
+
+		Rectangle tBas1 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tBas1.setTranslateX(2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tBas1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tBas1.setArcHeight(marge);
+		tBas1.setArcWidth(marge);
+		Text textBas1 = new Text(bas1.toString());
+		textBas1.setTranslateX(
+				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textBas1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textBas1.setFill(Color.WHITE);
+		textBas1.setFont(new Font(Tuile.getTaille() - marge));
+		tBas1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tBas1.requestFocus();
+			}
+		});
+		tBas1.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				bas1 = ke.getCode();
+				textBas1.setText(bas1.toString());
+			}
+		});
+		textBas1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tBas1.requestFocus();
+			}
+		});
+		param.getChildren().add(tBas1);
+		param.getChildren().add(textBas1);
+
+		Rectangle tGauche1 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tGauche1.setTranslateX(
+				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tGauche1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tGauche1.setArcHeight(marge);
+		tGauche1.setArcWidth(marge);
+		Text textGauche1 = new Text(gauche1.toString());
+		textGauche1.setTranslateX(
+				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textGauche1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textGauche1.setFill(Color.WHITE);
+		textGauche1.setFont(new Font(Tuile.getTaille() - marge));
+		tGauche1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tGauche1.requestFocus();
+			}
+		});
+		tGauche1.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				gauche1 = ke.getCode();
+				textGauche1.setText(gauche1.toString());
+			}
+		});
+		textGauche1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tGauche1.requestFocus();
+			}
+		});
+		param.getChildren().add(tGauche1);
+		param.getChildren().add(textGauche1);
+
+		Rectangle tDroite1 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tDroite1.setTranslateX(
+				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tDroite1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tDroite1.setArcHeight(marge);
+		tDroite1.setArcWidth(marge);
+		Text textDroite1 = new Text(droite1.toString());
+		textDroite1.setTranslateX(
+				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textDroite1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textDroite1.setFill(Color.WHITE);
+		textDroite1.setFont(new Font(Tuile.getTaille() - marge));
+		tDroite1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tDroite1.requestFocus();
+			}
+		});
+		tDroite1.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				droite1 = ke.getCode();
+				textDroite1.setText(droite1.toString());
+			}
+		});
+		textDroite1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tDroite1.requestFocus();
+			}
+		});
+		param.getChildren().add(tDroite1);
+		param.getChildren().add(textDroite1);
+
+		Rectangle tChoix11 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tChoix11.setTranslateX(
+				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tChoix11.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tChoix11.setArcHeight(marge);
+		tChoix11.setArcWidth(marge);
+		Text textChoix11 = new Text(choix11.toString());
+		textChoix11.setTranslateX(
+				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textChoix11.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textChoix11.setFill(Color.WHITE);
+		textChoix11.setFont(new Font(Tuile.getTaille() - marge));
+		tChoix11.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix11.requestFocus();
+			}
+		});
+		tChoix11.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				choix11 = ke.getCode();
+				textChoix11.setText(choix11.toString());
+			}
+		});
+		textChoix11.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix11.requestFocus();
+			}
+		});
+		param.getChildren().add(tChoix11);
+		param.getChildren().add(textChoix11);
+
+		Rectangle tChoix12 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tChoix12.setTranslateX(
+				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tChoix12.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tChoix12.setArcHeight(marge);
+		tChoix12.setArcWidth(marge);
+		Text textChoix12 = new Text(choix12.toString());
+		textChoix12.setTranslateX(
+				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textChoix12.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textChoix12.setFill(Color.WHITE);
+		textChoix12.setFont(new Font(Tuile.getTaille() - marge));
+		tChoix12.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix12.requestFocus();
+			}
+		});
+		tChoix12.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				choix12 = ke.getCode();
+				textChoix12.setText(choix12.toString());
+			}
+		});
+		textChoix12.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix12.requestFocus();
+			}
+		});
+		param.getChildren().add(tChoix12);
+		param.getChildren().add(textChoix12);
+
+		Rectangle tChoix13 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tChoix13.setTranslateX(
+				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tChoix13.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tChoix13.setArcHeight(marge);
+		tChoix13.setArcWidth(marge);
+		Text textChoix13 = new Text(choix13.toString());
+		textChoix13.setTranslateX(
+				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textChoix13.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textChoix13.setFill(Color.WHITE);
+		textChoix13.setFont(new Font(Tuile.getTaille() - marge));
+		tChoix13.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix13.requestFocus();
+			}
+		});
+		tChoix13.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				choix13 = ke.getCode();
+				textChoix13.setText(choix13.toString());
+			}
+		});
+		textChoix13.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix13.requestFocus();
+			}
+		});
+		param.getChildren().add(tChoix13);
+		param.getChildren().add(textChoix13);
+
+		Rectangle tHaut2 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tHaut2.setTranslateX(2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tHaut2.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tHaut2.setArcHeight(marge);
+		tHaut2.setArcWidth(marge);
+		Text textHaut2 = new Text(haut2.toString());
+		textHaut2.setTranslateX(
+				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textHaut2.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textHaut2.setFill(Color.WHITE);
+		textHaut2.setFont(new Font(Tuile.getTaille() - marge));
+		tHaut2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tHaut2.requestFocus();
+			}
+		});
+		tHaut2.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				haut2 = ke.getCode();
+				textHaut2.setText(haut2.toString());
+			}
+		});
+		textHaut2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tHaut2.requestFocus();
+			}
+		});
+		param.getChildren().add(tHaut2);
+		param.getChildren().add(textHaut2);
+
+		Rectangle tBas2 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tBas2.setTranslateX(2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tBas2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tBas2.setArcHeight(marge);
+		tBas2.setArcWidth(marge);
+		Text textBas2 = new Text(bas2.toString());
+		textBas2.setTranslateX(
+				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textBas2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textBas2.setFill(Color.WHITE);
+		textBas2.setFont(new Font(Tuile.getTaille() - marge));
+		tBas2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tBas2.requestFocus();
+			}
+		});
+		tBas2.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				bas2 = ke.getCode();
+				textBas2.setText(bas2.toString());
+			}
+		});
+		textBas2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tBas2.requestFocus();
+			}
+		});
+		param.getChildren().add(tBas2);
+		param.getChildren().add(textBas2);
+
+		Rectangle tGauche2 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tGauche2.setTranslateX(
+				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tGauche2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tGauche2.setArcHeight(marge);
+		tGauche2.setArcWidth(marge);
+		Text textGauche2 = new Text(gauche2.toString());
+		textGauche2.setTranslateX(
+				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textGauche2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textGauche2.setFill(Color.WHITE);
+		textGauche2.setFont(new Font(Tuile.getTaille() - marge));
+		tGauche2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tGauche2.requestFocus();
+			}
+		});
+		tGauche2.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				gauche2 = ke.getCode();
+				textGauche2.setText(gauche2.toString());
+			}
+		});
+		textGauche2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tGauche2.requestFocus();
+			}
+		});
+		param.getChildren().add(tGauche2);
+		param.getChildren().add(textGauche2);
+
+		Rectangle tDroite2 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tDroite2.setTranslateX(
+				2 * marge + Barre.getDimX() + (9 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tDroite2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tDroite2.setArcHeight(marge);
+		tDroite2.setArcWidth(marge);
+		Text textDroite2 = new Text(droite2.toString());
+		textDroite2.setFont(new Font(Tuile.getTaille() - marge));
+		textDroite2.setTranslateX(
+				2 * marge + Barre.getDimX() + (9 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textDroite2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textDroite2.setFill(Color.WHITE);
+
+		tDroite2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tDroite2.requestFocus();
+			}
+		});
+		tDroite2.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				droite2 = ke.getCode();
+				textDroite2.setText(droite2.toString());
+			}
+		});
+		textDroite2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tDroite2.requestFocus();
+			}
+		});
+		param.getChildren().add(tDroite2);
+		param.getChildren().add(textDroite2);
+
+		Rectangle tChoix21 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tChoix21.setTranslateX(
+				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tChoix21.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tChoix21.setArcHeight(marge);
+		tChoix21.setArcWidth(marge);
+		Text textChoix21 = new Text(choix21.toString());
+		textChoix21.setTranslateX(
+				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textChoix21.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textChoix21.setFill(Color.WHITE);
+		textChoix21.setFont(new Font(Tuile.getTaille() - marge));
+		tChoix21.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix21.requestFocus();
+			}
+		});
+		tChoix21.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				choix21 = ke.getCode();
+				textChoix21.setText(choix21.toString());
+			}
+		});
+		textChoix21.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix21.requestFocus();
+			}
+		});
+		param.getChildren().add(tChoix21);
+		param.getChildren().add(textChoix21);
+
+		Rectangle tChoix22 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tChoix22.setTranslateX(
+				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tChoix22.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tChoix22.setArcHeight(marge);
+		tChoix22.setArcWidth(marge);
+		Text textChoix22 = new Text(choix22.toString());
+		textChoix22.setTranslateX(
+				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textChoix22.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textChoix22.setFill(Color.WHITE);
+		textChoix22.setFont(new Font(Tuile.getTaille() - marge));
+		tChoix22.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix22.requestFocus();
+			}
+		});
+		tChoix22.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				choix22 = ke.getCode();
+				textChoix22.setText(choix22.toString());
+			}
+		});
+		textChoix22.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix22.requestFocus();
+			}
+		});
+		param.getChildren().add(tChoix22);
+		param.getChildren().add(textChoix22);
+
+		Rectangle tChoix23 = new Rectangle(Case.getTaille(), Case.getTaille(), Color.BLACK);
+		tChoix23.setTranslateX(
+				2 * marge + Barre.getDimX() + (9 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 2);
+		tChoix23.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
+		tChoix23.setArcHeight(marge);
+		tChoix23.setArcWidth(marge);
+		Text textChoix23 = new Text(choix23.toString());
+		textChoix23.setTranslateX(
+				2 * marge + Barre.getDimX() + (9 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
+		textChoix23.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
+		textChoix23.setFill(Color.WHITE);
+		textChoix23.setFont(new Font(Tuile.getTaille() - marge));
+		tChoix23.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix23.requestFocus();
+			}
+		});
+		tChoix23.setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent ke) {
+				choix23 = ke.getCode();
+				textChoix23.setText(choix23.toString());
+			}
+		});
+		textChoix23.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				tChoix23.requestFocus();
+			}
+		});
+		param.getChildren().add(tChoix23);
+		param.getChildren().add(textChoix23);
+
 		/**
 		 * Lancement du jeu.
 		 */
@@ -361,8 +809,7 @@ public class Test extends Application {
 			game.stop();
 			jeu.setEffect(new GaussianBlur(4 * marge));
 			root.getChildren().add(menu);
-		}
-		else
+		} else
 			game.start();
 	}
 
@@ -415,8 +862,8 @@ public class Test extends Application {
 	static public boolean getMenu() {
 		return inMenu;
 	}
-	
-	static public void setMenu(boolean t){
+
+	static public void setMenu(boolean t) {
 		inMenu = t;
 	}
 
@@ -437,4 +884,59 @@ public class Test extends Application {
 		restart(stage);
 	}
 
+	public static KeyCode getHaut1() {
+		return haut1;
+	}
+
+	public static KeyCode getBas1() {
+		return bas1;
+	}
+
+	public static KeyCode getGauche1() {
+		return gauche1;
+	}
+
+	public static KeyCode getDroite1() {
+		return droite1;
+	}
+
+	public static KeyCode getChoix11() {
+		return choix11;
+	}
+
+	public static KeyCode getChoix12() {
+		return choix12;
+	}
+
+	public static KeyCode getChoix13() {
+		return choix13;
+	}
+
+	public static KeyCode getHaut2() {
+		return haut2;
+	}
+
+	public static KeyCode getBas2() {
+		return bas2;
+	}
+
+	public static KeyCode getGauche2() {
+		return gauche2;
+	}
+
+	public static KeyCode getDroite2() {
+		return droite2;
+	}
+
+	public static KeyCode getChoix21() {
+		return choix21;
+	}
+
+	public static KeyCode getChoix22() {
+		return choix22;
+	}
+
+	public static KeyCode getChoix23() {
+		return choix23;
+	}
 }

@@ -12,7 +12,7 @@ import javafx.scene.text.*;
 
 /**
  **************************************************************
- * Keyboard  reagit a un evenement exterieur venant du clavier *
+ * Keyboard reagit a un evenement exterieur venant du clavier *
  **************************************************************
  */
 public class Keyboard implements EventHandler<KeyEvent> {
@@ -60,14 +60,15 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
-		if (!Test.enPause()
-				&& (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
-						|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
-						|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
+		if (!Test.getMenu() && !Test.enPause()
+				&& (event.getCode() == Test.getHaut2() || event.getCode() == Test.getBas2()
+						|| event.getCode() == Test.getGauche2() || event.getCode() == Test.getDroite2()
+						|| event.getCode() == Test.getChoix21() || event.getCode() == Test.getChoix22()
+						|| event.getCode() == Test.getChoix23())) {
 			// Player 2
 			if (personnage2.dansBase()) {
 				if (mate2 != -1) {
-					if (event.getCode() == KeyCode.UP) {
+					if (event.getCode() == Test.getHaut2()) {
 						root.getChildren().remove(boite2);
 						boite2.invisible(ligne2);
 						if (ligne2 == 0)
@@ -76,7 +77,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 							ligne2--;
 						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
-					} else if (event.getCode() == KeyCode.DOWN) {
+					} else if (event.getCode() == Test.getBas2()) {
 						root.getChildren().remove(boite2);
 						boite2.invisible(ligne2);
 						if (ligne2 == 4)
@@ -85,23 +86,23 @@ public class Keyboard implements EventHandler<KeyEvent> {
 							ligne2++;
 						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
-					} else if (event.getCode() == KeyCode.LEFT) {
+					} else if (event.getCode() == Test.getGauche2()) {
 						personnage2.sortir();
 						newBehavior2 = expression_rouge.substring(0, curseur_rouge)
 								+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length());
-						if (personnage2.getRobot(mate2 + 1) == null){
-							try{
+						if (personnage2.getRobot(mate2 + 1) == null) {
+							try {
 								newRobot2 = personnage2.addRobot(newBehavior2, mate2 + 1);
 								terrain.addVisual(newRobot2);
 								expression_rouge = "EXPRESSION";
-							} catch(PanicException e) {
+							} catch (PanicException e) {
 								expression_rouge = "ERROR SYSTAXE";
 							}
 						} else {
-							try{
+							try {
 								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior2);
 								expression_rouge = "EXPRESSION";
-							} catch(PanicException e) {
+							} catch (PanicException e) {
 								expression_rouge = "ERROR SYSTAXE";
 							}
 						}
@@ -112,21 +113,21 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_rouge();
 						mate2 = -1;
 						updateMates_rouges();
-					} else if (event.getCode() == KeyCode.SEMICOLON) {
+					} else if (event.getCode() == Test.getChoix21()) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 1, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
-					} else if (event.getCode() == KeyCode.COLON) {
+					} else if (event.getCode() == Test.getChoix22()) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 2, personnage2, 2);
 						updateExpression_rouge();
 						boite2 = new Boite(personnage2);
 						boite2.visible(ligne2);
 						root.getChildren().add(boite2);
-					} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
+					} else if (event.getCode() == Test.getChoix23()) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 3, personnage2, 2);
 						updateExpression_rouge();
@@ -135,7 +136,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(boite2);
 					}
 				} else { // Selectionner un Robot
-					if (event.getCode() == KeyCode.SEMICOLON) {
+					if (event.getCode() == Test.getChoix21()) {
 						if (personnage2.getRobot(1) != null) {
 							expression_rouge = personnage2.getRobot(1).toString() + "I";
 							curseur_rouge = expression_rouge.length() - 1;
@@ -146,7 +147,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_rouge();
 						mate2 = 0;
 						updateMates_rouges();
-					} else if (event.getCode() == KeyCode.COLON) {
+					} else if (event.getCode() == Test.getChoix22()) {
 						if (personnage2.getRobot(2) != null) {
 							expression_rouge = personnage2.getRobot(2).toString() + "I";
 							curseur_rouge = expression_rouge.length() - 1;
@@ -157,7 +158,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_rouge();
 						mate2 = 1;
 						updateMates_rouges();
-					} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
+					} else if (event.getCode() == Test.getChoix23()) {
 						if (personnage2.getRobot(3) != null) {
 							expression_rouge = personnage2.getRobot(3).toString() + "I";
 							curseur_rouge = expression_rouge.length() - 1;
@@ -168,7 +169,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_rouge();
 						mate2 = 2;
 						updateMates_rouges();
-					} else if (event.getCode() == KeyCode.LEFT) {
+					} else if (event.getCode() == Test.getGauche2()) {
 						personnage2.sortir();
 						root.getChildren().remove(boite2);
 						boite2.invisible(ligne2);
@@ -177,7 +178,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			} else { // Player 2 sur le terrain
-				if (event.getCode() == KeyCode.SEMICOLON) {
+				if (event.getCode() == Test.getChoix21()) {
 					if (team2.getVisible(0)) {
 						expression_rouge = "EXPRESSION";
 						updateExpression_rouge();
@@ -193,7 +194,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate2 = 0;
 						updateMates_rouges();
 					}
-				} else if (event.getCode() == KeyCode.COLON) {
+				} else if (event.getCode() == Test.getChoix22()) {
 					if (team2.getVisible(1)) {
 						expression_rouge = "EXPRESSION";
 						updateExpression_rouge();
@@ -209,7 +210,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate2 = 1;
 						updateMates_rouges();
 					}
-				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
+				} else if (event.getCode() == Test.getChoix23()) {
 					if (team2.getVisible(2)) {
 						expression_rouge = "EXPRESSION";
 						updateExpression_rouge();
@@ -225,17 +226,17 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate2 = 2;
 						updateMates_rouges();
 					}
-				} else if (event.getCode() == KeyCode.UP) {
+				} else if (event.getCode() == Test.getHaut2()) {
 					personnage2.mouvement(PointCardinal.NORD);
 					root.getChildren().remove(boite2);
 					boite2 = new Boite(personnage2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.DOWN) {
+				} else if (event.getCode() == Test.getBas2()) {
 					personnage2.mouvement(PointCardinal.SUD);
 					root.getChildren().remove(boite2);
 					boite2 = new Boite(personnage2);
 					root.getChildren().add(boite2);
-				} else if (event.getCode() == KeyCode.LEFT) {
+				} else if (event.getCode() == Test.getGauche2()) {
 					personnage2.mouvement(PointCardinal.OUEST);
 					root.getChildren().remove(boite2);
 					boite2 = new Boite(personnage2);
@@ -261,13 +262,14 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				}
 			}
 
-		} else if (!Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z
-				|| event.getCode() == KeyCode.S || event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
-				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3)) {
+		} else if (!Test.enPause() && (event.getCode() == Test.getGauche1() || event.getCode() == Test.getHaut1()
+				|| event.getCode() == Test.getBas1() || event.getCode() == Test.getDroite1()
+				|| event.getCode() == Test.getChoix11() || event.getCode() == Test.getChoix12()
+				|| event.getCode() == Test.getChoix13())) {
 			// Player 1
 			if (personnage1.dansBase()) {
 				if (mate1 != -1) {
-					if (event.getCode() == KeyCode.Z) {
+					if (event.getCode() == Test.getHaut1()) {
 						root.getChildren().remove(boite1);
 						boite1.invisible(ligne1);
 						if (ligne1 == 0)
@@ -276,7 +278,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 							ligne1--;
 						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
-					} else if (event.getCode() == KeyCode.S) {
+					} else if (event.getCode() == Test.getBas1()) {
 						root.getChildren().remove(boite1);
 						boite1.invisible(ligne1);
 						if (ligne1 == 4)
@@ -285,23 +287,23 @@ public class Keyboard implements EventHandler<KeyEvent> {
 							ligne1++;
 						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
-					} else if (event.getCode() == KeyCode.D) {
+					} else if (event.getCode() == Test.getDroite1()) {
 						personnage1.sortir();
 						newBehavior1 = expression_bleue.substring(0, curseur_bleu)
 								+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length());
-						if (personnage1.getRobot(mate1 + 1) == null){
-							try{
+						if (personnage1.getRobot(mate1 + 1) == null) {
+							try {
 								newRobot1 = personnage1.addRobot(newBehavior1, mate1 + 1);
 								terrain.addVisual(newRobot1);
 								expression_bleue = "EXPRESSION";
-							} catch(PanicException e) {
+							} catch (PanicException e) {
 								expression_bleue = "ERROR SYSTAXE";
 							}
 						} else {
-							try{
+							try {
 								personnage1.getRobot(mate1 + 1).setBehavior(newBehavior1);
 								expression_bleue = "EXPRESSION";
-							} catch(PanicException e) {
+							} catch (PanicException e) {
 								expression_bleue = "ERROR SYSTAXE";
 							}
 						}
@@ -312,21 +314,21 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_bleue();
 						mate1 = -1;
 						updateMates_bleus();
-					} else if (event.getCode() == KeyCode.F1) {
+					} else if (event.getCode() == Test.getChoix11()) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 1, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
-					} else if (event.getCode() == KeyCode.F2) {
+					} else if (event.getCode() == Test.getChoix12()) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 2, personnage1, 1);
 						updateExpression_bleue();
 						boite1 = new Boite(personnage1);
 						boite1.visible(ligne1);
 						root.getChildren().add(boite1);
-					} else if (event.getCode() == KeyCode.F3) {
+					} else if (event.getCode() == Test.getChoix13()) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 3, personnage1, 1);
 						updateExpression_bleue();
@@ -335,7 +337,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(boite1);
 					}
 				} else { // Selectionner un Robot
-					if (event.getCode() == KeyCode.DIGIT1) {
+					if (event.getCode() == Test.getChoix11()) {
 						if (personnage1.getRobot(1) != null) {
 							expression_bleue = personnage1.getRobot(1).toString() + "I";
 							curseur_bleu = expression_bleue.length() - 1;
@@ -346,7 +348,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_bleue();
 						mate1 = 0;
 						updateMates_bleus();
-					} else if (event.getCode() == KeyCode.DIGIT2) {
+					} else if (event.getCode() == Test.getChoix12()) {
 						if (personnage1.getRobot(2) != null) {
 							expression_bleue = personnage1.getRobot(1).toString() + "I";
 							curseur_bleu = expression_bleue.length() - 1;
@@ -357,7 +359,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_bleue();
 						mate1 = 1;
 						updateMates_bleus();
-					} else if (event.getCode() == KeyCode.DIGIT3) {
+					} else if (event.getCode() == Test.getChoix13()) {
 						if (personnage1.getRobot(3) != null) {
 							expression_bleue = personnage1.getRobot(1).toString() + "I";
 							curseur_bleu = expression_bleue.length() - 1;
@@ -368,7 +370,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateExpression_bleue();
 						mate1 = 2;
 						updateMates_bleus();
-					} else if (event.getCode() == KeyCode.D) {
+					} else if (event.getCode() == Test.getDroite1()) {
 						personnage1.sortir();
 						root.getChildren().remove(boite1);
 						boite1.invisible(ligne1);
@@ -377,7 +379,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			} else { // Player 1 sur le terrain
-				if (event.getCode() == KeyCode.DIGIT1) {
+				if (event.getCode() == Test.getChoix11()) {
 					if (team1.getVisible(0)) {
 						expression_bleue = "EXPRESSION";
 						updateExpression_bleue();
@@ -393,7 +395,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate1 = 0;
 						updateMates_bleus();
 					}
-				} else if (event.getCode() == KeyCode.DIGIT2) {
+				} else if (event.getCode() == Test.getChoix12()) {
 					if (team1.getVisible(1)) {
 						expression_bleue = "EXPRESSION";
 						updateExpression_bleue();
@@ -409,7 +411,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate1 = 1;
 						updateMates_bleus();
 					}
-				} else if (event.getCode() == KeyCode.DIGIT3) {
+				} else if (event.getCode() == Test.getChoix13()) {
 					if (team1.getVisible(2)) {
 						expression_bleue = "EXPRESSION";
 						updateExpression_bleue();
@@ -425,17 +427,17 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						mate1 = 2;
 						updateMates_bleus();
 					}
-				} else if (event.getCode() == KeyCode.Z) {
+				} else if (event.getCode() == Test.getHaut1()) {
 					personnage1.mouvement(PointCardinal.NORD);
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.S) {
+				} else if (event.getCode() == Test.getBas1()) {
 					personnage1.mouvement(PointCardinal.SUD);
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.Q) {
+				} else if (event.getCode() == Test.getGauche1()) {
 					if (personnage1.getX() == 0
 							&& (personnage1.getY() == 4 || personnage1.getY() == 5 || personnage1.getY() == 6)) {
 						personnage1.rentrer();
@@ -460,7 +462,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite1);
 				}
 			}
-		} else if (!FinalScreen.getIsFinish() && !Test.getMenu() && event.getCode() == KeyCode.P)
+		} else if (!FinalScreen.getIsFinish() && !Test.getMenu() && event.getCode() == Test.getGauche1().P)
 			Test.PauseGame();
 	}
 
