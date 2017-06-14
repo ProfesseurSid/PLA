@@ -58,7 +58,7 @@ public class Personnages implements Vivante {
 		initInventory();
 		this.visuel = visuel;
 		plateau.put(x, y, this);
-		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.RED);
+		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.GREEN);
 		healthbar.setY(15*Tuile.getTaille());
 		if (e == 0) {
 			healthbar.setX(0.5 * Tuile.getTaille());
@@ -417,6 +417,8 @@ public class Personnages implements Vivante {
 	}
 	
 	public void updateHealthBar(){
+		if(PV <= 6) healthbar.setFill(Color.ORANGE);
+		if(PV <= 3) healthbar.setFill(Color.RED);
 		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
 	}
 
