@@ -1,7 +1,6 @@
 package Visual;
 
 import java.util.Date;
-
 import Engine.Timer;
 import UserInterface.Keyboard;
 import javafx.application.Application;
@@ -14,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.effect.*;
 
 public class Test extends Application {
 
@@ -23,7 +23,8 @@ public class Test extends Application {
 	private static Group root;
 	private static Rectangle pauseScreen = new Rectangle();
 	private static Text pauseText = new Text("PAUSE");
-
+	private static Scene scene;
+	
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
@@ -34,7 +35,7 @@ public class Test extends Application {
 		root = new Group();
 		int dimX = Terrain.getTuileX() * Tuile.getTaille() + 2 * Barre.getDimX() + 3 * marge;
 		int dimY = Barre.getDimX() + Boite.getHeight() + 4 * marge;
-		Scene scene = new Scene(root, dimX, dimY);
+		scene = new Scene(root, dimX, dimY);
 
 		pauseScreen.setHeight(dimY);
 		pauseScreen.setWidth(dimX);
@@ -127,12 +128,16 @@ public class Test extends Application {
 		pause = !pause;
 		if (pause){
 			game.stop();
+			root.setEffect(new GaussianBlur(10));
 			root.getChildren().add(pauseScreen);
 			root.getChildren().add(pauseText);
+			
+			
 		}
 		else{
 			root.getChildren().remove(pauseScreen);
 			root.getChildren().remove(pauseText);
+			root.setEffect(new GaussianBlur(0));
 			game.setTime(new Date().getTime());
 			game.start();
 		}
