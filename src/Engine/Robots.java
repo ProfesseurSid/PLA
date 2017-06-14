@@ -190,13 +190,13 @@ public class Robots implements Vivante {
 	 */
 	public PointCardinal ennemiAdjacent() {
 		PointCardinal retour = null;
-		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
+		if (x < plateau.nbColonnes() - 1 && plateau.unsafeGet(x + 1, y) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
 		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
+		else if (y < plateau.nbLignes() - 1 && plateau.unsafeGet(x, y + 1) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
 		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante
