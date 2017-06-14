@@ -6,6 +6,7 @@ import Exception.PanicException;
 import Parsing.ParseException;
 import Visual.Barre;
 import Visual.Boite;
+import Visual.FinalScreen;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
@@ -33,7 +34,8 @@ public class Personnages implements Vivante {
 	private boolean base;
 	Terrain t;
 	private Rectangle healthbar;
-	
+	private ImageView healthbarBG;
+
 	/**
 	 * Contructeur de personnage de l'équipe e
 	 * 
@@ -59,12 +61,19 @@ public class Personnages implements Vivante {
 		this.visuel = visuel;
 		plateau.put(x, y, this);
 		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.GREEN);
-		healthbar.setY(15*Tuile.getTaille());
+		healthbarBG = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Empty_hb.png")));
+		healthbarBG.setFitWidth((10 * 0.49 * Tuile.getTaille()) + (Tuile.getTaille() / 5));
+		healthbarBG.setFitHeight((0.5 * Tuile.getTaille() + (Tuile.getTaille() / 5)));
+		healthbar.setY(15 * Tuile.getTaille());
+		healthbarBG.setTranslateY((15 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
 		if (e == 0) {
 			healthbar.setX(0.5 * Tuile.getTaille());
+			healthbarBG.setTranslateX((0.5 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
 		} else {
-			healthbar.setX(27.43*Tuile.getTaille());
+			healthbar.setX(27.43 * Tuile.getTaille());
+			healthbarBG.setTranslateX((27.43 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
 		}
+		// Image = dimensions + taille tuile / 5
 	}
 
 	/**
@@ -415,10 +424,16 @@ public class Personnages implements Vivante {
 	public Rectangle getHealthBar() {
 		return healthbar;
 	}
-	
-	public void updateHealthBar(){
-		if(PV <= 6) healthbar.setFill(Color.ORANGE);
-		if(PV <= 3) healthbar.setFill(Color.RED);
+
+	public ImageView getHealthBarBG() {
+		return healthbarBG;
+	}
+
+	public void updateHealthBar() {
+		if (PV <= 6)
+			healthbar.setFill(Color.ORANGE);
+		if (PV <= 3)
+			healthbar.setFill(Color.RED);
 		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
 	}
 

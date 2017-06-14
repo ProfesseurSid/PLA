@@ -52,10 +52,10 @@ public class Timer extends AnimationTimer {
 				if (rob1 != null)
 					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
 			}
-			
+
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
 				Test.EndGame(0);
-				} else if (!t.getpersonnage1().estEnVie()) {
+			} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
 				Test.EndGame(2);
 			} else if (!t.getpersonnage2().estEnVie()) {
@@ -84,10 +84,10 @@ public class Timer extends AnimationTimer {
 				}
 			System.out.println("Vie P1 : " + t.getpersonnage1().getHealth());
 			System.out.println("Vie P2 : " + t.getpersonnage2().getHealth());
-			
+
 			t.getpersonnage1().updateHealthBar();
 			t.getpersonnage2().updateHealthBar();
-			
+
 			rob1 = t.getpersonnage1().getRobot(1);
 			if (rob1 != null) {
 				System.out.println("Vie R1P1 : " + t.getpersonnage1().getRobot(1).PV);
@@ -99,11 +99,10 @@ public class Timer extends AnimationTimer {
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
 			rand = (int) (Math.random() * 4);
-			//rand = 0;
+			// rand = 0;
 			switch (rand) {
 			case 0:
-				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Hit hit = new Hit(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -135,16 +134,15 @@ public class Timer extends AnimationTimer {
 			}
 			lastTime_op = date;
 		}
-		
+
 		/* Si la derniere action a ete effectuee il y a plus de 5s */
 		/* Apparition des operateurs frequents */
 		if (date - lastTime_op2 > 5000) {
 			rand = (int) (Math.random() * 8);
-			//rand = 1;
+			// rand = 1;
 			switch (rand) {
 			case 0:
-				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -209,8 +207,9 @@ public class Timer extends AnimationTimer {
 	public void blink(OperateursVisual visuel, ImageView image) {
 		Timeline blinker = visuel.Blinker(image);
 		FadeTransition fader = visuel.Fader(image);
-//		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
-//		blinkThenFade.play();
+		// SequentialTransition blinkThenFade = new SequentialTransition(image,
+		// blinker, fader);
+		// blinkThenFade.play();
 		blinker.play();
 	}
 
