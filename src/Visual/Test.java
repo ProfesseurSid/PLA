@@ -25,7 +25,7 @@ public class Test extends Application {
 	private static boolean inPause = false, inMenu = true, inParam = false;
 	private static Group root, jeu, pause, menu, param;
 	private static Rectangle pauseScreen = new Rectangle();
-	private static Text pauseText = new Text("PAUSE");
+	private static ImageView pauseText;
 	private static Scene scene;
 	private static FinalScreen finalscreen;
 
@@ -65,10 +65,11 @@ public class Test extends Application {
 		pauseScreen.setWidth(dimX);
 		pauseScreen.setFill(Color.rgb(200, 200, 200, 0.4));
 
-		pauseText.setFont(new Font(Tuile.getTaille()));
-		pauseText.setFill(Color.rgb(0, 0, 0, 1.0));
-		pauseText.setX(dimX / 2 - 2 * Tuile.getTaille());
-		pauseText.setY(dimY / 2 - 2 * Tuile.getTaille());
+		pauseText = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Pause.png")));
+		pauseText.setFitWidth(8*Tuile.getTaille());
+		pauseText.setFitHeight(2*Tuile.getTaille());
+		pauseText.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
+		pauseText.setTranslateY(dimY / 2 - 2 * Tuile.getTaille());
 
 		pause.getChildren().add(pauseScreen);
 		pause.getChildren().add(pauseText);
@@ -80,8 +81,6 @@ public class Test extends Application {
 
 		jeu = new Group();
 
-		int tailleExpression = (Terrain.getTuileX() / 2) * Tuile.getTaille();
-
 		Terrain monTerrain = new Terrain();
 
 		Rectangle champBleu = new Rectangle();
@@ -92,7 +91,7 @@ public class Test extends Application {
 		jeu.getChildren().add(champBleu);
 
 		Text expr_bleue = new Text("EXPRESSION");
-		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
+		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -106,7 +105,7 @@ public class Test extends Application {
 		jeu.getChildren().add(champRouge);
 
 		Text expr_rouge = new Text("EXPRESSION");
-		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
+		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -122,8 +121,8 @@ public class Test extends Application {
 		jeu.getChildren().add(team1);
 		jeu.getChildren().add(team2);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge, boiteGauche, boiteDroite, team1, team2);
+		Keyboard keyboard = new Keyboard(monTerrain, jeu, expr_bleue, expr_rouge, marge, boiteGauche, boiteDroite,
+				team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
 
