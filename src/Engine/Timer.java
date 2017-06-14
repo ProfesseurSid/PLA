@@ -54,7 +54,7 @@ public class Timer extends AnimationTimer {
 			}
 			
 			//Le test ne marche pas
-			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
+			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
 				Test.EndGame(0);
 				} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
