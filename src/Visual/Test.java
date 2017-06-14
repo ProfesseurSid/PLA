@@ -24,7 +24,7 @@ public class Test extends Application {
 	private static Rectangle pauseScreen = new Rectangle();
 	private static Text pauseText = new Text("PAUSE");
 	private static Scene scene;
-	
+
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
@@ -43,13 +43,13 @@ public class Test extends Application {
 
 		pauseText.setFont(new Font(Tuile.getTaille()));
 		pauseText.setFill(Color.rgb(0, 0, 0, 1.0));
-		pauseText.setX(dimX/2 - 2*Tuile.getTaille());
-		pauseText.setY(dimY/2 - 2*Tuile.getTaille());
-		
+		pauseText.setX(dimX / 2 - 2 * Tuile.getTaille());
+		pauseText.setY(dimY / 2 - 2 * Tuile.getTaille());
+
 		Terrain monTerrain = new Terrain();
 		monTerrain.setTranslateX(2 * marge + Barre.getDimX());
 		monTerrain.setTranslateY(marge);
-		
+
 		Rectangle champBleu = new Rectangle();
 		champBleu.setHeight(Tuile.getTaille());
 		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
@@ -58,7 +58,7 @@ public class Test extends Application {
 		root.getChildren().add(champBleu);
 
 		Text expr_bleue = new Text("EXPRESSION");
-		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
+		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -72,7 +72,7 @@ public class Test extends Application {
 		root.getChildren().add(champRouge);
 
 		Text expr_rouge = new Text("EXPRESSION");
-		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
+		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -88,8 +88,8 @@ public class Test extends Application {
 		root.getChildren().add(team1);
 		root.getChildren().add(team2);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge, boiteGauche, boiteDroite, team1, team2);
+		Keyboard keyboard = new Keyboard(monTerrain, root, expr_bleue, expr_rouge, marge, boiteGauche, boiteDroite,
+				team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
 
@@ -124,15 +124,13 @@ public class Test extends Application {
 
 	static public void PauseGame() {
 		pause = !pause;
-		if (pause){
+		if (pause) {
 			game.stop();
 			root.setEffect(new GaussianBlur(10));
 			root.getChildren().add(pauseScreen);
 			root.getChildren().add(pauseText);
-			
-			
-		}
-		else{
+
+		} else {
 			root.getChildren().remove(pauseScreen);
 			root.getChildren().remove(pauseText);
 			root.setEffect(new GaussianBlur(0));

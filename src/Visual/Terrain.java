@@ -1,7 +1,6 @@
 package Visual;
 
 import Engine.Personnages;
-import Engine.Robots;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,9 +18,6 @@ public class Terrain extends Parent {
 	static ImageView p2 = new ImageView(
 			new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotRouge.png")));
 
-	static ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-	static ImageView r1P2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-
 	public Plateau plateau = new Plateau(this);
 
 	private PersonnagesVisual visuel1 = new PersonnagesVisual(p1, 0, plateau);
@@ -29,12 +25,6 @@ public class Terrain extends Parent {
 
 	private PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	public Personnages personnage2 = new Personnages(plateau, 1, visuel2);
-
-	RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau);
-	Robots robot1P1 = new Robots(plateau, personnage1, 0, visuelRobot1P1);
-
-	RobotVisual visuelRobot1P2 = new RobotVisual(r1P2, 1, plateau);
-	Robots robot1P2 = new Robots(plateau, personnage2, 1, visuelRobot1P2);
 
 	public Terrain() {
 
@@ -56,16 +46,8 @@ public class Terrain extends Parent {
 			this.getChildren().add(tuile);
 		}
 
-		robot1P1.setBehavior("*{K>O}");
-		personnage1.addRobot(robot1P1, 1);
-
-		robot1P2.setBehavior("*{P:;H>O}");
-		personnage2.addRobot(robot1P2, 1);
-
 		this.getChildren().add(visuel1);
-		this.getChildren().add(visuelRobot1P1);
 		this.getChildren().add(visuel2);
-		this.getChildren().add(visuelRobot1P2);
 	}
 
 	public static int getTuileX() {

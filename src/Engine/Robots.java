@@ -20,13 +20,6 @@ public class Robots implements Vivante {
 	Personnages personnage;
 
 	/**
-	 * DO NOT USE THIS CONSTRUCTOR
-	 */
-	public Robots() {
-
-	}
-
-	/**
 	 * cree un robot et le place dans l'équipe e
 	 * 
 	 * @param plateau
@@ -87,7 +80,7 @@ public class Robots implements Vivante {
 		try {
 			behavior = new Automate(behave);
 		} catch (ParseException ex) {
-			behavior = null;
+			throw new PanicException("ERROR SYNTAXE");
 		}
 		plateau.put(x, y, this);
 	}
@@ -386,8 +379,7 @@ public class Robots implements Vivante {
 		try {
 			behavior = new Automate(s);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new PanicException("ERROR SYNTAXE");
 		}
 	}
 
