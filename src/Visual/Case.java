@@ -24,7 +24,7 @@ public class Case extends Parent {
 		posX = X;
 		posY = Y;
 		op = "" + o;
-
+		
 		fond_case = new Rectangle(taille, taille, Color.rgb(220, 220, 220, 1.0));
 		fond_case.setStroke(Color.rgb(150, 150, 150, 1.0));
 		fond_case.setStrokeWidth(2);
@@ -77,5 +77,11 @@ public class Case extends Parent {
 	public static int getTaille() {
 		return taille;
 	}
+	
+	
+	public static void set(){
+		taille = (3 * Tuile.getTaille()) / 2;
+	}
+
 
 }

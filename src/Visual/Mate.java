@@ -84,4 +84,8 @@ public class Mate extends Parent {
 	public boolean getVisible() {
 		return visible;
 	}
+	
+	public static void set(){
+		taille = Tuile.getTaille() * 3;
+	}
 }
