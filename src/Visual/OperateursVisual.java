@@ -44,7 +44,7 @@ public class OperateursVisual extends Parent {
 		FadeTransition fade = new FadeTransition(Duration.seconds(3), operateur);
 		fade.setFromValue(1);
 		fade.setToValue(0);
-		plateau.plateau[indX][indY] = null;
+		// plateau.plateau[indY][indX] = null;
 		return fade;
 	}
 

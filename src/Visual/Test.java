@@ -1,5 +1,7 @@
 package Visual;
 
+import java.util.Date;
+
 import Engine.Timer;
 import UserInterface.Keyboard;
 import javafx.application.Application;
@@ -16,6 +18,8 @@ import javafx.stage.Stage;
 public class Test extends Application {
 
 	static int marge = Tuile.getTaille() / 5;
+	private static Timer game;
+	private static boolean pause = false;
 
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
@@ -74,10 +78,10 @@ public class Test extends Application {
 		root.getChildren().add(team2);
 
 		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge , tailleExpression, boiteGauche, boiteDroite, team1, team2);
+				expr_rouge, marge, tailleExpression, boiteGauche, boiteDroite, team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
-		
+
 		root.getChildren().add(monTerrain);
 
 		ImageView PersoRouge = new ImageView(new Image(Test.class.getResourceAsStream("images/PersoRouge.png")));
@@ -99,9 +103,21 @@ public class Test extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 
-		Timer game = new Timer(monTerrain);
+		game = new Timer(monTerrain);
 		game.start();
+	}
 
+	static public boolean enPause() {
+		return pause;
+	}
+
+	static public void PauseGame() {
+		pause = !pause;
+		if (pause)
+			game.stop();
+		else
+			game.setTime(new Date().getTime());
+			game.start();
 	}
 
 }
