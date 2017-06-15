@@ -56,6 +56,14 @@ public class Plateau {
 		}
 	}
 
+	public boolean verifCaseVide(int x, int y) {
+		if (plateau[y][x] == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	/**
 	 * deplace le contenu de la case (oldX,oldY) dans la case (newX,newY)
 	 * 

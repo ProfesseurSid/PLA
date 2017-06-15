@@ -216,7 +216,7 @@ public class Timer extends AnimationTimer {
 	public void random() {
 		indX = (int) (Math.random() * (Terrain.getTuileX() - 1));
 		indY = (int) (Math.random() * (Terrain.getTuileY() - 1));
-		while ((t.getPlateau()).verification(indX, indY) == 1) {
+		while ((t.getPlateau()).verifCaseVide(indX, indY) == true) {
 			indX = (int) (Math.random() * (Terrain.getTuileX() - 1));
 			indY = (int) (Math.random() * (Terrain.getTuileY() - 1));
 		}
@@ -227,4 +227,5 @@ public class Timer extends AnimationTimer {
 		lastTime_op = time;
 		lastTime_op2 = time;
 	}
+	
 }
