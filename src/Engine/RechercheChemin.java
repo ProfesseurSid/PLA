@@ -21,7 +21,6 @@ public class RechercheChemin {
 	final static int TRIED = 2;
 	final static int PATH = 3;
 	static RechercheChemin maze;
-	boolean invert;
 
 //	public static void main(String[] args) {
 //		Terrain t = new Terrain();
@@ -115,26 +114,7 @@ public class RechercheChemin {
 			}
 			// System.out.println("LENGTH : " + retour.size());
 		}
-		if (invert) {
-			for (int i = retour.size() - 1; i >= 0; i--)
-				switch (retour.get(i)) {
-				case NORD:
-					retourne.add(PointCardinal.SUD);
-					break;
-				case SUD:
-					retourne.add(PointCardinal.NORD);
-					break;
-				case EST:
-					retourne.add(PointCardinal.OUEST);
-					break;
-				case OUEST:
-					retourne.add(PointCardinal.EST);
-					break;
-				default:
-					throw new PanicException("RechercheChemin : PointCardinal incorrect");
-				}
-			return retourne;
-		}
+
 		return retour;
 	}
 
@@ -176,10 +156,10 @@ public class RechercheChemin {
 			map[i][j] = TRIED;
 		}
 		
-		int haut = traverse(i+1, j);
-		int bas = traverse(i-1, j);
 		int gauche = traverse(i, j-1);
 		int droite = traverse(i, j+1);
+		int haut = traverse(i+1, j);
+		int bas = traverse(i-1, j);
 		
 		if(droite < gauche && droite < haut && droite < bas){
 			map[i][j+1] = PATH;
