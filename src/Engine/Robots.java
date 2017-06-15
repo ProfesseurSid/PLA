@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import Exception.PanicException;
 import Parsing.ParseException;
+import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Robots implements Vivante {
 
@@ -396,6 +399,15 @@ public class Robots implements Vivante {
 		if (nbCoupsRecus > 0)
 			PV -= nbCoupsRecus;
 		nbCoupsRecus = 0;
+		
+		switch(PV){
+		case 1: visuel.remove(); 
+			ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png"))); 
+			RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau); break;
+		case 2: break;
+		case 3: break;
+		}
+		
 		return PV > 0;
 	}
 
