@@ -197,7 +197,7 @@ public class Test extends Application {
 		ImageView iJouer = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonJouer.png")));
 		iJouer.setFitWidth(6 * Tuile.getTaille());
 		iJouer.setFitHeight((3 * Tuile.getTaille()) / 2);
-		iJouer.setTranslateX(2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 2 - (6 * Tuile.getTaille()) / 2);
+		iJouer.setTranslateX(2 * marge + Barre.getDimX() + Terrain.getGrilleWidth() / 3 - (6 * Tuile.getTaille()) / 2);
 		iJouer.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
 		iJouer.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
@@ -211,12 +211,36 @@ public class Test extends Application {
 		});
 		iJouer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				gameMode = TRIAL;
+				gameMode = CLASSIC;
 				MenuOff();
 				game.start();
 			}
 		});
 		menu.getChildren().add(iJouer);
+		
+		ImageView iTraining = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonTraining.png")));
+		iTraining.setFitWidth(6 * Tuile.getTaille());
+		iTraining.setFitHeight((3 * Tuile.getTaille()) / 2);
+		iTraining.setTranslateX(2 * marge + Barre.getDimX() + (2*Terrain.getGrilleWidth()) / 3 - (6 * Tuile.getTaille()) / 2);
+		iTraining.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
+		iTraining.setOnMouseMoved(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent t) {
+				iTraining.setImage(new Image(Test.class.getResourceAsStream("images/BoutonTrainingSurvol.png")));
+			}
+		});
+		iTraining.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent t) {
+				iTraining.setImage(new Image(Test.class.getResourceAsStream("images/BoutonTraining.png")));
+			}
+		});
+		iTraining.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent t) {
+				gameMode = TRIAL;
+				MenuOff();
+				game.start();
+			}
+		});
+		menu.getChildren().add(iTraining);
 
 		ImageView iParam = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonReglages.png")));
 		iParam.setFitWidth(6 * Tuile.getTaille());
