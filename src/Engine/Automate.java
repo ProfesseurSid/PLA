@@ -1,6 +1,7 @@
 package Engine;
 
 import Exception.PanicException;
+import Parsing.*;
 import Exception.ParsingException;
 
 /**
@@ -49,11 +50,12 @@ public class Automate {
 	 * @param s
 	 *            Code de l'automate.
 	 */
-	public Automate(String s) {
+	public Automate(String s) throws ParseException {
 		if (s.length() < 4)
 			throw new ParsingException("Chaine vide");
-		CheckValide(s.substring(2, s.length() - 1));
-		code = stringToArbre(s.substring(2, s.length() - 1));
+
+		ComportementRobots parser = new ComportementRobots(s);
+		code = parser.loop();
 		aExec = code;
 		StarExec = code;
 		exec = false;
@@ -154,7 +156,7 @@ public class Automate {
 				RunAutomate(a.droit(), bot);
 			}
 		} else if (a.op() instanceof Barre) {
-			aExec = StarExec;
+			// aExec = StarExec;
 			if (Math.random() < 0.5) {
 				RunAutomate(a.gauche(), bot);
 			} else {
@@ -273,7 +275,12 @@ public class Automate {
 	public static void main(String[] args) {
 		// Automate auto = new Automate("*{K>J;H>*{K;J>H::;J}|K}");
 		// Automate auto = new Automate("*{O::;*{H;K}}");
-		Automate auto = new Automate("*{H:::>O}");
+		Automate auto = null;
+		try {
+			auto = new Automate("*{J|P;O}");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		// Automate auto = new Automate("*{H::|*{K>O}|J;*{P:::>K|O}}");
 		// Automate auto = new Automate(new Protect());
 		Arbre a1 = new Arbre(new Preference(), new Arbre(new Rapport()), new Arbre(new Hit()));

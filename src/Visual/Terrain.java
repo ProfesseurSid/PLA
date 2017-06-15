@@ -14,9 +14,11 @@ public class Terrain extends Parent {
 	private static int grilleWidth = Tuile.getTaille() * tuileX;
 	private static int grilleHeight = Tuile.getTaille() * tuileY;
 
-	static ImageView p1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotBleu.png")));
-	static ImageView p2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotRouge.png")));
-	
+	static ImageView p1 = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotBleu.png")));
+	static ImageView p2 = new ImageView(
+			new Image(PersonnagesVisual.class.getResourceAsStream("images/FaceRobotRouge.png")));
+
 	static ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 	static ImageView r1P2 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 
@@ -36,7 +38,8 @@ public class Terrain extends Parent {
 
 	public Terrain() {
 
-		ImageView fond_grille = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Terrain.png")));
+		ImageView fond_grille = new ImageView(
+				new Image(PersonnagesVisual.class.getResourceAsStream("images/Terrain.png")));
 		fond_grille.setFitWidth(grilleWidth);
 		fond_grille.setFitHeight(grilleHeight);
 

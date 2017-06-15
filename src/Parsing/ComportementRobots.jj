@@ -1,0 +1,256 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = false;
+}
+
+PARSER_BEGIN(ComportementRobots)
+package Parsing;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
+import Engine.*;
+
+public class ComportementRobots
+{
+  public ComportementRobots(String s)
+  {
+    this (new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
+  }
+
+  public static void main(String args []) throws ParseException
+  {
+    ComportementRobots parser = new ComportementRobots("*{P;P}");
+    while (true)
+    {
+      System.out.println("Reading from standard input...");
+      System.out.println("Enter an expression :");
+      //try
+      //{
+      //ComportementRobots.loop();
+      //System.out.println(a.toString());
+      /*}
+      catch (Exception e)
+      {
+        System.out.println("NOK.");
+        System.out.println(e.getMessage());
+        ComportementRobots.ReInit(System.in);
+      }
+      catch (Error e)
+      {
+        System.out.println("Oops.");
+        System.out.println(e.getMessage());
+        break;
+      }*/
+    }
+  }
+}
+
+PARSER_END(ComportementRobots)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\r"
+| "\n"
+}
+
+TOKEN : /* OPERATORS */
+{
+  < STAR : "*" >
+| < AO : "{" >
+| < AF : "}" >
+| < PV : ";" >
+| < OU : "|" >
+| < DP : ":" >
+| < PREF : ">" >
+}
+
+/*
+TOKEN :
+{
+  < ACTION : < LETTER > >
+| < #LETTER : [ "H", "K", "O", "J", "P" ] >
+}
+*/
+
+Arbre loop() :
+{
+  Arbre fd;
+}
+{
+  < STAR > < AO > fd = comp() < AF >
+  {
+    return new Arbre(new Star(), null, fd);
+  }
+}
+
+Arbre comp() :
+{
+  Arbre fg, fd;
+}
+{
+  fg = action() fd = op()
+  {
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      return fd;
+    }
+    else return fg;
+  }
+| fg = loop() fd = op()
+  {
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      return fd;
+    }
+    else 
+    return fg;
+  }
+| < AO > fg = comp() < AF > fd = op()
+  {
+    if (fd != null)
+    {
+      fd.AjouterFilsGauche(fg);
+      return fd;
+    }
+    else
+    {
+      return fg;
+    }
+  }
+}
+
+Arbre action() :
+{
+  Arbre retour;
+}
+{
+  //< ACTION > (< DP >)*
+  "H" retour = dp
+  (
+    new Hit()
+  )
+  {
+    return retour;
+  }
+| "K" retour = dp
+  (
+    new Kamikaze()
+  )
+  {
+    return retour;
+  }
+| "O" retour = dp
+  (
+    new Others()
+  )
+  {
+    return retour;
+  }
+| "J" retour = dp
+  (
+    new Rapport()
+  )
+  {
+    return retour;
+  }
+| "P" retour = dp
+  (
+    new Protect()
+  )
+  {
+    return retour;
+  }
+}
+
+Arbre dp(Operateurs o) :
+{
+  Arbre retour;
+}
+{
+  {
+    retour = new Arbre(o);
+  }
+  (
+    < DP >
+    {
+      retour = new Arbre(new DeuxPoints(), null, retour);
+    }
+  )*
+  {
+    return retour;
+  }
+}
+
+Arbre op() :
+{
+  Arbre fd, fg;
+}
+{
+  < PREF > fd = comp()
+  {
+    return new Arbre(new Preference(), null, fd);
+  }
+| fg = ou() fd = pv()
+  {
+    if (fd != null)
+    {
+      if (fg != null) 
+      fd.AjouterFilsDroit(fg);
+      return fd;
+    }
+    else
+    {
+      return fg;
+    }
+  }
+}
+
+Arbre pv() :
+{
+  Arbre fd, retour;
+}
+{
+  {
+    retour = new Arbre(new PointVirgule());
+  }
+  (
+    < PV > fd = comp()
+    {
+      retour.AjouterFilsDroit(fd);
+    }
+  )*
+  {
+    if (retour.droit() == null) 
+    return null;
+    else 
+    return retour;
+  }
+}
+
+Arbre ou() :
+{
+  Arbre fd, retour;
+}
+{
+  {
+    retour = new Arbre(new Barre());
+  }
+  (
+    < OU > fd = comp()
+    {
+      retour.AjouterFilsDroit(fd);
+    }
+  )*
+  {
+    if (retour.droit() == null) 
+    return null;
+    else 
+    return retour;
+  }
+}

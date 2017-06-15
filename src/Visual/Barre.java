@@ -17,7 +17,7 @@ public class Barre extends Parent {
 	Color couleur;
 
 	Rectangle fond_barre;
-	
+
 	private boolean visible = false;
 
 	public Barre(int rg, Engine.Personnages p) {
@@ -111,7 +111,8 @@ public class Barre extends Parent {
 			}
 		}
 	}
-	public boolean getVisible(){
+
+	public boolean getVisible() {
 		return visible;
 	}
 

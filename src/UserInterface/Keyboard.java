@@ -25,15 +25,13 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	int marge;
 	int tailleExpression;
 	Rectangle selection;
-	Boite boite1;
-	Boite boite2;
-	Team team1;
-	Team team2;
+	Boite boite1, boite2;
+	Team team1, team2;
 	String c;
 	String curseur = "|";
 	public String expression_rouge = "";
 	public String expression_bleue = "";
-	
+
 	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
 			int marge, int tailleExpression, Boite boite1, Boite boite2, Team team1, Team team2) {
 		this.personnage1 = personnage1;
@@ -53,14 +51,14 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * Recupere un evenement du clavier afin de l'associer au joueur
 	 * correspondant Le joueur 1 se trouvant a droite du terrain, utilise les
 	 * fleches pour deplacer son avatar. Le joueur 2, quant a lui, utilise les
-	 * touches Q,Z,S,D pour se deplacer à l'interieur du terrain Lorsque le
+	 * touches Q,Z,S,D pour se deplacer ï¿½ l'interieur du terrain Lorsque le
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
 
-		if (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
+		if (!Test.enPause() && (event.getCode() == KeyCode.UP || event.getCode() == KeyCode.DOWN || event.getCode() == KeyCode.LEFT
 				|| event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.SEMICOLON
-				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK) {
+				|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
 			// player 2
 			if (personnage2.dansBase()) {
 				if (event.getCode() == KeyCode.UP) {
@@ -190,9 +188,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				}
 			}
-		} else if (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
+		} else if (!Test.enPause() && (event.getCode() == KeyCode.Q || event.getCode() == KeyCode.Z || event.getCode() == KeyCode.S
 				|| event.getCode() == KeyCode.D || event.getCode() == KeyCode.DIGIT1
-				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3) {
+				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3)) {
 			// player 1
 			if (personnage1.dansBase()) {
 				if (event.getCode() == KeyCode.Z) {
@@ -219,7 +217,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().remove(boite1);
 					boite1 = new Boite(personnage1);
 					root.getChildren().add(boite1);
-				} else if (event.getCode() == KeyCode.DIGIT1) {
+				} else if (event.getCode() == KeyCode.F1) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -229,7 +227,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.DIGIT2) {
+				} else if (event.getCode() == KeyCode.F2) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -239,7 +237,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						boite1.visible(focus);
 						root.getChildren().add(boite1);
 					}
-				} else if (event.getCode() == KeyCode.DIGIT3) {
+				} else if (event.getCode() == KeyCode.F3) {
 					int focus = boite1.focused();
 					if (focus != 4) {
 						root.getChildren().remove(boite1);
@@ -324,14 +322,14 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					root.getChildren().add(boite1);
 				}
 			}
-		}
+		} else if(event.getCode() == KeyCode.P)
+			Test.PauseGame();
 	}
 
 	public void getOperateur(int ligne, int number, Personnages personnage, int color) {
-		if (color == 1){
+		if (color == 1) {
 			c = expression_bleue;
-		}
-		else if (color == 2){
+		} else if (color == 2) {
 			c = expression_rouge;
 		}
 		switch (ligne) {
@@ -351,7 +349,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			if (number == 1 && !personnage.isEmpty(';')) {
 				c = c + ";";
 				personnage.removeOperator(';');
-			} else if (number == 2  && !personnage.isEmpty('|')) {
+			} else if (number == 2 && !personnage.isEmpty('|')) {
 				c = c + "|";
 				personnage.removeOperator('|');
 			} else if (number == 3 && !personnage.isEmpty(':')) {
@@ -395,10 +393,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				// supprimer le caractere
 			}
 		}
-		if (color == 1){
+		if (color == 1) {
 			expression_bleue = c;
-		}
-		else if (color == 2){
+		} else if (color == 2) {
 			expression_rouge = c;
 		}
 	}
@@ -411,11 +408,6 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_bleue);
-		/*TranslateTransition tt = new TranslateTransition(Duration.millis(30000),expr_bleue);
-		tt.setFromX(0-expr_bleue.getWrappingWidth()-10);
-		tt.setCycleCount(Timeline.INDEFINITE);
-		tt.play();*/
-		
 	}
 
 	public void updateExpression_rouge() {
@@ -427,8 +419,4 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		root.getChildren().add(expr_rouge);
 	}
-	
-	/*public void updateCurseur (){
-		c = 
-	}*/
 }

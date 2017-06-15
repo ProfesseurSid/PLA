@@ -3,6 +3,7 @@ package Engine;
 import java.util.ArrayList;
 
 import Exception.PanicException;
+import Parsing.ParseException;
 import Visual.Plateau;
 import Visual.RobotVisual;
 
@@ -70,7 +71,7 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate du robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) {
+	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) throws ParseException{
 		this.plateau = plateau;
 		if (e == 0) {
 			x = 1;
@@ -379,7 +380,12 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate
 	 */
 	public void setBehavior(String s) {
-		behavior = new Automate(s);
+		try {
+			behavior = new Automate(s);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

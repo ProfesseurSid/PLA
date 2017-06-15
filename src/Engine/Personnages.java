@@ -3,8 +3,12 @@ package Engine;
 import java.util.HashMap;
 
 import Exception.PanicException;
+import Parsing.ParseException;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
+import Visual.RobotVisual;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  * Classe representant un personnage, avec des coordonees, un inventaire
@@ -114,20 +118,20 @@ public class Personnages implements Vivante {
 	 * @require op est un opérateur connu de l'inventaire.
 	 */
 	public void removeOperator(char op) {
-		/*if (!(Inventory.containsKey(op))) {
-			throw new PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu");
-		}
-		if (Inventory.get(op) == 0) {
-			throw new PanicException(
-					"Suppression d'objet de l'inventaire du personnage : Il y a dja 0 objets de ce type dans l'inventaire.");
-		}*/
-		if (!isEmpty(op)){
-		Inventory.put(op, Inventory.get(op)-1);
+		/*
+		 * if (!(Inventory.containsKey(op))) { throw new
+		 * PanicException("Suppression d'objet de l'inventaire du personnage : Objet inconnu"
+		 * ); } if (Inventory.get(op) == 0) { throw new PanicException(
+		 * "Suppression d'objet de l'inventaire du personnage : Il y a dja 0 objets de ce type dans l'inventaire."
+		 * ); }
+		 */
+		if (!isEmpty(op)) {
+			Inventory.put(op, Inventory.get(op) - 1);
 		}
 	}
-	
-	public boolean isEmpty (char op){
-		if (Inventory.get(op)==0){
+
+	public boolean isEmpty(char op) {
+		if (Inventory.get(op) == 0) {
 			return true;
 		}
 		return false;
@@ -157,6 +161,21 @@ public class Personnages implements Vivante {
 		}
 		Units[indexUnit] = robot;
 		numberRobots++;
+	}
+	
+	public void addRobot(String behave) {
+		if (numberRobots > 3) {
+			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
+		}
+		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
+		try{
+			Robots robot = new Robots(plateau, this, getEquipe(), visuelRobot, behave);
+			Units[numberRobots] = robot;
+			numberRobots++;
+		} catch(ParseException e){
+			
+		}
 	}
 
 	/**
@@ -239,9 +258,14 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * Fonction d'affichage de la classe Personnages.
+	 * <<<<<<< HEAD Fonction de creation d'une chaine d'affichage de la classe
+	 * Personnages.
 	 * 
-	 * @return La chaine de caract�re correspondant � l'affichage.
+	 * @return La chaine de caracteres correspondant a l'affichage. =======
+	 *         Fonction d'affichage de la classe Personnages.
+	 * 
+	 * @return La chaine de caract�re correspondant � l'affichage. >>>>>>>
+	 *         origin/master
 	 * @since Version 1.0
 	 */
 	public String toString() {
@@ -280,7 +304,7 @@ public class Personnages implements Vivante {
 	 *            le nombre de coups reçus
 	 */
 	public void isHit() {
-		PV --;
+		PV--;
 	}
 
 	/**

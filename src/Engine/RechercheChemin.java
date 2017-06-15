@@ -3,9 +3,11 @@ package Engine;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import Exception.PanicException;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import Visual.Terrain;
 import javafx.scene.image.ImageView;
 
 /**
@@ -18,23 +20,21 @@ import javafx.scene.image.ImageView;
 public class RechercheChemin {
 	final static int TRIED = 2;
 	final static int PATH = 3;
+	static RechercheChemin maze;
+	boolean invert;
 
-	// public static void main(String[] args) {
-	// Plateau plat = new Plateau();
-	// Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new
-	// ImageView(), 0, plat));
-	// Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new
-	// ImageView(), 1, plat));
-	// Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0,
-	// plat));
-	// Robots r2 = new Robots(plat, p, 1, new RobotVisual(new ImageView(), 1,
-	// plat));
-	// plat.toString();
-	// RechercheChemin maze = new RechercheChemin(plat, 19, 5, 2, 5);
-	// boolean solved = maze.solve();
-	// System.out.println("Solved: " + solved);
-	// System.out.println(maze.toString());
-	// }
+	public static void main(String[] args) {
+		Plateau plat = new Plateau(new Terrain());
+		Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new ImageView(), 0, plat));
+		Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new ImageView(), 1, plat));
+		Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0, plat));
+		Robots r2 = new Robots(plat, p, 1, new RobotVisual(new ImageView(), 1, plat));
+		plat.toString();
+		maze = new RechercheChemin(plat, 0, 5, 18, 5);
+		boolean solved = maze.solve();
+		System.out.println("Solved: " + solved);
+		System.out.println(maze.toString());
+	}
 
 	private int[][] grid;
 	private int height;
@@ -43,6 +43,7 @@ public class RechercheChemin {
 	private int destY;
 	private int origX;
 	private int origY;
+	private int nbExec = 0;
 
 	private int[][] map;
 
@@ -61,13 +62,12 @@ public class RechercheChemin {
 	 *            la ligne d'arrivee
 	 */
 	public RechercheChemin(Plateau plate, int origY, int origX, int destY, int destX) {
-		this.height = plate.nbLignes();
-		this.width = plate.nbColonnes();
 		this.destX = destX;
 		this.destY = destY;
 		this.origX = origX;
 		this.origY = origY;
-		//System.out.println("Cherche " + destX + " " + destY + " Depuis " + origX + " " + origY);
+		this.height = plate.nbLignes();
+		this.width = plate.nbColonnes();
 
 		grid = new int[height][width];
 		for (int i = 0; i < plate.nbLignes(); i++)
@@ -76,6 +76,8 @@ public class RechercheChemin {
 					grid[i][j] = 0;
 				else
 					grid[i][j] = 1;
+
+//		grid[5][17] = 5;
 
 		this.map = new int[height][width];
 	}
@@ -90,21 +92,48 @@ public class RechercheChemin {
 	 */
 	public ArrayList<PointCardinal> xPas(int nbPas) {
 		ArrayList<PointCardinal> retour = new ArrayList<PointCardinal>();
+		ArrayList<PointCardinal> retourne = new ArrayList<PointCardinal>();
 		int x = origX;
 		int y = origY;
-		//System.out.println("JE SUIS LA");
+		// System.out.println("JE SUIS LA");
 		if (solve()) {
-			//System.out.println("ET LA");
-			for (int i = 0; i < nbPas; i++)
-				if (y > 0 && map[x][y - 1] == PATH)
+			// System.out.println("ET LA");
+			for (int i = 0; i < nbPas; i++) {
+				if (y > 0 && map[x][y - 1] == PATH) {
 					retour.add(PointCardinal.OUEST);
-				else if (y < width-1 && map[x][y + 1] == PATH)
+					map[x][y - 1] = 0;
+				} else if (y < width - 1 && map[x][y + 1] == PATH) {
 					retour.add(PointCardinal.EST);
-				else if (x < height-1 && map[x + 1][y] == PATH)
+					map[x][y + 1] = 0;
+				} else if (x < height - 1 && map[x + 1][y] == PATH) {
 					retour.add(PointCardinal.SUD);
-				else if (x > 0 && map[x - 1][y] == PATH)
+					map[x + 1][y] = 0;
+				} else if (x > 0 && map[x - 1][y] == PATH) {
 					retour.add(PointCardinal.NORD);
-			//System.out.println("LENGTH : " + retour.size());
+					map[x - 1][y] = 0;
+				}
+			}
+			// System.out.println("LENGTH : " + retour.size());
+		}
+		if (invert) {
+			for (int i = retour.size() - 1; i >= 0; i--)
+				switch (retour.get(i)) {
+				case NORD:
+					retourne.add(PointCardinal.SUD);
+					break;
+				case SUD:
+					retourne.add(PointCardinal.NORD);
+					break;
+				case EST:
+					retourne.add(PointCardinal.OUEST);
+					break;
+				case OUEST:
+					retourne.add(PointCardinal.EST);
+					break;
+				default:
+					throw new PanicException("RechercheChemin : PointCardinal incorrect");
+				}
+			return retourne;
 		}
 		return retour;
 	}
@@ -115,7 +144,15 @@ public class RechercheChemin {
 	 * @return booleen : un chemin a ete trouve
 	 */
 	public boolean solve() {
-		return traverse(origX, origY);
+		boolean found = traverse(origX, origY) <= height*width;
+
+		while (!found && nbExec < width) {
+			System.out.println("Exec : " + nbExec);
+			this.map = new int[height][width];
+			nbExec++;
+			found = traverse(origX, origY) <= height*width;
+		}
+		return found;
 	}
 
 	/**
@@ -127,40 +164,72 @@ public class RechercheChemin {
 	 *            la colonne de depart
 	 * @return booleen : un chemin a ete trouve
 	 */
-	private boolean traverse(int i, int j) {
+	private int traverse(int i, int j) {
 		if (!isValid(i, j)) {
-			return false;
+			return height*width+1;
 		}
-		
+
 		if (isEnd(i, j)) {
-			map[i][j] = PATH;
-			return true;
+//			map[i][j] = PATH;
+			return 1;
 		} else {
 			map[i][j] = TRIED;
 		}
+		
+		int haut = traverse(i+1, j);
+		int bas = traverse(i-1, j);
+		int gauche = traverse(i, j-1);
+		int droite = traverse(i, j+1);
+		
+		if(droite < gauche && droite < haut && droite < bas){
+			map[i][j+1] = PATH;
+			return droite+1;
+		}
+		else if(haut < bas && haut < gauche && haut < droite){
+			map[i+1][j] = PATH;
+			return haut+1;
+		}
+		else if(gauche < droite && gauche < haut && gauche < bas){
+			map[i][j-1] = PATH;
+			return gauche+1;
+		}
+		else if(bas <= height*width){
+			map[i-1][j] = PATH;
+			return bas+1;
+		}
+		
+//		System.out.println("X : " + j + " Y : " + i);
 
-		// North
-		if (traverse(i - 1, j)) {
-			map[i - 1][j] = PATH;
-			return true;
-		}
-		// East
-		if (traverse(i, j + 1)) {
-			map[i][j + 1] = PATH;
-			return true;
-		}
-		// South
-		if (traverse(i + 1, j)) {
-			map[i + 1][j] = PATH;
-			return true;
-		}
-		// West
-		if (traverse(i, j - 1)) {
-			map[i][j - 1] = PATH;
-			return true;
-		}
-
-		return false;
+//		if (isEnd(i, j)) {
+//			map[i][j] = PATH;
+//			return true;
+//		} else {
+//			map[i][j] = TRIED;
+//		}
+//
+//		// North
+//		if (traverse(i - 1, j)) {
+//			map[i - 1][j] = PATH;
+//			return true;
+//		}
+//		// East
+//		if (traverse(i, j + 1)) {
+//			map[i][j + 1] = PATH;
+//			return true;
+//		}
+//		// South
+//		if (traverse(i + 1, j)) {
+//			map[i + 1][j] = PATH;
+//			return true;
+//		}
+//		// West
+//		if (traverse(i, j - 1)) {
+//			map[i][j - 1] = PATH;
+//			return true;
+//		}
+//
+//		return false;
+		return height*width+1;
 	}
 
 	/**
@@ -175,7 +244,7 @@ public class RechercheChemin {
 	private boolean isEnd(int i, int j) {
 		return i == destX && j == destY;
 	}
-	
+
 	/**
 	 * la case (i,j) est-elle le depart ?
 	 * 
@@ -255,7 +324,8 @@ public class RechercheChemin {
 	 *         destination
 	 */
 	private boolean inHeight(int i) {
-		return i>=0 && i<height && (i >= origX && i <= destX) || (i <= origX && i >= destX);
+		return i >= 0 && i < height
+				&& ((i >= origX - nbExec && i <= destX + nbExec) || (i <= origX + nbExec && i >= destX - nbExec));
 	}
 
 	/**
@@ -268,7 +338,8 @@ public class RechercheChemin {
 	 *         destination
 	 */
 	private boolean inWidth(int j) {
-		return j>=0 && j<width && (j >= origY && j <= destY) || (j <= origY && j >= destY);
+		return j >= 0 && j < width
+				&& ((j >= origY - nbExec && j <= destY + nbExec) || (j <= origY + nbExec && j >= destY - nbExec));
 	}
 
 	/**
