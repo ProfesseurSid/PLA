@@ -86,6 +86,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								expression_rouge.substring(0, curseur_rouge)
 										+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length()),
 								robot2);
+						//cpùùent
 						root.getChildren().remove(boite2);
 						root.getChildren().remove(team2);
 						boite2.invisible(ligne2);
