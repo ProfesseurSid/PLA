@@ -95,14 +95,14 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage2.addRobot(newBehavior2, mate2 + 1);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_rouge = "ERROR SYSTAXE";
+								expression_rouge = "SYNTAX ERROR";
 							}
 						} else {
 							try {
 								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior2);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_rouge = "ERROR SYSTAXE";
+								expression_rouge = "SYNTAX ERROR";
 							}
 						}
 						root.getChildren().remove(boite2);
@@ -295,14 +295,14 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage1.addRobot(newBehavior1, mate1 + 1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_bleue = "ERROR SYSTAXE";
+								expression_bleue = "SYNTAX ERROR";
 							}
 						} else {
 							try {
 								personnage1.getRobot(mate1 + 1).setBehavior(newBehavior1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_bleue = "ERROR SYSTAXE";
+								expression_bleue = "SYNTAX ERROR";
 							}
 						}
 						root.getChildren().remove(boite1);

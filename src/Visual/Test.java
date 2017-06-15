@@ -801,7 +801,7 @@ public class Test extends Application {
 		 * Lancement du jeu.
 		 */
 
-		scene.setFill(Color.rgb(210, 200, 190, 1.0));
+		scene.setFill(Color.rgb(197, 197, 197, 1.0));
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
