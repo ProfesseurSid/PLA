@@ -47,6 +47,7 @@ public class FinalScreen {
 		});
 		Rreset.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
+				Test.setMenu(false);
 				Test.refresh(ps);
 			}
 		});
@@ -68,7 +69,7 @@ public class FinalScreen {
 		});
 		Rquit.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				System.exit(0);
+				ps.close();
 			}
 		});
 		
@@ -89,6 +90,7 @@ public class FinalScreen {
 		});
 		Rmenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
+				Test.setMenu(true);
 				Test.refresh(ps);
 			}
 		});
@@ -104,6 +106,12 @@ public class FinalScreen {
 		Message2.setFitHeight((dimX/3) / 5.6 );
 		Message2.setTranslateX(8*dimX / 11 - (0.5 * dimX / 3));
 		Message2.setTranslateY(2*dimY / 6 - ((dimX/3) / 5.6));
+		
+		Message3 = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/DrawGame.png")));
+		Message3.setFitWidth(dimX / 3);
+		Message3.setFitHeight((dimX/3) / 5.6 );
+		Message3.setTranslateX(8*dimX / 11 - (0.5 * dimX / 3));
+		Message3.setTranslateY(2*dimY / 6 - ((dimX/3) / 5.6));
 
 	}
 
@@ -116,11 +124,11 @@ public class FinalScreen {
 
 		// Gerer le background
 		if (JoueurVictorieux == 0) {
-			
+			Screen.getChildren().add(Message3);
 		} else if (JoueurVictorieux == 1) {
-			Screen.getChildren().add(Message);
-		} else {
 			Screen.getChildren().add(Message2);
+		} else {
+			Screen.getChildren().add(Message);
 		}
 
 		return Screen;
@@ -133,6 +141,7 @@ public class FinalScreen {
 		Screen.getChildren().remove(Rquit);
 		Screen.getChildren().remove(Message);
 		Screen.getChildren().remove(Message2);
+		Screen.getChildren().remove(Message3);
 	}
 	
 	public static boolean getIsFinish(){
