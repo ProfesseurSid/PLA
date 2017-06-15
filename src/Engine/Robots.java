@@ -43,24 +43,24 @@ public class Robots implements Vivante {
 		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			if (plateau.verification(1, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(1, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verification(0, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -72,24 +72,24 @@ public class Robots implements Vivante {
 
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			if (plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -131,24 +131,24 @@ public class Robots implements Vivante {
 		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			if (plateau.verification(1, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(1, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verification(0, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -159,24 +159,24 @@ public class Robots implements Vivante {
 
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			if (plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;

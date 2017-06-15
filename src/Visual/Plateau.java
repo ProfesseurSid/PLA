@@ -55,6 +55,14 @@ public class Plateau {
 			return 0;
 		}
 	}
+	
+	public int verificationEntite(int x, int y) {
+		if (plateau[y][x] instanceof Entite) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 	/**
 	 * deplace le contenu de la case (oldX,oldY) dans la case (newX,newY)
