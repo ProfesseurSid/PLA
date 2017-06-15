@@ -97,12 +97,24 @@ public class Test extends Application {
 		 */
 
 		jeu = new Group();
+		
+		ImageView background = new ImageView(new Image(Test.class.getResourceAsStream("images/Fond2.png")));
+		background.setFitWidth(dimX);
+		background.setFitHeight(dimY);
+		jeu.getChildren().add(background);
 
 		Terrain monTerrain = new Terrain();
 
-		Rectangle champBleu = new Rectangle();
-		champBleu.setHeight(Tuile.getTaille());
-		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+//		Rectangle champBleu = new Rectangle();
+//		champBleu.setHeight(Tuile.getTaille());
+//		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+//		champBleu.setTranslateX(2 * marge + Barre.getDimX());
+//		champBleu.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
+//		jeu.getChildren().add(champBleu);
+		
+		ImageView champBleu = new ImageView(new Image(Test.class.getResourceAsStream("images/Expression.png")));
+		champBleu.setFitHeight(Tuile.getTaille());
+		champBleu.setFitWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
 		champBleu.setTranslateX(2 * marge + Barre.getDimX());
 		champBleu.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
 		jeu.getChildren().add(champBleu);
@@ -114,9 +126,16 @@ public class Test extends Application {
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		jeu.getChildren().add(expr_bleue);
 
-		Rectangle champRouge = new Rectangle();
-		champRouge.setHeight(Tuile.getTaille());
-		champRouge.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+//		Rectangle champRouge = new Rectangle();
+//		champRouge.setHeight(Tuile.getTaille());
+//		champRouge.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+//		champRouge.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
+//		champRouge.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
+//		jeu.getChildren().add(champRouge);
+		
+		ImageView champRouge = new ImageView(new Image(Test.class.getResourceAsStream("images/Expression.png")));
+		champRouge.setFitHeight(Tuile.getTaille());
+		champRouge.setFitWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
 		champRouge.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		champRouge.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
 		jeu.getChildren().add(champRouge);
