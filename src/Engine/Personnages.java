@@ -1,7 +1,6 @@
 package Engine;
 
 import java.util.HashMap;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import Exception.PanicException;
@@ -202,12 +201,12 @@ public class Personnages implements Vivante {
 		try {
 			Robots robot = new Robots(plateau, this, equipe, visuelRobot, behavior);
 			Units[indice] = robot;
-		} catch (ParseException e) {
-		}
+		} catch (ParseException e) {}
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'�quipe du personnage.
+	 * Methode qui permet la suppression d'un robots � l'�quipe du
+	 * personnage.
 	 * 
 	 * @param room
 	 *            case ou se trouve le robot � supprimer
