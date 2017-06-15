@@ -324,7 +324,6 @@ public class Robots implements Vivante {
 		for (int i = 0; i < mvmt.size(); i++)
 			if (mvmt.get(i) != null)
 				mouvement(mvmt.get(i));
-		// System.out.println("Vie P1 : " + personnage.getHealth());
 	}
 
 	/**
