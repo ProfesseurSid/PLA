@@ -80,8 +80,6 @@ public class Test extends Application {
 
 		jeu = new Group();
 
-		int tailleExpression = (Terrain.getTuileX() / 2) * Tuile.getTaille();
-
 		Terrain monTerrain = new Terrain();
 
 		Rectangle champBleu = new Rectangle();
@@ -92,7 +90,7 @@ public class Test extends Application {
 		jeu.getChildren().add(champBleu);
 
 		Text expr_bleue = new Text("EXPRESSION");
-		expr_bleue.setFont(new Font(Tuile.getTaille() - marge));
+		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -106,7 +104,7 @@ public class Test extends Application {
 		jeu.getChildren().add(champRouge);
 
 		Text expr_rouge = new Text("EXPRESSION");
-		expr_rouge.setFont(new Font(Tuile.getTaille() - marge));
+		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -122,8 +120,8 @@ public class Test extends Application {
 		jeu.getChildren().add(team1);
 		jeu.getChildren().add(team2);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
-				expr_rouge, marge, boiteGauche, boiteDroite, team1, team2);
+		Keyboard keyboard = new Keyboard(monTerrain, jeu, expr_bleue, expr_rouge, marge, boiteGauche, boiteDroite,
+				team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
 

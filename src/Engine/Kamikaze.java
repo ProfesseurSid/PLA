@@ -72,7 +72,8 @@ public class Kamikaze implements Operateurs {
 	 *            Robot qui va executer l'action.
 	 */
 	public void action(Robots nono) {
-		nono.boom();
+		if(isPossible(nono))
+			nono.boom();
 	}
 
 	@Override

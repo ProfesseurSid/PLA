@@ -1,6 +1,7 @@
 package UserInterface;
 
 import Engine.*;
+import Exception.PanicException;
 import Visual.*;
 import Visual.Barre;
 import javafx.event.EventHandler;
@@ -11,7 +12,7 @@ import javafx.scene.text.*;
 
 /**
  **************************************************************
- * Keyboard reagit a un evenement exterieur venant du clavier *
+ * Keyboard  reagit a un evenement exterieur venant du clavier *
  **************************************************************
  */
 public class Keyboard implements EventHandler<KeyEvent> {
@@ -23,20 +24,24 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	Team team1, team2;
 	Text expr_rouge, expr_bleue;
 	int marge;
+	Terrain terrain;
 
+	private RobotVisual newRobot1, newRobot2;
 	private String expression_courante;
-	private String expression_rouge = "I";
-	private String expression_bleue = "I";
+	private String expression_rouge;
+	private String expression_bleue;
+	private String newBehavior1, newBehavior2;
 	private int curseur;
 	private int curseur_rouge = 0;
 	private int curseur_bleu = 0;
-	private int robot1 = 0; // Robot selection des robots par les joueurs entre
-	private int robot2 = 0; // -1 et 2. -1 => aucun robot selectionne
+	private int mate1 = 0; // selection des mates par les joueurs entre
+	private int mate2 = 0; // -1 et 2. -1 => aucun mate selectionne
 
-	public Keyboard(Personnages personnage1, Personnages personnage2, Group root, Text expr_bleue, Text expr_rouge,
-			int marge, Boite boite1, Boite boite2, Team team1, Team team2) {
-		this.personnage1 = personnage1;
-		this.personnage2 = personnage2;
+	public Keyboard(Terrain terrain, Group root, Text expr_bleue, Text expr_rouge, int marge, Boite boite1,
+			Boite boite2, Team team1, Team team2) {
+		this.terrain = terrain;
+		this.personnage1 = terrain.getpersonnage1();
+		this.personnage2 = terrain.getpersonnage2();
 		this.root = root;
 		this.expr_rouge = expr_rouge;
 		this.expr_bleue = expr_bleue;
@@ -51,7 +56,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * Recupere un evenement du clavier afin de l'associer au joueur
 	 * correspondant Le joueur 1 se trouvant a droite du terrain, utilise les
 	 * fleches pour deplacer son avatar. Le joueur 2, quant a lui, utilise les
-	 * touches Q,Z,S,D pour se deplacer � l'interieur du terrain Lorsque le
+	 * touches Q,Z,S,D pour se deplacer a l'interieur du terrain Lorsque le
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
@@ -61,7 +66,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						|| event.getCode() == KeyCode.COLON || event.getCode() == KeyCode.EXCLAMATION_MARK)) {
 			// Player 2
 			if (personnage2.dansBase()) {
-				if (robot2 != -1) {
+				if (mate2 != -1) {
 					if (event.getCode() == KeyCode.UP) {
 						root.getChildren().remove(boite2);
 						boite2.invisible(ligne2);
@@ -82,21 +87,31 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(boite2);
 					} else if (event.getCode() == KeyCode.LEFT) {
 						personnage2.sortir();
-						personnage2.addRobot(
-								expression_rouge.substring(0, curseur_rouge)
-										+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length()),
-								robot2);
-						//cpùùent
+						newBehavior2 = expression_rouge.substring(0, curseur_rouge)
+								+ expression_rouge.substring(curseur_rouge + 1, expression_rouge.length());
+						if (personnage2.getRobot(mate2 + 1) == null){
+							try{
+								newRobot2 = personnage2.addRobot(newBehavior2, mate2 + 1);
+								terrain.addVisual(newRobot2);
+								expression_rouge = "EXPRESSION";
+							} catch(PanicException e) {
+								expression_rouge = "ERROR SYSTAXE";
+							}
+						} else {
+							try{
+								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior2);
+								expression_rouge = "EXPRESSION";
+							} catch(PanicException e) {
+								expression_rouge = "ERROR SYSTAXE";
+							}
+						}
 						root.getChildren().remove(boite2);
-						root.getChildren().remove(team2);
 						boite2.invisible(ligne2);
-						team2.invisible(0);
 						boite2 = new Boite(personnage2);
-						robot2 = -1;
-						expression_rouge = "EXPRESSION";
-						updateExpression_rouge();
 						root.getChildren().add(boite2);
-						root.getChildren().add(team2);
+						updateExpression_rouge();
+						mate2 = -1;
+						updateMates_rouges();
 					} else if (event.getCode() == KeyCode.SEMICOLON) {
 						root.getChildren().remove(boite2);
 						getOperateur(ligne2, 1, personnage2, 2);
@@ -121,91 +136,94 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				} else { // Selectionner un Robot
 					if (event.getCode() == KeyCode.SEMICOLON) {
-						root.getChildren().remove(team2);
-						team2.visible(0);
-						robot2 = 0;
-						if (personnage2.getRobot(1) != null)
-							expression_rouge = personnage2.getRobot(1).toString();
-						else
-							expression_rouge = "*{}";
+						if (personnage2.getRobot(1) != null) {
+							expression_rouge = personnage2.getRobot(1).toString() + "I";
+							curseur_rouge = expression_rouge.length() - 1;
+						} else {
+							expression_rouge = "I";
+							curseur_rouge = 0;
+						}
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = 0;
+						updateMates_rouges();
 					} else if (event.getCode() == KeyCode.COLON) {
-						root.getChildren().remove(team2);
-						team2.visible(1);
-						robot2 = 1;
-						if (personnage2.getRobot(2) != null)
-							expression_rouge = personnage2.getRobot(2).toString();
-						else
-							expression_rouge = "*{}";
+						if (personnage2.getRobot(2) != null) {
+							expression_rouge = personnage2.getRobot(2).toString() + "I";
+							curseur_rouge = expression_rouge.length() - 1;
+						} else {
+							expression_rouge = "I";
+							curseur_rouge = 0;
+						}
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = 1;
+						updateMates_rouges();
 					} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
-						root.getChildren().remove(team2);
-						team2.visible(2);
-						robot2 = 2;
-						if (personnage2.getRobot(3) != null)
-							expression_rouge = personnage2.getRobot(3).toString();
-						else
-							expression_rouge = "*{}";
+						if (personnage2.getRobot(3) != null) {
+							expression_rouge = personnage2.getRobot(3).toString() + "I";
+							curseur_rouge = expression_rouge.length() - 1;
+						} else {
+							expression_rouge = "I";
+							curseur_rouge = 0;
+						}
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = 2;
+						updateMates_rouges();
+					} else if (event.getCode() == KeyCode.LEFT) {
+						personnage2.sortir();
+						root.getChildren().remove(boite2);
+						boite2.invisible(ligne2);
+						boite2 = new Boite(personnage2);
+						root.getChildren().add(boite2);
 					}
 				}
 			} else { // Player 2 sur le terrain
 				if (event.getCode() == KeyCode.SEMICOLON) {
 					if (team2.getVisible(0)) {
-						root.getChildren().remove(team2);
-						team2.invisible(0);
-						robot2 = -1;
 						expression_rouge = "EXPRESSION";
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = -1;
+						updateMates_rouges();
 					} else {
-						root.getChildren().remove(team2);
-						team2.invisible(1);
-						team2.invisible(2);
-						team2.visible(0);
-						robot2 = 0;
-						expression_rouge = personnage2.getRobot(1).toString();
+						if (personnage2.getRobot(1) != null) {
+							expression_rouge = personnage2.getRobot(1).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = 0;
+						updateMates_rouges();
 					}
 				} else if (event.getCode() == KeyCode.COLON) {
 					if (team2.getVisible(1)) {
-						root.getChildren().remove(team2);
-						team2.invisible(1);
-						robot2 = -1;
 						expression_rouge = "EXPRESSION";
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = -1;
+						updateMates_rouges();
 					} else {
-						root.getChildren().remove(team2);
-						team2.invisible(0);
-						team2.invisible(2);
-						team2.visible(1);
-						robot2 = 1;
-						expression_rouge = personnage2.getRobot(2).toString();
+						if (personnage2.getRobot(2) != null) {
+							expression_rouge = personnage2.getRobot(2).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = 1;
+						updateMates_rouges();
 					}
 				} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 					if (team2.getVisible(2)) {
-						root.getChildren().remove(team2);
-						team2.invisible(2);
-						robot2 = -1;
 						expression_rouge = "EXPRESSION";
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = -1;
+						updateMates_rouges();
 					} else {
-						root.getChildren().remove(team2);
-						team2.invisible(0);
-						team2.invisible(1);
-						team2.visible(2);
-						robot2 = 2;
-						expression_rouge = personnage2.getRobot(3).toString();
+						if (personnage2.getRobot(3) != null) {
+							expression_rouge = personnage2.getRobot(3).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_rouge();
-						root.getChildren().add(team2);
+						mate2 = 2;
+						updateMates_rouges();
 					}
 				} else if (event.getCode() == KeyCode.UP) {
 					personnage2.mouvement(PointCardinal.NORD);
@@ -226,12 +244,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (personnage2.getX() == 20
 							&& (personnage2.getY() == 4 || personnage2.getY() == 5 || personnage2.getY() == 6)) {
 						personnage2.rentrer();
-						root.getChildren().remove(team2);
-						team2.invisible(0);
-						team2.invisible(1);
-						team2.invisible(2);
-						robot2 = -1;
-						root.getChildren().add(team2);
+						expression_rouge = "EXPRESSION";
+						updateExpression_rouge();
+						mate2 = -1;
+						updateMates_rouges();
 						ligne2 = 0;
 						root.getChildren().remove(boite2);
 						boite2.visible(ligne2);
@@ -250,7 +266,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				|| event.getCode() == KeyCode.DIGIT2 || event.getCode() == KeyCode.DIGIT3)) {
 			// Player 1
 			if (personnage1.dansBase()) {
-				if (robot1 != -1) {
+				if (mate1 != -1) {
 					if (event.getCode() == KeyCode.Z) {
 						root.getChildren().remove(boite1);
 						boite1.invisible(ligne1);
@@ -271,20 +287,31 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().add(boite1);
 					} else if (event.getCode() == KeyCode.D) {
 						personnage1.sortir();
-						personnage1.addRobot(
-								expression_bleue.substring(0, curseur_bleu)
-										+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length()),
-								robot1);
+						newBehavior1 = expression_bleue.substring(0, curseur_bleu)
+								+ expression_bleue.substring(curseur_bleu + 1, expression_bleue.length());
+						if (personnage1.getRobot(mate1 + 1) == null){
+							try{
+								newRobot1 = personnage1.addRobot(newBehavior1, mate1 + 1);
+								terrain.addVisual(newRobot1);
+								expression_bleue = "EXPRESSION";
+							} catch(PanicException e) {
+								expression_bleue = "ERROR SYSTAXE";
+							}
+						} else {
+							try{
+								personnage1.getRobot(mate1 + 1).setBehavior(newBehavior1);
+								expression_bleue = "EXPRESSION";
+							} catch(PanicException e) {
+								expression_bleue = "ERROR SYSTAXE";
+							}
+						}
 						root.getChildren().remove(boite1);
-						root.getChildren().remove(team1);
 						boite1.invisible(ligne1);
-						team1.invisible(0);
 						boite1 = new Boite(personnage1);
-						robot1 = -1;
-						expression_bleue = "EXPRESSION";
-						updateExpression_bleue();
 						root.getChildren().add(boite1);
-						root.getChildren().add(team1);
+						updateExpression_bleue();
+						mate1 = -1;
+						updateMates_bleus();
 					} else if (event.getCode() == KeyCode.F1) {
 						root.getChildren().remove(boite1);
 						getOperateur(ligne1, 1, personnage1, 1);
@@ -309,91 +336,94 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					}
 				} else { // Selectionner un Robot
 					if (event.getCode() == KeyCode.DIGIT1) {
-						root.getChildren().remove(team1);
-						team1.visible(0);
-						robot1 = 0;
-						if (personnage1.getRobot(1) != null)
-							expression_rouge = personnage1.getRobot(1).toString();
-						else
-							expression_rouge = "*{}";
+						if (personnage1.getRobot(1) != null) {
+							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							curseur_bleu = expression_bleue.length() - 1;
+						} else {
+							expression_bleue = "I";
+							curseur_bleu = 0;
+						}
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = 0;
+						updateMates_bleus();
 					} else if (event.getCode() == KeyCode.DIGIT2) {
-						root.getChildren().remove(team1);
-						team1.visible(1);
-						robot1 = 1;
-						if (personnage1.getRobot(2) != null)
-							expression_rouge = personnage1.getRobot(2).toString();
-						else
-							expression_rouge = "*{}";
+						if (personnage1.getRobot(2) != null) {
+							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							curseur_bleu = expression_bleue.length() - 1;
+						} else {
+							expression_bleue = "I";
+							curseur_bleu = 0;
+						}
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = 1;
+						updateMates_bleus();
 					} else if (event.getCode() == KeyCode.DIGIT3) {
-						root.getChildren().remove(team1);
-						team1.visible(2);
-						robot1 = 2;
-						if (personnage1.getRobot(3) != null)
-							expression_rouge = personnage1.getRobot(3).toString();
-						else
-							expression_rouge = "*{}";
+						if (personnage1.getRobot(3) != null) {
+							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							curseur_bleu = expression_bleue.length() - 1;
+						} else {
+							expression_bleue = "I";
+							curseur_bleu = 0;
+						}
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = 2;
+						updateMates_bleus();
+					} else if (event.getCode() == KeyCode.D) {
+						personnage1.sortir();
+						root.getChildren().remove(boite1);
+						boite1.invisible(ligne1);
+						boite1 = new Boite(personnage1);
+						root.getChildren().add(boite1);
 					}
 				}
 			} else { // Player 1 sur le terrain
 				if (event.getCode() == KeyCode.DIGIT1) {
 					if (team1.getVisible(0)) {
-						root.getChildren().remove(team1);
-						team1.invisible(0);
-						robot1 = -1;
 						expression_bleue = "EXPRESSION";
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = -1;
+						updateMates_bleus();
 					} else {
-						root.getChildren().remove(team1);
-						team1.invisible(1);
-						team1.invisible(2);
-						team1.visible(0);
-						robot1 = 0;
-						expression_bleue = personnage1.getRobot(1).toString();
+						if (personnage1.getRobot(1) != null) {
+							expression_rouge = personnage1.getRobot(1).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = 0;
+						updateMates_bleus();
 					}
 				} else if (event.getCode() == KeyCode.DIGIT2) {
 					if (team1.getVisible(1)) {
-						root.getChildren().remove(team1);
-						team1.invisible(1);
-						robot1 = -1;
 						expression_bleue = "EXPRESSION";
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = -1;
+						updateMates_bleus();
 					} else {
-						root.getChildren().remove(team1);
-						team1.invisible(0);
-						team1.invisible(2);
-						team1.visible(1);
-						robot1 = 1;
-						expression_bleue = personnage1.getRobot(2).toString();
+						if (personnage1.getRobot(2) != null) {
+							expression_rouge = personnage1.getRobot(2).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = 1;
+						updateMates_bleus();
 					}
 				} else if (event.getCode() == KeyCode.DIGIT3) {
 					if (team1.getVisible(2)) {
-						root.getChildren().remove(team1);
-						team1.invisible(2);
-						robot1 = -1;
 						expression_bleue = "EXPRESSION";
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = -1;
+						updateMates_bleus();
 					} else {
-						root.getChildren().remove(team1);
-						team1.invisible(1);
-						team1.invisible(0);
-						team1.visible(2);
-						robot1 = 2;
-						expression_bleue = personnage1.getRobot(3).toString();
+						if (personnage1.getRobot(3) != null) {
+							expression_rouge = personnage1.getRobot(3).toString();
+						} else {
+							expression_rouge = "";
+						}
 						updateExpression_bleue();
-						root.getChildren().add(team1);
+						mate1 = 2;
+						updateMates_bleus();
 					}
 				} else if (event.getCode() == KeyCode.Z) {
 					personnage1.mouvement(PointCardinal.NORD);
@@ -409,12 +439,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 					if (personnage1.getX() == 0
 							&& (personnage1.getY() == 4 || personnage1.getY() == 5 || personnage1.getY() == 6)) {
 						personnage1.rentrer();
-						root.getChildren().remove(team1);
-						team1.invisible(0);
-						team1.invisible(1);
-						team1.invisible(2);
-						robot1 = -1;
-						root.getChildren().add(team1);
+						expression_bleue = "EXPRESSION";
+						updateExpression_bleue();
+						mate1 = -1;
+						updateMates_bleus();
 						ligne1 = 0;
 						root.getChildren().remove(boite1);
 						boite1.visible(ligne1);
@@ -438,11 +466,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 
 	public void getOperateur(int ligne, int number, Personnages personnage, int team) {
 		if (team == 1) {
-			expression_courante = expression_bleue;// + "I";
-			curseur = expression_bleue.length() - 1;
+			expression_courante = expression_bleue;
+			curseur = curseur_bleu;
 		} else if (team == 2) {
-			expression_courante = expression_rouge;// + "I";
-			curseur = expression_rouge.length() - 1;
+			expression_courante = expression_rouge;
+			curseur = curseur_rouge;
 		}
 		switch (ligne) {
 		case 0:
@@ -508,6 +536,73 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			expression_rouge = expression_courante;
 			curseur_rouge = curseur;
 		}
+	}
+
+	//
+	// public void updateBoite_bleue() {
+	// root.getChildren().remove(boite1);
+	// boite1 = new Boite(personnage1);
+	// root.getChildren().add(boite1);
+	// }
+	//
+	// public void updateBoite_rouge() {
+	// root.getChildren().remove(boite2);
+	// boite2 = new Boite(personnage2);
+	// root.getChildren().add(boite2);
+	// }
+	//
+	public void updateMates_bleus() {
+		root.getChildren().remove(team1);
+		switch (mate1) {
+		case 0:
+			team1.invisible(1);
+			team1.invisible(2);
+			team1.visible(0);
+			break;
+		case 1:
+			team1.invisible(0);
+			team1.invisible(2);
+			team1.visible(1);
+			break;
+		case 2:
+			team1.invisible(0);
+			team1.invisible(1);
+			team1.visible(2);
+			break;
+		case -1:
+			team1.invisible(0);
+			team1.invisible(1);
+			team1.invisible(2);
+			break;
+		}
+		root.getChildren().add(team1);
+	}
+
+	public void updateMates_rouges() {
+		root.getChildren().remove(team2);
+		switch (mate2) {
+		case 0:
+			team2.invisible(1);
+			team2.invisible(2);
+			team2.visible(0);
+			break;
+		case 1:
+			team2.invisible(0);
+			team2.invisible(2);
+			team2.visible(1);
+			break;
+		case 2:
+			team2.invisible(0);
+			team2.invisible(1);
+			team2.visible(2);
+			break;
+		case -1:
+			team2.invisible(0);
+			team2.invisible(1);
+			team2.invisible(2);
+			break;
+		}
+		root.getChildren().add(team2);
 	}
 
 	public void updateExpression_bleue() {

@@ -2,8 +2,6 @@ package Engine;
 
 import java.util.HashMap;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import Exception.PanicException;
 import Parsing.ParseException;
 import Visual.PersonnagesVisual;
@@ -78,8 +76,8 @@ public class Personnages implements Vivante {
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
-		Inventory.put('{', 0);
-		Inventory.put('}', 0);
+		Inventory.put('{', 10);
+		Inventory.put('}', 10);
 		Inventory.put(';', 0); // And
 		Inventory.put('|', 0); // Or
 	}
@@ -189,20 +187,25 @@ public class Personnages implements Vivante {
 	 * @param behavior
 	 *            le comportement du Robot a ajouter a l'inventaire du
 	 *            personnage.
-	 * @param indice
+	 * @param room
 	 *            case dans laquelle mettre le robot.
-	 * @require indice comprit entre 0 et 2
+	 * @require room comprit entre 1 et 3
 	 * 
 	 * @since Version 3.0
 	 */
-	public void addRobot(String behavior, int indice) {
+	public RobotVisual addRobot(String behavior, int room) {
+		int indexUnit = room - 1;
 		ImageView robot_image = new ImageView(
 				new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 		RobotVisual visuelRobot = new RobotVisual(robot_image, equipe, plateau);
-		try {
+		try{
 			Robots robot = new Robots(plateau, this, equipe, visuelRobot, behavior);
-			Units[indice] = robot;
-		} catch (ParseException e) {}
+			Units[indexUnit] = robot;
+			numberRobots++;
+			return visuelRobot;
+		} catch(Exception ex){
+			throw new PanicException("Automate d'ajout du robot incorrect");
+		}
 	}
 
 	/**
@@ -286,14 +289,13 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * <<<<<<< HEAD Fonction de creation d'une chaine d'affichage de la classe
-	 * Personnages.
+	 * Fonction de creation d'une chaine d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caracteres correspondant a l'affichage. =======
-	 *         Fonction d'affichage de la classe Personnages.
+	 * @return La chaine de caracteres correspondant a l'affichage. Fonction
+	 *         d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caract�re correspondant � l'affichage. >>>>>>>
-	 *         origin/master
+	 * @return La chaine de caract�re correspondant � l'affichage.
+	 * 
 	 * @since Version 1.0
 	 */
 	public String toString() {

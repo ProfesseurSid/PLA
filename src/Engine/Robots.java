@@ -25,13 +25,6 @@ public class Robots implements Vivante {
 	Terrain t;
 
 	/**
-	 * DO NOT USE THIS CONSTRUCTOR
-	 */
-	public Robots() {
-
-	}
-
-	/**
 	 * cree un robot et le place dans l'équipe e
 	 * 
 	 * @param plateau
@@ -60,6 +53,7 @@ public class Robots implements Vivante {
 		this.personnage = personnage;
 		behavior = new Automate();
 		plateau.put(x, y, this);
+		PV = 3;
 	}
 
 	/**
@@ -91,8 +85,13 @@ public class Robots implements Vivante {
 		equipe = e;
 		this.visuel = visuel;
 		this.personnage = personnage;
-		behavior = new Automate(behave);
+		try {
+			behavior = new Automate(behave);
+		} catch (ParseException ex) {
+			throw new PanicException("ERROR SYNTAXE");
+		}
 		plateau.put(x, y, this);
+		PV = 3;
 	}
 
 	public String toString() {
@@ -192,16 +191,16 @@ public class Robots implements Vivante {
 	public PointCardinal ennemiAdjacent() {
 		PointCardinal retour = null;
 		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
 		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
 		else if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
 		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
 		return retour;
@@ -389,7 +388,7 @@ public class Robots implements Vivante {
 		try {
 			behavior = new Automate(s);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw new PanicException("ERROR SYNTAXE");
 		}
 	}
 
