@@ -84,12 +84,12 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
-		Inventory.put('*', 10); // Loop
-		Inventory.put('>', 10); // Preference
-		Inventory.put('S', 10); // Split
-		Inventory.put('H', 10); // Hit
-		Inventory.put('E', 10); // Escape
-		Inventory.put('K', 10); // Kamikaze
+		Inventory.put('*', 3); // Loop
+		Inventory.put('>', 0); // Preference
+		Inventory.put('S', 0); // Split
+		Inventory.put('H', 0); // Hit
+		Inventory.put('E', 0); // Escape
+		Inventory.put('K', 0); // Kamikaze
 		Inventory.put('P', 0); // Protect
 		Inventory.put('F', 0); // Follow
 		Inventory.put(':', 0); // Repeat
@@ -99,8 +99,8 @@ public class Personnages implements Vivante {
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
-		Inventory.put('{', 10);
-		Inventory.put('}', 10);
+		Inventory.put('{', 3); // AccoladeO
+		Inventory.put('}', 3); // AccoladeO
 		Inventory.put(';', 0); // And
 		Inventory.put('|', 0); // Or
 	}

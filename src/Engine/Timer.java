@@ -42,18 +42,6 @@ public class Timer extends AnimationTimer {
 		if (date - lastTime > 500) {
 			// Si on est en mode TRIAL, le j2 bouge tout seul
 			if (Test.getMode() == Test.TRIAL) {
-				// if (t.getpersonnage2().getX() == 1 &&
-				// t.getpersonnage2().getY() > 0)
-				// t.getpersonnage2().mouvement(PointCardinal.NORD);
-				// else if (t.getpersonnage2().getY() == 0 &&
-				// t.getpersonnage2().getX() < t.getPlateau().nbColonnes() - 2)
-				// t.getpersonnage2().mouvement(PointCardinal.EST);
-				// else if (t.getpersonnage2().getX() ==
-				// t.getPlateau().nbColonnes() - 2
-				// && t.getpersonnage2().getY() < t.getPlateau().nbLignes() - 1)
-				// t.getpersonnage2().mouvement(PointCardinal.SUD);
-				// else
-				// t.getpersonnage2().mouvement(PointCardinal.OUEST);
 				rand = (int) (Math.random()*4);
 				switch (rand) {
 				case 1:
@@ -129,7 +117,7 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 15s */
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
-			rand = (int) (Math.random() * 4);
+			rand = (int) (Math.random() * 5);
 			// rand = 0;
 			switch (rand) {
 			case 0:
@@ -160,6 +148,13 @@ public class Timer extends AnimationTimer {
 				Protect protect = new Protect(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
+			case 4:
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pv.png")));
+				random();
+				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
+				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel, op);
+				break;
 			default:
 				throw new PanicException("Random sur operateur : nombre non gere");
 			}
@@ -169,7 +164,7 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 5s */
 		/* Apparition des operateurs frequents */
 		if (date - lastTime_op2 > 5000) {
-			rand = (int) (Math.random() * 8);
+			rand = (int) (Math.random() * 7);
 			// rand = 1;
 			switch (rand) {
 			case 0:
@@ -201,27 +196,20 @@ public class Timer extends AnimationTimer {
 				blink(visuel, op);
 				break;
 			case 4:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pv.png")));
-				random();
-				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
-				blink(visuel, op);
-				break;
-			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pref.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
-			case 6:
+			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/rapport.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Rapport rapport = new Rapport(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
-			case 7:
+			case 6:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/star.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());

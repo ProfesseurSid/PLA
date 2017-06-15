@@ -88,7 +88,7 @@ public class Hit implements Operateurs {
 	 * @return true si l'action est possible false sinon.
 	 */
 	public boolean isPossible(Robots nono) {
-		return (nono.ennemiAdjacent() != null);
+		return (nono.ennemiAdjacent() != PointCardinal.NONE);
 	}
 
 	/**

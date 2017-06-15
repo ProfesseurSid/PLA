@@ -22,7 +22,7 @@ public class FinalScreen {
 	private ImageView Message3;
 	private static boolean isFinish = false;
 
-	public FinalScreen(Stage ps) {
+	public FinalScreen() {
 		Screen = new Group();
 		// background = new Rectangle(dimX, dimY, Color.rgb(255, 255, 255,
 		// 0.8));
@@ -48,7 +48,7 @@ public class FinalScreen {
 		Rreset.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				Test.setMenu(false);
-				Test.refresh(ps);
+				Test.refresh();
 			}
 		});
 
@@ -69,7 +69,7 @@ public class FinalScreen {
 		});
 		Rquit.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				ps.close();
+				Test.quit();
 			}
 		});
 		
@@ -91,7 +91,7 @@ public class FinalScreen {
 		Rmenu.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				Test.setMenu(true);
-				Test.refresh(ps);
+				undisplay();
 			}
 		});
 
