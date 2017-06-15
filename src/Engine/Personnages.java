@@ -2,6 +2,8 @@ package Engine;
 
 import java.util.HashMap;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import Exception.PanicException;
 import Parsing.ParseException;
 import Visual.PersonnagesVisual;
@@ -27,7 +29,7 @@ public class Personnages implements Vivante {
 	PersonnagesVisual visuel;
 	private boolean base;
 	Terrain t;
-	
+
 	/**
 	 * Contructeur de personnage de l'équipe e
 	 * 
@@ -165,19 +167,42 @@ public class Personnages implements Vivante {
 		Units[indexUnit] = robot;
 		numberRobots++;
 	}
-	
+
 	public void addRobot(String behave) {
 		if (numberRobots > 3) {
 			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
 		}
 		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
-		try{
+		try {
 			Robots robot = new Robots(plateau, this, getEquipe(), visuelRobot, behave);
 			Units[numberRobots] = robot;
 			numberRobots++;
-		} catch(ParseException e){
-			
+		} catch (ParseException e) {
+
+		}
+	}
+
+	/**
+	 * Methode qui permet l'ajout d'un robots a l'equipe du personnage.
+	 * 
+	 * @param behavior
+	 *            le comportement du Robot a ajouter a l'inventaire du
+	 *            personnage.
+	 * @param indice
+	 *            case dans laquelle mettre le robot.
+	 * @require indice comprit entre 0 et 2
+	 * 
+	 * @since Version 3.0
+	 */
+	public void addRobot(String behavior, int indice) {
+		ImageView robot_image = new ImageView(
+				new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
+		RobotVisual visuelRobot = new RobotVisual(robot_image, equipe, plateau);
+		try {
+			Robots robot = new Robots(plateau, this, equipe, visuelRobot, behavior);
+			Units[indice] = robot;
+		} catch (ParseException e) {
 		}
 	}
 

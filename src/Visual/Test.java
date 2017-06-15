@@ -122,8 +122,8 @@ public class Test extends Application {
 		jeu.getChildren().add(team1);
 		jeu.getChildren().add(team2);
 
-		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), jeu, expr_bleue,
-				expr_rouge, marge, tailleExpression, boiteGauche, boiteDroite, team1, team2);
+		Keyboard keyboard = new Keyboard(monTerrain.getpersonnage1(), monTerrain.getpersonnage2(), root, expr_bleue,
+				expr_rouge, marge, boiteGauche, boiteDroite, team1, team2);
 
 		scene.setOnKeyPressed(keyboard);
 
