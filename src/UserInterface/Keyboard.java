@@ -123,21 +123,30 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().remove(team2);
 						team2.visible(0);
 						robot2 = 0;
-						expression_rouge = personnage2.getRobot(1).toString();
+						if (personnage2.getRobot(1) != null)
+							expression_rouge = personnage2.getRobot(1).toString();
+						else
+							expression_rouge = "*{}";
 						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else if (event.getCode() == KeyCode.COLON) {
 						root.getChildren().remove(team2);
 						team2.visible(1);
 						robot2 = 1;
-						expression_rouge = personnage2.getRobot(2).toString();
+						if (personnage2.getRobot(2) != null)
+							expression_rouge = personnage2.getRobot(2).toString();
+						else
+							expression_rouge = "*{}";
 						updateExpression_rouge();
 						root.getChildren().add(team2);
 					} else if (event.getCode() == KeyCode.EXCLAMATION_MARK) {
 						root.getChildren().remove(team2);
 						team2.visible(2);
 						robot2 = 2;
-						expression_rouge = personnage2.getRobot(3).toString();
+						if (personnage2.getRobot(3) != null)
+							expression_rouge = personnage2.getRobot(3).toString();
+						else
+							expression_rouge = "*{}";
 						updateExpression_rouge();
 						root.getChildren().add(team2);
 					}
@@ -302,21 +311,30 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						root.getChildren().remove(team1);
 						team1.visible(0);
 						robot1 = 0;
-						expression_bleue = personnage1.getRobot(1).toString();
+						if (personnage1.getRobot(1) != null)
+							expression_rouge = personnage1.getRobot(1).toString();
+						else
+							expression_rouge = "*{}";
 						updateExpression_bleue();
 						root.getChildren().add(team1);
 					} else if (event.getCode() == KeyCode.DIGIT2) {
 						root.getChildren().remove(team1);
 						team1.visible(1);
 						robot1 = 1;
-						expression_bleue = personnage1.getRobot(2).toString();
+						if (personnage1.getRobot(2) != null)
+							expression_rouge = personnage1.getRobot(2).toString();
+						else
+							expression_rouge = "*{}";
 						updateExpression_bleue();
 						root.getChildren().add(team1);
 					} else if (event.getCode() == KeyCode.DIGIT3) {
 						root.getChildren().remove(team1);
 						team1.visible(2);
 						robot1 = 2;
-						expression_bleue = personnage1.getRobot(3).toString();
+						if (personnage1.getRobot(3) != null)
+							expression_rouge = personnage1.getRobot(3).toString();
+						else
+							expression_rouge = "*{}";
 						updateExpression_bleue();
 						root.getChildren().add(team1);
 					}
@@ -419,10 +437,10 @@ public class Keyboard implements EventHandler<KeyEvent> {
 
 	public void getOperateur(int ligne, int number, Personnages personnage, int team) {
 		if (team == 1) {
-			expression_courante = expression_bleue + "I";
+			expression_courante = expression_bleue;// + "I";
 			curseur = expression_bleue.length() - 1;
 		} else if (team == 2) {
-			expression_courante = expression_rouge + "I";
+			expression_courante = expression_rouge;// + "I";
 			curseur = expression_rouge.length() - 1;
 		}
 		switch (ligne) {
