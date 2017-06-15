@@ -25,7 +25,7 @@ public class Test extends Application {
 	private static boolean inPause = false, inMenu = true, inParam = false;
 	private static Group root, jeu, pause, menu, param;
 	private static Rectangle pauseScreen = new Rectangle();
-	private static Text pauseText = new Text("PAUSE");
+	private static ImageView pauseText;
 	private static Scene scene;
 	private static FinalScreen finalscreen;
 
@@ -65,10 +65,11 @@ public class Test extends Application {
 		pauseScreen.setWidth(dimX);
 		pauseScreen.setFill(Color.rgb(200, 200, 200, 0.4));
 
-		pauseText.setFont(new Font(Tuile.getTaille()));
-		pauseText.setFill(Color.rgb(0, 0, 0, 1.0));
-		pauseText.setX(dimX / 2 - 2 * Tuile.getTaille());
-		pauseText.setY(dimY / 2 - 2 * Tuile.getTaille());
+		pauseText = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Pause.png")));
+		pauseText.setFitWidth(8*Tuile.getTaille());
+		pauseText.setFitHeight(2*Tuile.getTaille());
+		pauseText.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
+		pauseText.setTranslateY(dimY / 2 - 2 * Tuile.getTaille());
 
 		pause.getChildren().add(pauseScreen);
 		pause.getChildren().add(pauseText);

@@ -425,7 +425,7 @@ public class Robots implements Vivante {
 				t.addVisual(visuel);
 			} else {
 				visuel = new RobotVisual(
-						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge1.png"))),
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge2.png"))),
 						x, y, plateau);
 				t.addVisual(visuel);
 			}
