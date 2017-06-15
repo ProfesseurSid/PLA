@@ -30,11 +30,11 @@ public class Terrain extends Parent {
 	private PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	public Personnages personnage2 = new Personnages(this, 1, visuel2);
 
-	RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau);
-	Robots robot1P1 = new Robots(this, personnage1, 0, visuelRobot1P1);
+	//RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau);
+	//Robots robot1P1 = new Robots(this, personnage1, 0, visuelRobot1P1);
 
-	RobotVisual visuelRobot1P2 = new RobotVisual(r1P2, 1, plateau);
-	Robots robot1P2 = new Robots(this, personnage2, 1, visuelRobot1P2);
+	//RobotVisual visuelRobot1P2 = new RobotVisual(r1P2, 1, plateau);
+	//Robots robot1P2 = new Robots(this, personnage2, 1, visuelRobot1P2);
 
 	public Terrain() {
 
@@ -59,16 +59,16 @@ public class Terrain extends Parent {
 			this.setTranslateY(Test.marge);
 		}
 
-		robot1P1.setBehavior("*{H>O}");
-		personnage1.addRobot(robot1P1, 1);
+		//robot1P1.setBehavior("*{H>O}");
+		//personnage1.addRobot(robot1P1, 1);
 
-		robot1P2.setBehavior("*{O}");
-		personnage2.addRobot(robot1P2, 1);
+		//robot1P2.setBehavior("*{O}");
+		//personnage2.addRobot(robot1P2, 1);
 
 		this.getChildren().add(visuel1);
-		this.getChildren().add(visuelRobot1P1);
+		//this.getChildren().add(visuelRobot1P1);
 		this.getChildren().add(visuel2);
-		this.getChildren().add(visuelRobot1P2);
+		//this.getChildren().add(visuelRobot1P2);
 	}
 
 	public static int getTuileX() {

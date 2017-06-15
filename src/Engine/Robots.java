@@ -96,7 +96,7 @@ public class Robots implements Vivante {
 	}
 
 	public String toString() {
-		return "R(" + x + "," + y + ") : " + behavior.toString();
+		return behavior.toString();
 	}
 
 	@Override
@@ -107,7 +107,6 @@ public class Robots implements Vivante {
 	 *            le point cardinal donnant la direction du mouvement
 	 */
 	public void mouvement(PointCardinal p) {
-		// plateau.toString();
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
