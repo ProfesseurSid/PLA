@@ -25,16 +25,16 @@ public class Terrain extends Parent {
 	public Plateau plateau = new Plateau(this);
 
 	private PersonnagesVisual visuel1 = new PersonnagesVisual(p1, 0, plateau);
-	public Personnages personnage1 = new Personnages(plateau, 0, visuel1);
+	public Personnages personnage1 = new Personnages(this, 0, visuel1);
 
 	private PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
-	public Personnages personnage2 = new Personnages(plateau, 1, visuel2);
+	public Personnages personnage2 = new Personnages(this, 1, visuel2);
 
 	RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau);
-	Robots robot1P1 = new Robots(plateau, personnage1, 0, visuelRobot1P1);
+	Robots robot1P1 = new Robots(this, personnage1, 0, visuelRobot1P1);
 
 	RobotVisual visuelRobot1P2 = new RobotVisual(r1P2, 1, plateau);
-	Robots robot1P2 = new Robots(plateau, personnage2, 1, visuelRobot1P2);
+	Robots robot1P2 = new Robots(this, personnage2, 1, visuelRobot1P2);
 
 	public Terrain() {
 
@@ -59,10 +59,10 @@ public class Terrain extends Parent {
 			this.setTranslateY(Test.marge);
 		}
 
-		robot1P1.setBehavior("*{K>O}");
+		robot1P1.setBehavior("*{O}");
 		personnage1.addRobot(robot1P1, 1);
 
-		robot1P2.setBehavior("*{P:;H>O}");
+		robot1P2.setBehavior("*{H>O}");
 		personnage2.addRobot(robot1P2, 1);
 
 		this.getChildren().add(visuel1);

@@ -7,6 +7,7 @@ import Parsing.ParseException;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import Visual.Terrain;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -21,6 +22,7 @@ public class Robots implements Vivante {
 	Plateau plateau;
 	RobotVisual visuel;
 	Personnages personnage;
+	Terrain t;
 
 	/**
 	 * DO NOT USE THIS CONSTRUCTOR
@@ -42,8 +44,9 @@ public class Robots implements Vivante {
 	 *            le "robot graphique" associe au robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel) {
-		this.plateau = plateau;
+	public Robots(Terrain t, Personnages personnage, int e, RobotVisual visuel) {
+		this.t = t;
+		this.plateau = t.getPlateau();
 		if (e == 0) {
 			x = 1;
 			y = plateau.nbLignes() / 2;
@@ -74,7 +77,8 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate du robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) throws ParseException{
+	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave)
+			throws ParseException {
 		this.plateau = plateau;
 		if (e == 0) {
 			x = 1;
@@ -399,15 +403,39 @@ public class Robots implements Vivante {
 		if (nbCoupsRecus > 0)
 			PV -= nbCoupsRecus;
 		nbCoupsRecus = 0;
-		
-		switch(PV){
-		case 1: visuel.remove(); 
-			ImageView r1P1 = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png"))); 
-			RobotVisual visuelRobot1P1 = new RobotVisual(r1P1, 0, plateau); break;
-		case 2: break;
-		case 3: break;
+
+		switch (PV) {
+		case 1:
+			visuel.remove();
+			if (equipe == 0) {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu3.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			} else {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge3.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			}
+			break;
+		case 2:
+			visuel.remove();
+			if (equipe == 0) {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu2.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			} else {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge1.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			}
+			break;
+		default:
 		}
-		
+
 		return PV > 0;
 	}
 
