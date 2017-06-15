@@ -390,7 +390,6 @@ public class Robots implements Vivante {
 		try {
 			behavior = new Automate(s);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
