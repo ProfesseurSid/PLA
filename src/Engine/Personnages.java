@@ -434,7 +434,12 @@ public class Personnages implements Vivante {
 			healthbar.setFill(Color.ORANGE);
 		if (PV <= 3)
 			healthbar.setFill(Color.RED);
-		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
+		if (equipe == 0)
+			healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
+		else {
+			healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
+			healthbar.setX((27.43 * Tuile.getTaille()) + ((10 - PV) * 0.49 * Tuile.getTaille()));
+		}
 	}
 
 }
