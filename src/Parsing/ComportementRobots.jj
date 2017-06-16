@@ -18,7 +18,7 @@ public class ComportementRobots
   {
     this (new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
   }
-
+/*
   public static void main(String args []) throws ParseException
   {
     ComportementRobots parser = new ComportementRobots("*{P;P}");
@@ -46,7 +46,7 @@ public class ComportementRobots
     }
   }
 }
-
+*/
 PARSER_END(ComportementRobots)
 
 SKIP :

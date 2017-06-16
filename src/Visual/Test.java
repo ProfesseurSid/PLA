@@ -63,13 +63,13 @@ public class Test extends Application {
 	public static void restart(Stage primaryStage) {
 
 		finalscreen = new FinalScreen();
-		System.out.println("Le programme se lance");
+		// System.out.println("Le programme se lance");
 		marge = Tuile.getTaille() / 5;
 
 		int dimX = Terrain.getTuileX() * Tuile.getTaille() + 2 * Barre.getDimX() + 3 * marge;
 		int dimY = Barre.getDimX() + Boite.getHeight() + 4 * marge;
 
-		System.out.println("DimX = " + dimX + " DimY = " + dimY);
+		// System.out.println("DimX = " + dimX + " DimY = " + dimY);
 
 		primaryStage.setTitle("ARF - Autonomous Robot Fight");
 
@@ -176,7 +176,7 @@ public class Test extends Application {
 		jeu.getChildren().add(monTerrain.getpersonnage1().getHealthBar());
 		jeu.getChildren().add(monTerrain.getpersonnage2().getHealthBar());
 
-		System.out.println("jeu est créé");
+		// System.out.println("jeu est créé");
 
 		/**
 		 * Creation d'un group menu, contenant tous les elements visuels du
@@ -328,7 +328,7 @@ public class Test extends Application {
 		});
 		iRetour.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				MenuOn();
+				restart(primaryStage);
 			}
 		});
 		ImageView iPetit = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonPetit.png")));
@@ -857,7 +857,7 @@ public class Test extends Application {
 		primaryStage.show();
 
 		root.getChildren().add(jeu);
-		System.out.println(jeu.toString());
+		// System.out.println(jeu.toString());
 
 		game = new Timer(monTerrain);
 

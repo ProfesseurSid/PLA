@@ -257,7 +257,7 @@ public class Personnages implements Vivante {
 	 * @since Version 1.0
 	 */
 	public void mouvement(PointCardinal p) {
-		plateau.toString();
+//		plateau.toString();
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
