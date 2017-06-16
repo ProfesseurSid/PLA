@@ -118,7 +118,7 @@ public class Timer extends AnimationTimer {
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
 			rand = (int) (Math.random() * 6);
-			// rand = 0;
+			// rand = 5;
 			switch (rand) {
 			case 0:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
