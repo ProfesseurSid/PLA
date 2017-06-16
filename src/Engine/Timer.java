@@ -116,7 +116,7 @@ public class Timer extends AnimationTimer {
 
 		/* Si la derniere action a ete effectuee il y a plus de 15s */
 		/* Apparition des operateurs rares */
-		if (date - lastTime_op > 15000) {
+		if (date - lastTime_op > 10000) {
 			rand = (int) (Math.random() * 6);
 			// rand = 5;
 			switch (rand) {
