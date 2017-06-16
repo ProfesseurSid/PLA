@@ -18,7 +18,7 @@ import javafx.scene.text.*;
 public class Keyboard implements EventHandler<KeyEvent> {
 	Personnages personnage1, personnage2;
 	int ligne1 = 0; // Barre de selection de la boite du Player 1
-	int ligne2 = 0; // Barre de selection de la boite du Player 1
+	int ligne2 = 0; // Barre de selection de la boite du Player 2
 	Group root;
 	Boite boite1, boite2;
 	Team team1, team2;
