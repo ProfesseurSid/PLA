@@ -4,12 +4,9 @@ import java.util.HashMap;
 
 import Exception.PanicException;
 import Parsing.ParseException;
-import Visual.Barre;
-import Visual.Boite;
 import Visual.FinalScreen;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
-import Visual.RobotVisual;
 import Visual.Terrain;
 import Visual.Test;
 import Visual.Tuile;
@@ -74,6 +71,53 @@ public class Personnages implements Vivante {
 			healthbar.setX(27.43 * Tuile.getTaille());
 			healthbarBG.setTranslateX((27.43 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
 		}
+		// Image = dimensions + taille tuile / 5
+	}
+	
+	/**
+	 * Contructeur de personnage de l'équipe e
+	 * 
+	 * @param e
+	 *            l'equipe dans laquelle ajouter le personnage
+	 * @require e == 0 || e == 1
+	 */
+	public Personnages(Terrain t, int e) {
+		ImageView pers;
+		this.t = t;
+		this.plateau = t.getPlateau();
+		this.base = false;
+		if (e == 0) {
+			x = 0;
+			y = plateau.nbLignes() / 2;
+			pers = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/TeteRobotBleu.png")));
+		} else if (e == 1) {
+			x = plateau.nbColonnes() - 1;
+			y = plateau.nbLignes() / 2;
+			pers = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/TeteRobotRouge.png")));
+		} else
+			throw new PanicException("Numéro d'équipe incorrect");
+		
+		this.visuel = new PersonnagesVisual(pers, x, y, plateau);
+		equipe = e;
+		numberRobots = 0;
+		initInventory();
+		plateau.put(x, y, this);
+		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.GREEN);
+		healthbarBG = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Empty_hb.png")));
+		healthbarBG.setFitWidth((10 * 0.49 * Tuile.getTaille()) + (Tuile.getTaille() / 5));
+		healthbarBG.setFitHeight((0.5 * Tuile.getTaille() + (Tuile.getTaille() / 5)));
+		healthbar.setY(15 * Tuile.getTaille());
+		healthbarBG.setTranslateY((15 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		if (e == 0) {
+			healthbar.setX(0.5 * Tuile.getTaille());
+			healthbarBG.setTranslateX((0.5 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		} else {
+			healthbar.setX(27.43 * Tuile.getTaille());
+			healthbarBG.setTranslateX((27.43 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		}
+		t.addVisual(visuel);
 		// Image = dimensions + taille tuile / 5
 	}
 
@@ -193,8 +237,6 @@ public class Personnages implements Vivante {
 		if (numberRobots > 3) {
 			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
 		}
-		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
 		try {
 			Robots robot = new Robots(t, this, getEquipe(), behave);
 			Units[numberRobots] = robot;

@@ -49,8 +49,8 @@ public class Terrain extends Parent {
 			this.setTranslateY(Test.marge);
 		}
 
-		this.getChildren().add(visuel1);
-		this.getChildren().add(visuel2);
+//		this.getChildren().add(visuel1);
+//		this.getChildren().add(visuel2);
 	}
 
 	public static int getTuileX() {

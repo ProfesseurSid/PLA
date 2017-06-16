@@ -58,6 +58,19 @@ public class PersonnagesVisual extends Parent {
 		//personnage.xProperty().set(indX*taille);
 		//personnage.yProperty().set(indY*taille);
 	}
+	
+	public PersonnagesVisual(ImageView personnage, int x, int y, Plateau plateau) {
+		indX = x;
+		indY = y;
+		this.personnage = personnage;
+		personnage.xProperty().set(indX*taille);
+		personnage.yProperty().set(indY*taille);
+		personnage.setFitWidth(taille);
+		personnage.setFitHeight(taille);
+		this.getChildren().add(personnage);
+
+		this.plateau = plateau;
+	}
 
 	/**
 	 * Getter de l'index X
