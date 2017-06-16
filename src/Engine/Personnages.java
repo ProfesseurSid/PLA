@@ -4,13 +4,19 @@ import java.util.HashMap;
 
 import Exception.PanicException;
 import Parsing.ParseException;
+import Visual.Barre;
+import Visual.Boite;
+import Visual.FinalScreen;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
 import Visual.Terrain;
 import Visual.Test;
+import Visual.Tuile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Classe representant un personnage, avec des coordonees, un inventaire
@@ -28,6 +34,8 @@ public class Personnages implements Vivante {
 	PersonnagesVisual visuel;
 	private boolean base;
 	Terrain t;
+	private Rectangle healthbar;
+	private ImageView healthbarBG;
 
 	/**
 	 * Contructeur de personnage de l'équipe e
@@ -53,6 +61,20 @@ public class Personnages implements Vivante {
 		initInventory();
 		this.visuel = visuel;
 		plateau.put(x, y, this);
+		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.GREEN);
+		healthbarBG = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Empty_hb.png")));
+		healthbarBG.setFitWidth((10 * 0.49 * Tuile.getTaille()) + (Tuile.getTaille() / 5));
+		healthbarBG.setFitHeight((0.5 * Tuile.getTaille() + (Tuile.getTaille() / 5)));
+		healthbar.setY(15 * Tuile.getTaille());
+		healthbarBG.setTranslateY((15 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		if (e == 0) {
+			healthbar.setX(0.5 * Tuile.getTaille());
+			healthbarBG.setTranslateX((0.5 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		} else {
+			healthbar.setX(27.43 * Tuile.getTaille());
+			healthbarBG.setTranslateX((27.43 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		}
+		// Image = dimensions + taille tuile / 5
 	}
 
 	/**
@@ -372,7 +394,7 @@ public class Personnages implements Vivante {
 	 * Indique si le personnage dipose encoure de PV ou non
 	 */
 	public boolean estEnVie() {
-		if (Test.getMode() == Test.TRIAL && PV < 0)
+		if (Test.getMode() == Test.TRIAL && PV <= 0)
 			PV = 10;
 		return PV > 0;
 	}
@@ -400,6 +422,24 @@ public class Personnages implements Vivante {
 
 	public HashMap<Character, Integer> getInventory() {
 		return Inventory;
+	}
+
+	public Rectangle getHealthBar() {
+		return healthbar;
+	}
+
+	public ImageView getHealthBarBG() {
+		return healthbarBG;
+	}
+
+	public void updateHealthBar() {
+		if(PV > 6)
+			healthbar.setFill(Color.GREEN);
+		if (PV <= 6)
+			healthbar.setFill(Color.ORANGE);
+		if (PV <= 3)
+			healthbar.setFill(Color.RED);
+		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
 	}
 
 }

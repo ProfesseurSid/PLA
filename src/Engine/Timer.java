@@ -115,6 +115,10 @@ public class Timer extends AnimationTimer {
 				}
 			System.out.println("Vie P1 : " + t.getpersonnage1().getHealth());
 			System.out.println("Vie P2 : " + t.getpersonnage2().getHealth());
+
+			t.getpersonnage1().updateHealthBar();
+			t.getpersonnage2().updateHealthBar();
+
 			rob1 = t.getpersonnage1().getRobot(1);
 			if (rob1 != null) {
 				System.out.println("Vie R1P1 : " + t.getpersonnage1().getRobot(1).PV);

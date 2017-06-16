@@ -86,8 +86,8 @@ public class Test extends Application {
 		pauseScreen.setFill(Color.rgb(200, 200, 200, 0.4));
 
 		pauseText = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Pause.png")));
-		pauseText.setFitWidth(8*Tuile.getTaille());
-		pauseText.setFitHeight(2*Tuile.getTaille());
+		pauseText.setFitWidth(8 * Tuile.getTaille());
+		pauseText.setFitHeight(2 * Tuile.getTaille());
 		pauseText.setTranslateX(dimX / 2 - 4 * Tuile.getTaille());
 		pauseText.setTranslateY(dimY / 2 - 2 * Tuile.getTaille());
 
@@ -162,6 +162,12 @@ public class Test extends Application {
 		PersoBleu.setTranslateY(Boite.getHeight() + 4 * marge);
 		jeu.getChildren().add(PersoBleu);
 
+		/* Ajout des barres de vies */
+		jeu.getChildren().add(monTerrain.getpersonnage1().getHealthBarBG());
+		jeu.getChildren().add(monTerrain.getpersonnage2().getHealthBarBG());
+		jeu.getChildren().add(monTerrain.getpersonnage1().getHealthBar());
+		jeu.getChildren().add(monTerrain.getpersonnage2().getHealthBar());
+
 		System.out.println("jeu est créé");
 
 		/**
@@ -205,7 +211,7 @@ public class Test extends Application {
 		});
 		iJouer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				gameMode = CLASSIC;
+				gameMode = TRIAL;
 				MenuOff();
 				game.start();
 			}
