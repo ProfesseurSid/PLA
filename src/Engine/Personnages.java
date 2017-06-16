@@ -173,7 +173,7 @@ public class Personnages implements Vivante {
 		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
 		try{
-			Robots robot = new Robots(plateau, this, getEquipe(), visuelRobot, behave);
+			Robots robot = new Robots(t, this, getEquipe(), behave);
 			Units[numberRobots] = robot;
 			numberRobots++;
 		} catch(ParseException e){
@@ -193,21 +193,12 @@ public class Personnages implements Vivante {
 	 * 
 	 * @since Version 3.0
 	 */
-	public RobotVisual addRobot(String behavior, int room) {
+	public void addRobot(String behavior, int room) {
 		int indexUnit = room - 1;
-		ImageView robot_image;
-		if(equipe == 0)
-			robot_image = new ImageView(
-				new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
-		else
-			robot_image = new ImageView(
-					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
-		RobotVisual visuelRobot = new RobotVisual(robot_image, equipe, plateau);
 		try{
-			Robots robot = new Robots(plateau, this, equipe, visuelRobot, behavior);
+			Robots robot = new Robots(t, this, equipe, behavior);
 			Units[indexUnit] = robot;
 			numberRobots++;
-			return visuelRobot;
 		} catch(Exception ex){
 			throw new PanicException("Automate d'ajout du robot incorrect");
 		}

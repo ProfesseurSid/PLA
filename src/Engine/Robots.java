@@ -37,19 +37,80 @@ public class Robots implements Vivante {
 	 *            le "robot graphique" associe au robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Terrain t, Personnages personnage, int e, RobotVisual visuel) {
+	public Robots(Terrain t, Personnages personnage, int e) {
 		this.t = t;
 		this.plateau = t.getPlateau();
+		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			y = plateau.nbLignes() / 2;
+			if(plateau.verification(1, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if(plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0){
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			}
+			else if(plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0){
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			}
+			else if(plateau.verification(0, (plateau.nbLignes() / 2)) == 0){
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			}
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else{
+				y = plateau.nbLignes() / 2;
+				x = 2;
+			}
+			
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
+
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			y = plateau.nbLignes() / 2;
+			if(plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0){
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			}
+			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0){
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			}
+			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0){
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			}
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else{
+				y = plateau.nbLignes() / 2;
+				x = plateau.nbColonnes() - 3;
+			}
+
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
+
+			
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		this.visuel = visuel;
+		this.visuel = new RobotVisual(robot_image, x, y, plateau);
+		t.addVisual(this.visuel);
 		this.personnage = personnage;
 		behavior = new Automate();
 		plateau.put(x, y, this);
@@ -71,19 +132,80 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate du robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave)
+	public Robots(Terrain t, Personnages personnage, int e, String behave)
 			throws ParseException {
-		this.plateau = plateau;
+		this.t = t;
+		this.plateau = t.getPlateau();
+		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			y = plateau.nbLignes() / 2;
+			if(plateau.verification(1, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if(plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0){
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			}
+			else if(plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0){
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			}
+			else if(plateau.verification(0, (plateau.nbLignes() / 2)) == 0){
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			}
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else{
+				y = plateau.nbLignes() / 2;
+				x = 2;
+			}
+		
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
+			
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			y = plateau.nbLignes() / 2;
+			if(plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0){
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			}
+			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0){
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			}
+			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0){
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			}
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else{
+				y = plateau.nbLignes() / 2;
+				x = plateau.nbColonnes() - 3;
+			}
+			
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
+			
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		this.visuel = visuel;
+		this.visuel = new RobotVisual(robot_image, x, y, plateau);
+		t.addVisual(this.visuel);
 		this.personnage = personnage;
 		try {
 			behavior = new Automate(behave);
