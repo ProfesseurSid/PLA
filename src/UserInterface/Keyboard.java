@@ -401,9 +401,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(1) != null) {
-							expression_rouge = personnage1.getRobot(1).toString();
+							expression_bleue = personnage1.getRobot(1).toString();
 						} else {
-							expression_rouge = "";
+							expression_bleue = "";
 						}
 						updateExpression_bleue();
 						mate1 = 0;
@@ -417,9 +417,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(2) != null) {
-							expression_rouge = personnage1.getRobot(2).toString();
+							expression_bleue = personnage1.getRobot(2).toString();
 						} else {
-							expression_rouge = "";
+							expression_bleue = "";
 						}
 						updateExpression_bleue();
 						mate1 = 1;
@@ -433,9 +433,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(3) != null) {
-							expression_rouge = personnage1.getRobot(3).toString();
+							expression_bleue = personnage1.getRobot(3).toString();
 						} else {
-							expression_rouge = "";
+							expression_bleue = "";
 						}
 						updateExpression_bleue();
 						mate1 = 2;

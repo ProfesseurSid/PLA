@@ -205,7 +205,7 @@ public class Test extends Application {
 		});
 		iJouer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				gameMode = TRIAL;
+				gameMode = CLASSIC;
 				MenuOff();
 				game.start();
 			}
