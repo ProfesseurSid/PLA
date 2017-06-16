@@ -103,7 +103,7 @@ public class Test extends Application {
 		 */
 
 		jeu = new Group();
-		
+
 		ImageView background = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Fond2.png")));
 		background.setFitWidth(dimX);
 		background.setFitHeight(dimY);
@@ -408,12 +408,12 @@ public class Test extends Application {
 		tHaut1.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tHaut1.setArcHeight(marge);
 		tHaut1.setArcWidth(marge);
-		Text textHaut1 = new Text(haut1.toString());
+		Text textHaut1 = new Text(CodeToString(haut1));
 		textHaut1.setTranslateX(
 				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textHaut1.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textHaut1.setFill(Color.WHITE);
-		textHaut1.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textHaut1);
 		tHaut1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tHaut1.requestFocus();
@@ -422,7 +422,8 @@ public class Test extends Application {
 		tHaut1.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				haut1 = ke.getCode();
-				textHaut1.setText(haut1.toString());
+				textHaut1.setText(CodeToString(haut1));
+				refreshText(textHaut1);
 			}
 		});
 		textHaut1.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -438,12 +439,12 @@ public class Test extends Application {
 		tBas1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tBas1.setArcHeight(marge);
 		tBas1.setArcWidth(marge);
-		Text textBas1 = new Text(bas1.toString());
+		Text textBas1 = new Text(CodeToString(bas1));
 		textBas1.setTranslateX(
 				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textBas1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textBas1.setFill(Color.WHITE);
-		textBas1.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textBas1);
 		tBas1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tBas1.requestFocus();
@@ -452,7 +453,8 @@ public class Test extends Application {
 		tBas1.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				bas1 = ke.getCode();
-				textBas1.setText(bas1.toString());
+				textBas1.setText(CodeToString(bas1));
+				refreshText(textBas1);
 			}
 		});
 		textBas1.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -469,12 +471,12 @@ public class Test extends Application {
 		tGauche1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tGauche1.setArcHeight(marge);
 		tGauche1.setArcWidth(marge);
-		Text textGauche1 = new Text(gauche1.toString());
+		Text textGauche1 = new Text(CodeToString(gauche1));
 		textGauche1.setTranslateX(
 				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textGauche1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textGauche1.setFill(Color.WHITE);
-		textGauche1.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textGauche1);
 		tGauche1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tGauche1.requestFocus();
@@ -483,7 +485,8 @@ public class Test extends Application {
 		tGauche1.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				gauche1 = ke.getCode();
-				textGauche1.setText(gauche1.toString());
+				textGauche1.setText(CodeToString(gauche1));
+				refreshText(textGauche1);
 			}
 		});
 		textGauche1.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -500,12 +503,12 @@ public class Test extends Application {
 		tDroite1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tDroite1.setArcHeight(marge);
 		tDroite1.setArcWidth(marge);
-		Text textDroite1 = new Text(droite1.toString());
+		Text textDroite1 = new Text(CodeToString(droite1));
 		textDroite1.setTranslateX(
 				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textDroite1.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textDroite1.setFill(Color.WHITE);
-		textDroite1.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textDroite1);
 		tDroite1.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tDroite1.requestFocus();
@@ -514,7 +517,8 @@ public class Test extends Application {
 		tDroite1.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				droite1 = ke.getCode();
-				textDroite1.setText(droite1.toString());
+				textDroite1.setText(CodeToString(droite1));
+				refreshText(textDroite1);
 			}
 		});
 		textDroite1.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -531,12 +535,12 @@ public class Test extends Application {
 		tChoix11.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tChoix11.setArcHeight(marge);
 		tChoix11.setArcWidth(marge);
-		Text textChoix11 = new Text(choix11.toString());
+		Text textChoix11 = new Text(CodeToString(choix11));
 		textChoix11.setTranslateX(
 				2 * marge + Barre.getDimX() + (3 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textChoix11.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textChoix11.setFill(Color.WHITE);
-		textChoix11.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textChoix11);
 		tChoix11.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tChoix11.requestFocus();
@@ -545,7 +549,8 @@ public class Test extends Application {
 		tChoix11.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix11 = ke.getCode();
-				textChoix11.setText(choix11.toString());
+				textChoix11.setText(CodeToString(choix11));
+				refreshText(textChoix11);
 			}
 		});
 		textChoix11.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -562,12 +567,12 @@ public class Test extends Application {
 		tChoix12.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tChoix12.setArcHeight(marge);
 		tChoix12.setArcWidth(marge);
-		Text textChoix12 = new Text(choix12.toString());
+		Text textChoix12 = new Text(CodeToString(choix12));
 		textChoix12.setTranslateX(
 				2 * marge + Barre.getDimX() + (4 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textChoix12.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textChoix12.setFill(Color.WHITE);
-		textChoix12.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textChoix12);
 		tChoix12.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tChoix12.requestFocus();
@@ -576,7 +581,8 @@ public class Test extends Application {
 		tChoix12.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix12 = ke.getCode();
-				textChoix12.setText(choix12.toString());
+				textChoix12.setText(CodeToString(choix12));
+				refreshText(textChoix12);
 			}
 		});
 		textChoix12.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -593,12 +599,12 @@ public class Test extends Application {
 		tChoix13.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tChoix13.setArcHeight(marge);
 		tChoix13.setArcWidth(marge);
-		Text textChoix13 = new Text(choix13.toString());
+		Text textChoix13 = new Text(CodeToString(choix13));
 		textChoix13.setTranslateX(
 				2 * marge + Barre.getDimX() + (5 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textChoix13.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textChoix13.setFill(Color.WHITE);
-		textChoix13.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textChoix13);
 		tChoix13.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tChoix13.requestFocus();
@@ -607,7 +613,8 @@ public class Test extends Application {
 		tChoix13.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix13 = ke.getCode();
-				textChoix13.setText(choix13.toString());
+				textChoix13.setText(CodeToString(choix13));
+				refreshText(textChoix13);
 			}
 		});
 		textChoix13.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -623,12 +630,12 @@ public class Test extends Application {
 		tHaut2.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tHaut2.setArcHeight(marge);
 		tHaut2.setArcWidth(marge);
-		Text textHaut2 = new Text(haut2.toString());
+		Text textHaut2 = new Text(CodeToString(haut2));
 		textHaut2.setTranslateX(
 				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textHaut2.setTranslateY(marge + (2 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textHaut2.setFill(Color.WHITE);
-		textHaut2.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textHaut2);
 		tHaut2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tHaut2.requestFocus();
@@ -637,7 +644,8 @@ public class Test extends Application {
 		tHaut2.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				haut2 = ke.getCode();
-				textHaut2.setText(haut2.toString());
+				textHaut2.setText(CodeToString(haut2));
+				refreshText(textHaut2);
 			}
 		});
 		textHaut2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -653,12 +661,12 @@ public class Test extends Application {
 		tBas2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tBas2.setArcHeight(marge);
 		tBas2.setArcWidth(marge);
-		Text textBas2 = new Text(bas2.toString());
+		Text textBas2 = new Text(CodeToString(bas2));
 		textBas2.setTranslateX(
 				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textBas2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textBas2.setFill(Color.WHITE);
-		textBas2.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textBas2);
 		tBas2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tBas2.requestFocus();
@@ -667,7 +675,8 @@ public class Test extends Application {
 		tBas2.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				bas2 = ke.getCode();
-				textBas2.setText(bas2.toString());
+				textBas2.setText(CodeToString(bas2));
+				refreshText(textBas2);
 			}
 		});
 		textBas2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -684,12 +693,12 @@ public class Test extends Application {
 		tGauche2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tGauche2.setArcHeight(marge);
 		tGauche2.setArcWidth(marge);
-		Text textGauche2 = new Text(gauche2.toString());
+		Text textGauche2 = new Text(CodeToString(gauche2));
 		textGauche2.setTranslateX(
 				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textGauche2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textGauche2.setFill(Color.WHITE);
-		textGauche2.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textGauche2);
 		tGauche2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tGauche2.requestFocus();
@@ -698,7 +707,8 @@ public class Test extends Application {
 		tGauche2.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				gauche2 = ke.getCode();
-				textGauche2.setText(gauche2.toString());
+				textGauche2.setText(CodeToString(gauche2));
+				refreshText(textGauche2);
 			}
 		});
 		textGauche2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -715,13 +725,12 @@ public class Test extends Application {
 		tDroite2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tDroite2.setArcHeight(marge);
 		tDroite2.setArcWidth(marge);
-		Text textDroite2 = new Text(droite2.toString());
-		textDroite2.setFont(new Font(Tuile.getTaille() - marge));
+		Text textDroite2 = new Text(CodeToString(droite2));
 		textDroite2.setTranslateX(
 				2 * marge + Barre.getDimX() + (9 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textDroite2.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textDroite2.setFill(Color.WHITE);
-
+		refreshText(textDroite2);
 		tDroite2.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tDroite2.requestFocus();
@@ -730,7 +739,8 @@ public class Test extends Application {
 		tDroite2.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				droite2 = ke.getCode();
-				textDroite2.setText(droite2.toString());
+				textDroite2.setText(CodeToString(droite2));
+				refreshText(textDroite2);
 			}
 		});
 		textDroite2.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -747,12 +757,12 @@ public class Test extends Application {
 		tChoix21.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tChoix21.setArcHeight(marge);
 		tChoix21.setArcWidth(marge);
-		Text textChoix21 = new Text(choix21.toString());
+		Text textChoix21 = new Text(CodeToString(choix21));
 		textChoix21.setTranslateX(
 				2 * marge + Barre.getDimX() + (7 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textChoix21.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textChoix21.setFill(Color.WHITE);
-		textChoix21.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textChoix21);
 		tChoix21.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tChoix21.requestFocus();
@@ -761,7 +771,8 @@ public class Test extends Application {
 		tChoix21.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix21 = ke.getCode();
-				textChoix21.setText(choix21.toString());
+				textChoix21.setText(CodeToString(choix21));
+				refreshText(textChoix21);
 			}
 		});
 		textChoix21.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -778,12 +789,12 @@ public class Test extends Application {
 		tChoix22.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tChoix22.setArcHeight(marge);
 		tChoix22.setArcWidth(marge);
-		Text textChoix22 = new Text(choix22.toString());
+		Text textChoix22 = new Text(CodeToString(choix22));
 		textChoix22.setTranslateX(
 				2 * marge + Barre.getDimX() + (8 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textChoix22.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textChoix22.setFill(Color.WHITE);
-		textChoix22.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textChoix22);
 		tChoix22.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tChoix22.requestFocus();
@@ -792,7 +803,8 @@ public class Test extends Application {
 		tChoix22.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix22 = ke.getCode();
-				textChoix22.setText(choix22.toString());
+				textChoix22.setText(CodeToString(choix22));
+				refreshText(textChoix22);
 			}
 		});
 		textChoix22.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -809,12 +821,12 @@ public class Test extends Application {
 		tChoix23.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 - Case.getTaille() / 2);
 		tChoix23.setArcHeight(marge);
 		tChoix23.setArcWidth(marge);
-		Text textChoix23 = new Text(choix23.toString());
+		Text textChoix23 = new Text(CodeToString(choix23));
 		textChoix23.setTranslateX(
 				2 * marge + Barre.getDimX() + (9 * Terrain.getGrilleWidth()) / 12 - Case.getTaille() / 5);
 		textChoix23.setTranslateY((1 * Terrain.getGrilleHeight()) / 6 + Case.getTaille() / 5);
 		textChoix23.setFill(Color.WHITE);
-		textChoix23.setFont(new Font(Tuile.getTaille() - marge));
+		refreshText(textChoix23);
 		tChoix23.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				tChoix23.requestFocus();
@@ -823,7 +835,8 @@ public class Test extends Application {
 		tChoix23.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix23 = ke.getCode();
-				textChoix23.setText(choix23.toString());
+				textChoix23.setText(CodeToString(choix23));
+				refreshText(textChoix23);
 			}
 		});
 		textChoix23.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -993,5 +1006,127 @@ public class Test extends Application {
 
 	public static int getMode() {
 		return gameMode;
+	}
+
+	public static String CodeToString(KeyCode ke) {
+		String s;
+		switch (ke) {
+		case DIGIT1:
+			s = "1";
+			break;
+		case DIGIT2:
+			s = "2";
+			break;
+		case DIGIT3:
+			s = "3";
+			break;
+		case DIGIT4:
+			s = "4";
+			break;
+		case DIGIT5:
+			s = "5";
+			break;
+		case DIGIT6:
+			s = "6";
+			break;
+		case DIGIT7:
+			s = "7";
+			break;
+		case DIGIT8:
+			s = "8";
+			break;
+		case DIGIT9:
+			s = "9";
+			break;
+		case DIGIT0:
+			s = "0";
+			break;
+		case NUMPAD1:
+			s = "n1";
+			break;
+		case NUMPAD2:
+			s = "n2";
+			break;
+		case NUMPAD3:
+			s = "n3";
+			break;
+		case NUMPAD4:
+			s = "n4";
+			break;
+		case NUMPAD5:
+			s = "n5";
+			break;
+		case NUMPAD6:
+			s = "n6";
+			break;
+		case NUMPAD7:
+			s = "n7";
+			break;
+		case NUMPAD8:
+			s = "n8";
+			break;
+		case NUMPAD9:
+			s = "n9";
+			break;
+		case NUMPAD0:
+			s = "n0";
+			break;
+		case EXCLAMATION_MARK:
+			s = "!";
+			break;
+		case SEMICOLON:
+			s = ";";
+			break;
+		case COLON:
+			s = ":";
+			break;
+		case RIGHT:
+			s = "→";
+			break;
+		case LEFT:
+			s = "←";
+			break;
+		case DOWN:
+			s = "↓";
+			break;
+		case UP:
+			s = "↑";
+			break;
+		case DECIMAL:
+			s = ".";
+			break;
+		default:
+			s = ke.toString();
+			if (s.length() > 3) {
+				s = s.substring(0, 3) + ".";
+			}
+			break;
+		}
+		return s;
+	}
+
+	public static void refreshText(Text t) {
+		switch (t.getText().length()) {
+		case (1):
+			t.setLayoutX(4 * marge / 10);
+			t.setLayoutY(0);
+			t.setFont(new Font(Tuile.getTaille() - marge / 2));
+			break;
+		case (2):
+			t.setLayoutX(-2 * marge / 10);
+			t.setLayoutY(-marge / 5);
+			t.setFont(new Font(Tuile.getTaille() - marge * 1.5));
+			break;
+		case (3):
+			t.setLayoutX(-marge / 2);
+			t.setLayoutY(-3 * marge / 5);
+			t.setFont(new Font(Tuile.getTaille() - marge * 2.5));
+			break;
+		case (4):
+			t.setLayoutX(-marge);
+			t.setLayoutY(-3 * marge / 5);
+			t.setFont(new Font(Tuile.getTaille() - marge * 2.5));
+			break;
+		}
 	}
 }
