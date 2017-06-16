@@ -84,25 +84,25 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
-		Inventory.put('*', 2); // Loop
-		Inventory.put('>', 0); // Preference
+		Inventory.put('*', 10); // Loop
+		Inventory.put('>', 10); // Preference
 		Inventory.put('S', 0); // Split
-		Inventory.put('H', 0); // Hit
+		Inventory.put('H', 10); // Hit
 		Inventory.put('E', 0); // Escape
-		Inventory.put('K', 0); // Kamikaze
-		Inventory.put('P', 0); // Protect
+		Inventory.put('K', 10); // Kamikaze
+		Inventory.put('P', 10); // Protect
 		Inventory.put('F', 0); // Follow
-		Inventory.put(':', 0); // Repeat
-		Inventory.put('J', 0); // Rapporte
+		Inventory.put(':', 10); // Repeat
+		Inventory.put('J', 10); // Rapporte
 		Inventory.put('X', 0); // Explore
 		Inventory.put('C', 0); // Closest
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
-		Inventory.put('O', 0); // Others
-		Inventory.put('{', 2); // AccoladeO
-		Inventory.put('}', 2); // AccoladeO
-		Inventory.put(';', 0); // And
-		Inventory.put('|', 0); // Or
+		Inventory.put('O', 10); // Others
+		Inventory.put('{', 10); // AccoladeO
+		Inventory.put('}', 10); // AccoladeO
+		Inventory.put(';', 10); // And
+		Inventory.put('|', 10); // Or
 	}
 
 	/**
