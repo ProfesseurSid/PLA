@@ -50,7 +50,7 @@ public class Test extends Application {
 	private static FinalScreen finalscreen;
 
 	private static Stage ps;
-	
+
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
@@ -106,29 +106,29 @@ public class Test extends Application {
 
 		Terrain monTerrain = new Terrain();
 
-		Rectangle champBleu = new Rectangle();
-		champBleu.setHeight(Tuile.getTaille());
-		champBleu.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+		ImageView champBleu = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Expression.png")));
+		champBleu.setFitHeight(Tuile.getTaille());
+		champBleu.setFitWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
 		champBleu.setTranslateX(2 * marge + Barre.getDimX());
 		champBleu.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
 		jeu.getChildren().add(champBleu);
 
 		Text expr_bleue = new Text("EXPRESSION");
-		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
+		expr_bleue.setFont(Font.font("Monospace", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
 		jeu.getChildren().add(expr_bleue);
 
-		Rectangle champRouge = new Rectangle();
-		champRouge.setHeight(Tuile.getTaille());
-		champRouge.setWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
+		ImageView champRouge = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Expression.png")));
+		champRouge.setFitHeight(Tuile.getTaille());
+		champRouge.setFitWidth((Terrain.getTuileX() / 2) * Tuile.getTaille());
 		champRouge.setTranslateX(2 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		champRouge.setTranslateY(2 * marge + Terrain.getTuileY() * Tuile.getTaille());
 		jeu.getChildren().add(champRouge);
 
 		Text expr_rouge = new Text("EXPRESSION");
-		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
+		expr_rouge.setFont(Font.font("Monospace", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -220,11 +220,12 @@ public class Test extends Application {
 			}
 		});
 		menu.getChildren().add(iJouer);
-		
+
 		ImageView iTraining = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonTraining.png")));
 		iTraining.setFitWidth(6 * Tuile.getTaille());
 		iTraining.setFitHeight((3 * Tuile.getTaille()) / 2);
-		iTraining.setTranslateX(2 * marge + Barre.getDimX() + (2*Terrain.getGrilleWidth()) / 3 - (6 * Tuile.getTaille()) / 2);
+		iTraining.setTranslateX(
+				2 * marge + Barre.getDimX() + (2 * Terrain.getGrilleWidth()) / 3 - (6 * Tuile.getTaille()) / 2);
 		iTraining.setTranslateY(marge + (3 * Terrain.getGrilleHeight()) / 6 - ((3 * Tuile.getTaille()) / 2) / 2);
 		iTraining.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
@@ -903,7 +904,7 @@ public class Test extends Application {
 	static public void setMenu(boolean t) {
 		inMenu = t;
 		inPause = false;
-		if(inMenu){
+		if (inMenu) {
 			game.stop();
 			restart(ps);
 		}
@@ -913,10 +914,10 @@ public class Test extends Application {
 		return inParam;
 	}
 
-	static public void quit(){
+	static public void quit() {
 		ps.close();
 	}
-	
+
 	public static void refresh() {
 		inPause = false;
 		Case.set();
@@ -984,8 +985,8 @@ public class Test extends Application {
 	public static KeyCode getChoix23() {
 		return choix23;
 	}
-	
-	public static int getMode(){
+
+	public static int getMode() {
 		return gameMode;
 	}
 }

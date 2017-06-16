@@ -629,7 +629,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		root.getChildren().remove(expr_bleue);
 		affichable = exprAffichable(expression_bleue);
 		expr_bleue = new Text(affichable);
-		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
+		expr_bleue.setFont(Font.font("Monospace", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -641,7 +641,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		root.getChildren().remove(expr_rouge);
 		affichable = exprAffichable(expression_rouge);
 		expr_rouge = new Text(affichable);
-		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
+		expr_rouge.setFont(Font.font("Monospace", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
