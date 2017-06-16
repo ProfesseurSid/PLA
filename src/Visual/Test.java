@@ -903,8 +903,10 @@ public class Test extends Application {
 	static public void setMenu(boolean t) {
 		inMenu = t;
 		inPause = false;
-		if(inMenu)
+		if(inMenu){
+			game.stop();
 			restart(ps);
+		}
 	}
 
 	static public boolean getParam() {

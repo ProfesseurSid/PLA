@@ -46,8 +46,8 @@ public class PersonnagesVisual extends Parent {
 			throw new PanicException("Numéro d'équipe incorrect");
 		
 		this.personnage = personnage;
-		personnage.xProperty().set(indX*taille);
-		personnage.yProperty().set(indY*taille);
+		this.personnage.xProperty().set(indX*taille);
+		this.personnage.yProperty().set(indY*taille);
 		//personnage.setTranslateX(indX * taille);
 		//personnage.setTranslateY(indY * taille);
 		personnage.setFitWidth(taille);
@@ -153,6 +153,14 @@ public class PersonnagesVisual extends Parent {
 		 timeline.play();
 		 indX++;
 		 System.out.print("right:"+personnage.xProperty());
+	}
+	
+	public void setX(int x){
+		indX = x;
+	}
+	
+	public void setY(int y){
+		indY = y;
 	}
 
 }
