@@ -22,6 +22,9 @@ import javafx.stage.Stage;
 
 public class Test extends Application {
 
+	public final static int CLASSIC = 0;
+	public final static int TRIAL = 1;
+	static int gameMode;
 	static int marge = Tuile.getTaille() / 5;
 	private static KeyCode haut1 = KeyCode.Z;
 	private static KeyCode bas1 = KeyCode.S;
@@ -202,6 +205,7 @@ public class Test extends Application {
 		});
 		iJouer.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
+				gameMode = TRIAL;
 				MenuOff();
 				game.start();
 			}
@@ -938,5 +942,9 @@ public class Test extends Application {
 
 	public static KeyCode getChoix23() {
 		return choix23;
+	}
+	
+	public static int getMode(){
+		return gameMode;
 	}
 }

@@ -25,7 +25,7 @@ public class Terrain extends Parent {
 
 	private PersonnagesVisual visuel2 = new PersonnagesVisual(p2, 1, plateau);
 	public Personnages personnage2 = new Personnages(this, 1, visuel2);
-
+	
 	public Terrain() {
 
 		ImageView fond_grille = new ImageView(

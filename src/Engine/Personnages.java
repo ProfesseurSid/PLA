@@ -8,6 +8,7 @@ import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
 import Visual.Terrain;
+import Visual.Test;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -27,7 +28,7 @@ public class Personnages implements Vivante {
 	PersonnagesVisual visuel;
 	private boolean base;
 	Terrain t;
-	
+
 	/**
 	 * Contructeur de personnage de l'équipe e
 	 * 
@@ -165,19 +166,19 @@ public class Personnages implements Vivante {
 		Units[indexUnit] = robot;
 		numberRobots++;
 	}
-	
+
 	public void addRobot(String behave) {
 		if (numberRobots > 3) {
 			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
 		}
 		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
-		try{
+		try {
 			Robots robot = new Robots(t, this, getEquipe(), behave);
 			Units[numberRobots] = robot;
 			numberRobots++;
-		} catch(ParseException e){
-			
+		} catch (ParseException e) {
+
 		}
 	}
 
@@ -195,18 +196,17 @@ public class Personnages implements Vivante {
 	 */
 	public void addRobot(String behavior, int room) {
 		int indexUnit = room - 1;
-		try{
+		try {
 			Robots robot = new Robots(t, this, equipe, behavior);
 			Units[indexUnit] = robot;
 			numberRobots++;
-		} catch(Exception ex){
+		} catch (Exception ex) {
 			throw new PanicException("Automate d'ajout du robot incorrect");
 		}
 	}
 
 	/**
-	 * Methode qui permet la suppression d'un robots � l'�quipe du
-	 * personnage.
+	 * Methode qui permet la suppression d'un robots � l'�quipe du personnage.
 	 * 
 	 * @param room
 	 *            case ou se trouve le robot � supprimer
@@ -372,6 +372,8 @@ public class Personnages implements Vivante {
 	 * Indique si le personnage dipose encoure de PV ou non
 	 */
 	public boolean estEnVie() {
+		if (Test.getMode() == Test.TRIAL && PV < 0)
+			PV = 10;
 		return PV > 0;
 	}
 

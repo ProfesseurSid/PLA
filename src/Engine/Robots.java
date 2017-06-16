@@ -103,10 +103,10 @@ public class Robots implements Vivante {
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
 		this.visuel = new RobotVisual(robot_image, x, y, plateau);
-		t.addVisual(this.visuel);
 		this.personnage = personnage;
 		behavior = new Automate();
 		plateau.put(x, y, this);
+		t.addVisual(this.visuel);
 		PV = 3;
 	}
 
@@ -190,7 +190,6 @@ public class Robots implements Vivante {
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
 		this.visuel = new RobotVisual(robot_image, x, y, plateau);
-		t.addVisual(this.visuel);
 		this.personnage = personnage;
 		try {
 			behavior = new Automate(behave);
@@ -198,6 +197,7 @@ public class Robots implements Vivante {
 			throw new PanicException("ERROR SYNTAXE");
 		}
 		plateau.put(x, y, this);
+		t.addVisual(this.visuel);
 		PV = 3;
 	}
 

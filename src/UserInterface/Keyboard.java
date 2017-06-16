@@ -60,7 +60,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	 * joueur 1 est dans sa base, la touche Q
 	 */
 	public void handle(KeyEvent event) {
-		if (!Test.getMenu() && !Test.enPause()
+		if (!(Test.getMode() == Test.TRIAL) && !Test.getMenu() && !Test.enPause()
 				&& (event.getCode() == Test.getHaut2() || event.getCode() == Test.getBas2()
 						|| event.getCode() == Test.getGauche2() || event.getCode() == Test.getDroite2()
 						|| event.getCode() == Test.getChoix21() || event.getCode() == Test.getChoix22()
@@ -95,14 +95,22 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage2.addRobot(newBehavior2, mate2 + 1);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_rouge = "ERROR SYSTAXE";
+								for (int i = 0; i < newBehavior2.length(); i++)
+									updateCurseur(3);
+								for (int i = 0; i < newBehavior2.length(); i++)
+									supprimeChar(personnage2);
+								expression_rouge = "ERROR SYNTAXE";
 							}
 						} else {
 							try {
 								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior2);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_rouge = "ERROR SYSTAXE";
+								for (int i = 0; i < newBehavior2.length(); i++)
+									updateCurseur(3);
+								for (int i = 0; i < newBehavior2.length(); i++)
+									supprimeChar(personnage2);
+								expression_rouge = "ERROR SYNTAXE";
 							}
 						}
 						root.getChildren().remove(boite2);
@@ -295,14 +303,22 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage1.addRobot(newBehavior1, mate1 + 1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_bleue = "ERROR SYSTAXE";
+								for (int i = 0; i < newBehavior1.length(); i++)
+									updateCurseur(3);
+								for (int i = 0; i < newBehavior1.length(); i++)
+									supprimeChar(personnage1);
+								expression_bleue = "ERROR SYNTAXE";
 							}
 						} else {
 							try {
 								personnage1.getRobot(mate1 + 1).setBehavior(newBehavior1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
-								expression_bleue = "ERROR SYSTAXE";
+								for (int i = 0; i < newBehavior1.length(); i++)
+									updateCurseur(3);
+								for (int i = 0; i < newBehavior1.length(); i++)
+									supprimeChar(personnage1);
+								expression_bleue = "ERROR SYNTAXE";
 							}
 						}
 						root.getChildren().remove(boite1);

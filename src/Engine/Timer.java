@@ -40,7 +40,38 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 500ms */
 		/* Avancee d'un pas dans l'algo des robots */
 		if (date - lastTime > 500) {
-			// t.getPlateau().toString();
+			// Si on est en mode TRIAL, le j2 bouge tout seul
+			if (Test.getMode() == Test.TRIAL) {
+				// if (t.getpersonnage2().getX() == 1 &&
+				// t.getpersonnage2().getY() > 0)
+				// t.getpersonnage2().mouvement(PointCardinal.NORD);
+				// else if (t.getpersonnage2().getY() == 0 &&
+				// t.getpersonnage2().getX() < t.getPlateau().nbColonnes() - 2)
+				// t.getpersonnage2().mouvement(PointCardinal.EST);
+				// else if (t.getpersonnage2().getX() ==
+				// t.getPlateau().nbColonnes() - 2
+				// && t.getpersonnage2().getY() < t.getPlateau().nbLignes() - 1)
+				// t.getpersonnage2().mouvement(PointCardinal.SUD);
+				// else
+				// t.getpersonnage2().mouvement(PointCardinal.OUEST);
+				rand = (int) (Math.random()*4);
+				switch (rand) {
+				case 1:
+					t.getpersonnage2().mouvement(PointCardinal.NORD);
+					break;
+				case 0:
+					t.getpersonnage2().mouvement(PointCardinal.SUD);
+					break;
+				case 2:
+					t.getpersonnage2().mouvement(PointCardinal.EST);
+					break;
+				case 3:
+					t.getpersonnage2().mouvement(PointCardinal.OUEST);
+					break;
+				default:
+					throw new PanicException("Mode TRIAL : Random non reconnu");
+				}
+			}
 			/* On execute un pas de chacun des robots existants */
 			for (int i = 1; i < 4; i++) {
 				rob1 = t.getpersonnage1().getRobot(i);
@@ -52,11 +83,10 @@ public class Timer extends AnimationTimer {
 				if (rob1 != null)
 					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
 			}
-			
-			//Le test ne marche pas
+
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
 				Test.EndGame(0);
-				} else if (!t.getpersonnage1().estEnVie()) {
+			} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
 				Test.EndGame(2);
 			} else if (!t.getpersonnage2().estEnVie()) {
@@ -96,11 +126,10 @@ public class Timer extends AnimationTimer {
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
 			rand = (int) (Math.random() * 4);
-			//rand = 0;
+			// rand = 0;
 			switch (rand) {
 			case 0:
-				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Hit hit = new Hit(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -132,16 +161,15 @@ public class Timer extends AnimationTimer {
 			}
 			lastTime_op = date;
 		}
-		
+
 		/* Si la derniere action a ete effectuee il y a plus de 5s */
 		/* Apparition des operateurs frequents */
 		if (date - lastTime_op2 > 5000) {
 			rand = (int) (Math.random() * 8);
-			//rand = 1;
+			// rand = 1;
 			switch (rand) {
 			case 0:
-				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -206,8 +234,9 @@ public class Timer extends AnimationTimer {
 	public void blink(OperateursVisual visuel, ImageView image) {
 		Timeline blinker = visuel.Blinker(image);
 		FadeTransition fader = visuel.Fader(image);
-//		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
-//		blinkThenFade.play();
+		// SequentialTransition blinkThenFade = new SequentialTransition(image,
+		// blinker, fader);
+		// blinkThenFade.play();
 		blinker.play();
 	}
 
