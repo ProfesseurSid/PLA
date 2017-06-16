@@ -117,7 +117,7 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 15s */
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
-			rand = (int) (Math.random() * 5);
+			rand = (int) (Math.random() * 6);
 			// rand = 0;
 			switch (rand) {
 			case 0:
@@ -135,10 +135,10 @@ public class Timer extends AnimationTimer {
 				blink(visuel, op);
 				break;
 			case 2:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/other.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/dp.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Others others = new Others(t, this.indX, this.indY, t.getPlateau(), visuel);
+				DeuxPoints deuxPoints = new DeuxPoints(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 3:
@@ -155,6 +155,13 @@ public class Timer extends AnimationTimer {
 				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
+			case 5 :
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pref.png")));
+				random();
+				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
+				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel, op);
+				break;
 			default:
 				throw new PanicException("Random sur operateur : nombre non gere");
 			}
@@ -164,7 +171,7 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 5s */
 		/* Apparition des operateurs frequents */
 		if (date - lastTime_op2 > 5000) {
-			rand = (int) (Math.random() * 7);
+			rand = (int) (Math.random() * 6);
 			// rand = 1;
 			switch (rand) {
 			case 0:
@@ -189,27 +196,20 @@ public class Timer extends AnimationTimer {
 				blink(visuel, op);
 				break;
 			case 3:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/dp.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/other.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				DeuxPoints deuxPoints = new DeuxPoints(t, this.indX, this.indY, t.getPlateau(), visuel);
+				Others others = new Others(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 4:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pref.png")));
-				random();
-				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
-				blink(visuel, op);
-				break;
-			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/rapport.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Rapport rapport = new Rapport(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
-			case 6:
+			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/star.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
