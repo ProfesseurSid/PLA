@@ -1,10 +1,11 @@
-package Engine;
+package src.Engine;
 
 //import Visual.*;
 import javafx.scene.Parent;
 import src.Visual.OperateursVisual;
 import src.Visual.Plateau;
 import src.Visual.Terrain;
+
 
 public class AccoladeF implements Operateurs {
 
@@ -37,17 +38,17 @@ public class AccoladeF implements Operateurs {
 		t.addVisual(visuel);
 	}
 
-	@Override
+//	@Override
 	public int getX() {
 		return x;
 	}
 
-	@Override
+//	@Override
 	public int getY() {
 		return y;
 	}
 
-	@Override
+//	@Override
 	/**
 	 * Ajoute l'operateur a l'inventaire du personnage et le retire du plateau
 	 * 
@@ -59,7 +60,7 @@ public class AccoladeF implements Operateurs {
 		visuel.remove();
 	}
 
-	@Override
+//	@Override
 	/**
 	 * Si l'accolade ferme, on ne fait rien
 	 */
@@ -67,12 +68,12 @@ public class AccoladeF implements Operateurs {
 		return;
 	}
 
-	@Override
+//	@Override
 	public String toString() {
 		return "}";
 	}
 
-	@Override
+//	@Override
 	/**
 	 * Accolade fermante toujours possible
 	 */

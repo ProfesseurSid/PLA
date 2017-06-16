@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path=""/>
-	<classpathentry exported="true" kind="lib" path="/home/drzed/eclipse/eclipse-installer/jre/lib/ext/jfxrt.jar"/>
+	<classpathentry kind="lib" path="/home/drzed/eclipse/eclipse-installer/jre/lib/ext/jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
