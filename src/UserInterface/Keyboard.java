@@ -364,7 +364,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else if (event.getCode() == Test.getChoix12()) {
 						if (personnage1.getRobot(2) != null) {
-							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							expression_bleue = personnage1.getRobot(2).toString() + "I";
 							curseur_bleu = expression_bleue.length() - 1;
 						} else {
 							expression_bleue = "I";
@@ -375,7 +375,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else if (event.getCode() == Test.getChoix13()) {
 						if (personnage1.getRobot(3) != null) {
-							expression_bleue = personnage1.getRobot(1).toString() + "I";
+							expression_bleue = personnage1.getRobot(3).toString() + "I";
 							curseur_bleu = expression_bleue.length() - 1;
 						} else {
 							expression_bleue = "I";
