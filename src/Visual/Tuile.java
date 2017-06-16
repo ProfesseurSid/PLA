@@ -21,4 +21,8 @@ public class Tuile extends Parent {
 		return taille;
 	}
 
+	public static void setTaille(int t) {
+		taille = t;
+	}
+
 }

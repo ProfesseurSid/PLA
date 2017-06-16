@@ -31,10 +31,10 @@ public class Mate extends Parent {
 		rob.setFitWidth(taille);
 		rob.setFitHeight(taille);
 		this.getChildren().add(rob);
-		
+
 		this.jauge = new Jauge(Test.marge, (3 * taille) / 4, (taille - (2 * Test.marge)) / 5);
 		this.getChildren().add(jauge);
-		
+
 		this.setEffect(new GaussianBlur(Test.marge));
 		this.setTranslateX(posX);
 		this.setTranslateY(posY);
@@ -83,5 +83,9 @@ public class Mate extends Parent {
 
 	public boolean getVisible() {
 		return visible;
+	}
+
+	public static void set() {
+		taille = Tuile.getTaille() * 3;
 	}
 }

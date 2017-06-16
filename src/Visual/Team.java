@@ -49,12 +49,12 @@ public class Team extends Parent {
 		Mates[i].visible(false);
 		this.getChildren().add(Mates[i]);
 	}
-	
-	public boolean getVisible(int i){
+
+	public boolean getVisible(int i) {
 		return Mates[i].getVisible();
 	}
-	
-	public int focused(){
+
+	public int focused() {
 		if (Mates[0].getVisible())
 			return 0;
 		if (Mates[1].getVisible())
@@ -63,5 +63,9 @@ public class Team extends Parent {
 			return 2;
 		else
 			return 3;
+	}
+
+	public static void set() {
+		dimX = nb * Mate.getTaille() + ((nb - 1) / 2) * Tuile.getTaille();
 	}
 }

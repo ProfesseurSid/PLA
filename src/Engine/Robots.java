@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import Exception.PanicException;
 import Parsing.ParseException;
+import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import Visual.Terrain;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Robots implements Vivante {
 
@@ -18,13 +22,7 @@ public class Robots implements Vivante {
 	Plateau plateau;
 	RobotVisual visuel;
 	Personnages personnage;
-
-	/**
-	 * DO NOT USE THIS CONSTRUCTOR
-	 */
-	public Robots() {
-
-	}
+	Terrain t;
 
 	/**
 	 * cree un robot et le place dans l'équipe e
@@ -39,21 +37,77 @@ public class Robots implements Vivante {
 	 *            le "robot graphique" associe au robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel) {
-		this.plateau = plateau;
+	public Robots(Terrain t, Personnages personnage, int e) {
+		this.t = t;
+		this.plateau = t.getPlateau();
+		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			y = plateau.nbLignes() / 2;
+			if (plateau.verification(1, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if (plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0) {
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0) {
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2)) == 0) {
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			} else if (plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else {
+				y = plateau.nbLignes() / 2;
+				x = 2;
+			}
+
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
+
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			y = plateau.nbLignes() / 2;
+			if (plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			} else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else {
+				y = plateau.nbLignes() / 2;
+				x = plateau.nbColonnes() - 3;
+			}
+
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
+
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		this.visuel = visuel;
+		this.visuel = new RobotVisual(robot_image, x, y, plateau);
 		this.personnage = personnage;
 		behavior = new Automate();
 		plateau.put(x, y, this);
+		t.addVisual(this.visuel);
+		PV = 3;
 	}
 
 	/**
@@ -71,25 +125,84 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate du robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Plateau plateau, Personnages personnage, int e, RobotVisual visuel, String behave) throws ParseException{
-		this.plateau = plateau;
+	public Robots(Terrain t, Personnages personnage, int e, String behave) throws ParseException {
+		this.t = t;
+		this.plateau = t.getPlateau();
+		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			y = plateau.nbLignes() / 2;
+			if (plateau.verification(1, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if (plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0) {
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0) {
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2)) == 0) {
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			} else if (plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else {
+				y = plateau.nbLignes() / 2;
+				x = 2;
+			}
+
+			robot_image = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
+
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			y = plateau.nbLignes() / 2;
+			if (plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+				y = plateau.nbLignes() / 2;
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+				y = (plateau.nbLignes() / 2) - 1;
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+				y = (plateau.nbLignes() / 2) + 1;
+			else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
+				y = (plateau.nbLignes() / 2) - 1;
+				x = 0;
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
+				y = (plateau.nbLignes() / 2) + 1;
+				x = 0;
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
+				y = plateau.nbLignes() / 2;
+				x = 0;
+			} else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+				y = (plateau.nbLignes() / 2) - 2;
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+				y = (plateau.nbLignes() / 2) + 2;
+			else {
+				y = plateau.nbLignes() / 2;
+				x = plateau.nbColonnes() - 3;
+			}
+
+			robot_image = new ImageView(
+					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
+
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
-		this.visuel = visuel;
+		this.visuel = new RobotVisual(robot_image, x, y, plateau);
 		this.personnage = personnage;
-		behavior = new Automate(behave);
+		try {
+			behavior = new Automate(behave);
+		} catch (ParseException ex) {
+			throw new PanicException("ERROR SYNTAXE");
+		}
 		plateau.put(x, y, this);
+		t.addVisual(this.visuel);
+		PV = 3;
 	}
 
 	public String toString() {
-		return "R(" + x + "," + y + ") : " + behavior.toString();
+		return behavior.toString();
 	}
 
 	@Override
@@ -100,7 +213,6 @@ public class Robots implements Vivante {
 	 *            le point cardinal donnant la direction du mouvement
 	 */
 	public void mouvement(PointCardinal p) {
-		// plateau.toString();
 		switch (p) {
 		case NORD:
 			if (y > 0 && !(plateau.unsafeGet(x, y - 1) instanceof Vivante)) {
@@ -184,18 +296,18 @@ public class Robots implements Vivante {
 	 *         d'ennemi adjacent
 	 */
 	public PointCardinal ennemiAdjacent() {
-		PointCardinal retour = null;
-		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
+		PointCardinal retour = PointCardinal.NONE;
+		if (x < plateau.nbColonnes() - 1 && plateau.unsafeGet(x + 1, y) instanceof Vivante
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
 		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
+		else if (y < plateau.nbLignes() - 1 && plateau.unsafeGet(x, y + 1) instanceof Vivante
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
 		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante
-				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
 		return retour;
@@ -382,8 +494,7 @@ public class Robots implements Vivante {
 		try {
 			behavior = new Automate(s);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new PanicException("ERROR SYNTAXE");
 		}
 	}
 
@@ -395,6 +506,39 @@ public class Robots implements Vivante {
 		if (nbCoupsRecus > 0)
 			PV -= nbCoupsRecus;
 		nbCoupsRecus = 0;
+
+		switch (PV) {
+		case 1:
+			visuel.remove();
+			if (equipe == 0) {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu3.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			} else {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge3.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			}
+			break;
+		case 2:
+			visuel.remove();
+			if (equipe == 0) {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu2.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			} else {
+				visuel = new RobotVisual(
+						new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge2.png"))),
+						x, y, plateau);
+				t.addVisual(visuel);
+			}
+			break;
+		default:
+		}
+
 		return PV > 0;
 	}
 

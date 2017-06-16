@@ -72,7 +72,8 @@ public class Kamikaze implements Operateurs {
 	 *            Robot qui va executer l'action.
 	 */
 	public void action(Robots nono) {
-		nono.boom();
+		if(isPossible(nono))
+			nono.boom();
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class Kamikaze implements Operateurs {
 	 * @return true si l'action est possible false sinon.
 	 */
 	public boolean isPossible(Robots nono) {
-		return (nono.ennemiAdjacent() != null);
+		return (nono.ennemiAdjacent() != PointCardinal.NONE);
 	}
 
 	/**

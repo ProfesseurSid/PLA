@@ -40,7 +40,26 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 500ms */
 		/* Avancee d'un pas dans l'algo des robots */
 		if (date - lastTime > 500) {
-			// t.getPlateau().toString();
+			// Si on est en mode TRIAL, le j2 bouge tout seul
+			if (Test.getMode() == Test.TRIAL) {
+				rand = (int) (Math.random()*4);
+				switch (rand) {
+				case 1:
+					t.getpersonnage2().mouvement(PointCardinal.NORD);
+					break;
+				case 0:
+					t.getpersonnage2().mouvement(PointCardinal.SUD);
+					break;
+				case 2:
+					t.getpersonnage2().mouvement(PointCardinal.EST);
+					break;
+				case 3:
+					t.getpersonnage2().mouvement(PointCardinal.OUEST);
+					break;
+				default:
+					throw new PanicException("Mode TRIAL : Random non reconnu");
+				}
+			}
 			/* On execute un pas de chacun des robots existants */
 			for (int i = 1; i < 4; i++) {
 				rob1 = t.getpersonnage1().getRobot(i);
@@ -52,15 +71,15 @@ public class Timer extends AnimationTimer {
 				if (rob1 != null)
 					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
 			}
-			
-			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage1().estEnVie()) {
+
+			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
 				Test.EndGame(0);
-				} else if (!t.getpersonnage1().estEnVie()) {
+			} else if (!t.getpersonnage1().estEnVie()) {
 				// TODO PLAYER 2 WINS HAHAHA
-				Test.EndGame(0);
+				Test.EndGame(2);
 			} else if (!t.getpersonnage2().estEnVie()) {
 				// TODO PLAYER 1 WINS HAHAHA
-				Test.EndGame(0);
+				Test.EndGame(1);
 			} else
 				for (int i = 1; i < 4; i++) {
 					rob1 = t.getpersonnage1().getRobot(i);
@@ -84,6 +103,10 @@ public class Timer extends AnimationTimer {
 				}
 			System.out.println("Vie P1 : " + t.getpersonnage1().getHealth());
 			System.out.println("Vie P2 : " + t.getpersonnage2().getHealth());
+
+			t.getpersonnage1().updateHealthBar();
+			t.getpersonnage2().updateHealthBar();
+
 			rob1 = t.getpersonnage1().getRobot(1);
 			if (rob1 != null) {
 				System.out.println("Vie R1P1 : " + t.getpersonnage1().getRobot(1).PV);
@@ -94,12 +117,11 @@ public class Timer extends AnimationTimer {
 		/* Si la derniere action a ete effectuee il y a plus de 15s */
 		/* Apparition des operateurs rares */
 		if (date - lastTime_op > 15000) {
-			rand = (int) (Math.random() * 4);
-			//rand = 0;
+			rand = (int) (Math.random() * 5);
+			// rand = 0;
 			switch (rand) {
 			case 0:
-				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/hit.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Hit hit = new Hit(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -126,28 +148,34 @@ public class Timer extends AnimationTimer {
 				Protect protect = new Protect(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
+			case 4:
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pv.png")));
+				random();
+				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
+				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
+				blink(visuel, op);
+				break;
 			default:
 				throw new PanicException("Random sur operateur : nombre non gere");
 			}
 			lastTime_op = date;
 		}
-		
+
 		/* Si la derniere action a ete effectuee il y a plus de 5s */
 		/* Apparition des operateurs frequents */
 		if (date - lastTime_op2 > 5000) {
-			rand = (int) (Math.random() * 8);
-			//rand = 1;
+			rand = (int) (Math.random() * 7);
+			// rand = 1;
 			switch (rand) {
 			case 0:
-				op = new ImageView(
-						new Image(PersonnagesVisual.class.getResourceAsStream("images/af.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/af.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeF accoladeF = new AccoladeF(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
 			case 1:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.PNG")));
+				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/ao.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				AccoladeO accoladeO = new AccoladeO(t, this.indX, this.indY, t.getPlateau(), visuel);
@@ -168,27 +196,20 @@ public class Timer extends AnimationTimer {
 				blink(visuel, op);
 				break;
 			case 4:
-				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pv.png")));
-				random();
-				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
-				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
-				blink(visuel, op);
-				break;
-			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pref.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Preference preference = new Preference(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
-			case 6:
+			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/rapport.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
 				Rapport rapport = new Rapport(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
-			case 7:
+			case 6:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/star.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());
@@ -205,8 +226,9 @@ public class Timer extends AnimationTimer {
 	public void blink(OperateursVisual visuel, ImageView image) {
 		Timeline blinker = visuel.Blinker(image);
 		FadeTransition fader = visuel.Fader(image);
-//		SequentialTransition blinkThenFade = new SequentialTransition(image, blinker, fader);
-//		blinkThenFade.play();
+		// SequentialTransition blinkThenFade = new SequentialTransition(image,
+		// blinker, fader);
+		// blinkThenFade.play();
 		blinker.play();
 	}
 

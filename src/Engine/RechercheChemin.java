@@ -2,11 +2,7 @@ package Engine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import Visual.PersonnagesVisual;
 import Visual.Plateau;
-import Visual.RobotVisual;
-import Visual.Terrain;
-import javafx.scene.image.ImageView;
 
 /**
  * Implémente les fonctions propres a la recherche du plus court chemin en
@@ -22,18 +18,18 @@ public class RechercheChemin {
 	final static int PATH = 3;
 	static RechercheChemin maze;
 
-	public static void main(String[] args) {
-		Plateau plat = new Plateau(new Terrain());
-		Personnages p = new Personnages(plat, 0, new PersonnagesVisual(new ImageView(), 0, plat));
-		Personnages p2 = new Personnages(plat, 1, new PersonnagesVisual(new ImageView(), 1, plat));
-		Robots r = new Robots(plat, p, 0, new RobotVisual(new ImageView(), 0, plat));
-		Robots r2 = new Robots(plat, p, 1, new RobotVisual(new ImageView(), 1, plat));
-		plat.toString();
-		maze = new RechercheChemin(plat, 4, 5, 10, 5);
-		boolean solved = maze.solve();
-		System.out.println("Solved: " + solved);
-		System.out.println(maze.toString());
-	}
+//	public static void main(String[] args) {
+//		Terrain t = new Terrain();
+//		Personnages p = new Personnages(t, 0, new PersonnagesVisual(new ImageView(), 0, t.getPlateau()));
+//		Personnages p2 = new Personnages(t, 1, new PersonnagesVisual(new ImageView(), 1, t.getPlateau()));
+//		Robots r = new Robots(t, p, 0, 0, t.getPlateau()));
+//		Robots r2 = new Robots(t, p, 1, 1, t.getPlateau()));
+//		t.toString();
+//		maze = new RechercheChemin(t.getPlateau(), 0, 5, 18, 5);
+//		boolean solved = maze.solve();
+//		System.out.println("Solved: " + solved);
+//		System.out.println(maze.toString());
+//	}
 
 	private int[][] grid;
 	private int height;
@@ -153,24 +149,27 @@ public class RechercheChemin {
 		} else {
 			map[i][j] = TRIED;
 		}
-
-		int haut = traverse(i + 1, j);
-		int bas = traverse(i - 1, j);
-		int gauche = traverse(i, j - 1);
-		int droite = traverse(i, j + 1);
-
-		if (droite <= height*width && inRange(i, j + 1) && droite <= gauche && droite <= haut && droite <= bas) {
-			map[i][j + 1] = PATH;
-			return droite + 1;
-		} else if (haut <= height*width && inRange(i + 1, j) && haut <= bas && haut <= gauche && haut <= droite) {
-			map[i + 1][j] = PATH;
-			return haut + 1;
-		} else if (gauche <= height*width && inRange(i, j - 1) && gauche <= droite && gauche <= haut && gauche <= bas) {
-			map[i][j - 1] = PATH;
-			return gauche + 1;
-		} else if (bas <= height*width && inRange(i - 1, j)) {
-			map[i - 1][j] = PATH;
-			return bas + 1;
+		
+		int gauche = traverse(i, j-1);
+		int droite = traverse(i, j+1);
+		int haut = traverse(i+1, j);
+		int bas = traverse(i-1, j);
+		
+		if(droite < gauche && droite < haut && droite < bas){
+			map[i][j+1] = PATH;
+			return droite+1;
+		}
+		else if(haut < bas && haut < gauche && haut < droite){
+			map[i+1][j] = PATH;
+			return haut+1;
+		}
+		else if(gauche < droite && gauche < haut && gauche < bas){
+			map[i][j-1] = PATH;
+			return gauche+1;
+		}
+		else if(bas <= height*width){
+			map[i-1][j] = PATH;
+			return bas+1;
 		}
 
 		return height * width + 1;

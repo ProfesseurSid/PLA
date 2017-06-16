@@ -4,11 +4,19 @@ import java.util.HashMap;
 
 import Exception.PanicException;
 import Parsing.ParseException;
+import Visual.Barre;
+import Visual.Boite;
+import Visual.FinalScreen;
 import Visual.PersonnagesVisual;
 import Visual.Plateau;
 import Visual.RobotVisual;
+import Visual.Terrain;
+import Visual.Test;
+import Visual.Tuile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Classe representant un personnage, avec des coordonees, un inventaire
@@ -25,6 +33,9 @@ public class Personnages implements Vivante {
 	Plateau plateau;
 	PersonnagesVisual visuel;
 	private boolean base;
+	Terrain t;
+	private Rectangle healthbar;
+	private ImageView healthbarBG;
 
 	/**
 	 * Contructeur de personnage de l'équipe e
@@ -33,8 +44,9 @@ public class Personnages implements Vivante {
 	 *            l'equipe dans laquelle ajouter le personnage
 	 * @require e == 0 || e == 1
 	 */
-	public Personnages(Plateau plateau, int e, PersonnagesVisual visuel) {
-		this.plateau = plateau;
+	public Personnages(Terrain t, int e, PersonnagesVisual visuel) {
+		this.t = t;
+		this.plateau = t.getPlateau();
 		this.base = false;
 		if (e == 0) {
 			x = 0;
@@ -49,6 +61,20 @@ public class Personnages implements Vivante {
 		initInventory();
 		this.visuel = visuel;
 		plateau.put(x, y, this);
+		healthbar = new Rectangle(10 * 0.49 * Tuile.getTaille(), 0.5 * Tuile.getTaille(), Color.GREEN);
+		healthbarBG = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Empty_hb.png")));
+		healthbarBG.setFitWidth((10 * 0.49 * Tuile.getTaille()) + (Tuile.getTaille() / 5));
+		healthbarBG.setFitHeight((0.5 * Tuile.getTaille() + (Tuile.getTaille() / 5)));
+		healthbar.setY(15 * Tuile.getTaille());
+		healthbarBG.setTranslateY((15 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		if (e == 0) {
+			healthbar.setX(0.5 * Tuile.getTaille());
+			healthbarBG.setTranslateX((0.5 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		} else {
+			healthbar.setX(27.43 * Tuile.getTaille());
+			healthbarBG.setTranslateX((27.43 * Tuile.getTaille()) - (Tuile.getTaille() / 10));
+		}
+		// Image = dimensions + taille tuile / 5
 	}
 
 	/**
@@ -58,12 +84,12 @@ public class Personnages implements Vivante {
 	 */
 	private void initInventory() {
 		Inventory.clear();
-		Inventory.put('*', 10); // Loop
-		Inventory.put('>', 10); // Preference
-		Inventory.put('S', 10); // Split
-		Inventory.put('H', 10); // Hit
-		Inventory.put('E', 10); // Escape
-		Inventory.put('K', 10); // Kamikaze
+		Inventory.put('*', 3); // Loop
+		Inventory.put('>', 0); // Preference
+		Inventory.put('S', 0); // Split
+		Inventory.put('H', 0); // Hit
+		Inventory.put('E', 0); // Escape
+		Inventory.put('K', 0); // Kamikaze
 		Inventory.put('P', 0); // Protect
 		Inventory.put('F', 0); // Follow
 		Inventory.put(':', 0); // Repeat
@@ -73,8 +99,8 @@ public class Personnages implements Vivante {
 		Inventory.put('B', 0); // Best
 		Inventory.put('W', 0); // Where
 		Inventory.put('O', 0); // Others
-		Inventory.put('{', 0);
-		Inventory.put('}', 0);
+		Inventory.put('{', 3); // AccoladeO
+		Inventory.put('}', 3); // AccoladeO
 		Inventory.put(';', 0); // And
 		Inventory.put('|', 0); // Or
 	}
@@ -162,19 +188,42 @@ public class Personnages implements Vivante {
 		Units[indexUnit] = robot;
 		numberRobots++;
 	}
-	
+
 	public void addRobot(String behave) {
 		if (numberRobots > 3) {
 			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
 		}
 		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
 		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
-		try{
-			Robots robot = new Robots(plateau, this, getEquipe(), visuelRobot, behave);
+		try {
+			Robots robot = new Robots(t, this, getEquipe(), behave);
 			Units[numberRobots] = robot;
 			numberRobots++;
-		} catch(ParseException e){
-			
+		} catch (ParseException e) {
+
+		}
+	}
+
+	/**
+	 * Methode qui permet l'ajout d'un robots a l'equipe du personnage.
+	 * 
+	 * @param behavior
+	 *            le comportement du Robot a ajouter a l'inventaire du
+	 *            personnage.
+	 * @param room
+	 *            case dans laquelle mettre le robot.
+	 * @require room comprit entre 1 et 3
+	 * 
+	 * @since Version 3.0
+	 */
+	public void addRobot(String behavior, int room) {
+		int indexUnit = room - 1;
+		try {
+			Robots robot = new Robots(t, this, equipe, behavior);
+			Units[indexUnit] = robot;
+			numberRobots++;
+		} catch (Exception ex) {
+			throw new PanicException("Automate d'ajout du robot incorrect");
 		}
 	}
 
@@ -258,14 +307,13 @@ public class Personnages implements Vivante {
 	}
 
 	/**
-	 * <<<<<<< HEAD Fonction de creation d'une chaine d'affichage de la classe
-	 * Personnages.
+	 * Fonction de creation d'une chaine d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caracteres correspondant a l'affichage. =======
-	 *         Fonction d'affichage de la classe Personnages.
+	 * @return La chaine de caracteres correspondant a l'affichage. Fonction
+	 *         d'affichage de la classe Personnages.
 	 * 
-	 * @return La chaine de caract�re correspondant � l'affichage. >>>>>>>
-	 *         origin/master
+	 * @return La chaine de caract�re correspondant � l'affichage.
+	 * 
 	 * @since Version 1.0
 	 */
 	public String toString() {
@@ -346,6 +394,8 @@ public class Personnages implements Vivante {
 	 * Indique si le personnage dipose encoure de PV ou non
 	 */
 	public boolean estEnVie() {
+		if (Test.getMode() == Test.TRIAL && PV <= 0)
+			PV = 10;
 		return PV > 0;
 	}
 
@@ -372,6 +422,24 @@ public class Personnages implements Vivante {
 
 	public HashMap<Character, Integer> getInventory() {
 		return Inventory;
+	}
+
+	public Rectangle getHealthBar() {
+		return healthbar;
+	}
+
+	public ImageView getHealthBarBG() {
+		return healthbarBG;
+	}
+
+	public void updateHealthBar() {
+		if(PV > 6)
+			healthbar.setFill(Color.GREEN);
+		if (PV <= 6)
+			healthbar.setFill(Color.ORANGE);
+		if (PV <= 3)
+			healthbar.setFill(Color.RED);
+		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
 	}
 
 }

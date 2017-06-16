@@ -1,5 +1,5 @@
 package Engine;
 
 public enum PointCardinal {
-	NORD, SUD, EST, OUEST;
+	NORD, SUD, EST, OUEST, NONE;
 }
