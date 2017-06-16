@@ -432,6 +432,9 @@ public class Personnages implements Vivante {
 		return healthbarBG;
 	}
 
+	/**
+	 * Met a jour la barre dev ies en fonction des PV
+	 */
 	public void updateHealthBar() {
 		if (PV <= 6)
 			healthbar.setFill(Color.ORANGE);
