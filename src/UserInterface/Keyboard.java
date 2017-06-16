@@ -30,7 +30,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	private String expression_courante;
 	private String expression_rouge;
 	private String expression_bleue;
-	private String newBehavior1, newBehavior2;
+	private String oldBehavior1, newBehavior1, oldBehavior2, newBehavior2;
 	private int curseur;
 	private int curseur_rouge = 0;
 	private int curseur_bleu = 0;
@@ -269,7 +269,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				}
 			}
 
-		} else if (!Test.enPause() && (event.getCode() == Test.getGauche1() || event.getCode() == Test.getHaut1()
+		} else if (!Test.getMenu() && !Test.enPause() && (event.getCode() == Test.getGauche1() || event.getCode() == Test.getHaut1()
 				|| event.getCode() == Test.getBas1() || event.getCode() == Test.getDroite1()
 				|| event.getCode() == Test.getChoix11() || event.getCode() == Test.getChoix12()
 				|| event.getCode() == Test.getChoix13())) {
@@ -478,6 +478,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			}
 		} else if (!FinalScreen.getIsFinish() && !Test.getMenu() && event.getCode() == Test.getGauche1().P)
 			Test.PauseGame();
+		else if (!Test.getMenu() && event.getCode() == Test.getGauche1().ESCAPE){
+			Test.setMenu(true);
+		}
 	}
 
 	public void getOperateur(int ligne, int number, Personnages personnage, int team) {

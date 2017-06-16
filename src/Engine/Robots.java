@@ -296,7 +296,7 @@ public class Robots implements Vivante {
 	 *         d'ennemi adjacent
 	 */
 	public PointCardinal ennemiAdjacent() {
-		PointCardinal retour = null;
+		PointCardinal retour = PointCardinal.NONE;
 		if (x < plateau.nbColonnes() - 1 && plateau.unsafeGet(x + 1, y) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;

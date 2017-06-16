@@ -49,17 +49,20 @@ public class Test extends Application {
 	private static Scene scene;
 	private static FinalScreen finalscreen;
 
+	private static Stage ps;
+	
 	public static void main(String[] args) {
 		Application.launch(Test.class, args);
 	}
 
 	public void start(Stage primaryStage) {
+		ps = primaryStage;
 		restart(primaryStage);
 	}
 
 	public static void restart(Stage primaryStage) {
 
-		finalscreen = new FinalScreen(primaryStage);
+		finalscreen = new FinalScreen();
 		System.out.println("Le programme se lance");
 		marge = Tuile.getTaille() / 5;
 
@@ -341,7 +344,7 @@ public class Test extends Application {
 		iPetit.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				Tuile.setTaille(30);
-				refresh(primaryStage);
+				refresh();
 			}
 		});
 		ImageView iMoyen = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonMoyen.png")));
@@ -364,7 +367,7 @@ public class Test extends Application {
 			public void handle(MouseEvent t) {
 
 				Tuile.setTaille(40);
-				refresh(primaryStage);
+				refresh();
 			}
 		});
 		ImageView iGrand = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonGrand.png")));
@@ -386,7 +389,7 @@ public class Test extends Application {
 		iGrand.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
 				Tuile.setTaille(50);
-				refresh(primaryStage);
+				refresh();
 			}
 		});
 		param.getChildren().add(iRetour);
@@ -899,15 +902,21 @@ public class Test extends Application {
 
 	static public void setMenu(boolean t) {
 		inMenu = t;
+		inPause = false;
+		if(inMenu)
+			restart(ps);
 	}
 
 	static public boolean getParam() {
 		return inParam;
 	}
 
-	public static void refresh(Stage stage) {
+	static public void quit(){
+		ps.close();
+	}
+	
+	public static void refresh() {
 		inPause = false;
-		finalscreen.undisplay();
 		Case.set();
 		Barre.set();
 		Boite.set();
@@ -915,7 +924,7 @@ public class Test extends Application {
 		Team.set();
 		Portrait.set();
 		Terrain.set();
-		restart(stage);
+		restart(ps);
 	}
 
 	public static KeyCode getHaut1() {
