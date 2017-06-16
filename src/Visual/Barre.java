@@ -35,14 +35,14 @@ public class Barre extends Parent {
 		commandes = new Text[nb];
 
 		if (p.getEquipe() == 0) {
-			commandes[0] = new Text("1");
-			commandes[1] = new Text("2");
-			commandes[2] = new Text("3");
+			commandes[0] = new Text(Test.CodeToString(Test.getChoix11()));
+			commandes[1] = new Text(Test.CodeToString(Test.getChoix12()));
+			commandes[2] = new Text(Test.CodeToString(Test.getChoix13()));
 			couleur = Color.rgb(72, 145, 220);
 		} else if (p.getEquipe() == 1) {
-			commandes[0] = new Text(";");
-			commandes[1] = new Text(":");
-			commandes[2] = new Text("!");
+			commandes[0] = new Text(Test.CodeToString(Test.getChoix21()));
+			commandes[1] = new Text(Test.CodeToString(Test.getChoix22()));
+			commandes[2] = new Text(Test.CodeToString(Test.getChoix23()));
 			couleur = Color.rgb(220, 41, 30);
 		}
 
@@ -116,7 +116,7 @@ public class Barre extends Parent {
 		return visible;
 	}
 
-	public static void set(){
+	public static void set() {
 		dimX = nb * Case.getTaille() + ((nb - 1) / 2) * Tuile.getTaille();
 	}
 }

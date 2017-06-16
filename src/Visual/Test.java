@@ -328,7 +328,7 @@ public class Test extends Application {
 		});
 		iRetour.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent t) {
-				MenuOn();
+				restart(primaryStage);
 			}
 		});
 		ImageView iPetit = new ImageView(new Image(Test.class.getResourceAsStream("images/BoutonPetit.png")));
