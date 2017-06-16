@@ -103,6 +103,11 @@ public class Test extends Application {
 		 */
 
 		jeu = new Group();
+		
+		ImageView background = new ImageView(new Image(FinalScreen.class.getResourceAsStream("images/Fond2.png")));
+		background.setFitWidth(dimX);
+		background.setFitHeight(dimY);
+		jeu.getChildren().add(background);
 
 		Terrain monTerrain = new Terrain();
 
