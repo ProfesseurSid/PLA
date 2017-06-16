@@ -1,8 +1,10 @@
 package Engine;
 
-import Engine.Personnages;
-import Visual.*;
+//import Visual.*;
 import javafx.scene.Parent;
+import src.Visual.OperateursVisual;
+import src.Visual.Plateau;
+import src.Visual.Terrain;
 
 public class AccoladeF implements Operateurs {
 
