@@ -25,7 +25,7 @@ public class Barre extends Parent {
 		fond_barre = new Rectangle();
 		fond_barre.setWidth(dimX);
 		fond_barre.setHeight(Case.getTaille());
-		fond_barre.setFill(Color.rgb(150, 150, 150, 1.0));
+		fond_barre.setFill(Color.rgb(0, 0, 0, 0.5));
 		fond_barre.setArcHeight(10);
 		fond_barre.setArcWidth(10);
 
