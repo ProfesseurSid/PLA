@@ -90,16 +90,10 @@ public class Protect implements Operateurs {
 	 * @return true si l'action est possible false sinon.
 	 */
 	public boolean isPossible(Robots nono) {
-		switch(nono.ennemiAdjacent()){
-		case NORD: return plateau.unsafeGet(x, y-1) instanceof Robots;
-		case SUD: return plateau.unsafeGet(x, y+1) instanceof Robots;
-		case EST: return plateau.unsafeGet(x+1, y) instanceof Robots;
-		case OUEST: return plateau.unsafeGet(x-1, y) instanceof Robots;
-		default: return false;
-		}
+		return nono.robotAdjacent() != PointCardinal.NONE;
 	}
 
-	public Parent getVisual(){
+	public Parent getVisual() {
 		return visuel;
 	}
 

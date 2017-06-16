@@ -9,10 +9,10 @@ import Exception.PanicException;
 
 public class Plateau {
 
-	int grilleWidth;
-	int grilleHeight;
+	private int grilleWidth;
+	private int grilleHeight;
 
-	public Entite[][] plateau;
+	public static Entite[][] plateau;
 
 	Terrain t;
 
@@ -48,11 +48,19 @@ public class Plateau {
 	 *            la ligne de la case a verifier
 	 * @return 0 si la case (x,y) est accessible, 1 sinon
 	 */
-	public int verification(int x, int y) {
-		if (plateau[y][x] instanceof Vivante) {
-			return 1;
+	public boolean verification(int x, int y) {
+		if (x > 0 && y > 0 && x < nbColonnes() && y < nbLignes() && plateau[y][x] instanceof Vivante) {
+			return false;
 		} else {
-			return 0;
+			return true;
+		}
+	}
+
+	public boolean verificationEntite(int x, int y) {
+		if (x > 0 && y > 0 && x < nbColonnes() && y < nbLignes() && plateau[y][x] instanceof Entite) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
