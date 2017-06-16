@@ -43,61 +43,55 @@ public class Robots implements Vivante {
 		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			if(plateau.verification(1, plateau.nbLignes() / 2) == 0)
+			if (plateau.verification(1, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if(plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0){
+			else if (plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			}
-			else if(plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0){
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			}
-			else if(plateau.verification(0, (plateau.nbLignes() / 2)) == 0){
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			}
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
-			else{
+			else {
 				y = plateau.nbLignes() / 2;
 				x = 2;
 			}
-			
+
 			robot_image = new ImageView(
 					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
 
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			if(plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+			if (plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0){
+			else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			}
-			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0){
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			}
-			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0){
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			}
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
-			else{
+			else {
 				y = plateau.nbLignes() / 2;
 				x = plateau.nbColonnes() - 3;
 			}
@@ -105,7 +99,6 @@ public class Robots implements Vivante {
 			robot_image = new ImageView(
 					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
 
-			
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
@@ -132,75 +125,67 @@ public class Robots implements Vivante {
 	 *            la chaine de caracteres decrivant l'automate du robot
 	 * @require e == 0 || e == 1
 	 */
-	public Robots(Terrain t, Personnages personnage, int e, String behave)
-			throws ParseException {
+	public Robots(Terrain t, Personnages personnage, int e, String behave) throws ParseException {
 		this.t = t;
 		this.plateau = t.getPlateau();
 		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			if(plateau.verification(1, plateau.nbLignes() / 2) == 0)
+			if (plateau.verification(1, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if(plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0){
+			else if (plateau.verification(0, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			}
-			else if(plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0){
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			}
-			else if(plateau.verification(0, (plateau.nbLignes() / 2)) == 0){
+			} else if (plateau.verification(0, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			}
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verification(1, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if(plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verification(1, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
-			else{
+			else {
 				y = plateau.nbLignes() / 2;
 				x = 2;
 			}
-		
-			robot_image = new ImageView(
-					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
-			
+
+			robot_image = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
+
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			if(plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+			if (plateau.verification(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
 				y = plateau.nbLignes() / 2;
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
 				y = (plateau.nbLignes() / 2) - 1;
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
 				y = (plateau.nbLignes() / 2) + 1;
-			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0){
+			else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			}
-			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0){
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			}
-			else if(plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0){
+			} else if (plateau.verification(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			}
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
 				y = (plateau.nbLignes() / 2) - 2;
-			else if(plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verification(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
 				y = (plateau.nbLignes() / 2) + 2;
-			else{
+			else {
 				y = plateau.nbLignes() / 2;
 				x = plateau.nbColonnes() - 3;
 			}
-			
+
 			robot_image = new ImageView(
 					new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotRouge.png")));
-			
+
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		equipe = e;
@@ -312,13 +297,13 @@ public class Robots implements Vivante {
 	 */
 	public PointCardinal ennemiAdjacent() {
 		PointCardinal retour = null;
-		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
+		if (x < plateau.nbColonnes() - 1 && plateau.unsafeGet(x + 1, y) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			retour = PointCardinal.EST;
 		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			retour = PointCardinal.OUEST;
-		else if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
+		else if (y < plateau.nbLignes() - 1 && plateau.unsafeGet(x, y + 1) instanceof Vivante
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
 		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante

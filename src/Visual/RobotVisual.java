@@ -1,8 +1,12 @@
 package Visual;
 
 import Exception.PanicException;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
 public class RobotVisual extends Parent {
 	private int indX; // Index d'une colonne du terrain
@@ -34,8 +38,10 @@ public class RobotVisual extends Parent {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		this.robot = robot;
-		robot.setTranslateX(indX * taille);
-		robot.setTranslateY(indY * taille);
+		robot.xProperty().set(indX*taille);
+		robot.yProperty().set(indY*taille);
+		//robot.setTranslateX(indX * taille);
+		//robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
 		this.getChildren().add(robot);
@@ -47,8 +53,10 @@ public class RobotVisual extends Parent {
 		indX = x;
 		indY = y;
 		this.robot = robot;
-		robot.setTranslateX(indX * taille);
-		robot.setTranslateY(indY * taille);
+		robot.xProperty().set(indX*taille);
+		robot.yProperty().set(indY*taille);
+		//robot.setTranslateX(indX * taille);
+		//robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
 		this.getChildren().add(robot);
@@ -74,45 +82,85 @@ public class RobotVisual extends Parent {
 	 * Deplace le robot d'une case vers le haut
 	 */
 	public void Haut() {
-		System.out.println(plateau.verification(indX, indY - 1));
+		/*System.out.println(plateau.verification(indX, indY - 1));
 		indY--;
 		robot.setTranslateX(indX * taille);
 		robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
+		*/
+		
+		Timeline timeline = new Timeline();
+		 timeline.setCycleCount(0);
+		 timeline.setAutoReverse(true);
+		 KeyValue keyvalue = new KeyValue(robot.yProperty(),(indY-1)*taille);
+		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
+		 timeline.getKeyFrames().add(keyframe);
+		 timeline.play();
+		 indY--;
+		 System.out.print("up:"+robot.yProperty());
 	}
 
 	/**
 	 * Deplace le robot d'une case vers le bas
 	 */
 	public void Bas() {
-		indY++;
+		/*indY++;
 		robot.setTranslateX(indX * taille);
 		robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);
+		robot.setFitHeight(taille);*/
+		
+		Timeline timeline = new Timeline();
+		 timeline.setCycleCount(0);
+		 timeline.setAutoReverse(true);
+		 KeyValue keyvalue = new KeyValue(robot.yProperty(),(indY+1)*taille);
+		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
+		 timeline.getKeyFrames().add(keyframe);
+		 timeline.play();
+		 indY++;
+		 System.out.print("down:"+robot.yProperty());
 	}
 
 	/**
 	 * Delace le robot d'une case vers la gauche
 	 */
 	public void Gauche() {
-		indX--;
+		/*indX--;
 		robot.setTranslateX(indX * taille);
 		robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);
+		robot.setFitHeight(taille);*/
+		Timeline timeline = new Timeline();
+		 timeline.setCycleCount(0);
+		 timeline.setAutoReverse(true);
+		 KeyValue keyvalue = new KeyValue(robot.xProperty(),(indX-1)*taille);
+		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
+		 timeline.getKeyFrames().add(keyframe);
+		 timeline.play();
+		 indX--;
+		 System.out.print("left:"+robot.xProperty());
 	}
 
 	/**
 	 * Deplace le robot d'une case vers la droite
 	 */
 	public void Droite() {
-		indX++;
+		/*indX++;
 		robot.setTranslateX(indX * taille);
 		robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);
+		robot.setFitHeight(taille);*/
+		
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(0);
+		 timeline.setAutoReverse(true);
+		 KeyValue keyvalue = new KeyValue(robot.xProperty(),(indX+1)*taille);
+		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
+		 timeline.getKeyFrames().add(keyframe);
+		 timeline.play();
+		 indX++;
+		 System.out.print("right:"+robot.xProperty());
 	}
 	
 	public void remove(){

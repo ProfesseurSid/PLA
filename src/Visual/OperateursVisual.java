@@ -32,7 +32,7 @@ public class OperateursVisual extends Parent {
 	public Timeline Blinker(ImageView operateur) {
 		Timeline blink = new Timeline(
 				new KeyFrame(Duration.seconds(0), new KeyValue(operateur.opacityProperty(), 1, Interpolator.DISCRETE)),
-				new KeyFrame(Duration.seconds(0.5),
+				new KeyFrame(Duration.seconds(0.9),
 						new KeyValue(operateur.opacityProperty(), 0, Interpolator.DISCRETE)),
 				new KeyFrame(Duration.seconds(1), new KeyValue(operateur.opacityProperty(), 1, Interpolator.DISCRETE)));
 		blink.setCycleCount(Timeline.INDEFINITE);;
