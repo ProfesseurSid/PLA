@@ -193,8 +193,6 @@ public class Personnages implements Vivante {
 		if (numberRobots > 3) {
 			throw new PanicException("Ajout d'un robot au personnage : Limite atteinte.");
 		}
-		ImageView rim = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/Robot.png")));
-		RobotVisual visuelRobot = new RobotVisual(rim, getEquipe(), plateau);
 		try {
 			Robots robot = new Robots(t, this, getEquipe(), behave);
 			Units[numberRobots] = robot;
