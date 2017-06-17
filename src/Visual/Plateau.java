@@ -34,8 +34,8 @@ public class Plateau {
 	 * @return l'elemment contenu dans le plateau
 	 */
 	public Entite unsafeGet(int c, int l) {
-		if (l >= grilleHeight)
-			System.out.println("ICI" + l);
+		// if (l >= grilleHeight)
+		// System.out.println("ICI" + l);
 		return plateau[l][c];
 	}
 

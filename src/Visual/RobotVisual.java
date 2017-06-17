@@ -24,8 +24,8 @@ public class RobotVisual extends Parent {
 	 * @param robot
 	 *            L'image avatar du robot
 	 * @param e
-	 *            Represente le numero de l'equipe ( 0 pour le robot 1, 1
-	 *            pour le robot 2)
+	 *            Represente le numero de l'equipe ( 0 pour le robot 1, 1 pour
+	 *            le robot 2)
 	 * @require e == 0 || e == 1
 	 */
 	public RobotVisual(ImageView robot, int e, Plateau plateau) {
@@ -38,25 +38,25 @@ public class RobotVisual extends Parent {
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
 		this.robot = robot;
-		robot.xProperty().set(indX*taille);
-		robot.yProperty().set(indY*taille);
-		//robot.setTranslateX(indX * taille);
-		//robot.setTranslateY(indY * taille);
+		robot.xProperty().set(indX * taille);
+		robot.yProperty().set(indY * taille);
+		// robot.setTranslateX(indX * taille);
+		// robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
 		this.getChildren().add(robot);
 
 		this.plateau = plateau;
 	}
-	
+
 	public RobotVisual(ImageView robot, int x, int y, Plateau plateau) {
 		indX = x;
 		indY = y;
 		this.robot = robot;
-		robot.xProperty().set(indX*taille);
-		robot.yProperty().set(indY*taille);
-		//robot.setTranslateX(indX * taille);
-		//robot.setTranslateY(indY * taille);
+		robot.xProperty().set(indX * taille);
+		robot.yProperty().set(indY * taille);
+		// robot.setTranslateX(indX * taille);
+		// robot.setTranslateY(indY * taille);
 		robot.setFitWidth(taille);
 		robot.setFitHeight(taille);
 		this.getChildren().add(robot);
@@ -82,88 +82,83 @@ public class RobotVisual extends Parent {
 	 * Deplace le robot d'une case vers le haut
 	 */
 	public void Haut() {
-		/*System.out.println(plateau.verification(indX, indY - 1));
-		indY--;
-		robot.setTranslateX(indX * taille);
-		robot.setTranslateY(indY * taille);
-		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);
-		*/
-		
+		/*
+		 * System.out.println(plateau.verification(indX, indY - 1)); indY--;
+		 * robot.setTranslateX(indX * taille); robot.setTranslateY(indY *
+		 * taille); robot.setFitWidth(taille); robot.setFitHeight(taille);
+		 */
+
 		Timeline timeline = new Timeline();
-		 timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(robot.yProperty(),(indY-1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indY--;
-		 System.out.print("up:"+robot.yProperty());
+		timeline.setCycleCount(0);
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(robot.yProperty(), (indY - 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indY--;
+		// System.out.print("up:"+robot.yProperty());
 	}
 
 	/**
 	 * Deplace le robot d'une case vers le bas
 	 */
 	public void Bas() {
-		/*indY++;
-		robot.setTranslateX(indX * taille);
-		robot.setTranslateY(indY * taille);
-		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);*/
-		
+		/*
+		 * indY++; robot.setTranslateX(indX * taille); robot.setTranslateY(indY
+		 * * taille); robot.setFitWidth(taille); robot.setFitHeight(taille);
+		 */
+
 		Timeline timeline = new Timeline();
-		 timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(robot.yProperty(),(indY+1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indY++;
-		 System.out.print("down:"+robot.yProperty());
+		timeline.setCycleCount(0);
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(robot.yProperty(), (indY + 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indY++;
+		// System.out.print("down:"+robot.yProperty());
 	}
 
 	/**
 	 * Delace le robot d'une case vers la gauche
 	 */
 	public void Gauche() {
-		/*indX--;
-		robot.setTranslateX(indX * taille);
-		robot.setTranslateY(indY * taille);
-		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);*/
+		/*
+		 * indX--; robot.setTranslateX(indX * taille); robot.setTranslateY(indY
+		 * * taille); robot.setFitWidth(taille); robot.setFitHeight(taille);
+		 */
 		Timeline timeline = new Timeline();
-		 timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(robot.xProperty(),(indX-1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indX--;
-		 System.out.print("left:"+robot.xProperty());
+		timeline.setCycleCount(0);
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(robot.xProperty(), (indX - 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indX--;
+		// System.out.print("left:"+robot.xProperty());
 	}
 
 	/**
 	 * Deplace le robot d'une case vers la droite
 	 */
 	public void Droite() {
-		/*indX++;
-		robot.setTranslateX(indX * taille);
-		robot.setTranslateY(indY * taille);
-		robot.setFitWidth(taille);
-		robot.setFitHeight(taille);*/
-		
+		/*
+		 * indX++; robot.setTranslateX(indX * taille); robot.setTranslateY(indY
+		 * * taille); robot.setFitWidth(taille); robot.setFitHeight(taille);
+		 */
+
 		Timeline timeline = new Timeline();
 		timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(robot.xProperty(),(indX+1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indX++;
-		 System.out.print("right:"+robot.xProperty());
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(robot.xProperty(), (indX + 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indX++;
+		// System.out.print("right:"+robot.xProperty());
 	}
-	
-	public void remove(){
+
+	public void remove() {
 		this.getChildren().remove(robot);
 	}
 

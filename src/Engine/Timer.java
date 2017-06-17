@@ -42,7 +42,7 @@ public class Timer extends AnimationTimer {
 		if (date - lastTime > 500) {
 			// Si on est en mode TRIAL, le j2 bouge tout seul
 			if (Test.getMode() == Test.TRIAL) {
-				rand = (int) (Math.random()*4);
+				rand = (int) (Math.random() * 4);
 				switch (rand) {
 				case 1:
 					t.getpersonnage2().mouvement(PointCardinal.NORD);
@@ -68,8 +68,9 @@ public class Timer extends AnimationTimer {
 					rob1.step();
 				if (rob2 != null)
 					rob2.step();
-				if (rob1 != null)
-					System.out.println("Coups recus R1P1 : " + rob1.nbCoupsRecus);
+				// if (rob1 != null)
+				// System.out.println("Coups recus R1P1 : " +
+				// rob1.nbCoupsRecus);
 			}
 
 			if (!t.getpersonnage1().estEnVie() && !t.getpersonnage2().estEnVie()) {
@@ -85,7 +86,7 @@ public class Timer extends AnimationTimer {
 					rob1 = t.getpersonnage1().getRobot(i);
 					rob2 = t.getpersonnage2().getRobot(i);
 					if (rob1 != null) {
-						System.out.println("ROB1PV : " + rob1.getHealth());
+						// System.out.println("ROB1PV : " + rob1.getHealth());
 						if (!rob1.estEnVie()) {
 							t.getpersonnage1().removeRobot(i);
 							rob1.getVisual().remove();
@@ -93,7 +94,7 @@ public class Timer extends AnimationTimer {
 						}
 					}
 					if (rob2 != null) {
-						System.out.println("ROB2PV : " + rob2.getHealth());
+						// System.out.println("ROB2PV : " + rob2.getHealth());
 						if (!rob2.estEnVie()) {
 							t.getpersonnage2().removeRobot(i);
 							rob2.getVisual().remove();
@@ -101,16 +102,17 @@ public class Timer extends AnimationTimer {
 						}
 					}
 				}
-			System.out.println("Vie P1 : " + t.getpersonnage1().getHealth());
-			System.out.println("Vie P2 : " + t.getpersonnage2().getHealth());
+			// System.out.println("Vie P1 : " + t.getpersonnage1().getHealth());
+			// System.out.println("Vie P2 : " + t.getpersonnage2().getHealth());
 
 			t.getpersonnage1().updateHealthBar();
 			t.getpersonnage2().updateHealthBar();
 
 			rob1 = t.getpersonnage1().getRobot(1);
-			if (rob1 != null) {
-				System.out.println("Vie R1P1 : " + t.getpersonnage1().getRobot(1).PV);
-			}
+			// if (rob1 != null) {
+			// System.out.println("Vie R1P1 : " +
+			// t.getpersonnage1().getRobot(1).PV);
+			// }
 			lastTime = date;
 		}
 
@@ -155,7 +157,7 @@ public class Timer extends AnimationTimer {
 				PointVirgule pointVirgule = new PointVirgule(t, this.indX, this.indY, t.getPlateau(), visuel);
 				blink(visuel, op);
 				break;
-			case 5 :
+			case 5:
 				op = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/pref.png")));
 				random();
 				visuel = new OperateursVisual(this.indX, this.indY, op, t.getPlateau());

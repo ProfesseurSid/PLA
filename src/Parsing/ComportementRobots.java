@@ -10,32 +10,32 @@ public class ComportementRobots implements ComportementRobotsConstants {
     this (new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8)));
   }
 
-  public static void main(String args []) throws ParseException
-  {
-    ComportementRobots parser = new ComportementRobots("*{P;P}");
-    while (true)
-    {
-      System.out.println("Reading from standard input...");
-      System.out.println("Enter an expression :");
-      //try
-      //{
-      //ComportementRobots.loop();
-      //System.out.println(a.toString());
-      /*}
-      catch (Exception e)
-      {
-        System.out.println("NOK.");
-        System.out.println(e.getMessage());
-        ComportementRobots.ReInit(System.in);
-      }
-      catch (Error e)
-      {
-        System.out.println("Oops.");
-        System.out.println(e.getMessage());
-        break;
-      }*/
-    }
-  }
+	// public static void main(String args []) throws ParseException
+	// {
+	// ComportementRobots parser = new ComportementRobots("*{P;P}");
+	// while (true)
+	// {
+	// System.out.println("Reading from standard input...");
+	// System.out.println("Enter an expression :");
+	// //try
+	// //{
+	// //ComportementRobots.loop();
+	// //System.out.println(a.toString());
+	// /*}
+	// catch (Exception e)
+	// {
+	// System.out.println("NOK.");
+	// System.out.println(e.getMessage());
+	// ComportementRobots.ReInit(System.in);
+	// }
+	// catch (Error e)
+	// {
+	// System.out.println("Oops.");
+	// System.out.println(e.getMessage());
+	// break;
+	// }*/
+	// }
+	// }
 
 /*
 TOKEN :

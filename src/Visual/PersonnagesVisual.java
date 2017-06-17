@@ -40,23 +40,23 @@ public class PersonnagesVisual extends Parent {
 			indX = 0;
 			indY = plateau.nbLignes() / 2;
 		} else if (e == 1) {
-			indX = plateau.nbColonnes() -1;
+			indX = plateau.nbColonnes() - 1;
 			indY = plateau.nbLignes() / 2;
 		} else
 			throw new PanicException("Numéro d'équipe incorrect");
-		
+
 		this.personnage = personnage;
-		this.personnage.xProperty().set(indX*taille);
-		this.personnage.yProperty().set(indY*taille);
-		//personnage.setTranslateX(indX * taille);
-		//personnage.setTranslateY(indY * taille);
+		this.personnage.xProperty().set(indX * taille);
+		this.personnage.yProperty().set(indY * taille);
+		// personnage.setTranslateX(indX * taille);
+		// personnage.setTranslateY(indY * taille);
 		personnage.setFitWidth(taille);
 		personnage.setFitHeight(taille);
 		this.getChildren().add(personnage);
 
 		this.plateau = plateau;
-		//personnage.xProperty().set(indX*taille);
-		//personnage.yProperty().set(indY*taille);
+		// personnage.xProperty().set(indX*taille);
+		// personnage.yProperty().set(indY*taille);
 	}
 
 	/**
@@ -77,89 +77,88 @@ public class PersonnagesVisual extends Parent {
 	 * Deplace le personnage d'une case vers le haut
 	 */
 	public void Haut() {
-	/*	System.out.println(plateau.verification(indX, indY - 1));
-		indY--;
-		personnage.setTranslateX(indX * taille);
-		personnage.setTranslateY(indY * taille);
-		personnage.setFitWidth(taille);
-		personnage.setFitHeight(taille);*/
+		/*
+		 * System.out.println(plateau.verification(indX, indY - 1)); indY--;
+		 * personnage.setTranslateX(indX * taille);
+		 * personnage.setTranslateY(indY * taille);
+		 * personnage.setFitWidth(taille); personnage.setFitHeight(taille);
+		 */
 		Timeline timeline = new Timeline();
-		 timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(personnage.yProperty(),(indY-1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indY--;
-		 System.out.print("up:"+personnage.yProperty());
+		timeline.setCycleCount(0);
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(personnage.yProperty(), (indY - 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indY--;
+		// System.out.print("up:"+personnage.yProperty());
 	}
-		
 
 	/**
 	 * Deplace le personnage d'une case vers le bas
 	 */
 	public void Bas() {
-		/*indY++;
-		personnage.setTranslateX(indX * taille);
-		personnage.setTranslateY(indY * taille);
-		personnage.setFitWidth(taille);
-		personnage.setFitHeight(taille);*/
+		/*
+		 * indY++; personnage.setTranslateX(indX * taille);
+		 * personnage.setTranslateY(indY * taille);
+		 * personnage.setFitWidth(taille); personnage.setFitHeight(taille);
+		 */
 		Timeline timeline = new Timeline();
-		 timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(personnage.yProperty(),(indY+1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indY++;
-		 System.out.print("down:"+personnage.yProperty());
+		timeline.setCycleCount(0);
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(personnage.yProperty(), (indY + 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indY++;
+		// System.out.print("down:" + personnage.yProperty());
 	}
 
 	/**
 	 * Delace le personnage d'une case vers la gauche
 	 */
 	public void Gauche() {
-		/*indX--;
-		personnage.setTranslateX(indX * taille);
-		personnage.setTranslateY(indY * taille);
-		personnage.setFitWidth(taille);
-		personnage.setFitHeight(taille);*/
+		/*
+		 * indX--; personnage.setTranslateX(indX * taille);
+		 * personnage.setTranslateY(indY * taille);
+		 * personnage.setFitWidth(taille); personnage.setFitHeight(taille);
+		 */
 		Timeline timeline = new Timeline();
-		 timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(personnage.xProperty(),(indX-1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indX--;
-		 System.out.print("left:"+personnage.xProperty());
+		timeline.setCycleCount(0);
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(personnage.xProperty(), (indX - 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indX--;
+		// System.out.print("left:" + personnage.xProperty());
 	}
 
 	/**
 	 * Deplace le personnage d'une case vers la droite
 	 */
 	public void Droite() {
-		/*indX++;
-		personnage.setTranslateX(indX * taille);
-		personnage.setTranslateY(indY * taille);
-		personnage.setFitWidth(taille);
-		personnage.setFitHeight(taille);*/
+		/*
+		 * indX++; personnage.setTranslateX(indX * taille);
+		 * personnage.setTranslateY(indY * taille);
+		 * personnage.setFitWidth(taille); personnage.setFitHeight(taille);
+		 */
 		Timeline timeline = new Timeline();
 		timeline.setCycleCount(0);
-		 timeline.setAutoReverse(true);
-		 KeyValue keyvalue = new KeyValue(personnage.xProperty(),(indX+1)*taille);
-		 KeyFrame keyframe=new KeyFrame(Duration.millis(1000/24),keyvalue);
-		 timeline.getKeyFrames().add(keyframe);
-		 timeline.play();
-		 indX++;
-		 System.out.print("right:"+personnage.xProperty());
+		timeline.setAutoReverse(true);
+		KeyValue keyvalue = new KeyValue(personnage.xProperty(), (indX + 1) * taille);
+		KeyFrame keyframe = new KeyFrame(Duration.millis(1000 / 24), keyvalue);
+		timeline.getKeyFrames().add(keyframe);
+		timeline.play();
+		indX++;
+		// System.out.print("right:" + personnage.xProperty());
 	}
-	
-	public void setX(int x){
+
+	public void setX(int x) {
 		indX = x;
 	}
-	
-	public void setY(int y){
+
+	public void setY(int y) {
 		indY = y;
 	}
 
