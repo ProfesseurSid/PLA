@@ -43,24 +43,24 @@ public class Robots implements Vivante {
 		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			if (plateau.verificationEntite(1, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(1, plateau.nbLignes() / 2) )
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 1) )
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 1) )
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) - 1) ) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) + 1) ) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2))) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 2))
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 2))
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -72,24 +72,24 @@ public class Robots implements Vivante {
 
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2))
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1))
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1))
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1)) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1)) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2))) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2))
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2))
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -131,24 +131,24 @@ public class Robots implements Vivante {
 		ImageView robot_image;
 		if (e == 0) {
 			x = 1;
-			if (plateau.verificationEntite(1, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(1, plateau.nbLignes() / 2))
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 1))
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 1))
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) - 1)) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2) + 1)) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(0, (plateau.nbLignes() / 2))) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) - 2))
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(1, (plateau.nbLignes() / 2) + 2))
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -160,24 +160,24 @@ public class Robots implements Vivante {
 
 		} else if (e == 1) {
 			x = plateau.nbColonnes() - 2;
-			if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2) == 0)
+			if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, plateau.nbLignes() / 2))
 				y = plateau.nbLignes() / 2;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 1))
 				y = (plateau.nbLignes() / 2) - 1;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 1))
 				y = (plateau.nbLignes() / 2) + 1;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1) == 0) {
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) - 1)) {
 				y = (plateau.nbLignes() / 2) - 1;
 				x = 0;
-			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2) + 1)) {
 				y = (plateau.nbLignes() / 2) + 1;
 				x = 0;
-			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2)) == 0) {
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 1, (plateau.nbLignes() / 2))) {
 				y = plateau.nbLignes() / 2;
 				x = 0;
-			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2) == 0)
+			} else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) - 2))
 				y = (plateau.nbLignes() / 2) - 2;
-			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2) == 0)
+			else if (plateau.verificationEntite(x = plateau.nbColonnes() - 2, (plateau.nbLignes() / 2) + 2))
 				y = (plateau.nbLignes() / 2) + 2;
 			else {
 				y = plateau.nbLignes() / 2;
@@ -293,7 +293,7 @@ public class Robots implements Vivante {
 	 * Si un ennemi est place sur une case adjacente, ressort la position de cet
 	 * ennemi par rapport au robot
 	 * 
-	 * @return la direction de l'ennemi adjacent, ou null s'il n'y a pas
+	 * @return la direction de l'ennemi adjacent, ou NONE s'il n'y a pas
 	 *         d'ennemi adjacent
 	 */
 	public PointCardinal ennemiAdjacent() {
@@ -308,6 +308,31 @@ public class Robots implements Vivante {
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			retour = PointCardinal.SUD;
 		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Vivante
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
+			retour = PointCardinal.NORD;
+
+		return retour;
+	}
+
+	/**
+	 * Si un robot ennemi est place sur une case adjacente, ressort la position de cet
+	 * ennemi par rapport au robot
+	 * 
+	 * @return la direction du robot adjacent, ou NONE s'il n'y a pas
+	 *         d'ennemi adjacent
+	 */
+	public PointCardinal robotAdjacent() {
+		PointCardinal retour = PointCardinal.NONE;
+		if (x < plateau.nbColonnes() - 1 && plateau.unsafeGet(x + 1, y) instanceof Robots
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
+			retour = PointCardinal.EST;
+		else if (x > 0 && plateau.unsafeGet(x - 1, y) instanceof Robots
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
+			retour = PointCardinal.OUEST;
+		else if (y < plateau.nbLignes() - 1 && plateau.unsafeGet(x, y + 1) instanceof Robots
+				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
+			retour = PointCardinal.SUD;
+		else if (y > 0 && plateau.unsafeGet(x, y - 1) instanceof Robots
 				&& !this.memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
 			retour = PointCardinal.NORD;
 
