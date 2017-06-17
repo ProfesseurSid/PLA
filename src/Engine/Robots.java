@@ -391,7 +391,7 @@ public class Robots implements Vivante {
 	 */
 	public void boom() {
 		nbCoupsRecus = PV;
-		if (x < plateau.nbColonnes() && plateau.unsafeGet(x + 1, y) instanceof Vivante
+		if (x < plateau.nbColonnes()-1 && plateau.unsafeGet(x + 1, y) instanceof Vivante
 				&& !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y)))
 			for (int i = 0; i < PV; i++)
 				((Vivante) plateau.unsafeGet(x + 1, y)).isHit();
@@ -399,7 +399,7 @@ public class Robots implements Vivante {
 				&& !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y)))
 			for (int i = 0; i < PV; i++)
 				((Vivante) plateau.unsafeGet(x - 1, y)).isHit();
-		if (y < plateau.nbLignes() && plateau.unsafeGet(x, y + 1) instanceof Vivante
+		if (y < plateau.nbLignes()-1 && plateau.unsafeGet(x, y + 1) instanceof Vivante
 				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y + 1)))
 			for (int i = 0; i < PV; i++)
 				((Vivante) plateau.unsafeGet(x, y + 1)).isHit();
@@ -407,6 +407,22 @@ public class Robots implements Vivante {
 				&& !memeEquipe((Vivante) plateau.unsafeGet(x, y - 1)))
 			for (int i = 0; i < PV; i++)
 				((Vivante) plateau.unsafeGet(x, y - 1)).isHit();
+		if (x > 0 && y > 0 && plateau.unsafeGet(x - 1, y - 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x - 1, y - 1)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x - 1, y - 1)).isHit();
+		if (x < plateau.nbColonnes()-1 && y > 0 && plateau.unsafeGet(x + 1, y - 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x + 1, y - 1)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x + 1, y - 1)).isHit();
+		if (x > 0 && y < plateau.nbLignes()-1 && plateau.unsafeGet(x - 1, y + 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x-1, y + 1)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x-1, y + 1)).isHit();
+		if (x < plateau.nbColonnes()-1 && y < plateau.nbLignes()-1 && plateau.unsafeGet(x+1, y + 1) instanceof Vivante
+				&& !memeEquipe((Vivante) plateau.unsafeGet(x+1, y + 1)))
+			for (int i = 0; i < PV; i++)
+				((Vivante) plateau.unsafeGet(x+1, y + 1)).isHit();
 	}
 
 	/**
