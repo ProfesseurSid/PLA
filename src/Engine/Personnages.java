@@ -430,14 +430,22 @@ public class Personnages implements Vivante {
 		return healthbarBG;
 	}
 
+	/**
+	 * Met a jour la barre dev ies en fonction des PV
+	 */
 	public void updateHealthBar() {
-		if(PV > 6)
+		if (PV > 6)
 			healthbar.setFill(Color.GREEN);
 		if (PV <= 6)
 			healthbar.setFill(Color.ORANGE);
 		if (PV <= 3)
 			healthbar.setFill(Color.RED);
-		healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
+		if (equipe == 0)
+			healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
+		else {
+			healthbar.setWidth(PV * 0.49 * Tuile.getTaille());
+			healthbar.setX((27.43 * Tuile.getTaille()) + ((10 - PV) * 0.49 * Tuile.getTaille()));
+		}
 	}
 
 }
