@@ -95,9 +95,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage2.addRobot(newBehavior2, mate2 + 1);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
-								for (int i = 0; i < newBehavior2.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									updateCurseur(3);
-								for (int i = 0; i < newBehavior2.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									supprimeChar(personnage2);
 								expression_rouge = "ERROR SYNTAXE";
 							}
@@ -106,9 +106,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage2.getRobot(mate2 + 1).setBehavior(newBehavior2);
 								expression_rouge = "EXPRESSION";
 							} catch (PanicException e) {
-								for (int i = 0; i < newBehavior2.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									updateCurseur(3);
-								for (int i = 0; i < newBehavior2.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									supprimeChar(personnage2);
 								expression_rouge = "ERROR SYNTAXE";
 							}
@@ -193,7 +193,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_rouges();
 					} else {
 						if (personnage2.getRobot(1) != null) {
-							expression_rouge = personnage2.getRobot(1).toString();
+							expression_rouge = personnage2.getRobot(1).toString().substring(0, Math.min(20, personnage2.getRobot(1).toString().length()));
 						} else {
 							expression_rouge = "";
 						}
@@ -209,7 +209,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_rouges();
 					} else {
 						if (personnage2.getRobot(2) != null) {
-							expression_rouge = personnage2.getRobot(2).toString();
+							expression_rouge = personnage2.getRobot(2).toString().substring(0, Math.min(20, personnage2.getRobot(2).toString().length()));
 						} else {
 							expression_rouge = "";
 						}
@@ -225,7 +225,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_rouges();
 					} else {
 						if (personnage2.getRobot(3) != null) {
-							expression_rouge = personnage2.getRobot(3).toString();
+							expression_rouge = personnage2.getRobot(3).toString().substring(0, Math.min(20, personnage2.getRobot(3).toString().length()));
 						} else {
 							expression_rouge = "";
 						}
@@ -269,10 +269,11 @@ public class Keyboard implements EventHandler<KeyEvent> {
 				}
 			}
 
-		} else if (!Test.getMenu() && !Test.enPause() && (event.getCode() == Test.getGauche1() || event.getCode() == Test.getHaut1()
-				|| event.getCode() == Test.getBas1() || event.getCode() == Test.getDroite1()
-				|| event.getCode() == Test.getChoix11() || event.getCode() == Test.getChoix12()
-				|| event.getCode() == Test.getChoix13())) {
+		} else if (!Test.getMenu() && !Test.enPause()
+				&& (event.getCode() == Test.getGauche1() || event.getCode() == Test.getHaut1()
+						|| event.getCode() == Test.getBas1() || event.getCode() == Test.getDroite1()
+						|| event.getCode() == Test.getChoix11() || event.getCode() == Test.getChoix12()
+						|| event.getCode() == Test.getChoix13())) {
 			// Player 1
 			if (personnage1.dansBase()) {
 				if (mate1 != -1) {
@@ -303,9 +304,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage1.addRobot(newBehavior1, mate1 + 1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
-								for (int i = 0; i < newBehavior1.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									updateCurseur(3);
-								for (int i = 0; i < newBehavior1.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									supprimeChar(personnage1);
 								expression_bleue = "ERROR SYNTAXE";
 							}
@@ -314,9 +315,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 								personnage1.getRobot(mate1 + 1).setBehavior(newBehavior1);
 								expression_bleue = "EXPRESSION";
 							} catch (PanicException e) {
-								for (int i = 0; i < newBehavior1.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									updateCurseur(3);
-								for (int i = 0; i < newBehavior1.length(); i++)
+								for (int i = 0; i < expression_courante.length(); i++)
 									supprimeChar(personnage1);
 								expression_bleue = "ERROR SYNTAXE";
 							}
@@ -401,7 +402,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(1) != null) {
-							expression_bleue = personnage1.getRobot(1).toString();
+							expression_bleue = personnage1.getRobot(1).toString().substring(0, Math.min(20, personnage1.getRobot(1).toString().length()));
 						} else {
 							expression_bleue = "";
 						}
@@ -417,7 +418,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(2) != null) {
-							expression_bleue = personnage1.getRobot(2).toString();
+							expression_bleue = personnage1.getRobot(2).toString().substring(0, Math.min(20, personnage1.getRobot(2).toString().length()));
 						} else {
 							expression_bleue = "";
 						}
@@ -433,7 +434,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(3) != null) {
-							expression_bleue = personnage1.getRobot(3).toString();
+							expression_bleue = personnage1.getRobot(3).toString().substring(0, Math.min(20, personnage1.getRobot(3).toString().length()));
 						} else {
 							expression_bleue = "";
 						}
@@ -478,7 +479,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 			}
 		} else if (!FinalScreen.getIsFinish() && !Test.getMenu() && event.getCode() == Test.getGauche1().P)
 			Test.PauseGame();
-		else if (!Test.getMenu() && event.getCode() == Test.getGauche1().ESCAPE){
+		else if (!Test.getMenu() && event.getCode() == Test.getGauche1().ESCAPE) {
 			Test.setMenu(true);
 		}
 	}
@@ -629,7 +630,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		root.getChildren().remove(expr_bleue);
 		affichable = exprAffichable(expression_bleue);
 		expr_bleue = new Text(affichable);
-		expr_bleue.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
+		expr_bleue.setFont(Font.font("Monospace", Tuile.getTaille() - marge));
 		expr_bleue.setFill(Color.rgb(72, 145, 220, 1.0));
 		expr_bleue.setX(3 * marge + Barre.getDimX());
 		expr_bleue.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -641,7 +642,7 @@ public class Keyboard implements EventHandler<KeyEvent> {
 		root.getChildren().remove(expr_rouge);
 		affichable = exprAffichable(expression_rouge);
 		expr_rouge = new Text(affichable);
-		expr_rouge.setFont(Font.font("Courier New", Tuile.getTaille() - marge));
+		expr_rouge.setFont(Font.font("Monospace", Tuile.getTaille() - marge));
 		expr_rouge.setFill(Color.rgb(220, 41, 30, 1.0));
 		expr_rouge.setX(3 * marge + Barre.getDimX() + ((Terrain.getTuileX() + 1) / 2) * Tuile.getTaille());
 		expr_rouge.setY(marge + (Terrain.getTuileY() + 1) * Tuile.getTaille());
@@ -686,7 +687,9 @@ public class Keyboard implements EventHandler<KeyEvent> {
 	}
 
 	public String exprAffichable(String s) {
-		if (curseur <= 19) {
+		if (s.length() <= 19)
+			return s;
+		else if (curseur <= 19) {
 			return s.substring(0, Math.min(20, s.length()));
 		}
 		return s.substring(curseur - 19, curseur + 1);
