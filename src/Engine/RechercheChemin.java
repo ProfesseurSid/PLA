@@ -22,18 +22,20 @@ public class RechercheChemin {
 	final static int PATH = 3;
 	static RechercheChemin maze;
 
-//	public static void main(String[] args) {
-//		Terrain t = new Terrain();
-//		Personnages p = new Personnages(t, 0, new PersonnagesVisual(new ImageView(), 0, t.getPlateau()));
-//		Personnages p2 = new Personnages(t, 1, new PersonnagesVisual(new ImageView(), 1, t.getPlateau()));
-//		Robots r = new Robots(t, p, 0, 0, t.getPlateau()));
-//		Robots r2 = new Robots(t, p, 1, 1, t.getPlateau()));
-//		t.toString();
-//		maze = new RechercheChemin(t.getPlateau(), 0, 5, 18, 5);
-//		boolean solved = maze.solve();
-//		System.out.println("Solved: " + solved);
-//		System.out.println(maze.toString());
-//	}
+	// public static void main(String[] args) {
+	// Terrain t = new Terrain();
+	// Personnages p = new Personnages(t, 0, new PersonnagesVisual(new
+	// ImageView(), 0, t.getPlateau()));
+	// Personnages p2 = new Personnages(t, 1, new PersonnagesVisual(new
+	// ImageView(), 1, t.getPlateau()));
+	// Robots r = new Robots(t, p, 0, 0, t.getPlateau()));
+	// Robots r2 = new Robots(t, p, 1, 1, t.getPlateau()));
+	// t.toString();
+	// maze = new RechercheChemin(t.getPlateau(), 0, 5, 18, 5);
+	// boolean solved = maze.solve();
+	// System.out.println("Solved: " + solved);
+	// System.out.println(maze.toString());
+	// }
 
 	private int[][] grid;
 	private int height;
@@ -76,7 +78,7 @@ public class RechercheChemin {
 				else
 					grid[i][j] = 1;
 
-//		grid[5][17] = 5;
+		// grid[5][17] = 5;
 
 		this.map = new int[height][width];
 	}
@@ -124,13 +126,13 @@ public class RechercheChemin {
 	 * @return booleen : un chemin a ete trouve
 	 */
 	public boolean solve() {
-		boolean found = traverse(origX, origY) <= height*width;
+		boolean found = traverse(origX, origY) <= height * width;
 
 		while (!found && nbExec < width) {
 			System.out.println("Exec : " + nbExec);
 			this.map = new int[height][width];
 			nbExec++;
-			found = traverse(origX, origY) <= height*width;
+			found = traverse(origX, origY) <= height * width;
 		}
 		return found;
 	}
@@ -146,70 +148,67 @@ public class RechercheChemin {
 	 */
 	private int traverse(int i, int j) {
 		if (!isValid(i, j)) {
-			return height*width+1;
+			return height * width + 1;
 		}
 
 		if (isEnd(i, j)) {
-//			map[i][j] = PATH;
+			// map[i][j] = PATH;
 			return 1;
 		} else {
 			map[i][j] = TRIED;
 		}
-		
-		int gauche = traverse(i, j-1);
-		int droite = traverse(i, j+1);
-		int haut = traverse(i+1, j);
-		int bas = traverse(i-1, j);
-		
-		if(droite < gauche && droite < haut && droite < bas){
-			map[i][j+1] = PATH;
-			return droite+1;
-		}
-		else if(haut < bas && haut < gauche && haut < droite){
-			map[i+1][j] = PATH;
-			return haut+1;
-		}
-		else if(gauche < droite && gauche < haut && gauche < bas){
-			map[i][j-1] = PATH;
-			return gauche+1;
-		}
-		else if(bas <= height*width){
-			map[i-1][j] = PATH;
-			return bas+1;
-		}
-		
-//		System.out.println("X : " + j + " Y : " + i);
 
-//		if (isEnd(i, j)) {
-//			map[i][j] = PATH;
-//			return true;
-//		} else {
-//			map[i][j] = TRIED;
-//		}
-//
-//		// North
-//		if (traverse(i - 1, j)) {
-//			map[i - 1][j] = PATH;
-//			return true;
-//		}
-//		// East
-//		if (traverse(i, j + 1)) {
-//			map[i][j + 1] = PATH;
-//			return true;
-//		}
-//		// South
-//		if (traverse(i + 1, j)) {
-//			map[i + 1][j] = PATH;
-//			return true;
-//		}
-//		// West
-//		if (traverse(i, j - 1)) {
-//			map[i][j - 1] = PATH;
-//			return true;
-//		}
-//
-//		return false;
-		return height*width+1;
+		int gauche = traverse(i, j - 1);
+		int droite = traverse(i, j + 1);
+		int haut = traverse(i + 1, j);
+		int bas = traverse(i - 1, j);
+
+		if (droite < gauche && droite < haut && droite < bas) {
+			map[i][j + 1] = PATH;
+			return droite + 1;
+		} else if (haut < bas && haut < gauche && haut < droite) {
+			map[i + 1][j] = PATH;
+			return haut + 1;
+		} else if (gauche < droite && gauche < haut && gauche < bas) {
+			map[i][j - 1] = PATH;
+			return gauche + 1;
+		} else if (bas <= height * width) {
+			map[i - 1][j] = PATH;
+			return bas + 1;
+		}
+
+		// System.out.println("X : " + j + " Y : " + i);
+
+		// if (isEnd(i, j)) {
+		// map[i][j] = PATH;
+		// return true;
+		// } else {
+		// map[i][j] = TRIED;
+		// }
+		//
+		// // North
+		// if (traverse(i - 1, j)) {
+		// map[i - 1][j] = PATH;
+		// return true;
+		// }
+		// // East
+		// if (traverse(i, j + 1)) {
+		// map[i][j + 1] = PATH;
+		// return true;
+		// }
+		// // South
+		// if (traverse(i + 1, j)) {
+		// map[i + 1][j] = PATH;
+		// return true;
+		// }
+		// // West
+		// if (traverse(i, j - 1)) {
+		// map[i][j - 1] = PATH;
+		// return true;
+		// }
+		//
+		// return false;
+		return height * width + 1;
 	}
 
 	/**

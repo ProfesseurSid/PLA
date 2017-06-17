@@ -613,7 +613,7 @@ public class Test extends Application {
 		tChoix13.setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
 				choix13 = ke.getCode();
-				textChoix12.setText(CodeToString(choix13));
+				textChoix13.setText(CodeToString(choix13));
 				refreshText(textChoix13);
 			}
 		});
