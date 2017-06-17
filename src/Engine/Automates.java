@@ -52,8 +52,7 @@ public class Automates {
 	 * crée un automate en ajoutant le premier élément
 	 * 
 	 * @param o
-	 *            l'opérateur à placer dans l'automate (comportement *{o})
-	 *            créé
+	 *            l'opérateur à placer dans l'automate (comportement *{o}) créé
 	 * @require l'opérateur décrit une action (pas un test comme >, |... par
 	 *          exemple)
 	 */
@@ -253,13 +252,12 @@ public class Automates {
 	 * @param nono
 	 */
 	public void execute(Robots nono) {
-//		code.get(exec).action(this, nono);
+		// code.get(exec).action(this, nono);
 		exec++;
 	}
 
 	/**
-	 * Met à jour la dernière étoile rencontrée et la fin de l'action
-	 * répétée
+	 * Met à jour la dernière étoile rencontrée et la fin de l'action répétée
 	 * 
 	 * @param nono
 	 */
@@ -355,7 +353,7 @@ public class Automates {
 	public void realExec(Robots nono) {
 		if (enExec != null) {
 			execution = true;
-//			enExec.action(this, nono);
+			// enExec.action(this, nono);
 			execution = false;
 			enExec = null;
 			nbExec = 1;
@@ -393,6 +391,6 @@ public class Automates {
 			aff += " est un automate correct";
 		else
 			aff += " est un automate incorrect";
-		System.out.println(aff);
+		// System.out.println(aff);
 	}
 }
