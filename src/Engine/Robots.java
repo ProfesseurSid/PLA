@@ -155,6 +155,7 @@ public class Robots implements Vivante {
 				x = 2;
 			}
 
+			
 			robot_image = new ImageView(new Image(PersonnagesVisual.class.getResourceAsStream("images/RobotBleu.png")));
 
 		} else if (e == 1) {
