@@ -193,7 +193,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_rouges();
 					} else {
 						if (personnage2.getRobot(1) != null) {
-							expression_rouge = personnage2.getRobot(1).toString().substring(0, Math.min(20, personnage2.getRobot(1).toString().length()));
+							expression_rouge = personnage2.getRobot(1).toString().substring(0,
+									Math.min(20, personnage2.getRobot(1).toString().length()));
 						} else {
 							expression_rouge = "";
 						}
@@ -209,7 +210,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_rouges();
 					} else {
 						if (personnage2.getRobot(2) != null) {
-							expression_rouge = personnage2.getRobot(2).toString().substring(0, Math.min(20, personnage2.getRobot(2).toString().length()));
+							expression_rouge = personnage2.getRobot(2).toString().substring(0,
+									Math.min(20, personnage2.getRobot(2).toString().length()));
 						} else {
 							expression_rouge = "";
 						}
@@ -225,7 +227,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_rouges();
 					} else {
 						if (personnage2.getRobot(3) != null) {
-							expression_rouge = personnage2.getRobot(3).toString().substring(0, Math.min(20, personnage2.getRobot(3).toString().length()));
+							expression_rouge = personnage2.getRobot(3).toString().substring(0,
+									Math.min(20, personnage2.getRobot(3).toString().length()));
 						} else {
 							expression_rouge = "";
 						}
@@ -402,7 +405,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(1) != null) {
-							expression_bleue = personnage1.getRobot(1).toString().substring(0, Math.min(20, personnage1.getRobot(1).toString().length()));
+							expression_bleue = personnage1.getRobot(1).toString().substring(0,
+									Math.min(20, personnage1.getRobot(1).toString().length()));
 						} else {
 							expression_bleue = "";
 						}
@@ -418,7 +422,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(2) != null) {
-							expression_bleue = personnage1.getRobot(2).toString().substring(0, Math.min(20, personnage1.getRobot(2).toString().length()));
+							expression_bleue = personnage1.getRobot(2).toString().substring(0,
+									Math.min(20, personnage1.getRobot(2).toString().length()));
 						} else {
 							expression_bleue = "";
 						}
@@ -434,7 +439,8 @@ public class Keyboard implements EventHandler<KeyEvent> {
 						updateMates_bleus();
 					} else {
 						if (personnage1.getRobot(3) != null) {
-							expression_bleue = personnage1.getRobot(3).toString().substring(0, Math.min(20, personnage1.getRobot(3).toString().length()));
+							expression_bleue = personnage1.getRobot(3).toString().substring(0,
+									Math.min(20, personnage1.getRobot(3).toString().length()));
 						} else {
 							expression_bleue = "";
 						}
